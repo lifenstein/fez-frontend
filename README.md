@@ -1,8 +1,9 @@
 # Fez frontend
 
-[![Codeship Status for uqlibrary/fez-frontend](https://app.codeship.com/projects/5f018a50-f4f8-0134-5dd6-4eabb52e4bf9/status?branch=master)](https://app.codeship.com/projects/210111)
-[![Dependency Status](https://david-dm.org/uqlibrary/fez-frontend.svg)](https://david-dm.org/uqlibrary/fez-frontend)
-[![Dev Dependency Status](https://david-dm.org/uqlibrary/fez-frontend/dev-status.svg)](https://david-dm.org/uqlibrary/fez-frontend)
+![GitHub CI](https://github.com/lifenstein/fez-frontend/workflows/GitHub%20CI/badge.svg?branch=master)
+[![Dependency Status](https://david-dm.org/lifenstein/fez-frontend.svg)](https://david-dm.org/lifenstein/fez-frontend)
+[![Dev Dependency Status](https://david-dm.org/lifenstein/fez-frontend/dev-status.svg)](https://david-dm.org/lifenstein/fez-frontend)
+[![codecov](https://codecov.io/gh/lifenstein/fez-frontend/branch/master/graph/badge.svg)](https://codecov.io/gh/lifenstein/fez-frontend)
 
 Fez frontend is a web interface application for digital repository.
 [Staging/Production release notes](https://libnet.library.uq.edu.au/display/LIB/eSpace+UI+Release+Notes)
