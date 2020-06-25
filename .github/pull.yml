@@ -1,0 +1,11 @@
+version: "1"
+rules:
+  - base: master
+    upstream: uqlibrary:master
+    mergeMethod: rebase
+  - base: production
+    upstream: uqlibrary:production
+    mergeMethod: hardreset
+  - base: staging
+    upstream: uqlibrary:staging
+    mergeMethod: hardreset
