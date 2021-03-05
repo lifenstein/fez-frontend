@@ -10,8 +10,8 @@ import { ConfirmDialogBox } from 'modules/SharedComponents/Toolbox/ConfirmDialog
 import { TextField } from 'modules/SharedComponents/Toolbox/TextField';
 import { StandardPage } from 'modules/SharedComponents/Toolbox/StandardPage';
 import { StandardCard } from 'modules/SharedComponents/Toolbox/StandardCard';
-import { ThesisSubtypeField } from 'modules/SharedComponents/PublicationSubtype';
 import { OrgUnitNameField, FilteredFieldOfResearchListField } from 'modules/SharedComponents/LookupFields';
+import { ThesisSubtypeSelectField } from 'modules/SharedComponents/SelectFields';
 import { ContributorsEditorField } from 'modules/SharedComponents/ContributorsEditor';
 import { ListEditorField } from 'modules/SharedComponents/Toolbox/ListEditor';
 import { FileUploadField } from 'modules/SharedComponents/Toolbox/FileUploader';
@@ -20,7 +20,7 @@ import { validation } from 'config';
 import locale from 'locale/components';
 import { default as formLocale } from 'locale/publicationForm';
 import { RichEditorField } from 'modules/SharedComponents/RichEditor';
-import { THESIS_SUBMISSION_SUBTYPES } from 'config/general';
+import { THESIS_SUBMISSION_SUBTYPES, THESIS_UPLOAD_RETRIES } from 'config/general';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -34,14 +34,16 @@ export const afterSubmit = () => {
     window.location.assign(formLocale.thesisSubmission.afterSubmitLink);
 };
 
-export const getfileUploadAlertProps = (locale, author) => {
+export const getfileUploadAlertProps = (locale, author, showRetries) => {
     const { actionButtonLabel, type, title } = locale;
     const emailSubject = locale.emailSubject
         .replace('[studentFullName]', `${author.aut_fname} ${author.aut_lname}`)
         .replace('[studentNumber]', author.aut_org_student_id);
     const mailtoUri = `mailto:${locale.emailRecipient}?subject=${encodeURIComponent(emailSubject)}`;
     const message = ReactHtmlParser(
-        locale.message.replace('[linkStart]', `<a href="${mailtoUri}">`).replace('[linkEnd]', '</a>'),
+        (showRetries ? locale.messageWithRetry : locale.message)
+            .replace('[linkStart]', `<a href="${mailtoUri}">`)
+            .replace('[linkEnd]', '</a>'),
     );
     return { actionButtonLabel, type, title, message };
 };
@@ -77,6 +79,7 @@ export const ThesisSubmission = ({
     handleSubmit,
     isHdrThesis,
     isSessionValid,
+    isUploadInProgress,
     newRecord,
     newRecordFileUploadingOrIssueError,
     retryUpload,
@@ -87,8 +90,11 @@ export const ThesisSubmission = ({
         actions.checkSession();
     };
 
+    const [retries, setRetries] = React.useState(0);
+
     /* istanbul ignore next */
     const _retryUpload = () => {
+        setRetries(retries + 1);
         retryUpload(formValues, newRecord, fullyUploadedFiles);
     };
 
@@ -132,13 +138,24 @@ export const ThesisSubmission = ({
                         </StandardCard>
                     </Grid>
                 </Grid>
-                {newRecordFileUploadingOrIssueError && (
+                {(newRecordFileUploadingOrIssueError || retries > 0) && (
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Alert
-                                {...getfileUploadAlertProps(thesisLocale.fileUpload.failedAlertLocale, author)}
-                                action={_retryUpload}
-                            />
+                            {newRecordFileUploadingOrIssueError && (
+                                <Alert
+                                    {...getfileUploadAlertProps(
+                                        thesisLocale.fileUpload.failedAlertLocale,
+                                        author,
+                                        retries < THESIS_UPLOAD_RETRIES,
+                                    )}
+                                    disableAlertClick
+                                    action={(retries < THESIS_UPLOAD_RETRIES && _retryUpload) || undefined}
+                                    showLoader={isUploadInProgress}
+                                />
+                            )}
+                            {!newRecordFileUploadingOrIssueError && retries > 0 && (
+                                <Alert {...thesisLocale.fileUpload.retrySuccessLocale} />
+                            )}
                         </Grid>
                     </Grid>
                 )}
@@ -190,6 +207,7 @@ export const ThesisSubmission = ({
                                             height={50}
                                             required
                                             validate={[validation.required]}
+                                            richEditorId="rek-title"
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -208,10 +226,11 @@ export const ThesisSubmission = ({
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Field
-                                            component={ThesisSubtypeField}
+                                            component={ThesisSubtypeSelectField}
                                             id="thesis-subtype"
                                             itemsList={THESIS_SUBMISSION_SUBTYPES}
                                             name="rek_genre_type"
+                                            genericSelectFieldId="rek-genre-type"
                                             disabled={submitting}
                                             validate={[validation.required]}
                                             {...txt.information.fieldLabels.thesisType}
@@ -236,6 +255,7 @@ export const ThesisSubmission = ({
                                             name="thesisAbstract"
                                             required
                                             validate={[validation.required]}
+                                            richEditorId="rek-description"
                                         />
                                     </Grid>
                                 </Grid>
@@ -280,11 +300,11 @@ export const ThesisSubmission = ({
                                     required
                                     maxCount={10}
                                     validate={[validation.requiredList]}
-                                    maxInputLength={111}
                                     searchKey={{
                                         value: 'rek_keywords',
                                         order: 'rek_keywords_order',
                                     }}
+                                    isValid={validation.isValidKeyword(111)}
                                     listEditorId="rek-keywords"
                                     locale={locale.components.keywordsForm.field}
                                     disabled={submitting}
@@ -356,6 +376,7 @@ ThesisSubmission.propTypes = {
     handleSubmit: PropTypes.func,
     isHdrThesis: PropTypes.bool, // HDR thesis if true or SBS thesis if false
     isSessionValid: PropTypes.bool,
+    isUploadInProgress: PropTypes.bool,
     newRecord: PropTypes.object,
     newRecordFileUploadingOrIssueError: PropTypes.bool,
     retryUpload: PropTypes.func,

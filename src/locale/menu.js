@@ -8,7 +8,7 @@ export default {
             // secondaryText is set to user's email
         },
         myResearch: {
-            primaryText: 'My research',
+            primaryText: 'My works',
         },
         myDatasets: {
             primaryText: 'My research data',
@@ -33,7 +33,7 @@ export default {
             secondaryText: 'as another user',
         },
         adminAdd: {
-            primaryText: 'Add a new record',
+            primaryText: 'Add a new work',
             secondaryText: 'as an admin user',
         },
         search: {
@@ -66,6 +66,18 @@ export default {
             batchImport: {
                 primaryText: 'CSV ingest',
             },
+        },
+        masterJournalListIngest: {
+            primaryText: 'Master journal list ingest',
+        },
+        bulkUpdates: {
+            primaryText: 'Bulk updates',
+        },
+        favouriteSearch: {
+            primaryText: 'Favourite searches',
+        },
+        myEditorialAppointments: {
+            primaryText: 'My editorial appointments',
         },
     },
     footer: {

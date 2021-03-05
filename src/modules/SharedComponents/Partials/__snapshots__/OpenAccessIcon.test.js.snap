@@ -142,6 +142,11 @@ exports[`Journal Name Component test  should render closed access 1`] = `
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -606,6 +611,11 @@ exports[`Journal Name Component test  should render embargoed 1`] = `
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -1048,7 +1058,7 @@ exports[`Journal Name Component test  should render embargoed 1`] = `
                     <span
                       className="MuiBadge-badge MuiBadge-anchorOriginTopRightRectangle"
                     >
-                      <ForwardRef
+                      <AccessTimeIcon
                         className="OpenAccessIcon-embargoedBadgeStyle-2"
                         fontSize="small"
                       >
@@ -1088,7 +1098,7 @@ exports[`Journal Name Component test  should render embargoed 1`] = `
                             </svg>
                           </ForwardRef(SvgIcon)>
                         </WithStyles(ForwardRef(SvgIcon))>
-                      </ForwardRef>
+                      </AccessTimeIcon>
                     </span>
                   </span>
                 </ForwardRef(Badge)>
@@ -1242,6 +1252,11 @@ exports[`Journal Name Component test  should render embargoed 2`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -1692,7 +1707,7 @@ exports[`Journal Name Component test  should render embargoed 2`] = `
                     <span
                       className="MuiBadge-badge MuiBadge-anchorOriginTopRightRectangle"
                     >
-                      <ForwardRef
+                      <AccessTimeIcon
                         className="OpenAccessIcon-embargoedBadgeStyle-2"
                         fontSize="small"
                       >
@@ -1732,7 +1747,7 @@ exports[`Journal Name Component test  should render embargoed 2`] = `
                             </svg>
                           </ForwardRef(SvgIcon)>
                         </WithStyles(ForwardRef(SvgIcon))>
-                      </ForwardRef>
+                      </AccessTimeIcon>
                     </span>
                   </span>
                 </ForwardRef(Badge)>
@@ -1886,6 +1901,11 @@ exports[`Journal Name Component test  should render locked 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -2324,7 +2344,7 @@ exports[`Journal Name Component test  should render locked 1`] = `
                         <span
                           className="MuiBadge-badge MuiBadge-anchorOriginTopRightRectangle"
                         >
-                          <ForwardRef
+                          <LockIcon
                             className="OpenAccessIcon-badgeStyle-1"
                             color="secondary"
                             fontSize="small"
@@ -2364,7 +2384,7 @@ exports[`Journal Name Component test  should render locked 1`] = `
                                 </svg>
                               </ForwardRef(SvgIcon)>
                             </WithStyles(ForwardRef(SvgIcon))>
-                          </ForwardRef>
+                          </LockIcon>
                         </span>
                       </span>
                     </ForwardRef(Badge)>
@@ -2563,6 +2583,11 @@ exports[`Journal Name Component test  should render no icon 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -3028,6 +3053,11 @@ exports[`Journal Name Component test  should render open access 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -3580,6 +3610,11 @@ exports[`Journal Name Component test  should render open access with OPEN_ACCESS
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {

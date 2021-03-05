@@ -1,5 +1,5 @@
 export default {
-    files: ({ isDataset, displayAdvisoryStatement } = { isDataset: false, displayAdvisoryStatement: false }) => [
+    files: ({ isDataset } = { isDataset: false }) => [
         {
             groups: [['fez_datastream_info']],
         },
@@ -7,14 +7,10 @@ export default {
             title: 'Files',
             groups: [['files']],
         },
-        ...(displayAdvisoryStatement
-            ? [
-                  {
-                      title: 'Advisory statement',
-                      groups: [['advisoryStatement']],
-                  },
-              ]
-            : []),
+        {
+            title: 'Advisory statement',
+            groups: [['advisoryStatement']],
+        },
         {
             title: isDataset ? 'Deposit agreement' : 'Copyright agreement',
             groups: [['rek_copyright']],
@@ -27,9 +23,19 @@ export default {
         },
     ],
     identifiers: (
-        { displayAll, displayIdentifiers, displayLocation, displayPubmed, displayPubmedCentral } = {
+        {
+            displayAll,
+            displayIdentifiers,
+            displayIsmn,
+            displayIsrc,
+            displayLocation,
+            displayPubmed,
+            displayPubmedCentral,
+        } = {
             displayAll: false,
             displayIdentifiers: false,
+            displayIsmn: false,
+            displayIsrc: false,
             displayLocation: false,
             displayPubmed: true,
             displayPubmedCentral: false,
@@ -39,13 +45,16 @@ export default {
             title: 'Manage identifiers',
             groups: [
                 ['fez_record_search_key_doi'],
-                ...((displayAll && [
-                    ['fez_record_search_key_isi_loc', 'rek_wok_doc_type'],
-                    ['fez_record_search_key_scopus_id', 'rek_scopus_doc_type'],
-                ]) ||
-                    []),
-                ...((displayPubmed && [['fez_record_search_key_pubmed_id', 'rek_pubmed_doc_type']]) || []),
-                ...((displayPubmedCentral && [['fez_record_search_key_pubmed_central_id']]) || []),
+                ...(displayIsmn ? [['fez_record_search_key_ismn']] : []),
+                ...(displayIsrc ? [['fez_record_search_key_isrc']] : []),
+                ...(displayAll
+                    ? [
+                          ['fez_record_search_key_isi_loc', 'rek_wok_doc_type'],
+                          ['fez_record_search_key_scopus_id', 'rek_scopus_doc_type'],
+                      ]
+                    : []),
+                ...(displayPubmed ? [['fez_record_search_key_pubmed_id', 'rek_pubmed_doc_type']] : []),
+                ...(displayPubmedCentral ? [['fez_record_search_key_pubmed_central_id']] : []),
             ],
         },
         {
@@ -68,5 +77,19 @@ export default {
                   },
               ]
             : []),
+    ],
+    notes: () => [
+        {
+            title: 'Additional notes',
+            groups: [['additionalNotes']],
+        },
+        {
+            title: 'Internal notes',
+            groups: [['internalNotes']],
+        },
+        {
+            title: 'HERDC notes',
+            groups: [['rek_herdc_notes']],
+        },
     ],
 };

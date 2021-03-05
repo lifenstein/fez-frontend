@@ -19,6 +19,7 @@ export { default as possibleUnclaimedList } from './possibleUnclaimedList';
 export { default as publicationTypeListAudio } from './publicationTypeListAudio';
 export { default as publicationTypeListBook } from './publicationTypeListBook';
 export { default as publicationTypeListBookChapter } from './publicationTypeListBookChapter';
+export { default as publicationTypeListBookEdited } from './publicationTypeListBookEdited';
 export { default as publicationTypeListConferencePaper } from './publicationTypeListConferencePaper';
 export { default as publicationTypeListConferenceProceedings } from './publicationTypeListConferenceProceedings';
 export { default as publicationTypeListCreativeWork } from './publicationTypeListCreativeWork';
@@ -43,6 +44,7 @@ export { default as publicationTypeListWorkingPaper } from './publicationTypeLis
 export { default as record } from './record';
 export { default as recordsTypeList } from './recordsTypeList';
 export { default as recordWithDatastreams } from './recordWithDatastreams';
+export { default as recordWithLotOfAuthors } from './recordWithLotOfAuthors';
 export { default as recordWithoutAuthorIds } from './recordWithoutAuthorIds';
 export { default as recordWithTiffAndThumbnail } from './recordWithTiffAndThumbnail';
 export { default as unpublishedSearchList } from './unpublishedSearchList';

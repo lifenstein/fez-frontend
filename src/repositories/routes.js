@@ -1,5 +1,14 @@
 import { validation, openAccessConfig } from 'config';
-import { IN_CREATION, IN_DRAFT, IN_REVIEW, UNPUBLISHED, RETRACTED, SUBMITTED_FOR_APPROVAL } from 'config/general';
+import {
+    IN_CREATION,
+    IN_DRAFT,
+    IN_REVIEW,
+    UNPUBLISHED,
+    RETRACTED,
+    SUBMITTED_FOR_APPROVAL,
+    PUB_SEARCH_BULK_EXPORT_SIZE,
+} from 'config/general';
+import param from 'can-param';
 
 export const zeroPaddedYear = value => (value ? ('0000' + value).substr(-4) : '*');
 
@@ -101,10 +110,12 @@ export const ACADEMIC_STATS_PUBLICATION_HINDEX_API = ({ userId }) => ({ apiUrl: 
 export const AUTHOR_TRENDING_PUBLICATIONS_API = () => ({ apiUrl: 'records/my-trending' });
 
 // lookup apis
-export const GET_ACML_QUICK_TEMPLATES_API = () => ({ apiUrl: 'acml/quick-templates' });
 export const GET_NEWS_API = () => ({ apiUrl: 'fez-news' });
 export const VOCABULARIES_API = ({ id }) => ({ apiUrl: `vocabularies?cvo_ids=${id}` });
 export const GET_PUBLICATION_TYPES_API = () => ({ apiUrl: 'records/types' });
+export const JOURNAL_LOOKUP_API = ({ query }) => ({
+    apiUrl: `journals/search?rule=lookup&query=${query}`,
+});
 
 // file uploading apis
 export const FILE_UPLOAD_API = () => ({ apiUrl: 'file/upload/presigned' });
@@ -249,6 +260,13 @@ export const SEARCH_INTERNAL_RECORDS_API = (query, route = 'search') => {
         };
     }
 
+    const exportParams = {};
+    if (route === 'export' && query.pageSize === PUB_SEARCH_BULK_EXPORT_SIZE) {
+        // eslint-disable-next-line no-unused-vars
+        const { exportPublicationsFormat, ...queryValuesToSend } = query;
+        exportParams.querystring = encodeURIComponent(param(queryValuesToSend));
+    }
+
     return {
         apiUrl: `records/${route}`,
         options: {
@@ -256,6 +274,7 @@ export const SEARCH_INTERNAL_RECORDS_API = (query, route = 'search') => {
                 ...getSearchType(values.searchQuery),
                 ...getStandardSearchParams(values),
                 ...(advancedSearchQueryParams || searchQueryParams),
+                ...exportParams,
             },
         },
     };
@@ -307,6 +326,10 @@ export const BATCH_IMPORT_API = () => ({
     apiUrl: 'external/records/batch-import',
 });
 
+export const MASTER_JOURNAL_LIST_INGEST_API = () => ({
+    apiUrl: 'journals/batch-import',
+});
+
 export const ISSN_LINKS_API = ({ type, issn }) => ({
     apiUrl: `tool/lookup/local/${type}/${issn}`,
 });
@@ -317,4 +340,20 @@ export const ORCID_SYNC_API = () => ({
 
 export const UNLOCK_RECORD_API = ({ pid }) => ({
     apiUrl: `records/${pid}/unlock`,
+});
+
+export const BULK_UPDATES_API = () => ({
+    apiUrl: 'records/bulk-updates',
+});
+
+export const FAVOURITE_SEARCH_LIST_API = ({ id } = { id: undefined }) => ({
+    apiUrl: `favourite_search${!!id ? `/${id}` : ''}`,
+});
+
+export const JOURNAL_API = ({ id }) => ({
+    apiUrl: `journals/${id}`,
+});
+
+export const MY_EDITORIAL_APPOINTMENT_LIST_API = ({ id } = { id: undefined }) => ({
+    apiUrl: `editorial-appointment${!!id ? `/${id}` : ''}`,
 });

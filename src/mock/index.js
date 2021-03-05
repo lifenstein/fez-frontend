@@ -2,10 +2,11 @@
 import { api, sessionApi } from 'config';
 import MockAdapter from 'axios-mock-adapter';
 import Cookies from 'js-cookie';
-import { SESSION_COOKIE_NAME } from 'config';
+import { SESSION_COOKIE_NAME, SESSION_USER_GROUP_COOKIE_NAME } from 'config';
 import * as routes from 'repositories/routes';
 import * as mockData from './data';
 import * as mockTestingData from './data/testing/records';
+import { PUB_LIST_BULK_EXPORT_SIZES } from 'config/general';
 
 const queryString = require('query-string');
 const mock = new MockAdapter(api, { delayResponse: 200 });
@@ -14,6 +15,7 @@ const escapeRegExp = input => input.replace('.\\*', '.*').replace(/[\-\[\]\{\}\(
 // const standardQueryString = {page: '.*', pageSize: '.*', sortBy: '.*', sortDirection: '.*', facets: {}};
 // set session cookie in mock mode
 Cookies.set(SESSION_COOKIE_NAME, 'abc123');
+Cookies.set(SESSION_USER_GROUP_COOKIE_NAME, 'LIBRARYSTAFFB');
 
 // Get user from query string
 let user = queryString.parse(location.search || location.hash.substring(location.hash.indexOf('?'))).user;
@@ -49,6 +51,22 @@ mockSessionApi.onGet(routes.CURRENT_ACCOUNT_API().apiUrl).reply(() => {
         return [403, {}];
     }
     return [404, {}];
+});
+
+mock.onGet(routes.SEARCH_INTERNAL_RECORDS_API({}, 'export').apiUrl).reply(config => {
+    const headers = {
+        excel: {
+            'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        },
+        endnote: {
+            'content-type': 'application/vnd.endnote',
+        },
+    };
+    if (PUB_LIST_BULK_EXPORT_SIZES.includes(config.params.per_page)) {
+        return [200, {}];
+    } else {
+        return [200, 'Exported file contents', headers[config.params.export_to]];
+    }
 });
 
 mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
@@ -188,8 +206,6 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
     .onGet(routes.TRENDING_PUBLICATIONS_API().apiUrl)
     // .reply(500, {})
     .reply(200, mockData.trendingPublications)
-    .onGet(routes.GET_ACML_QUICK_TEMPLATES_API().apiUrl)
-    .reply(200, mockData.quickTemplates)
     .onGet(routes.AUTHORS_SEARCH_API({ query: '.*' }).apiUrl)
     .reply(config => {
         if (config.params.rule === 'lookup') {
@@ -219,6 +235,8 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
         ),
     )
     .reply(200, mockData.lookupToolIncites)
+    .onGet(new RegExp(routes.BULK_UPDATES_API().apiUrl))
+    .reply(200, { ...mockData.bulkUpdatesList })
     // This tests the "Record not found" message on viewRecord and adminEdit
     .onGet(new RegExp(escapeRegExp(routes.EXISTING_RECORD_API({ pid: 'UQ:abc123' }).apiUrl)))
     .reply(404, { message: 'File not found' })
@@ -230,12 +248,14 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
             { ...mockData.incompleteNTROrecord },
             { ...mockData.incompleteNTRORecordUQ352045 },
             { ...mockData.recordWithoutAuthorIds },
+            { ...mockData.recordWithLotOfAuthors },
             { ...mockData.recordWithTiffAndThumbnail },
             { ...mockData.UQ716942uqagrinb },
             { ...mockTestingData.dataCollection },
             ...mockData.collectionSearchList.data,
             ...mockData.communitySearchList.data,
             ...mockData.incompleteNTROlist.data,
+            ...mockData.internalTitleSearchList.data,
             ...mockData.mockRecordToFix,
             ...mockData.myRecordsList.data,
             ...mockData.myDatasetList.data,
@@ -243,6 +263,7 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
             ...mockData.publicationTypeListAudio.data,
             ...mockData.publicationTypeListBook.data,
             ...mockData.publicationTypeListBookChapter.data,
+            ...mockData.publicationTypeListBookEdited.data,
             ...mockData.publicationTypeListConferencePaper.data,
             ...mockData.publicationTypeListConferenceProceedings.data,
             ...mockData.publicationTypeListCreativeWork.data,
@@ -264,6 +285,7 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
             ...mockData.publicationTypeListThesis.data,
             ...mockData.publicationTypeListVideo.data,
             ...mockData.publicationTypeListWorkingPaper.data,
+            ...mockData.trendingPublications.data,
             ...mockData.unpublishedSearchList.data,
         ];
         // const mockedPids = mockRecords.map(record => record.rek_pid);
@@ -299,52 +321,18 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
     .reply(200, { ...mockData.authorOrcidDetails })
     // .reply(500, { message: ["Server error: `POST https://sandbox.orcid.org/oauth/token` resulted in a `500 Internal Server Error` response:\n{\"error\":\"server_error\",\"error_description\":\"Redirect URI mismatch.\"}\n"] })
     .onGet(routes.ORCID_SYNC_API().apiUrl)
-    .reply(200, mockData.orcidSyncStatus);
-
-// let uploadTryCount = 1;
-mock.onPut(/(s3-ap-southeast-2.amazonaws.com)/).reply(() => {
-    // if(uploadTryCount < 3) {
-    //     console.log(`Failing try ${uploadTryCount}`);
-    //     uploadTryCount++;
-    //     return [500, { message: ['error - failed PUT FILE_UPLOAD_S3'] }];
-    // }
-    // console.log('Successful upload');
-    return [200, { data: {} }];
-});
-// .reply(500, { message: ['error - failed PUT FILE_UPLOAD_S3'] });
-
-// let retried = false;
-mock.onPost(new RegExp(escapeRegExp(routes.FILE_UPLOAD_API().apiUrl)))
-    // .reply(() => {
-    //     if (retried) {
-    //         return [200, ['s3-ap-southeast-2.amazonaws.com']];
-    //     } else {
-    //         retried = true;
-    //         return [500, { message: ['error - failed FILE_UPLOAD_API'] }];
-    //     }
-    // })
-    .reply(200, ['s3-ap-southeast-2.amazonaws.com'])
-    // .reply(500, { message: ['error - failed FILE_UPLOAD_API'] })
-    .onPost(new RegExp(escapeRegExp(routes.RECORDS_ISSUES_API({ pid: '.*' }).apiUrl)))
-    .reply(200, { data: '' })
-    // .reply(500, { message: ['error - failed POST RECORDS_ISSUES_API'] })
-    .onPost(new RegExp(escapeRegExp(routes.HIDE_POSSIBLE_RECORD_API().apiUrl)))
-    .reply(200, { data: {} })
-    // .reply(500, { message: ['error - failed HIDE_POSSIBLE_RECORD_API'] })
-    .onPost(routes.BATCH_IMPORT_API().apiUrl)
-    .reply(201, { data: 'Batch Import Job Created' })
-    // .reply(422)
-    .onPost(routes.ORCID_SYNC_API().apiUrl)
-    .reply(201, mockData.orcidSyncResponse)
-    // .reply(400) // if current sync job exists
-    .onPost(new RegExp(escapeRegExp(routes.NEW_RECORD_API().apiUrl)))
-    .reply(config => [200, { data: { ...JSON.parse(config.data), rek_pid: 'UQ:1111111' } }])
-    // .reply(500, { message: ['error - failed NEW_RECORD_API'] })
-    // .reply(403, {message: ['Session expired']})
-    .onPost(new RegExp(escapeRegExp(routes.NEW_COLLECTION_API().apiUrl)))
-    .reply(() => [200, { data: mockData.collectionRecord }])
-    .onPost(new RegExp(escapeRegExp(routes.NEW_COMMUNITY_API().apiUrl)))
-    .reply(() => [200, { data: mockData.communityRecord }])
+    .reply(200, mockData.orcidSyncStatus)
+    .onGet(routes.FAVOURITE_SEARCH_LIST_API().apiUrl)
+    .reply(200, mockData.favouriteSearchList)
+    .onGet(new RegExp(escapeRegExp(routes.FAVOURITE_SEARCH_LIST_API({ id: '.*' }).apiUrl)))
+    .reply(200, { ...mockData.favouriteSearchItem })
+    // .reply(404)
+    .onGet(routes.MY_EDITORIAL_APPOINTMENT_LIST_API().apiUrl)
+    .reply(200, mockData.myEditorialAppointmentsList)
+    // .reply(500)
+    .onGet(new RegExp(escapeRegExp(routes.MY_EDITORIAL_APPOINTMENT_LIST_API({ id: '.*' }).apiUrl)))
+    .reply(200, { ...mockData.myEditorialAppointmentItem })
+    // .reply(404)
     .onGet(new RegExp(escapeRegExp(routes.ISSN_LINKS_API({ type: 'sherpa-romeo', issn: '.*' }).apiUrl)))
     .reply(config => {
         const issn = config.url.split(/[\s,\/]+/).pop();
@@ -383,7 +371,78 @@ mock.onPost(new RegExp(escapeRegExp(routes.FILE_UPLOAD_API().apiUrl)))
             });
         }
         return [200, { data }];
+    })
+    .onGet(new RegExp(escapeRegExp(routes.JOURNAL_LOOKUP_API({ query: '.*' }).apiUrl)))
+    .reply(200, { ...mockData.journalLookup })
+    .onGet(new RegExp(escapeRegExp(routes.JOURNAL_API({ id: '.*' }).apiUrl)))
+    .reply(200, { ...mockData.journalDetails });
+
+// let uploadTryCount = 1;
+mock.onPut(/(s3-ap-southeast-2.amazonaws.com)/)
+    .reply(() => {
+        // if (uploadTryCount < 3) {
+        //     console.log(`Failing try ${uploadTryCount}`);
+        //     uploadTryCount++;
+        //     return [500, { message: ['error - failed PUT FILE_UPLOAD_S3'] }];
+        // }
+        // console.log('Successful upload');
+        return [200, { data: {} }];
+        // return [500, { message: ['error - failed PUT FILE_UPLOAD_S3'] }];
+    })
+    .onPut(new RegExp(escapeRegExp(routes.FAVOURITE_SEARCH_LIST_API({ id: '.*' }).apiUrl)))
+    .reply(config => {
+        return [200, { data: { ...mockData.favouriteSearchItem } }];
+    })
+    .onPut(new RegExp(escapeRegExp(routes.MY_EDITORIAL_APPOINTMENT_LIST_API({ id: '.*' }).apiUrl)))
+    .reply(config => {
+        return [200, { ...mockData.myEditorialAppointmentItem }];
     });
+
+mock.onDelete(new RegExp(escapeRegExp(routes.FAVOURITE_SEARCH_LIST_API({ id: '.*' }).apiUrl))).reply(200, { data: {} });
+mock.onDelete(new RegExp(escapeRegExp(routes.MY_EDITORIAL_APPOINTMENT_LIST_API({ id: '.*' }).apiUrl))).reply(200, {
+    data: {},
+});
+
+// let retried = false;
+mock.onPost(new RegExp(escapeRegExp(routes.FILE_UPLOAD_API().apiUrl)))
+    // .reply(() => {
+    //     if (retried) {
+    //         return [200, ['s3-ap-southeast-2.amazonaws.com']];
+    //     } else {
+    //         retried = true;
+    //         return [500, { message: ['error - failed FILE_UPLOAD_API'] }];
+    //     }
+    // })
+    .reply(200, ['s3-ap-southeast-2.amazonaws.com'])
+    // .reply(500, { message: ['error - failed FILE_UPLOAD_API'] })
+    .onPost(new RegExp(escapeRegExp(routes.RECORDS_ISSUES_API({ pid: '.*' }).apiUrl)))
+    .reply(200, { data: '' })
+    // .reply(500, { message: ['error - failed POST RECORDS_ISSUES_API'] })
+    .onPost(new RegExp(escapeRegExp(routes.HIDE_POSSIBLE_RECORD_API().apiUrl)))
+    .reply(200, { data: {} })
+    // .reply(500, { message: ['error - failed HIDE_POSSIBLE_RECORD_API'] })
+    .onPost(routes.BATCH_IMPORT_API().apiUrl)
+    .reply(201, { data: 'Batch Import Job Created' })
+    // .reply(422)
+    .onPost(routes.ORCID_SYNC_API().apiUrl)
+    .reply(201, mockData.orcidSyncResponse)
+    // .reply(400) // if current sync job exists
+    .onPost(new RegExp(escapeRegExp(routes.NEW_RECORD_API().apiUrl)))
+    .reply(config => [200, { data: { ...JSON.parse(config.data), rek_pid: 'UQ:1111111' } }])
+    // .reply(500, { message: ['error - failed NEW_RECORD_API'] })
+    // .reply(403, {message: ['Session expired']})
+    .onPost(new RegExp(escapeRegExp(routes.NEW_COLLECTION_API().apiUrl)))
+    .reply(() => [200, { data: mockData.collectionRecord }])
+    .onPost(new RegExp(escapeRegExp(routes.NEW_COMMUNITY_API().apiUrl)))
+    .reply(() => [200, { data: mockData.communityRecord }])
+    .onPost(new RegExp(escapeRegExp(routes.FAVOURITE_SEARCH_LIST_API().apiUrl)))
+    .reply(200, { data: { ...mockData.favouriteSearchItem } })
+    .onPost(new RegExp(escapeRegExp(routes.MY_EDITORIAL_APPOINTMENT_LIST_API().apiUrl)))
+    .reply(200, { ...mockData.myEditorialAppointmentItem })
+    .onPost(routes.MASTER_JOURNAL_LIST_INGEST_API().apiUrl)
+    .reply(200, { data: {} });
+// .networkErrorOnce();
+// .reply(409, { data: 'Server error' });
 
 mock.onDelete(new RegExp(escapeRegExp(routes.EXISTING_RECORD_API({ pid: '.*' }).apiUrl))).reply(200, {
     data: 'Record deleted',

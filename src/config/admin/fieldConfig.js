@@ -1,7 +1,22 @@
 /* eslint-disable max-len */
 import Immutable from 'immutable';
-import { validation } from 'config';
+import { validation, DATASET_ACCESS_CONDITIONS_OPTIONS } from 'config';
 import locale from 'locale/components';
+import {
+    ALL_LICENCES,
+    ALTERNATE_GENRE,
+    ANDS_COLLECTION_TYPE_OPTIONS,
+    INSTITUTIONAL_STATUS,
+    LANGUAGE,
+    OA_STATUS,
+    OA_STATUS_TYPE,
+    PUBMED_DOC_TYPES,
+    QUALITY_INDICATORS,
+    REFEREED_SOURCES,
+    SCOPUS_DOC_TYPES,
+    WOS_DOC_TYPES,
+} from 'config/general';
+import { selectFields } from 'locale/selectFields';
 import { default as formLocale } from 'locale/publicationForm';
 import {
     AIATSIS_CODES_VOCAB_ID,
@@ -26,19 +41,19 @@ import {
     PUBLICATION_TYPE_VIDEO_DOCUMENT,
 } from 'config/general';
 
-import { AccessSelectorField } from 'modules/SharedComponents/Toolbox/AccessSelectorField';
-import { AlternateGenreField } from 'modules/SharedComponents/Toolbox/AlternateGenreField';
 import { AttachedFilesField } from 'modules/SharedComponents/Toolbox/AttachedFilesField';
 import { AudienceSizeField } from 'modules/SharedComponents/Toolbox/AudienceSizeField';
 import {
     AuthorIdField,
     CollectionField,
     FieldOfResearchListField,
+    JournalIdField,
     OrgUnitNameField,
     OrgNameField,
     RelatedDatasetAndPublicationListField,
     SeriesField,
 } from 'modules/SharedComponents/LookupFields';
+import { ThesisSubtypeSelectField } from 'modules/SharedComponents/SelectFields';
 import { ContentIndicatorsField } from 'modules/SharedComponents/Toolbox/ContentIndicatorsField';
 import { ContributorsEditorField } from 'modules/SharedComponents/ContributorsEditor';
 import { CopyrightAgreementField } from 'modules/SharedComponents/Toolbox/CopyrightAgreementField';
@@ -48,27 +63,19 @@ import { GeoCoordinatesField } from 'modules/SharedComponents/Toolbox/GeoCoordin
 import { GrantListEditorField } from 'modules/SharedComponents/GrantListEditor';
 import { HerdcCodeField } from 'modules/SharedComponents/Toolbox/HerdcCodeField';
 import { HerdcStatusField } from 'modules/SharedComponents/Toolbox/HerdcStatusField';
-import { InstitutionalStatusField } from 'modules/SharedComponents/Toolbox/InstitutionalStatusField';
-import { LanguageField } from 'modules/SharedComponents/Toolbox/LanguageField';
-import { LicenceSelectorField } from 'modules/SharedComponents/Toolbox/LicenceSelectorField';
-import { AndsCollectionTypesField } from 'modules/SharedComponents/Toolbox/AndsCollectionTypesField';
 import {
-    IssnListEditorField,
+    IssnForm,
     LinkInfoListEditorField,
     ListEditorField,
+    NewListEditorField,
+    KeywordsForm,
     ScaleOfSignificanceListEditorField,
 } from 'modules/SharedComponents/Toolbox/ListEditor';
-import { OAStatusField } from 'modules/SharedComponents/Toolbox/OAStatusField';
-import { OAStatusTypeField } from 'modules/SharedComponents/Toolbox/OAStatusTypeField';
-import { PublicationSubtypeField, ThesisSubtypeField } from 'modules/SharedComponents/PublicationSubtype';
-import { PubmedDocTypesField } from 'modules/SharedComponents/Toolbox/PubmedDocTypesField';
-import { QualityIndicatorField } from 'modules/SharedComponents/Toolbox/QualityIndicatorField';
-import { RefereedSourceField } from 'modules/SharedComponents/Toolbox/RefereedSourceField';
+import { PublicationSubtypeField } from 'modules/SharedComponents/PublicationSubtype';
 import { RichEditorField } from 'modules/SharedComponents/RichEditor';
-import { ScopusDocTypesField } from 'modules/SharedComponents/Toolbox/ScopusDocTypesField';
 import { TextField as GenericTextField } from 'modules/SharedComponents/Toolbox/TextField';
-import { WoSDocTypesField } from 'modules/SharedComponents/Toolbox/WoSDocTypesField';
 import { IssnRowItemTemplate } from 'modules/SharedComponents/Toolbox/ListEditor';
+import { NewGenericSelectField } from 'modules/SharedComponents/GenericSelectField';
 
 export default {
     default: {
@@ -87,12 +94,13 @@ export default {
                 format: value => Immutable.Map(value),
                 validate: [validation.required],
                 required: true,
+                richEditorId: 'rek-title',
             },
         },
         rek_herdc_notes: {
             component: RichEditorField,
             componentProps: {
-                name: 'adminSection.rek_herdc_notes',
+                name: 'notesSection.rek_herdc_notes',
                 title: 'HERDC notes',
                 disabled: true,
                 titleProps: {
@@ -103,13 +111,14 @@ export default {
                 },
                 height: 100,
                 format: value => Immutable.Map(value),
+                richEditorId: 'rek-herdc-notes',
             },
         },
         internalNotes: {
             component: RichEditorField,
             componentProps: {
-                name: 'adminSection.internalNotes',
-                title: 'Internal notes',
+                name: 'notesSection.internalNotes',
+                title: 'Internal notes (admin)',
                 titleProps: {
                     variant: 'caption',
                     style: {
@@ -118,6 +127,7 @@ export default {
                 },
                 height: 100,
                 format: value => Immutable.Map(value),
+                richEditorId: 'ain-notes',
             },
         },
         fez_record_search_key_isi_loc: {
@@ -161,27 +171,30 @@ export default {
             },
         },
         rek_wok_doc_type: {
-            component: WoSDocTypesField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'identifiersSection.rek_wok_doc_type',
-                label: 'WoS doc type(s)',
-                placeholder: '',
+                genericSelectFieldId: 'rek-wok-doc-type',
+                itemsList: WOS_DOC_TYPES,
+                ...selectFields.wokDocType,
             },
         },
         rek_scopus_doc_type: {
-            component: ScopusDocTypesField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'identifiersSection.rek_scopus_doc_type',
-                label: 'Scopus doc type(s)',
-                placeholder: '',
+                genericSelectFieldId: 'rek-scopus-doc-type',
+                itemsList: SCOPUS_DOC_TYPES,
+                ...selectFields.scopusDocType,
             },
         },
         rek_pubmed_doc_type: {
-            component: PubmedDocTypesField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'identifiersSection.rek_pubmed_doc_type',
-                label: 'PubMed doc type(s)',
-                placeholder: '',
+                genericSelectFieldId: 'rek-pubmed-doc-type',
+                itemsList: PUBMED_DOC_TYPES,
+                ...selectFields.pubmedDocType,
             },
         },
         links: {
@@ -208,6 +221,7 @@ export default {
                 },
                 height: 100,
                 format: value => Immutable.Map(value),
+                richEditorId: 'rek-description',
             },
         },
         rek_date: {
@@ -247,13 +261,13 @@ export default {
             },
         },
         languages: {
-            component: LanguageField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'bibliographicSection.languages',
-                label: 'Language of work',
-                placeholder: 'Language of work',
                 multiple: true,
+                itemsList: LANGUAGE,
                 genericSelectFieldId: 'rek-language',
+                ...selectFields.language,
             },
         },
         fez_record_search_key_audience_size: {
@@ -274,6 +288,18 @@ export default {
                 placeholder: '',
                 required: true,
                 validate: [validation.required],
+            },
+        },
+        fez_matched_journals: {
+            component: JournalIdField,
+            componentProps: {
+                name: 'bibliographicSection.fez_matched_journals',
+                fullWidth: true,
+                floatingLabelText: 'Journal Id',
+                placeholder: '',
+                required: true,
+                validate: [validation.required],
+                getOptionLabel: option => (!!option && !!option.id && String(option.id)) || '',
             },
         },
         fez_record_search_key_book_title: {
@@ -511,12 +537,11 @@ export default {
             },
         },
         fez_record_search_key_keywords: {
-            component: ListEditorField,
+            component: NewListEditorField,
             componentProps: {
                 scrollListHeight: 250,
                 scrollList: true,
                 name: 'bibliographicSection.fez_record_search_key_keywords',
-                maxInputLength: 111,
                 searchKey: {
                     value: 'rek_keywords',
                     order: 'rek_keywords_order',
@@ -524,13 +549,14 @@ export default {
                 listEditorId: 'rek-keywords',
                 locale: locale.components.keywordsForm.field,
                 canEdit: true,
+                ListEditorForm: KeywordsForm,
             },
         },
-        issnField: {
-            component: IssnListEditorField,
+        issns: {
+            component: NewListEditorField,
             componentProps: {
                 remindToAdd: true,
-                name: 'bibliographicSection.issnField',
+                name: 'bibliographicSection.issns',
                 isValid: validation.isValidIssn,
                 listEditorId: 'rek-issn',
                 locale: locale.components.issnForm.field,
@@ -539,7 +565,9 @@ export default {
                     return newValue.length >= 5 ? [newValue.slice(0, 4), '-', newValue.slice(4)].join('') : newValue;
                 },
                 canEdit: true,
+                ListEditorForm: IssnForm,
                 rowItemTemplate: IssnRowItemTemplate,
+                ListEditorItemTemplate: IssnRowItemTemplate,
                 getItemSelectedToEdit: (list, index) =>
                     (!!list[index] && !!list[index].key && list[index].key) || list[index] || null,
             },
@@ -586,6 +614,7 @@ export default {
                 },
                 locale: locale.components.isrcForm.field,
                 canEdit: true,
+                listEditorId: 'rek-isrc',
             },
         },
         fez_record_search_key_edition: {
@@ -642,52 +671,54 @@ export default {
             },
         },
         fez_record_search_key_refereed_source: {
-            component: RefereedSourceField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'adminSection.fez_record_search_key_refereed_source.rek_refereed_source',
-                label: 'Refereed source',
+                genericSelectFieldId: 'rek-refereed-source',
+                itemsList: REFEREED_SOURCES,
+                ...selectFields.refereedSource,
             },
         },
         languageOfJournalName: {
-            component: LanguageField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'bibliographicSection.languageOfJournalName',
-                label: 'Language of journal name',
-                placeholder: '',
                 multiple: true,
                 genericSelectFieldId: 'rek-language-of-journal-name',
+                itemsList: LANGUAGE,
+                ...selectFields.languageOfJournalName,
             },
         },
         languageOfBookTitle: {
-            component: LanguageField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'bibliographicSection.languageOfBookTitle',
-                label: 'Language of book title',
-                placeholder: '',
                 multiple: true,
                 genericSelectFieldId: 'rek-language-of-book-title',
+                itemsList: LANGUAGE,
+                ...selectFields.languageOfBookTitle,
             },
         },
         languageOfConferenceName: {
-            component: LanguageField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'bibliographicSection.languageOfConferenceName',
-                label: 'Language of conference name',
-                placeholder: 'Language of conference name',
                 multiple: true,
                 fullWidth: true,
                 genericSelectFieldId: 'rek-language-of-conference-name',
+                itemsList: LANGUAGE,
+                ...selectFields.languageOfConferenceName,
             },
         },
         languageOfProceedingsTitle: {
-            component: LanguageField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'bibliographicSection.languageOfProceedingsTitle',
-                label: 'Language of proceedings title',
-                placeholder: 'Language of proceedings title',
                 multiple: true,
                 fullWidth: true,
                 genericSelectFieldId: 'rek-language-of-proceedings-title',
+                itemsList: LANGUAGE,
+                ...selectFields.languageOfProceedingsTitle,
             },
         },
         fez_record_search_key_conference_location: {
@@ -715,13 +746,13 @@ export default {
             },
         },
         languageOfTitle: {
-            component: LanguageField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'bibliographicSection.languageOfTitle',
-                label: 'Language of title',
-                placeholder: '',
                 multiple: true,
                 genericSelectFieldId: 'rek-language-of-title',
+                itemsList: LANGUAGE,
+                ...selectFields.languageOfTitle,
             },
         },
         fez_record_search_key_native_script_journal_name: {
@@ -791,9 +822,9 @@ export default {
             componentProps: {
                 name: 'authorsSection.authors',
                 showIdentifierLookup: true,
-                locale: formLocale.journalArticle.authors.field,
-                canEdit: true,
+                locale: locale.components.authorsList('author').field,
                 contributorEditorId: 'rek-author',
+                isAdmin: true,
             },
         },
         editors: {
@@ -801,8 +832,8 @@ export default {
             componentProps: {
                 name: 'authorsSection.editors',
                 showIdentifierLookup: true,
-                locale: formLocale.book.editors.field,
-                canEdit: true,
+                locale: locale.components.authorsList('editor').field,
+                isAdmin: true,
                 contributorEditorId: 'rek-contributor',
             },
         },
@@ -811,6 +842,7 @@ export default {
             componentProps: {
                 name: 'filesSection.files',
                 requireOpenAccessStatus: true,
+                isAdmin: true,
             },
         },
         contentIndicators: {
@@ -820,7 +852,7 @@ export default {
                 label: locale.components.contentIndicators.label,
                 multiple: true,
                 fullWidth: true,
-                unselectable: true,
+                canUnselect: true,
             },
         },
         fez_record_search_key_herdc_code: {
@@ -838,39 +870,50 @@ export default {
             },
         },
         fez_record_search_key_institutional_status: {
-            component: InstitutionalStatusField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'adminSection.fez_record_search_key_institutional_status.rek_institutional_status',
-                label: 'Institutional status',
+                itemsList: INSTITUTIONAL_STATUS,
+                genericSelectFieldId: 'rek-institutional-status',
+                canUnselect: true,
+                ...selectFields.institutionalStatus,
             },
         },
         fez_record_search_key_oa_status_type: {
-            component: OAStatusTypeField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'adminSection.fez_record_search_key_oa_status_type.rek_oa_status_type',
-                label: 'OA status type',
+                genericSelectFieldId: 'rek-oa-status-type',
+                itemsList: OA_STATUS_TYPE,
+                canUnselect: true,
+                ...selectFields.oaStatusType,
             },
         },
         fez_record_search_key_oa_status: {
-            component: OAStatusField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'adminSection.fez_record_search_key_oa_status.rek_oa_status',
-                label: 'OA status',
+                genericSelectFieldId: 'rek-oa-status',
+                itemsList: OA_STATUS,
+                canUnselect: true,
+                ...selectFields.oaStatus,
             },
         },
         additionalNotes: {
             component: RichEditorField,
             componentProps: {
-                name: 'adminSection.additionalNotes',
-                title: 'Additional notes',
+                name: 'notesSection.additionalNotes',
+                title: 'Additional notes (public)',
                 titleProps: {
                     variant: 'caption',
+                    color: 'primary',
                     style: {
-                        opacity: 0.666,
+                        fontWeight: 600,
                     },
                 },
                 height: 100,
                 format: value => Immutable.Map(value),
+                richEditorId: 'rek-notes',
             },
         },
         advisoryStatement: {
@@ -886,6 +929,7 @@ export default {
                 },
                 height: 100,
                 format: value => Immutable.Map(value),
+                richEditorId: 'rek-advisory-statement',
             },
         },
         fez_record_search_key_transcript: {
@@ -901,6 +945,7 @@ export default {
                 },
                 height: 100,
                 format: value => Immutable.Map(value),
+                richEditorId: 'rek-transcript',
             },
         },
         significanceAndContributionStatement: {
@@ -909,15 +954,17 @@ export default {
                 name: 'ntroSection.significanceAndContributionStatement',
                 label: 'Scale/significance of work - Contribution statement',
                 placeholder: '',
-                locale: locale.components.scaleOfSignificanceListForm.field,
+                locale: locale.components.scaleOfSignificanceListAdminForm.field,
             },
         },
         qualityIndicators: {
-            component: QualityIndicatorField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'ntroSection.qualityIndicators',
-                label: 'Quality indicators',
+                genericSelectFieldId: 'rek-quality-indicator',
+                itemsList: QUALITY_INDICATORS,
                 multiple: true,
+                ...selectFields.qualityIndicators,
             },
         },
         grants: {
@@ -1066,11 +1113,12 @@ export default {
             },
         },
         fez_record_search_key_license: {
-            component: LicenceSelectorField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'adminSection.fez_record_search_key_license.rek_license',
-                label: 'Licence',
-                isAdmin: true, // show the extra info that is only visible to admins
+                itemsList: ALL_LICENCES,
+                genericSelectFieldId: 'rek-license',
+                ...selectFields.license,
             },
         },
         fez_record_search_key_original_format: {
@@ -1085,11 +1133,13 @@ export default {
             },
         },
         fez_record_search_key_alternate_genre: {
-            component: AlternateGenreField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'bibliographicSection.fez_record_search_key_alternate_genre',
-                label: 'Alternate genre',
+                itemsList: ALTERNATE_GENRE,
+                genericSelectFieldId: 'rek-alternate-genre',
                 multiple: true,
+                ...selectFields.alternateGenre,
             },
         },
         rek_genre: {
@@ -1102,13 +1152,14 @@ export default {
             },
         },
         rek_genre_type: {
-            component: ThesisSubtypeField,
+            component: ThesisSubtypeSelectField,
             componentProps: {
                 name: 'bibliographicSection.rek_genre_type',
                 fullWidth: true,
                 label: 'Thesis type',
                 required: true,
                 validate: [validation.required],
+                genericSelectFieldId: 'rek-genre-type',
             },
         },
         geoCoordinates: {
@@ -1121,12 +1172,14 @@ export default {
             },
         },
         fez_record_search_key_access_conditions: {
-            component: AccessSelectorField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'adminSection.fez_record_search_key_access_conditions.rek_access_conditions',
                 id: 'data-collection-access-selector',
                 required: true,
                 validate: [validation.required],
+                itemsList: DATASET_ACCESS_CONDITIONS_OPTIONS,
+                genericSelectFieldId: 'rek-access-conditions',
                 ...formLocale.addDataset.information.accessAndLicensing.fieldLabels.accessConditions,
             },
         },
@@ -1177,6 +1230,7 @@ export default {
                     },
                 },
                 format: value => Immutable.Map(value),
+                richEditorId: 'rek-related-datasets',
             },
         },
         fez_record_search_key_related_publications: {
@@ -1191,6 +1245,7 @@ export default {
                     },
                 },
                 format: value => Immutable.Map(value),
+                richEditorId: 'rek-related-publications',
             },
         },
         fez_record_search_key_isdatasetof: {
@@ -1239,10 +1294,14 @@ export default {
             },
         },
         fez_record_search_key_ands_collection_type: {
-            component: AndsCollectionTypesField,
+            component: NewGenericSelectField,
             componentProps: {
                 name: 'adminSection.fez_record_search_key_ands_collection_type.rek_ands_collection_type',
-                label: 'Collection type',
+                itemsList: ANDS_COLLECTION_TYPE_OPTIONS,
+                genericSelectFieldId: 'rek-ands-collection-type',
+                required: true,
+                validate: [validation.required],
+                ...selectFields.andsCollectionType,
             },
         },
         fez_record_search_key_project_name: {
@@ -1604,8 +1663,8 @@ export default {
             componentProps: {
                 name: 'authorsSection.architects',
                 showIdentifierLookup: true,
-                locale: locale.components.architects.field,
-                canEdit: true,
+                locale: locale.components.authorsList('architect').field,
+                isAdmin: true,
                 contributorEditorId: 'rek-architect-name',
             },
         },
@@ -1614,8 +1673,8 @@ export default {
             componentProps: {
                 name: 'authorsSection.creators',
                 showIdentifierLookup: true,
-                locale: locale.components.designCreators.field,
-                canEdit: true,
+                locale: locale.components.authorsList('creator').field,
+                isAdmin: true,
                 contributorEditorId: 'rek-creator-name',
             },
         },
@@ -1624,8 +1683,8 @@ export default {
             componentProps: {
                 name: 'authorsSection.supervisors',
                 showIdentifierLookup: true,
-                locale: locale.components.supervisors.field,
-                canEdit: true,
+                locale: locale.components.authorsList('supervisor').field,
+                isAdmin: true,
                 contributorEditorId: 'rek-supervisor',
             },
         },
@@ -1659,87 +1718,10 @@ export default {
                 validate: [validation.required],
             }),
             authors: ({ isNtro }) => ({ isNtro }),
-            significanceAndContributionStatement: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            significanceInputFieldLabel: 'Scale/Significance of work',
-                            significanceInputFieldHint: 'Please select scale of significance',
-                            contributionStatementInputFieldLabel: 'Creator research statement',
-                            contributionStatementFieldHint: 'Enter description',
-                            addButtonLabel: 'ADD SCALE/SIGNIFICANCE AND RESEARCH STATEMENT',
-                            authorOrderAlert: {
-                                message:
-                                    'Any changes made to the author order require that all contribution statements are also manually updated to match.',
-                                type: 'info',
-                            },
-                        },
-                    },
-                    header: {
-                        locale: {
-                            nameColumn: 'Scale/significance of work - Creator research statement',
-                            reorderColumn: 'Reorder items',
-                            deleteAll: 'Remove all items',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all items?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                    row: {
-                        locale: {
-                            moveUpHint: 'Move item up the order',
-                            moveDownHint: 'Move item down the order',
-                            deleteHint: 'Remove this item',
-                            deleteRecordConfirmation: {
-                                confirmationTitle: 'Delete item',
-                                confirmationMessage: 'Are you sure you want to delete this item?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
             fez_record_search_key_original_format: () => ({
                 label: 'Physical description',
             }),
-            grants: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            grantAgencyNameLabel: 'Funder/Sponsor name',
-                            grantAgencyNameHint: 'Enter Funder/Sponsor name for this work',
-                            grantIdLabel: 'Grant ID',
-                            grantIdHint: 'Enter grant number for this work, if available',
-                            grantAgencyTypeLabel: 'Funder/Sponsor type',
-                            grantAgencyTypeHint: 'Select Funder/Sponsor type',
-                            addButton: 'Add grant',
-                            editButton: 'Edit grant',
-                            description:
-                                "Add the grant's name, ID and type - " +
-                                'then click the ADD GRANT button to add each to the list',
-                        },
-                    },
-                    header: {
-                        locale: {
-                            GrantAgencyName: 'Funder/Sponsor name',
-                            GrantID: 'Grant ID',
-                            GrantAgencyType: 'Funder/Sponsor type',
-                            reorderColumn: 'Reorder entries',
-                            deleteAll: 'Remove all entries',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all entries?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
+            grants: () => ({ ...locale.components.grants }),
         },
         [PUBLICATION_TYPE_BOOK_CHAPTER]: {
             fez_record_search_key_publisher: () => ({
@@ -1759,167 +1741,13 @@ export default {
                 validate: [validation.required],
             }),
             authors: ({ isNtro }) => ({ isNtro }),
-            significanceAndContributionStatement: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            significanceInputFieldLabel: 'Scale/Significance of work',
-                            significanceInputFieldHint: 'Please select scale of significance',
-                            contributionStatementInputFieldLabel: 'Creator research statement',
-                            contributionStatementFieldHint: 'Enter description',
-                            addButtonLabel: 'ADD SCALE/SIGNIFICANCE AND RESEARCH STATEMENT',
-                            authorOrderAlert: {
-                                message:
-                                    'Any changes made to the author order require that all contribution statements are also manually updated to match.',
-                                type: 'info',
-                            },
-                        },
-                    },
-                    header: {
-                        locale: {
-                            nameColumn: 'Scale/significance of work - Creator research statement',
-                            reorderColumn: 'Reorder items',
-                            deleteAll: 'Remove all items',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all items?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                    row: {
-                        locale: {
-                            moveUpHint: 'Move item up the order',
-                            moveDownHint: 'Move item down the order',
-                            deleteHint: 'Remove this item',
-                            deleteRecordConfirmation: {
-                                confirmationTitle: 'Delete item',
-                                confirmationMessage: 'Are you sure you want to delete this item?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
             fez_record_search_key_original_format: () => ({
                 label: 'Physical description',
             }),
-            grants: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            grantAgencyNameLabel: 'Funder/Sponsor name',
-                            grantAgencyNameHint: 'Enter Funder/Sponsor name for this work',
-                            grantIdLabel: 'Grant ID',
-                            grantIdHint: 'Enter grant number for this work, if available',
-                            grantAgencyTypeLabel: 'Funder/Sponsor type',
-                            grantAgencyTypeHint: 'Select Funder/Sponsor type',
-                            addButton: 'Add grant',
-                            editButton: 'Edit grant',
-                            description:
-                                "Add the grant's name, ID and type - " +
-                                'then click the ADD GRANT button to add each to the list',
-                        },
-                    },
-                    header: {
-                        locale: {
-                            GrantAgencyName: 'Funder/Sponsor name',
-                            GrantID: 'Grant ID',
-                            GrantAgencyType: 'Funder/Sponsor type',
-                            reorderColumn: 'Reorder entries',
-                            deleteAll: 'Remove all entries',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all entries?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
+            grants: () => ({ ...locale.components.grants }),
         },
         [PUBLICATION_TYPE_CREATIVE_WORK]: {
-            grants: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            grantAgencyNameLabel: 'Funder/Sponsor name',
-                            grantAgencyNameHint: 'Enter Funder/Sponsor name for this work',
-                            grantIdLabel: 'Grant ID',
-                            grantIdHint: 'Enter grant number for this work, if available',
-                            grantAgencyTypeLabel: 'Funder/Sponsor type',
-                            grantAgencyTypeHint: 'Select Funder/Sponsor type',
-                            addButton: 'Add grant',
-                            editButton: 'Edit grant',
-                            description:
-                                "Add the grant's name, ID and type - " +
-                                'then click the ADD GRANT button to add each to the list',
-                        },
-                    },
-                    header: {
-                        locale: {
-                            GrantAgencyName: 'Funder/Sponsor name',
-                            GrantID: 'Grant ID',
-                            GrantAgencyType: 'Funder/Sponsor type',
-                            reorderColumn: 'Reorder entries',
-                            deleteAll: 'Remove all entries',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all entries?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
-            significanceAndContributionStatement: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            significanceInputFieldLabel: 'Scale/Significance of work',
-                            significanceInputFieldHint: 'Please select scale of significance',
-                            contributionStatementInputFieldLabel: 'Creator research statement',
-                            contributionStatementFieldHint: 'Enter description',
-                            addButtonLabel: 'ADD SCALE/SIGNIFICANCE AND RESEARCH STATEMENT',
-                            authorOrderAlert: {
-                                message:
-                                    'Any changes made to the author order require that all contribution statements are also manually updated to match.',
-                                type: 'info',
-                            },
-                        },
-                    },
-                    header: {
-                        locale: {
-                            nameColumn: 'Scale/significance of work - Creator research statement',
-                            reorderColumn: 'Reorder items',
-                            deleteAll: 'Remove all items',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all items?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                    row: {
-                        locale: {
-                            moveUpHint: 'Move item up the order',
-                            moveDownHint: 'Move item down the order',
-                            deleteHint: 'Remove this item',
-                            deleteRecordConfirmation: {
-                                confirmationTitle: 'Delete item',
-                                confirmationMessage: 'Are you sure you want to delete this item?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
+            grants: () => ({ ...locale.components.grants }),
             fez_record_search_key_original_format: () => ({
                 label: 'Physical description',
             }),
@@ -1952,17 +1780,13 @@ export default {
             }),
             authors: () => ({
                 showRoleInput: true,
-                locale: locale.components.creators.field,
+                locale: locale.components.authorsList('creator').field,
             }),
             rek_description: () => ({
                 required: true,
                 validate: [validation.required],
             }),
             fez_record_search_key_publisher: () => ({
-                required: true,
-                validate: [validation.required],
-            }),
-            fez_record_search_key_ands_collection_type: () => ({
                 required: true,
                 validate: [validation.required],
             }),
@@ -1975,106 +1799,44 @@ export default {
                 name: 'adminSection.fez_record_search_key_license.rek_license',
                 validate: [validation.required],
             }),
+            fez_record_search_key_type_of_data: () => ({
+                locale: locale.components.typeOfDataForm.fieldDataset,
+            }),
         },
         [PUBLICATION_TYPE_DESIGN]: {
-            fez_record_search_key_original_format: () => ({
-                label: 'Physical description',
+            fez_record_search_key_original_format: ({ isNonNtro = false }) => ({
+                label: isNonNtro ? 'Original format' : 'Physical description',
+            }),
+            fez_record_search_key_rights: ({ isNonNtro = false }) => ({
+                label: isNonNtro ? 'Rights' : 'Copyright notice',
             }),
             fez_record_search_key_project_name: () => ({
                 name: 'bibliographicSection.fez_record_search_key_project_name.rek_project_name',
             }),
+            fez_record_search_key_publisher: () => ({
+                validate: [validation.required],
+            }),
+            fez_record_search_key_place_of_publication: () => ({
+                validate: [validation.required],
+            }),
+            fez_record_search_key_project_start_date: () => ({
+                validate: [validation.required],
+            }),
             authors: ({ isNtro }) => ({
                 isNtro,
-                locale: { ...locale.components.designers.field },
+                locale: { ...locale.components.authorsList('designer').field },
             }),
             editors: () => ({
-                locale: { ...locale.components.contributors.field },
-            }),
-            significanceAndContributionStatement: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            significanceInputFieldLabel: 'Scale/Significance of work',
-                            significanceInputFieldHint: 'Please select scale of significance',
-                            contributionStatementInputFieldLabel: 'Creator research statement',
-                            contributionStatementFieldHint: 'Enter description',
-                            addButtonLabel: 'ADD SCALE/SIGNIFICANCE AND RESEARCH STATEMENT',
-                            authorOrderAlert: {
-                                message:
-                                    'Any changes made to the author order require that all contribution statements are also manually updated to match.',
-                                type: 'info',
-                            },
-                        },
-                    },
-                    header: {
-                        locale: {
-                            nameColumn: 'Scale/significance of work - Creator research statement',
-                            reorderColumn: 'Reorder items',
-                            deleteAll: 'Remove all items',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all items?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                    row: {
-                        locale: {
-                            moveUpHint: 'Move item up the order',
-                            moveDownHint: 'Move item down the order',
-                            deleteHint: 'Remove this item',
-                            deleteRecordConfirmation: {
-                                confirmationTitle: 'Delete item',
-                                confirmationMessage: 'Are you sure you want to delete this item?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
+                locale: { ...locale.components.authorsList('contributor').field },
             }),
             fez_record_search_key_location: () => ({
                 label: locale.components.locationForm.field.form.locale.inputFieldLabel,
             }),
-            grants: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            grantAgencyNameLabel: 'Funder/Sponsor name',
-                            grantAgencyNameHint: 'Enter Funder/Sponsor name for this work',
-                            grantIdLabel: 'Grant ID',
-                            grantIdHint: 'Enter grant number for this work, if available',
-                            grantAgencyTypeLabel: 'Funder/Sponsor type',
-                            grantAgencyTypeHint: 'Select Funder/Sponsor type',
-                            addButton: 'Add grant',
-                            editButton: 'Edit grant',
-                            description:
-                                "Add the grant's name, ID and type - " +
-                                'then click the ADD GRANT button to add each to the list',
-                        },
-                    },
-                    header: {
-                        locale: {
-                            GrantAgencyName: 'Funder/Sponsor name',
-                            GrantID: 'Grant ID',
-                            GrantAgencyType: 'Funder/Sponsor type',
-                            reorderColumn: 'Reorder entries',
-                            deleteAll: 'Remove all entries',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all entries?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
+            grants: () => ({ ...locale.components.grants }),
         },
         [PUBLICATION_TYPE_DIGILIB_IMAGE]: {
             authors: () => ({
-                locale: locale.components.photographers.field,
+                locale: locale.components.authorsList('photographer').field,
             }),
         },
         [PUBLICATION_TYPE_GENERIC_DOCUMENT]: {
@@ -2091,84 +1853,7 @@ export default {
         },
         [PUBLICATION_TYPE_JOURNAL_ARTICLE]: {
             authors: ({ isNtro }) => ({ isNtro }),
-            significanceAndContributionStatement: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            significanceInputFieldLabel: 'Scale/Significance of work',
-                            significanceInputFieldHint: 'Please select scale of significance',
-                            contributionStatementInputFieldLabel: 'Creator research statement',
-                            contributionStatementFieldHint: 'Enter description',
-                            addButtonLabel: 'ADD SCALE/SIGNIFICANCE AND RESEARCH STATEMENT',
-                            authorOrderAlert: {
-                                message:
-                                    'Any changes made to the author order require that all contribution statements are also manually updated to match.',
-                                type: 'info',
-                            },
-                        },
-                    },
-                    header: {
-                        locale: {
-                            nameColumn: 'Scale/significance of work - Creator research statement',
-                            reorderColumn: 'Reorder items',
-                            deleteAll: 'Remove all items',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all items?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                    row: {
-                        locale: {
-                            moveUpHint: 'Move item up the order',
-                            moveDownHint: 'Move item down the order',
-                            deleteHint: 'Remove this item',
-                            deleteRecordConfirmation: {
-                                confirmationTitle: 'Delete item',
-                                confirmationMessage: 'Are you sure you want to delete this item?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
-            grants: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            grantAgencyNameLabel: 'Funder/Sponsor name',
-                            grantAgencyNameHint: 'Enter Funder/Sponsor name for this work',
-                            grantIdLabel: 'Grant ID',
-                            grantIdHint: 'Enter grant number for this work, if available',
-                            grantAgencyTypeLabel: 'Funder/Sponsor type',
-                            grantAgencyTypeHint: 'Select Funder/Sponsor type',
-                            addButton: 'Add grant',
-                            editButton: 'Edit grant',
-                            description:
-                                "Add the grant's name, ID and type - " +
-                                'then click the ADD GRANT button to add each to the list',
-                        },
-                    },
-                    header: {
-                        locale: {
-                            GrantAgencyName: 'Funder/Sponsor name',
-                            GrantID: 'Grant ID',
-                            GrantAgencyType: 'Funder/Sponsor type',
-                            reorderColumn: 'Reorder entries',
-                            deleteAll: 'Remove all entries',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all entries?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
+            grants: () => ({ ...locale.components.grants }),
         },
         [PUBLICATION_TYPE_MANUSCRIPT]: {
             rek_date: () => ({
@@ -2198,87 +1883,10 @@ export default {
                 validate: [validation.required],
             }),
             authors: ({ isNtro }) => ({ isNtro }),
-            significanceAndContributionStatement: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            significanceInputFieldLabel: 'Scale/Significance of work',
-                            significanceInputFieldHint: 'Please select scale of significance',
-                            contributionStatementInputFieldLabel: 'Creator research statement',
-                            contributionStatementFieldHint: 'Enter description',
-                            addButtonLabel: 'ADD SCALE/SIGNIFICANCE AND RESEARCH STATEMENT',
-                            authorOrderAlert: {
-                                message:
-                                    'Any changes made to the author order require that all contribution statements are also manually updated to match.',
-                                type: 'info',
-                            },
-                        },
-                    },
-                    header: {
-                        locale: {
-                            nameColumn: 'Scale/significance of work - Creator research statement',
-                            reorderColumn: 'Reorder items',
-                            deleteAll: 'Remove all items',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all items?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                    row: {
-                        locale: {
-                            moveUpHint: 'Move item up the order',
-                            moveDownHint: 'Move item down the order',
-                            deleteHint: 'Remove this item',
-                            deleteRecordConfirmation: {
-                                confirmationTitle: 'Delete item',
-                                confirmationMessage: 'Are you sure you want to delete this item?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
             fez_record_search_key_location: () => ({
                 label: locale.components.locationForm.field.form.locale.inputFieldLabel,
             }),
-            grants: () => ({
-                locale: {
-                    form: {
-                        locale: {
-                            grantAgencyNameLabel: 'Funder/Sponsor name',
-                            grantAgencyNameHint: 'Enter Funder/Sponsor name for this work',
-                            grantIdLabel: 'Grant ID',
-                            grantIdHint: 'Enter grant number for this work, if available',
-                            grantAgencyTypeLabel: 'Funder/Sponsor type',
-                            grantAgencyTypeHint: 'Select Funder/Sponsor type',
-                            addButton: 'Add grant',
-                            editButton: 'Edit grant',
-                            description:
-                                "Add the grant's name, ID and type - " +
-                                'then click the ADD GRANT button to add each to the list',
-                        },
-                    },
-                    header: {
-                        locale: {
-                            GrantAgencyName: 'Funder/Sponsor name',
-                            GrantID: 'Grant ID',
-                            GrantAgencyType: 'Funder/Sponsor type',
-                            reorderColumn: 'Reorder entries',
-                            deleteAll: 'Remove all entries',
-                            deleteAllConfirmation: {
-                                confirmationTitle: 'Delete all',
-                                confirmationMessage: 'Are you sure you want to delete all entries?',
-                                cancelButtonLabel: 'No',
-                                confirmButtonLabel: 'Yes',
-                            },
-                        },
-                    },
-                },
-            }),
+            grants: () => ({ ...locale.components.grants }),
         },
         [PUBLICATION_TYPE_THESIS]: {
             fez_record_search_key_org_unit_name: () => ({

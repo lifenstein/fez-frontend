@@ -4,27 +4,29 @@ import Cookies from 'js-cookie';
 import Immutable from 'immutable';
 
 import locale from 'locale/pages';
-import { NTRO_SUBTYPES, PUBLICATION_TYPE_MANUSCRIPT, PUBLICATION_TYPE_THESIS } from 'config/general';
-import { USER_IDS_WITH_LEGACY_LINK } from 'config/admin/adminInterface';
+import { NTRO_SUBTYPES, PUBLICATION_TYPE_MANUSCRIPT, PUBLICATION_TYPE_THESIS, SUBTYPE_NON_NTRO } from 'config/general';
 
 import { makeStyles } from '@material-ui/core/styles';
 import useTheme from '@material-ui/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { adminTheme } from 'config';
 
 import { InlineLoader } from 'modules/SharedComponents/Toolbox/Loaders';
 import AdminInterface from './AdminInterface';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import SecuritySection from './security/SecuritySectionContainer';
-import IdentifiersSection from './identifiers/IdentifiersSectionContainer';
-import BibliographicSection from './bibliographic/BibliographicSectionContainer';
-import AdminSection from './admin/AdminSectionContainer';
 import AddSection from './add/AddSectionContainer';
-import GrantInformationSection from './grantInformation/GrantInformationSectionContainer';
-import FilesSection from './files/FilesSectionContainer';
-import NtroSection from './ntro/NtroSectionContainer';
+import AdminSection from './admin/AdminSectionContainer';
 import AuthorsSection from './authors/AuthorsSectionContainer';
+import BibliographicSection from './bibliographic/BibliographicSectionContainer';
+import FilesSection from './files/FilesSectionContainer';
+import GrantInformationSection from './grantInformation/GrantInformationSectionContainer';
+import IdentifiersSection from './identifiers/IdentifiersSectionContainer';
+import NotesSection from './notes/NotesSection';
+import NtroSection from './ntro/NtroSectionContainer';
+import SecuritySection from './security/SecuritySectionContainer';
 import { TabbedContext, RecordContext } from 'context';
 import { RECORD_TYPE_COLLECTION, RECORD_TYPE_COMMUNITY, RECORD_TYPE_RECORD } from 'config/general';
 import { StandardPage } from '../../SharedComponents/Toolbox/StandardPage';
@@ -63,15 +65,17 @@ export const AdminContainer = ({
     dirty,
     disableSubmit,
     formErrors,
+    formValues,
     handleSubmit,
     history,
+    isDeleted,
+    isJobCreated,
     loadingRecordToView,
     loadRecordToView,
-    recordToViewError,
     locked,
     match,
     recordToView,
-    isDeleted,
+    recordToViewError,
     submitSucceeded,
     submitting,
     unlockRecord,
@@ -145,11 +149,7 @@ export const AdminContainer = ({
 
     const isActivated = () => {
         if (recordToView && recordToView.rek_object_type_lookup) {
-            return (
-                recordToView &&
-                recordToView.rek_object_type_lookup.toLowerCase() === RECORD_TYPE_RECORD &&
-                USER_IDS_WITH_LEGACY_LINK.includes(authorDetails.username)
-            );
+            return recordToView && recordToView.rek_object_type_lookup.toLowerCase() === RECORD_TYPE_RECORD;
         }
         return false;
     };
@@ -171,69 +171,83 @@ export const AdminContainer = ({
                             record: recordToView,
                         }}
                     >
-                        <AdminInterface
-                            authorDetails={authorDetails}
-                            classes={classes}
-                            handleSubmit={handleSubmit}
-                            submitting={submitting}
-                            submitSucceeded={submitSucceeded}
-                            dirty={dirty}
-                            disableSubmit={disableSubmit}
-                            history={history}
-                            location={location}
-                            createMode={createMode}
-                            isDeleted={isDeleted}
-                            formErrors={reducedFormErrors(formErrors)}
-                            destroy={destroy}
-                            locked={locked}
-                            disabled
-                            unlockRecord={unlockRecord}
-                            tabs={{
-                                identifiers: {
-                                    component: IdentifiersSection,
-                                    activated: isActivated(),
-                                },
-                                bibliographic: {
-                                    component: BibliographicSection,
-                                    activated: isActivated(),
-                                    numberOfErrors: tabErrors.current.bibliographicSection || null,
-                                },
-                                authorDetails: {
-                                    component: AuthorsSection,
-                                    activated: isActivated(),
-                                    numberOfErrors: tabErrors.current.authorsSection || null,
-                                },
-                                admin: {
-                                    component: AdminSection,
-                                    activated: isActivated(),
-                                    numberOfErrors: tabErrors.current.adminSection || null,
-                                },
-                                ntro: {
-                                    component: NtroSection,
-                                    activated:
-                                        isActivated() &&
-                                        NTRO_SUBTYPES.includes(recordToView && recordToView.rek_subtype),
-                                },
-                                grantInformation: {
-                                    component: GrantInformationSection,
-                                    activated:
-                                        isActivated() &&
-                                        // Blacklist types without grant info
-                                        ![PUBLICATION_TYPE_MANUSCRIPT, PUBLICATION_TYPE_THESIS].includes(
-                                            recordToView && recordToView.rek_display_type,
-                                        ),
-                                },
-                                files: {
-                                    component: FilesSection,
-                                    activated: isActivated(),
-                                    numberOfErrors: tabErrors.current.filesSection || null,
-                                },
-                                security: {
-                                    component: SecuritySection,
-                                    activated: !createMode, // true,
-                                },
-                            }}
-                        />
+                        <ThemeProvider theme={adminTheme}>
+                            <AdminInterface
+                                authorDetails={authorDetails}
+                                classes={classes}
+                                handleSubmit={handleSubmit}
+                                submitting={submitting}
+                                submitSucceeded={submitSucceeded}
+                                dirty={dirty}
+                                disableSubmit={disableSubmit}
+                                history={history}
+                                location={location}
+                                createMode={createMode}
+                                isDeleted={isDeleted}
+                                isJobCreated={isJobCreated}
+                                formErrors={reducedFormErrors(formErrors)}
+                                destroy={destroy}
+                                locked={locked}
+                                disabled
+                                unlockRecord={unlockRecord}
+                                tabs={{
+                                    admin: {
+                                        component: AdminSection,
+                                        activated: isActivated(),
+                                        numberOfErrors: tabErrors.current.adminSection || null,
+                                    },
+                                    bibliographic: {
+                                        component: BibliographicSection,
+                                        activated: isActivated(),
+                                        numberOfErrors: tabErrors.current.bibliographicSection || null,
+                                    },
+                                    authors: {
+                                        component: AuthorsSection,
+                                        activated: isActivated(),
+                                        numberOfErrors: tabErrors.current.authorsSection || null,
+                                    },
+                                    identifiers: {
+                                        component: IdentifiersSection,
+                                        activated: isActivated(),
+                                    },
+                                    ntro: {
+                                        component: NtroSection,
+                                        activated:
+                                            isActivated() &&
+                                            NTRO_SUBTYPES.includes(
+                                                !!formValues && (formValues.toJS().adminSection || {}).rek_subtype,
+                                            ),
+                                    },
+                                    grants: {
+                                        component: GrantInformationSection,
+                                        activated:
+                                            isActivated() &&
+                                            // Blacklist types without grant info
+                                            !(
+                                                [PUBLICATION_TYPE_MANUSCRIPT, PUBLICATION_TYPE_THESIS].includes(
+                                                    recordToView && recordToView.rek_display_type,
+                                                ) ||
+                                                [SUBTYPE_NON_NTRO].includes(
+                                                    !!formValues && (formValues.toJS().adminSection || {}).rek_subtype,
+                                                )
+                                            ),
+                                    },
+                                    notes: {
+                                        component: NotesSection,
+                                        activated: isActivated(),
+                                    },
+                                    files: {
+                                        component: FilesSection,
+                                        activated: isActivated(),
+                                        numberOfErrors: tabErrors.current.filesSection || null,
+                                    },
+                                    security: {
+                                        component: SecuritySection,
+                                        activated: !createMode, // true,
+                                    },
+                                }}
+                            />
+                        </ThemeProvider>
                     </RecordContext.Provider>
                 </TabbedContext.Provider>
             )}
@@ -250,6 +264,7 @@ AdminContainer.propTypes = {
     dirty: PropTypes.bool,
     disableSubmit: PropTypes.any,
     formErrors: PropTypes.object,
+    formValues: PropTypes.object,
     handleSubmit: PropTypes.func,
     history: PropTypes.object,
     loadingRecordToView: PropTypes.bool,
@@ -259,6 +274,7 @@ AdminContainer.propTypes = {
     match: PropTypes.object,
     recordToView: PropTypes.object,
     isDeleted: PropTypes.bool,
+    isJobCreated: PropTypes.bool,
     showAddForm: PropTypes.bool,
     submitSucceeded: PropTypes.bool,
     submitting: PropTypes.any,
@@ -272,7 +288,8 @@ export function isSame(prevProps, nextProps) {
         prevProps.submitSucceeded === nextProps.submitSucceeded &&
         (prevProps.recordToView || {}).pid === (nextProps.recordToView || {}).pid &&
         (prevProps.recordToView || {}).rek_display_type === (nextProps.recordToView || {}).rek_display_type &&
-        (prevProps.recordToView || {}).rek_subtype === (nextProps.recordToView || {}).rek_subtype &&
+        ((prevProps.formValues || Immutable.Map({})).toJS().adminSection || {}).rek_subtype ===
+            ((nextProps.formValues || Immutable.Map({})).toJS().adminSection || {}).rek_subtype &&
         prevProps.loadingRecordToView === nextProps.loadingRecordToView &&
         prevProps.showAddForm === nextProps.showAddForm &&
         prevProps.formErrors === nextProps.formErrors &&

@@ -22,13 +22,22 @@ exports[`ThesisForm  should render component 1`] = `
         >
           <Alert
             action={[Function]}
-            actionButtonLabel="Visit now"
+            actionButtonLabel="Upload HDR thesis"
             allowDismiss={false}
             customIcon={null}
             customType={null}
             disableAlertClick={false}
             dismissTitle="Click to dismiss this alert"
-            message="If you are trying to submit your UQ HDR thesis, please use the HDR submission form"
+            message={
+              <React.Fragment>
+                <p>
+                  Are you submitting a UQ Higher Degree Research (HDR) thesis? If yes, click the UPLOAD HDR THESIS button to submit.
+                </p>
+                <p>
+                   To deposit another thesis type, use the form below.
+                </p>
+              </React.Fragment>
+            }
             showLoader={false}
             type="warning"
             wiggle={null}
@@ -54,6 +63,7 @@ exports[`ThesisForm  should render component 1`] = `
             placeholder="Thesis title"
             required={true}
             rows={1}
+            textFieldId="rek-title"
             type="text"
             validate={
               Array [
@@ -77,7 +87,6 @@ exports[`ThesisForm  should render component 1`] = `
                   "type": [Function],
                 },
                 "compare": null,
-                "displayName": "Connect(Component)",
                 "type": [Function],
               }
             }
@@ -108,7 +117,6 @@ exports[`ThesisForm  should render component 1`] = `
                   "type": [Function],
                 },
                 "compare": null,
-                "displayName": "Connect(Component)",
                 "type": [Function],
               }
             }
@@ -130,23 +138,13 @@ exports[`ThesisForm  should render component 1`] = `
           xs={12}
         >
           <Field
-            component={
-              Object {
-                "$$typeof": Symbol(react.memo),
-                "WrappedComponent": [Function],
-                "compare": null,
-                "displayName": "Connect(GenericSelectField)",
-                "type": [Function],
-              }
-            }
+            ariaLabel="Select a thesis type"
+            component={[Function]}
             disabled={false}
-            locale={
-              Object {
-                "label": "Thesis type",
-              }
-            }
+            label="Thesis type"
             name="rek_genre_type"
             required={true}
+            selectPrompt="Please select a thesis type"
             validate={
               Array [
                 [Function],
@@ -189,6 +187,7 @@ exports[`ThesisForm  should render component 1`] = `
             placeholder=""
             required={true}
             rows={1}
+            textFieldId="rek-author-0"
             type="text"
             validate={
               Array [
@@ -376,6 +375,7 @@ exports[`ThesisForm  should render component 1`] = `
             label="DOI"
             name="fez_record_search_key_doi.rek_doi"
             placeholder="Enter a valid DOI (eg. 10.4324/9780203118214)"
+            textFieldId="rek-doi"
             type="text"
             validate={
               Array [
@@ -397,6 +397,7 @@ exports[`ThesisForm  should render component 1`] = `
             name="fez_record_search_key_total_pages.rek_total_pages"
             normalize={[Function]}
             placeholder=""
+            textFieldId="rek-total-pages"
             type="text"
           />
         </WithStyles(ForwardRef(Grid))>
@@ -412,6 +413,7 @@ exports[`ThesisForm  should render component 1`] = `
             multiline={true}
             name="fez_record_search_key_description.rek_description"
             placeholder="Provide an abstract or summary of the work"
+            textFieldId="rek-description"
             type="text"
           />
         </WithStyles(ForwardRef(Grid))>
@@ -427,6 +429,7 @@ exports[`ThesisForm  should render component 1`] = `
             multiline={true}
             name="comments"
             placeholder="Provide any additional information"
+            textFieldId="comments"
             title="Additional notes"
             type="text"
           />

@@ -12,8 +12,8 @@ context('Incomplete record form', () => {
     };
 
     const checkResearchStatement = statement => {
-        cy.typeCKEditor('editor1', statement);
-        cy.readCKEditor('editor1').then(text => {
+        cy.typeCKEditor('rek-creator-contribution-statement', statement);
+        cy.readCKEditor('rek-creator-contribution-statement').then(text => {
             cy.wrap(text).should('eq', statement);
         });
     };
@@ -164,19 +164,19 @@ context('Incomplete record form', () => {
 
     it('should have working tests for Grants editor', () => {
         cy.get('[data-testid=rek-grant-agency-input]').type('Grant name');
-        cy.get('button#add-grant').should('be.disabled');
+        cy.get('[data-testid=rek-grant-add]').should('be.disabled');
         cy.get(validationErrorsSelector)
             .as('validationMessage')
             .should('have.length', 2)
             .should('contain', grantMessage);
         cy.get('[data-testid=rek-grant-id-input]').type('0001');
-        cy.get('#grant-type').click();
+        cy.get('[data-testid=rek-grant-type-select]').click();
         cy.get('body > [role=presentation]')
             .find('li')
             .contains('Commercial Gallery')
             .click();
-        cy.get('#grant-type').should('contain', 'Commercial Gallery');
-        cy.get('button#add-grant')
+        cy.get('[data-testid=rek-grant-type-input]').should('have.value', '453984');
+        cy.get('[data-testid=rek-grant-add]')
             .should('be.enabled')
             .click();
         cy.get('@validationMessage')

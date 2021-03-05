@@ -13,6 +13,7 @@ export default {
                 ['fez_record_search_key_publisher'],
                 ['rek_date'],
                 ['rek_description'],
+                ['fez_record_search_key_type_of_data'],
                 ['fez_record_search_key_rights'],
                 ['fez_record_search_key_construction_date'],
                 ['fez_record_search_key_date_photo_taken'],
@@ -93,19 +94,14 @@ export default {
                 ['fez_record_search_key_institutional_status', 'fez_record_search_key_refereed_source'],
                 ['fez_record_search_key_oa_status', 'fez_record_search_key_oa_status_type'],
                 ['fez_record_search_key_license'],
-                ['additionalNotes'],
             ],
-        },
-        {
-            title: 'Notes',
-            groups: [['internalNotes'], ['rek_herdc_notes']],
         },
     ],
     ntro: () => [],
 };
 
 export const validateDigilibImage = (
-    { bibliographicSection: bs, filesSection: fs, authorsSection: as },
+    { bibliographicSection: bs, authorsSection: as },
     { validationErrorsSummary: summary },
 ) => ({
     bibliographicSection: {
@@ -121,11 +117,6 @@ export const validateDigilibImage = (
             },
         }) ||
             {}),
-    },
-    filesSection: {
-        ...((fs || {}).rek_copyright !== 'on' && {
-            rek_copyright: summary.rek_copyright,
-        }),
     },
     authorsSection: {
         ...(((as || {}).authors || []).length === 0 && {

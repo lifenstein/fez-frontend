@@ -31,6 +31,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             placeholder="Title of journal article"
             required={true}
             rows={1}
+            textFieldId="rek-title"
             type="text"
             validate={
               Array [
@@ -52,6 +53,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             name="fez_record_search_key_journal_name.rek_journal_name"
             placeholder=""
             required={true}
+            textFieldId="rek-journal-name"
             type="text"
             validate={
               Array [
@@ -180,6 +182,7 @@ exports[`JournalArticleForm renders  component 1`] = `
                     </div>,
                     "identifierColumn": "UQ identifier / Organisation",
                     "nameColumn": "Author's name as published",
+                    "organisationColumn": "Organisation",
                     "reorderColumn": "Reorder items",
                   },
                 },
@@ -230,6 +233,7 @@ exports[`JournalArticleForm renders  component 1`] = `
       <Field
         component={[Function]}
         disabled={false}
+        inputNormalizer={[Function]}
         isValid={[Function]}
         listEditorId="issn"
         locale={
@@ -289,12 +293,30 @@ exports[`JournalArticleForm renders  component 1`] = `
         maxCount={5}
         name="fez_record_search_key_issn"
         remindToAdd={true}
+        rowItemTemplate={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "propTypes": Object {
+                "actions": [Function],
+                "hasPreload": [Function],
+                "item": [Function],
+              },
+              "type": [Function],
+            },
+            "compare": null,
+            "type": [Function],
+          }
+        }
         searchKey={
           Object {
             "order": "rek_issn_order",
             "value": "rek_issn",
           }
         }
+        transformFunction={[Function]}
       />
     </StandardCard>
   </WithStyles(ForwardRef(Grid))>
@@ -320,6 +342,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             fullWidth={true}
             label="Volume"
             name="fez_record_search_key_volume_number.rek_volume_number"
+            textFieldId="rek-volume-number"
             type="text"
           />
         </WithStyles(ForwardRef(Grid))>
@@ -334,6 +357,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             fullWidth={true}
             label="Issue"
             name="fez_record_search_key_issue_number.rek_issue_number"
+            textFieldId="rek-issue-number"
             type="text"
           />
         </WithStyles(ForwardRef(Grid))>
@@ -348,6 +372,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             fullWidth={true}
             label="Start page"
             name="fez_record_search_key_start_page.rek_start_page"
+            textFieldId="rek-start-page"
             type="text"
           />
         </WithStyles(ForwardRef(Grid))>
@@ -362,6 +387,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             fullWidth={true}
             label="End page"
             name="fez_record_search_key_end_page.rek_end_page"
+            textFieldId="rek-end-page"
             type="text"
           />
         </WithStyles(ForwardRef(Grid))>
@@ -375,6 +401,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             fullWidth={true}
             label="Article number"
             name="fez_record_search_key_article_number.rek_article_number"
+            textFieldId="rek-article-number"
             type="text"
           />
         </WithStyles(ForwardRef(Grid))>
@@ -390,6 +417,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             multiline={true}
             name="comments"
             rows={1}
+            textFieldId="comments"
             type="text"
           />
         </WithStyles(ForwardRef(Grid))>
@@ -403,6 +431,7 @@ exports[`JournalArticleForm renders  component 1`] = `
             fullWidth={true}
             label="Link (URL)"
             name="rek_link"
+            textFieldId="rek-link"
             type="text"
             validate={
               Array [

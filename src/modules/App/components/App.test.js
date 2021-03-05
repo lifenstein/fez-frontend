@@ -1,8 +1,9 @@
 import { AppClass } from './App';
 import App from './App';
 import { accounts, authorDetails, currentAuthor } from 'mock/data';
-import { routes, AUTH_URL_LOGIN, AUTH_URL_LOGOUT } from 'config';
+import { routes, AUTH_URL_LOGIN, AUTH_URL_LOGOUT, pathConfig } from 'config';
 import mui1theme from 'config';
+import Cookies from 'js-cookie';
 
 function setup(testProps = {}) {
     const props = {
@@ -15,6 +16,7 @@ function setup(testProps = {}) {
         accountAuthorLoading: testProps.accountAuthorLoading || false,
         actions: testProps.actions || {
             loadCurrentAccount: jest.fn(),
+            logout: jest.fn(),
             searchAuthorPublications: jest.fn(),
         },
         location: testProps.location || {},
@@ -74,7 +76,7 @@ describe('Application component', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('should show orcid alert for a student without an author account', () => {
+    it('should not show orcid alert for a student without an author account', () => {
         const wrapper = setup({
             account: account.s2222222,
             author: {
@@ -82,8 +84,9 @@ describe('Application component', () => {
                 aut_orcid_id: null,
             },
             location: { pathname: '/' },
+            authorDetails: {},
         });
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId*="orcid"]').length).toBe(0);
     });
 
     it('should not show orcid alert for a student without an author account', () => {
@@ -91,8 +94,9 @@ describe('Application component', () => {
             account: account.s3333333,
             author: currentAuthor.s3333333.data,
             location: { pathname: '/' },
+            authorDetails: {},
         });
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId*="orcid"]').length).toBe(0);
     });
 
     it('should assign the correct ref to setSessionExpiredConfirmation', () => {
@@ -274,19 +278,20 @@ describe('Application component', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('should render app for account with fez author without ORCID ID', () => {
+    it('should render orcid alert for account with fez author without ORCID ID', () => {
         const wrapper = setup({
             account: account,
             author: {
                 ...author,
                 aut_orcid_id: null,
             },
+            authorDetails: {},
         });
         wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId="orcid-optional"]').length).toBe(1);
     });
 
-    it('should render app for account with fez author without ORCID ID but is an admin', () => {
+    it('should not render orcid alert for account with fez author without ORCID ID but is an admin', () => {
         const wrapper = setup({
             account: account,
             author: {
@@ -299,10 +304,10 @@ describe('Application component', () => {
             },
         });
         wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId*="orcid"]').length).toBe(0);
     });
 
-    it('should render app for account with fez author without ORCID ID but is an super admin', () => {
+    it('should not render orcid alert for account with fez author without ORCID ID but is a super admin', () => {
         const wrapper = setup({
             account: account,
             author: {
@@ -315,10 +320,10 @@ describe('Application component', () => {
             },
         });
         wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId*="orcid"]').length).toBe(0);
     });
 
-    it('should render app for account with fez author without ORCID ID but is an admin', () => {
+    it('should not render orcid alert for account with fez author with ORCID ID but is an admin', () => {
         const wrapper = setup({
             account: account,
             author: author,
@@ -328,10 +333,10 @@ describe('Application component', () => {
             },
         });
         wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId*="orcid"]').length).toBe(0);
     });
 
-    it('should render app for account with fez author with a ORCID ID but is an super admin', () => {
+    it('should not render orcid alert for account with fez author with ORCID ID but is a super admin', () => {
         const wrapper = setup({
             account: account,
             author: author,
@@ -341,10 +346,10 @@ describe('Application component', () => {
             },
         });
         wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId*="orcid"]').length).toBe(0);
     });
 
-    it('should render app for account with author account without a ORCID ID', () => {
+    it('should render orcid alert for account with author account without a ORCID ID', () => {
         const wrapper = setup({
             account: account,
             author: {
@@ -354,29 +359,26 @@ describe('Application component', () => {
             authorDetails: authorDetails.uqresearcher,
         });
         wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId="orcid-optional"]').length).toBe(1);
     });
 
-    it(
-        'should render app for account with fez author without ORCID ID should ' +
-            'not display ORCID warning on thesis submission page',
-        () => {
-            const wrapper = setup({
-                location: {
-                    pathname: routes.pathConfig.hdrSubmission,
-                },
-                account: account,
-                author: {
-                    ...author,
-                    aut_orcid_id: null,
-                },
-            });
-            wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
-            expect(toJson(wrapper)).toMatchSnapshot();
-        },
-    );
+    it('should not render orcid alert for account with fez author without ORCID ID on thesis submission page', () => {
+        const wrapper = setup({
+            location: {
+                pathname: pathConfig.hdrSubmission,
+            },
+            account: account,
+            author: {
+                ...author,
+                aut_orcid_id: null,
+            },
+            authorDetails: {},
+        });
+        wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
+        expect(wrapper.find('[alertId*="orcid"]').length).toBe(0);
+    });
 
-    it('should render app for HDR without ORCID ID', () => {
+    it('should render orcid alert for HDR student', () => {
         const wrapper = setup({
             account: accounts.s2222222,
             author: {
@@ -391,13 +393,13 @@ describe('Application component', () => {
             },
         });
         wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('[alertId="orcid-required"]').length).toBe(1);
     });
 
     it('should render thesis submission for HDR without menu', () => {
         const wrapper = setup({
             location: {
-                pathname: routes.pathConfig.hdrSubmission,
+                pathname: pathConfig.hdrSubmission,
             },
             account: accounts.s2222222,
             author: {
@@ -406,6 +408,7 @@ describe('Application component', () => {
                 aut_student_username: 's2222222',
                 aut_orcid_id: null,
             },
+            authorDetails: {},
         });
         wrapper.instance().theme = { palette: { white: { main: '#FFFFFF' } } };
         expect(toJson(wrapper)).toMatchSnapshot();
@@ -474,11 +477,13 @@ describe('Application component', () => {
         });
 
         wrapper.instance().redirectToOrcid();
-        expect(testMethod).toHaveBeenCalledWith(routes.pathConfig.authorIdentifiers.orcid.link);
+        expect(testMethod).toHaveBeenCalledWith(pathConfig.authorIdentifiers.orcid.link);
     });
 
     it('should start loading current user', () => {
         const testMethod = jest.fn();
+        jest.spyOn(Cookies, 'get').mockImplementation(() => true);
+
         setup({
             actions: {
                 loadCurrentAccount: testMethod,

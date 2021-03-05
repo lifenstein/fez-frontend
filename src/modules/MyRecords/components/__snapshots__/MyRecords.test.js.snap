@@ -2,7 +2,7 @@
 
 exports[`MyRecords test component has displayable facets 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -81,7 +81,6 @@ exports[`MyRecords test component has displayable facets 1`] = `
             isMyDataSetPage={false}
             lookupFacetsList={
               Object {
-                "Author": "Author (lookup)",
                 "Collection": "Collection (lookup)",
                 "Subject": "Subject (lookup)",
               }
@@ -104,7 +103,7 @@ exports[`MyRecords test component has displayable facets 1`] = `
 
 exports[`MyRecords test renders active filters 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -187,7 +186,6 @@ exports[`MyRecords test renders active filters 1`] = `
             isMyDataSetPage={false}
             lookupFacetsList={
               Object {
-                "Author": "Author (lookup)",
                 "Collection": "Collection (lookup)",
                 "Subject": "Subject (lookup)",
               }
@@ -210,7 +208,7 @@ exports[`MyRecords test renders active filters 1`] = `
 
 exports[`MyRecords test renders list of publications no facets 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -225,7 +223,7 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
         noHeader={true}
       >
         <span>
-          Displaying records 1 to 20 of 147 total records. 
+          Displaying works 1 to 20 of 147 total works. 
         </span>
         <WithStyles(ForwardRef(Grid))
           container={true}
@@ -256,7 +254,8 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={1000}
               disabled={false}
               initPageLength={20}
               onExportPublications={[Function]}
@@ -299,8 +298,32 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
             item={true}
             xs={12}
           >
-            <PublicationsList
-              hideCountDiff={false}
+            <WithStyles(ConfirmDialogBox)
+              hideCancelButton={true}
+              locale={
+                Object {
+                  "confirmButtonLabel": "Close",
+                  "confirmationMessage": <span
+                    style={
+                      Object {
+                        "display": "block",
+                        "margin": "1em 0",
+                      }
+                    }
+                  >
+                    Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                  </span>,
+                  "confirmationTitle": "Export queued successfully",
+                }
+              }
+              onRef={[Function]}
+            />
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <Memo(PublicationsList)
               publicationsList={
                 Array [
                   1,
@@ -308,14 +331,8 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
                   3,
                 ]
               }
-              publicationsListSubset={Array []}
               showAdminActions={false}
               showDefaultActions={true}
-              showMetrics={false}
-              showSourceCountIcon={false}
-              showSources={false}
-              showUnpublishedBufferFields={false}
-              subsetCustomActions={Array []}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -346,7 +363,7 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
 
 exports[`MyRecords test renders list of publications with custom actions 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -361,7 +378,7 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
         noHeader={true}
       >
         <span>
-          Displaying records 1 to 20 of 147 total records. 
+          Displaying works 1 to 20 of 147 total works. 
         </span>
         <WithStyles(ForwardRef(Grid))
           container={true}
@@ -392,7 +409,8 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={1000}
               disabled={false}
               initPageLength={20}
               onExportPublications={[Function]}
@@ -435,7 +453,32 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
             item={true}
             xs={12}
           >
-            <PublicationsList
+            <WithStyles(ConfirmDialogBox)
+              hideCancelButton={true}
+              locale={
+                Object {
+                  "confirmButtonLabel": "Close",
+                  "confirmationMessage": <span
+                    style={
+                      Object {
+                        "display": "block",
+                        "margin": "1em 0",
+                      }
+                    }
+                  >
+                    Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                  </span>,
+                  "confirmationTitle": "Export queued successfully",
+                }
+              }
+              onRef={[Function]}
+            />
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <Memo(PublicationsList)
               customActions={
                 Array [
                   Object {
@@ -445,7 +488,6 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
                   },
                 ]
               }
-              hideCountDiff={false}
               publicationsList={
                 Array [
                   1,
@@ -453,14 +495,7 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
                   3,
                 ]
               }
-              publicationsListSubset={Array []}
               showAdminActions={false}
-              showDefaultActions={false}
-              showMetrics={false}
-              showSourceCountIcon={false}
-              showSources={false}
-              showUnpublishedBufferFields={false}
-              subsetCustomActions={Array []}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -491,7 +526,7 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
 
 exports[`MyRecords test renders list of publications with facets 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -506,7 +541,7 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
         noHeader={true}
       >
         <span>
-          Displaying records 1 to 20 of 147 total records. 
+          Displaying works 1 to 20 of 147 total works. 
         </span>
         <WithStyles(ForwardRef(Grid))
           container={true}
@@ -537,7 +572,8 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={1000}
               disabled={false}
               initPageLength={20}
               onExportPublications={[Function]}
@@ -580,8 +616,32 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
             item={true}
             xs={12}
           >
-            <PublicationsList
-              hideCountDiff={false}
+            <WithStyles(ConfirmDialogBox)
+              hideCancelButton={true}
+              locale={
+                Object {
+                  "confirmButtonLabel": "Close",
+                  "confirmationMessage": <span
+                    style={
+                      Object {
+                        "display": "block",
+                        "margin": "1em 0",
+                      }
+                    }
+                  >
+                    Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                  </span>,
+                  "confirmationTitle": "Export queued successfully",
+                }
+              }
+              onRef={[Function]}
+            />
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <Memo(PublicationsList)
               publicationsList={
                 Array [
                   1,
@@ -589,14 +649,8 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
                   3,
                 ]
               }
-              publicationsListSubset={Array []}
               showAdminActions={false}
               showDefaultActions={true}
-              showMetrics={false}
-              showSourceCountIcon={false}
-              showSources={false}
-              showUnpublishedBufferFields={false}
-              subsetCustomActions={Array []}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -705,7 +759,6 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
             isMyDataSetPage={false}
             lookupFacetsList={
               Object {
-                "Author": "Author (lookup)",
                 "Collection": "Collection (lookup)",
                 "Subject": "Subject (lookup)",
               }
@@ -728,7 +781,7 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
 
 exports[`MyRecords test renders loading screen while export publications loading 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -771,7 +824,8 @@ exports[`MyRecords test renders loading screen while export publications loading
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={1000}
               disabled={true}
               initPageLength={20}
               onExportPublications={[Function]}
@@ -792,6 +846,31 @@ exports[`MyRecords test renders loading screen while export publications loading
               loading={true}
               onPageChanged={[Function]}
               pagingData={Object {}}
+            />
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <WithStyles(ConfirmDialogBox)
+              hideCancelButton={true}
+              locale={
+                Object {
+                  "confirmButtonLabel": "Close",
+                  "confirmationMessage": <span
+                    style={
+                      Object {
+                        "display": "block",
+                        "margin": "1em 0",
+                      }
+                    }
+                  >
+                    Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                  </span>,
+                  "confirmationTitle": "Export queued successfully",
+                }
+              }
+              onRef={[Function]}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -828,7 +907,7 @@ exports[`MyRecords test renders loading screen while loading account data 1`] = 
 
 exports[`MyRecords test renders loading screen while loading publications  1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -848,7 +927,7 @@ exports[`MyRecords test renders loading screen while loading publications  1`] =
 
 exports[`MyRecords test renders loading screen while loading publications while filtering 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -891,7 +970,8 @@ exports[`MyRecords test renders loading screen while loading publications while 
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={1000}
               disabled={true}
               initPageLength={20}
               onExportPublications={[Function]}
@@ -912,6 +992,31 @@ exports[`MyRecords test renders loading screen while loading publications while 
               loading={true}
               onPageChanged={[Function]}
               pagingData={Object {}}
+            />
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <WithStyles(ConfirmDialogBox)
+              hideCancelButton={true}
+              locale={
+                Object {
+                  "confirmButtonLabel": "Close",
+                  "confirmationMessage": <span
+                    style={
+                      Object {
+                        "display": "block",
+                        "margin": "1em 0",
+                      }
+                    }
+                  >
+                    Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                  </span>,
+                  "confirmationTitle": "Export queued successfully",
+                }
+              }
+              onRef={[Function]}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -946,7 +1051,7 @@ exports[`MyRecords test renders loading screen while loading publications while 
 
 exports[`MyRecords test renders no results 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -1001,7 +1106,7 @@ exports[`MyRecords test renders no results 1`] = `
 
 exports[`MyRecords test should handle export publications 1`] = `
 <StandardPage
-  title="My research"
+  title="My works"
 >
   <WithStyles(ForwardRef(Grid))
     container={true}
@@ -1016,7 +1121,7 @@ exports[`MyRecords test should handle export publications 1`] = `
         noHeader={true}
       >
         <span>
-          Displaying records 1 to 20 of 147 total records. 
+          Displaying works 1 to 20 of 147 total works. 
         </span>
         <WithStyles(ForwardRef(Grid))
           container={true}
@@ -1047,7 +1152,8 @@ exports[`MyRecords test should handle export publications 1`] = `
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={1000}
               disabled={false}
               initPageLength={20}
               onExportPublications={[Function]}
@@ -1058,7 +1164,7 @@ exports[`MyRecords test should handle export publications 1`] = `
                 Object {
                   "current_page": 1,
                   "from": 1,
-                  "per_page": 20,
+                  "per_page": 500,
                   "to": 20,
                   "total": 147,
                 }
@@ -1079,7 +1185,7 @@ exports[`MyRecords test should handle export publications 1`] = `
                 Object {
                   "current_page": 1,
                   "from": 1,
-                  "per_page": 20,
+                  "per_page": 500,
                   "to": 20,
                   "total": 147,
                 }
@@ -1090,8 +1196,32 @@ exports[`MyRecords test should handle export publications 1`] = `
             item={true}
             xs={12}
           >
-            <PublicationsList
-              hideCountDiff={false}
+            <WithStyles(ConfirmDialogBox)
+              hideCancelButton={true}
+              locale={
+                Object {
+                  "confirmButtonLabel": "Close",
+                  "confirmationMessage": <span
+                    style={
+                      Object {
+                        "display": "block",
+                        "margin": "1em 0",
+                      }
+                    }
+                  >
+                    Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                  </span>,
+                  "confirmationTitle": "Export queued successfully",
+                }
+              }
+              onRef={[Function]}
+            />
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <Memo(PublicationsList)
               publicationsList={
                 Array [
                   1,
@@ -1099,14 +1229,8 @@ exports[`MyRecords test should handle export publications 1`] = `
                   3,
                 ]
               }
-              publicationsListSubset={Array []}
               showAdminActions={false}
               showDefaultActions={true}
-              showMetrics={false}
-              showSourceCountIcon={false}
-              showSources={false}
-              showUnpublishedBufferFields={false}
-              subsetCustomActions={Array []}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -1121,7 +1245,7 @@ exports[`MyRecords test should handle export publications 1`] = `
                 Object {
                   "current_page": 1,
                   "from": 1,
-                  "per_page": 20,
+                  "per_page": 500,
                   "to": 20,
                   "total": 147,
                 }
@@ -1215,7 +1339,6 @@ exports[`MyRecords test should handle export publications 1`] = `
             isMyDataSetPage={false}
             lookupFacetsList={
               Object {
-                "Author": "Author (lookup)",
                 "Collection": "Collection (lookup)",
                 "Subject": "Subject (lookup)",
               }

@@ -152,6 +152,7 @@ const prepareThesisSubmission = data => {
         rek_formatted_abstract: data.thesisAbstract.htmlText,
         rek_subtype: data.rek_genre_type,
         rek_genre: DOCUMENT_TYPES_LOOKUP[data.rek_display_type],
+        _thesis_submission_type: data.isHdrThesis ? 'hdr' : 'sbs',
     };
 
     // delete extra form values from request object
@@ -259,9 +260,13 @@ export function submitThesis(data, preCreatedRecord = {}, formName = '', fullyUp
             if (recordCreated) {
                 const record = getRecord(true);
                 Raven.captureException(error);
-                return post(RECORDS_ISSUES_API({ pid: record.rek_pid }), {
-                    issue: `The submitter had issues uploading files on this record: ${record.rek_pid}`,
-                });
+
+                // Do not report retry failures to Eventum
+                if (!preCreatedRecord.rek_pid) {
+                    return post(RECORDS_ISSUES_API({ pid: record.rek_pid }), {
+                        issue: `The submitter had issues uploading files on this record: ${record.rek_pid}`,
+                    });
+                }
             }
 
             // Otherwise, it's the rejection from record creation failure. Pass it on.
@@ -280,7 +285,7 @@ export function submitThesis(data, preCreatedRecord = {}, formName = '', fullyUp
                     payload: error.message,
                 });
             }
-            return (recordCreated && Promise.resolve(newRecord)) || Promise.reject(error);
+            return (recordCreated && !preCreatedRecord.rek_pid && Promise.resolve(newRecord)) || Promise.reject(error);
         };
 
         return submission
@@ -452,6 +457,7 @@ const getAdminRecordRequest = data => {
         'bibliographicSection',
         'authorsSection',
         'grantInformationSection',
+        'notesSection',
         'ntroSection',
         'filesSection',
         'securitySection',
@@ -473,6 +479,7 @@ const getAdminRecordRequest = data => {
             ...transformers.getNtroSectionSearchKeys(data.ntroSection),
             ...transformers.getFilesSectionSearchKeys(restFilesSection),
             ...transformers.getSecuritySectionSearchKeys(data.securitySection),
+            ...transformers.getNotesSectionSearchKeys(data.notesSection),
             ...transformers.getDatastreamInfo(
                 (data.publication || {}).fez_datastream_info || [],
                 (data.filesSection || {}).fez_datastream_info || [],
@@ -480,7 +487,12 @@ const getAdminRecordRequest = data => {
             ),
         },
         hasFilesToUpload,
-        hasFilesToUpload ? transformers.getRecordFileAttachmentSearchKey(files.queue) : null,
+        hasFilesToUpload
+            ? transformers.getRecordFileAttachmentSearchKey(files.queue, {
+                  ...data.publication,
+                  ...data.adminSection,
+              })
+            : null,
     ];
 };
 
@@ -510,13 +522,23 @@ export function adminUpdate(data) {
                     : put(EXISTING_RECORD_API({ pid: data.publication.rek_pid }), patchRecordRequest),
             )
             .then(response => {
-                dispatch({
-                    type: actions.ADMIN_UPDATE_WORK_SUCCESS,
-                    payload: {
-                        pid: response.data,
-                    },
-                });
-                return Promise.resolve(response);
+                if (response.status === 201) {
+                    dispatch({
+                        type: actions.ADMIN_UPDATE_WORK_JOB_CREATED,
+                        payload: {
+                            pid: response,
+                        },
+                    });
+                    return Promise.resolve(response);
+                } else {
+                    dispatch({
+                        type: actions.ADMIN_UPDATE_WORK_SUCCESS,
+                        payload: {
+                            pid: response.data,
+                        },
+                    });
+                    return Promise.resolve(response);
+                }
             })
             .catch(error => {
                 dispatch({
@@ -634,5 +656,134 @@ export const unlockRecord = (pid, unlockRecordCallback) => {
                 });
                 return Promise.reject(false);
             });
+    };
+};
+
+/**
+ * Change author ID action
+ *
+ * @param {array} records
+ * @param {object} data
+ */
+export const changeAuthorId = (records, data) => {
+    const changeAuthorIdRequest = transformers.getChangeAuthorIdValues(records, data);
+    return async dispatch => {
+        dispatch({
+            type: actions.CHANGE_AUTHOR_ID_INPROGRESS,
+        });
+        try {
+            const response = await patch(NEW_RECORD_API(), changeAuthorIdRequest);
+            dispatch({
+                type: actions.CHANGE_AUTHOR_ID_SUCCESS,
+                payload: response,
+            });
+
+            return Promise.resolve(response);
+        } catch (e) {
+            dispatch({
+                type: actions.CHANGE_AUTHOR_ID_FAILED,
+                payload: e,
+            });
+
+            return Promise.reject(e);
+        }
+    };
+};
+
+/**
+ * Change display type action
+ *
+ * @param {array} records
+ * @param {object} data
+ * @param {bool} isBulkUpdate
+ */
+export const changeDisplayType = (records, data, isBulkUpdate = false) => {
+    const changeDisplayTypeRequest = records.map(record => ({
+        rek_pid: record.rek_pid,
+        ...data,
+    }));
+    return async dispatch => {
+        dispatch({
+            type: actions.CHANGE_DISPLAY_TYPE_INPROGRESS,
+        });
+        try {
+            const response = await patch(
+                isBulkUpdate ? NEW_RECORD_API() : EXISTING_RECORD_API({ pid: records[0].rek_pid }),
+                isBulkUpdate ? changeDisplayTypeRequest : changeDisplayTypeRequest[0],
+            );
+            dispatch({
+                type: actions.CHANGE_DISPLAY_TYPE_SUCCESS,
+                payload: response,
+            });
+
+            return Promise.resolve(response);
+        } catch (e) {
+            dispatch({
+                type: actions.CHANGE_DISPLAY_TYPE_FAILED,
+                payload: e,
+            });
+
+            return Promise.reject(e);
+        }
+    };
+};
+
+export const changeSearchKeyValue = (records, data) => {
+    const changeSearchKeyValueRequest = transformers.getChangeSearchKeyValues(records, data);
+
+    return async dispatch => {
+        dispatch({
+            type: actions.CHANGE_SEARCH_KEY_VALUE_INPROGRESS,
+        });
+        try {
+            const response = await patch(NEW_RECORD_API(), changeSearchKeyValueRequest);
+            dispatch({
+                type: actions.CHANGE_SEARCH_KEY_VALUE_SUCCESS,
+                payload: response,
+            });
+
+            return Promise.resolve(response);
+        } catch (e) {
+            dispatch({
+                type: actions.CHANGE_SEARCH_KEY_VALUE_FAILED,
+                payload: e,
+            });
+
+            return Promise.reject(e);
+        }
+    };
+};
+
+/**
+ * Change display type action
+ *
+ * @param {array} records
+ * @param {object} data
+ * @param {bool} isRemoveFrom
+ */
+export const copyToOrRemoveFromCollection = (records, data, isRemoveFrom = false) => {
+    const copyToOrRemoveFromCollectionRequest = isRemoveFrom
+        ? transformers.getRemoveFromCollectionData(records, data)
+        : transformers.getCopyToCollectionData(records, data);
+    return async dispatch => {
+        dispatch({
+            type: actions.CHANGE_COLLECTIONS_INPROGRESS,
+        });
+        try {
+            const response = await patch(NEW_RECORD_API(), copyToOrRemoveFromCollectionRequest);
+            dispatch({
+                type: actions.CHANGE_COLLECTIONS_SUCCESS,
+                payload: response,
+            });
+
+            return Promise.resolve(response);
+        } catch (e) {
+            dispatch({
+                type: actions.CHANGE_COLLECTIONS_FAILED,
+                payload: e,
+            });
+
+            return Promise.reject(e);
+        }
     };
 };

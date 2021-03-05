@@ -5,10 +5,11 @@ import MyRecords from '../components/MyRecords';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from 'actions';
-import { routes } from 'config';
+import { pathConfig } from 'config';
 
 const mapStateToProps = state => {
     return {
+        authorDetails: state.get('accountReducer').authorDetails || {},
         accountLoading: state.get('accountReducer').accountLoading,
         ...state.get('publicationsReducer').datasets,
         ...state.get('exportPublicationsReducer'),
@@ -16,7 +17,7 @@ const mapStateToProps = state => {
             filters: { 'Display type': general.PUBLICATION_TYPE_DATA_COLLECTION },
         },
         localePages: locale.pages.myDatasets,
-        thisUrl: routes.pathConfig.dataset.mine,
+        thisUrl: pathConfig.dataset.mine,
     };
 };
 

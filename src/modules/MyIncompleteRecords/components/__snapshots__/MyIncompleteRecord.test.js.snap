@@ -5,7 +5,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -15,7 +15,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -453,9 +453,8 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -473,7 +472,6 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -627,24 +625,26 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -686,6 +686,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -824,6 +825,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -876,6 +878,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -934,7 +937,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -944,7 +947,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -1382,9 +1385,8 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
         }
         when={false}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -1402,7 +1404,6 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -1556,24 +1557,26 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -1615,6 +1618,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -1753,6 +1757,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -1805,6 +1810,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -1881,7 +1887,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -1891,7 +1897,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -2329,9 +2335,8 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -2349,7 +2354,6 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -2503,24 +2507,26 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -2562,6 +2568,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -2700,6 +2707,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -2752,6 +2760,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -2797,14 +2806,16 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                         (two periods are allowed for multipart zip files. Allowed formats for part description are: e.g. “.001 ... .999”, “.r01 ... .r999” and “.part1 ... .part999”)
                       </li>
                       <li>
-                        file names have one of the following extensions: 7z, avi, csv, gif, gsheet, gz, jpe, jpeg, jpg, m1v, m2v, m4a, mk3d, mks, mkv, mov, mp3, mp4, mp4v, mpe, mpeg, mpg, ods, pdf, png, qt, rar, tar, tif, tiff, wav, wma, wmv, xla, xlc, xlm, xls, xlsx, xlt, xlw, zip
+                        file names have one of the following extensions: 7z, avi, csv, gif, gsheet, gz, jpe, jpeg, jpg, m1v, m2v, m4a, mk3d, mks, mkv, mov, mp3, mp4, mp4v, mpe, mpeg, mpg, mxf, ods, pdf, png, qt, rar, tar, tif, tiff, wav, wma, wmv, xla, xlc, xlm, xls, xlsx, xlt, xlw, zip
                       </li>
                       <li>
                         files are uploaded individually and not inside a folder
                       </li>
                     </ul>
                   </div>,
+                  "fileUploadRow": Object {},
                   "instructions": "",
+                  "ntroSpecificInstructions": "",
                   "successMessage": "Successfully added [numberOfFiles] file(s) to upload queue.",
                   "successTitle": "Success",
                   "validation": Object {
@@ -2812,6 +2823,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                     "invalidFileNames": "File(s) ([fileNames]) have invalid file name",
                     "invalidMimeTypeFiles": "File(s) ([fileNames]) are not supported",
                     "notFiles": "Invalid files ([fileNames])",
+                    "sameFileNameWithDifferentExt": "",
                     "tooBigFiles": "File(s) ([fileNames]) exceed maximum allowed upload file size",
                     "tooManyFiles": "Maximum number of files ([maxNumberOfFiles]) has been exceeded. File(s) ([fileNames]) will not be uploaded",
                   },
@@ -2894,7 +2906,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -2904,7 +2916,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -3342,9 +3354,8 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -3362,7 +3373,6 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -3516,24 +3526,26 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -3575,6 +3587,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -3713,6 +3726,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -3765,6 +3779,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -3823,7 +3838,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -3833,7 +3848,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -4271,9 +4286,8 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -4291,7 +4305,6 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -4445,24 +4458,26 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -4504,6 +4519,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -4642,6 +4658,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -4694,6 +4711,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -4752,7 +4770,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -4762,7 +4780,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -5200,9 +5218,8 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -5220,7 +5237,6 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -5374,24 +5390,26 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -5433,6 +5451,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -5571,6 +5590,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -5623,6 +5643,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -5681,7 +5702,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -5691,7 +5712,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -6129,9 +6150,8 @@ exports[`Component MyIncompleteRecord should render significance and contributio
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -6149,7 +6169,6 @@ exports[`Component MyIncompleteRecord should render significance and contributio
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -6303,24 +6322,26 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -6362,6 +6383,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -6500,6 +6522,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -6552,6 +6575,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -6610,7 +6634,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -6620,7 +6644,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -7058,9 +7082,8 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -7078,7 +7101,6 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -7232,24 +7254,26 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -7291,6 +7315,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -7429,6 +7454,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -7481,6 +7507,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -7539,7 +7566,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -7549,7 +7576,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -7987,9 +8014,8 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -8020,7 +8046,6 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -8174,24 +8199,26 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -8233,6 +8260,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -8371,6 +8399,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -8423,6 +8452,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -8481,7 +8511,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -8491,7 +8521,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -8929,9 +8959,8 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -8949,7 +8978,6 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -9103,24 +9131,26 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -9162,6 +9192,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -9300,6 +9331,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -9352,6 +9384,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>
@@ -9410,7 +9443,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
   help={
     Object {
       "buttonLabel": "CLOSE",
-      "text": <div>
+      "text": <p>
         For help, click
          
         <a
@@ -9420,7 +9453,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
           here
         </a>
         .
-      </div>,
+      </p>,
       "title": "Add more information to an existing NTRO",
     }
   }
@@ -9858,9 +9891,8 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
         }
         when={true}
       />
-      <ConfirmationBox
+      <Memo(ConfirmationBox)
         confirmationBoxId="submit-succeeded"
-        hideCancelButton={false}
         isOpen={false}
         locale={
           Object {
@@ -9878,7 +9910,6 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
         onAction={[Function]}
         onCancelAction={[Function]}
         onClose={[Function]}
-        showAlternateActionButton={false}
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -10032,24 +10063,26 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                 "help": Object {
                   "buttonLabel": "CLOSE",
                   "text": <React.Fragment>
-                    <h3>
+                    <WithStyles(ForwardRef(Typography))
+                      component="h4"
+                      variant="h6"
+                    >
                       Creator research statement
-                    </h3>
+                    </WithStyles(ForwardRef(Typography))>
                     <p>
                       For more information about the research statement, click
-                      <b>
-                        <a
-                          href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
-                          style={
-                            Object {
-                              "fontWeight": 700,
-                            }
+                       
+                      <a
+                        href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets/ntro-submission-requirements#s-lg-box-20836548"
+                        style={
+                          Object {
+                            "fontWeight": 700,
                           }
-                          target="_blank"
-                        >
-                          here
-                        </a>
-                      </b>
+                        }
+                        target="_blank"
+                      >
+                        here
+                      </a>
                     </p>
                   </React.Fragment>,
                   "title": "Author/Creator research statement",
@@ -10091,6 +10124,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   },
                   "language": Object {
                     "label": "Language",
+                    "selectPrompt": "Please select languages as required",
                   },
                   "notes": Object {
                     "label": "Notes",
@@ -10229,6 +10263,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                       </div>,
                       "identifierColumn": "UQ identifier / Organisation",
                       "nameColumn": "Author's name as published",
+                      "organisationColumn": "Organisation",
                       "reorderColumn": "Reorder items",
                     },
                   },
@@ -10281,6 +10316,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   "marginTop": -24,
                 }
               }
+              textFieldId="comments"
               type="text"
             />
           </StandardCard>

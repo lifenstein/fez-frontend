@@ -142,6 +142,11 @@ exports[`BookChapterCitation renders  component with a mock espace record 1`] = 
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -1776,6 +1781,11 @@ exports[`BookChapterCitation renders  component with a mock espace record 1`] = 
                             "textOverflow": "ellipsis",
                             "whiteSpace": "nowrap",
                             "width": "100%",
+                          },
+                        },
+                        "MuiIconButton": Object {
+                          "colorInherit": Object {
+                            "color": "none",
                           },
                         },
                         "MuiMenuItem": Object {
@@ -3560,6 +3570,11 @@ exports[`BookChapterCitation renders  component with a mock espace record 1`] = 
                               "width": "100%",
                             },
                           },
+                          "MuiIconButton": Object {
+                            "colorInherit": Object {
+                              "color": "none",
+                            },
+                          },
                           "MuiMenuItem": Object {
                             "root": Object {
                               "&$selected": Object {
@@ -3884,6 +3899,7 @@ exports[`BookChapterCitation renders  component with a mock espace record 1`] = 
                         </span>
                       </CitationView>
                       , 
+                       and 
                       <CitationView
                         citationId="rek-contributor-2"
                         className="citationAuthor"
@@ -5324,6 +5340,11 @@ exports[`BookChapterCitation renders  component with a mock espace record 1`] = 
                                 "width": "100%",
                               },
                             },
+                            "MuiIconButton": Object {
+                              "colorInherit": Object {
+                                "color": "none",
+                              },
+                            },
                             "MuiMenuItem": Object {
                               "root": Object {
                                 "&$selected": Object {
@@ -5622,7 +5643,7 @@ exports[`BookChapterCitation renders  component with a mock espace record 1`] = 
                         target="_blank"
                         title="Open this DOI in an new window"
                       >
-                        <ForwardRef
+                        <OpenInNewIcon
                           className="ExternalLink-externalLinkIcon-3"
                         >
                           <WithStyles(ForwardRef(SvgIcon))
@@ -5656,7 +5677,7 @@ exports[`BookChapterCitation renders  component with a mock espace record 1`] = 
                               </svg>
                             </ForwardRef(SvgIcon)>
                           </WithStyles(ForwardRef(SvgIcon))>
-                        </ForwardRef>
+                        </OpenInNewIcon>
                         https://doi.org/10.1007/978-94-017-7417-8_7
                       </a>
                     </ExternalLink>
@@ -5812,6 +5833,11 @@ exports[`BookChapterCitation renders  component with empty publication 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -6200,6 +6226,11 @@ exports[`BookChapterCitation renders  component with empty publication 1`] = `
                             "textOverflow": "ellipsis",
                             "whiteSpace": "nowrap",
                             "width": "100%",
+                          },
+                        },
+                        "MuiIconButton": Object {
+                          "colorInherit": Object {
+                            "color": "none",
                           },
                         },
                         "MuiMenuItem": Object {
@@ -6638,6 +6669,11 @@ exports[`BookChapterCitation renders  component with empty publication 1`] = `
                               "textOverflow": "ellipsis",
                               "whiteSpace": "nowrap",
                               "width": "100%",
+                            },
+                          },
+                          "MuiIconButton": Object {
+                            "colorInherit": Object {
+                              "color": "none",
                             },
                           },
                           "MuiMenuItem": Object {

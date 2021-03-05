@@ -1,7 +1,7 @@
 import React from 'react';
 import AdvancedSearchComponent from './AdvancedSearchComponent';
 import moment from 'moment';
-import { rtlRender, fireEvent, waitFor, act } from 'test-utils';
+import { render, WithReduxStore, WithRouter, fireEvent, waitFor, act } from 'test-utils';
 
 function setup(testProps = {}) {
     const props = {
@@ -18,7 +18,13 @@ function setup(testProps = {}) {
         onAdvancedSearchRowChange: jest.fn(),
         ...testProps,
     };
-    return rtlRender(<AdvancedSearchComponent {...props} />);
+    return render(
+        <WithRouter>
+            <WithReduxStore>
+                <AdvancedSearchComponent {...props} />
+            </WithReduxStore>
+        </WithRouter>,
+    );
 }
 
 describe('AdvancedSearchComponent', () => {
@@ -28,7 +34,7 @@ describe('AdvancedSearchComponent', () => {
         expect(getByText(/please select a field to search/i)).toBeInTheDocument();
         expect(getByTestId('add-another-search-row').disabled).toBeTruthy();
         expect(getByTestId('initial-input').disabled).toBeTruthy();
-        expect(getByTestId('advancedSearchButton')).toBeInTheDocument();
+        expect(getByTestId('advanced-search')).toBeInTheDocument();
     });
 
     it('should render minimised view', () => {
@@ -47,7 +53,7 @@ describe('AdvancedSearchComponent', () => {
         expect(getByText(/please select a field to search/i)).toBeInTheDocument();
         expect(getByTestId('add-another-search-row').disabled).toBeTruthy();
         expect(getByTestId('initial-input').disabled).toBeTruthy();
-        expect(getByTestId('advancedSearchButton')).toBeInTheDocument();
+        expect(getByTestId('advanced-search')).toBeInTheDocument();
         expect(getByText('open access/full text')).toBeInTheDocument();
 
         fireEvent.click(getByTestId('advanced-search-open-access'));
@@ -62,7 +68,7 @@ describe('AdvancedSearchComponent', () => {
         expect(getByText(/advanced search/i)).toBeInTheDocument();
         expect(getByTestId('any-field-input').value).toEqual('i feel lucky');
         expect(getByTestId('add-another-search-row').disabled).toBeFalsy();
-        expect(getByTestId('advancedSearchButton')).toBeInTheDocument();
+        expect(getByTestId('advanced-search')).toBeInTheDocument();
         expect(getByText('open access/full text')).toBeInTheDocument();
     });
 
@@ -117,8 +123,8 @@ describe('AdvancedSearchComponent', () => {
             onAdvancedSearchRowChange: testFn,
         });
 
-        fireEvent.mouseDown(getByTestId('field-type-selector'));
-        const list = await waitFor(() => getByTestId('menu-field-type-selector'));
+        fireEvent.mouseDown(getByTestId('field-type-select'));
+        const list = await waitFor(() => getByTestId('field-type-options'));
         fireEvent.click(getByText(/any field/i, list));
         expect(testFn).toHaveBeenCalledWith(0, { searchField: 'all', value: '', label: '' });
     });
@@ -162,7 +168,7 @@ describe('AdvancedSearchComponent', () => {
             ],
         };
         const { getByTestId } = setup({ ...thisProps });
-        expect(getByTestId('advancedSearchButton').disabled).toBeFalsy();
+        expect(getByTestId('advanced-search').disabled).toBeFalsy();
     });
 
     it('should render advanced search docTypes with checked values based on props', async () => {
@@ -265,7 +271,7 @@ describe('AdvancedSearchComponent', () => {
             fireEvent.change(getByTestId('created-range-to-date'), { target: { value: '10/11/2013' } });
         });
 
-        fireEvent.click(getByTestId('advancedSearchButton'));
+        fireEvent.click(getByTestId('advanced-search'));
 
         expect(onSearchFn).toHaveBeenCalledWith();
     });

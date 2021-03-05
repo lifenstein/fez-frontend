@@ -1,7 +1,12 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { default as txt } from './components';
-import { fileUploaderLocale, CLOSED_ACCESS_ID } from 'modules/SharedComponents/Toolbox/FileUploader';
+import {
+    fileUploaderLocale,
+    FILE_ACCESS_CONDITION_OPEN,
+    FILE_ACCESS_CONDITION_CLOSED,
+} from 'modules/SharedComponents/Toolbox/FileUploader';
+import { selectFields } from 'locale/selectFields';
 
 export default {
     cancel: 'Abandon and search again',
@@ -517,11 +522,16 @@ export default {
     thesis: {
         information: {
             title: 'Thesis information',
-            hdrRedirectActionButtonLabel: 'Visit now',
-            nonHdrWarningMessage: 'If you are trying to submit your UQ HDR thesis, please use the HDR submission form',
-            hdrRedirectMessage:
-                "HDR theses cannot be submitted via 'Add a missing work' - use the official submission link to upload your thesis",
-            hdrRedirectAlertTitle: 'Redirect',
+            actionButtonLabel: 'Upload HDR thesis',
+            message: (
+                <React.Fragment>
+                    <p>
+                        Are you submitting a UQ Higher Degree Research (HDR) thesis? If yes, click the UPLOAD HDR THESIS
+                        button to submit.
+                    </p>
+                    <p> To deposit another thesis type, use the form below.</p>
+                </React.Fragment>
+            ),
             // help: {
             //     title: 'Thesis information',
             //     text: 'Some help',
@@ -547,7 +557,7 @@ export default {
                     year: 'Year',
                 },
                 thesisType: {
-                    label: 'Thesis type',
+                    ...selectFields.thesisSubtype,
                 },
                 author: {
                     label: 'Author name',
@@ -1285,11 +1295,18 @@ export default {
             failedAlertLocale: {
                 type: 'error',
                 title: 'FILE UPLOAD ERROR',
-                message:
+                messageWithRetry:
                     "There was an issue uploading your thesis files. You can try uploading again by clicking the 'Retry upload' button, but if you continue to have trouble uploading, please contact [linkStart]the Graduate School[linkEnd].",
+                message:
+                    'Not all files were uploaded. Please contact [linkStart]the Graduate School[linkEnd] for assistance.',
                 emailRecipient: 'thesis@gradschool.uq.edu.au',
                 emailSubject: 'Problem with Submission to UQ eSpace - [studentFullName], [studentNumber]',
                 actionButtonLabel: 'Retry upload',
+            },
+            retrySuccessLocale: {
+                type: 'done',
+                title: 'FILE UPLOAD SUCCESS',
+                message: 'File upload retry succeeded.',
             },
             locale: {
                 instructions: '',
@@ -1307,13 +1324,12 @@ export default {
                 successTitle: 'Success',
                 successMessage: 'Successfully added [numberOfFiles] file(s) to upload queue.',
                 delayNotice: 'Notice',
-                delayMessage:
-                    'During peak times, there may be a delay before newly uploaded files appear on the record.',
+                delayMessage: 'During peak times, there may be a delay before newly uploaded files appear on the work.',
                 errorTitle: 'Upload Errors',
                 fileUploadRestrictionHeading: 'File upload restrictions',
                 fileUploadRestrictions: (
                     <div>
-                        Maximum file size is 8GB. <br />
+                        Maximum file size is 5GB. <br />
                         PDF files must be saved using the following naming structure{' '}
                         <b>&lt;student number&gt;_&lt;degree type&gt;_&lt;document name&gt;.pdf</b>. Document name could
                         be thesis, abstract, and etc. For example:
@@ -1399,13 +1415,12 @@ export default {
                 successTitle: 'Success',
                 successMessage: 'Successfully added [numberOfFiles] file(s) to upload queue.',
                 delayNotice: 'Notice',
-                delayMessage:
-                    'During peak times, there may be a delay before newly uploaded files appear on the record.',
+                delayMessage: 'During peak times, there may be a delay before newly uploaded files appear on the work.',
                 errorTitle: 'Upload Errors',
                 fileUploadRestrictionHeading: 'File upload restrictions',
                 fileUploadRestrictions: (
                     <div>
-                        Maximum file size is 8GB. <br />
+                        Maximum file size is 5GB. <br />
                         PDF files must be saved using the following naming structure{' '}
                         <b>&lt;student number&gt;_&lt;degree type&gt;_&lt;document name&gt;.pdf</b>. Document name could
                         be thesis, abstract, and etc. For example:
@@ -1572,8 +1587,8 @@ export default {
                 title: 'Dataset details',
                 fieldLabels: {
                     typeOfData: {
-                        label: 'Describe type of data',
-                        placeholder: 'Type of data represented in the dataset e.g. excel file, images, video',
+                        label: 'Describe type',
+                        placeholder: 'Type represented in the dataset e.g. excel file, images, video',
                     },
                     softwareRequired: {
                         label: 'Software required',
@@ -1662,10 +1677,10 @@ export default {
                     ...fileUploaderLocale.fileUploadRow,
                     fileUploadRowAccessSelector: {
                         ...fileUploaderLocale.fileUploadRow.fileUploadRowAccessSelector,
-                        accessSelectOptionsText: {
-                            ...fileUploaderLocale.fileUploadRow.fileUploadRowAccessSelector.accessSelectOptionsText,
-                            [CLOSED_ACCESS_ID]: 'Mediated Access',
-                        },
+                        options: [
+                            { text: 'Open Access', value: FILE_ACCESS_CONDITION_OPEN },
+                            { text: 'Mediated Access', value: FILE_ACCESS_CONDITION_CLOSED },
+                        ],
                     },
                 },
             },
@@ -1680,8 +1695,8 @@ export default {
         },
         formLabels: {
             ismemberof: {
-                label: 'Select community',
-                placeholder: 'Select a community this collection is a member of',
+                ...selectFields.community,
+                selectPrompt: 'Select a community this collection is a member of',
             },
             title: {
                 label: 'Title of collection',

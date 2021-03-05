@@ -1,6 +1,6 @@
 import React from 'react';
 import { APP_URL } from 'config/general';
-import { pathConfig } from 'config/routes';
+import { pathConfig } from 'config/pathConfig';
 
 /*
 
@@ -66,6 +66,14 @@ export default {
             message: 'Login to UQ eSpace for full search results and more services.',
             type: 'info_outline',
             actionButtonLabel: 'Click to login',
+            alertId: 'login',
+        },
+        loginAlertForFiles: {
+            title: 'You are not logged in',
+            message: 'Login to UQ eSpace to access the files on this work',
+            type: 'info_outline',
+            actionButtonLabel: 'Click to login',
+            alertId: 'login-info-alert',
         },
         errorMessages: {
             401: {
@@ -81,6 +89,10 @@ export default {
             404: {
                 message: 'The requested page could not be found.',
                 status: 404,
+            },
+            409: {
+                message: 'Duplicate entry',
+                status: 409,
             },
             410: {
                 message: 'This work has been deleted.',
@@ -109,17 +121,20 @@ export default {
             title: 'You are not registered in UQ eSpace as an author',
             message: 'Please contact the UQ eSpace administrator to resolve this.',
             type: 'info_outline',
+            alertId: 'not-registered-author',
         },
         noOrcidAlert: {
             title: 'ORCID ID REQUIRED',
             message: 'You do not have an ORCID ID linked to your UQ eSpace.',
             type: 'warning',
             actionButtonLabel: 'Click here to link or register',
+            alertId: 'orcid-optional',
         },
         forceOrcidLinkAlert: {
             title: 'ORCID ID REQUIRED',
             message: 'Before you can start using UQ eSpace you have to link your UQ eSpace profile to your ORCID ID.',
             type: 'error_outline',
+            alertId: 'orcid-required',
         },
         discardFormChangesConfirmation: {
             confirmationTitle: 'Discard changes?',

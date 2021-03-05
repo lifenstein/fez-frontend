@@ -2,7 +2,7 @@ import commonFields from './commonFields';
 
 export default {
     ...commonFields,
-    bibliographic: (isLote = false) => [
+    bibliographic: ({ isLote = false }) => [
         {
             title: 'Title',
             groups: [['rek_title'], ...(isLote ? [['fez_record_search_key_translated_title']] : [])],
@@ -22,7 +22,7 @@ export default {
                 ['fez_record_search_key_rights'],
                 ['fez_record_search_key_transcript'],
                 ['rek_description'],
-                ['rek_genre'],
+                ['fez_record_search_key_type_of_data'],
                 ['fez_record_search_key_original_format'],
             ],
         },
@@ -37,6 +37,10 @@ export default {
         {
             title: 'Subject',
             groups: [['subjects']],
+        },
+        {
+            title: 'Related publications', // Succeeds
+            groups: [['fez_record_search_key_isderivationof']],
         },
     ],
     authors: () => [
@@ -59,21 +63,10 @@ export default {
             groups: [
                 ['fez_record_search_key_oa_status', 'fez_record_search_key_oa_status_type'],
                 ['fez_record_search_key_license'],
-                ['additionalNotes'],
             ],
-        },
-        {
-            title: 'Notes',
-            groups: [['internalNotes'], ['rek_herdc_notes']],
         },
     ],
     ntro: () => [],
 };
 
-export const validateManuscript = ({ filesSection: fs }, { validationErrorsSummary: summary }) => ({
-    filesSection: {
-        ...((fs || {}).rek_copyright !== 'on' && {
-            rek_copyright: summary.rek_copyright,
-        }),
-    },
-});
+export const validateManuscript = () => ({});

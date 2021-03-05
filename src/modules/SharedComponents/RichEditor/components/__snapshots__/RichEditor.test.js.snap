@@ -142,6 +142,11 @@ exports[`RichEditor should render component 1`] = `
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -441,12 +446,16 @@ exports[`RichEditor should render component 1`] = `
               Object {
                 "current": <div
                   class=""
+                  data-testid="rek-test"
+                  id="rek-test"
                 />,
               }
             }
             instanceRef={
               Object {
                 "current": Object {
+                  "id": "rek-test-editor",
+                  "name": "rek-test-editor",
                   "on": [MockFunction] {
                     "calls": Array [
                       Array [
@@ -455,6 +464,10 @@ exports[`RichEditor should render component 1`] = `
                       ],
                       Array [
                         "change",
+                        [Function],
+                      ],
+                      Array [
+                        "contentDom",
                         [Function],
                       ],
                     ],
@@ -467,8 +480,13 @@ exports[`RichEditor should render component 1`] = `
                         "type": "return",
                         "value": undefined,
                       },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
                     ],
                   },
+                  "setData": [MockFunction],
                   "setReadOnly": [MockFunction],
                 },
               }
@@ -476,12 +494,15 @@ exports[`RichEditor should render component 1`] = `
             onChange={[MockFunction]}
             required={false}
             returnSingleValue={false}
+            richEditorId="rek-test"
             titleProps={Object {}}
             value=""
           >
             <span />
             <div
               className=""
+              data-testid="rek-test"
+              id="rek-test"
             />
           </RichEditor>
         </MuiPickersUtilsProvider>
@@ -633,6 +654,11 @@ exports[`RichEditor should render error as one child 1`] = `
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -932,12 +958,16 @@ exports[`RichEditor should render error as one child 1`] = `
               Object {
                 "current": <div
                   class=""
+                  data-testid="rek-test"
+                  id="rek-test"
                 />,
               }
             }
             instanceRef={
               Object {
                 "current": Object {
+                  "id": "rek-test-editor",
+                  "name": "rek-test-editor",
                   "on": [MockFunction] {
                     "calls": Array [
                       Array [
@@ -948,8 +978,50 @@ exports[`RichEditor should render error as one child 1`] = `
                         "change",
                         [Function],
                       ],
+                      Array [
+                        "contentDom",
+                        [Function],
+                      ],
                     ],
                     "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
+                  "setData": [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        "This is test value",
+                      ],
+                      Array [
+                        undefined,
+                      ],
+                      Array [
+                        undefined,
+                      ],
+                      Array [
+                        undefined,
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
                       Object {
                         "type": "return",
                         "value": undefined,
@@ -976,6 +1048,7 @@ exports[`RichEditor should render error as one child 1`] = `
             onChange={[MockFunction]}
             required={false}
             returnSingleValue={false}
+            richEditorId="rek-test"
             titleProps={Object {}}
             value={
               Object {
@@ -999,6 +1072,8 @@ exports[`RichEditor should render error as one child 1`] = `
             <span />
             <div
               className=""
+              data-testid="rek-test"
+              id="rek-test"
             />
             <WithStyles(ForwardRef(Typography))
               color="error"
@@ -1288,6 +1363,11 @@ exports[`RichEditor should render error as react children 1`] = `
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -1587,12 +1667,16 @@ exports[`RichEditor should render error as react children 1`] = `
               Object {
                 "current": <div
                   class=""
+                  data-testid="rek-test"
+                  id="rek-test"
                 />,
               }
             }
             instanceRef={
               Object {
                 "current": Object {
+                  "id": "rek-test-editor",
+                  "name": "rek-test-editor",
                   "on": [MockFunction] {
                     "calls": Array [
                       Array [
@@ -1603,8 +1687,43 @@ exports[`RichEditor should render error as react children 1`] = `
                         "change",
                         [Function],
                       ],
+                      Array [
+                        "contentDom",
+                        [Function],
+                      ],
                     ],
                     "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
+                  "setData": [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        "This is test value",
+                      ],
+                      Array [
+                        undefined,
+                      ],
+                      Array [
+                        undefined,
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
                       Object {
                         "type": "return",
                         "value": undefined,
@@ -1633,6 +1752,7 @@ exports[`RichEditor should render error as react children 1`] = `
             onChange={[MockFunction]}
             required={false}
             returnSingleValue={false}
+            richEditorId="rek-test"
             titleProps={Object {}}
             value={
               Object {
@@ -1656,6 +1776,8 @@ exports[`RichEditor should render error as react children 1`] = `
             <span />
             <div
               className=""
+              data-testid="rek-test"
+              id="rek-test"
             />
             <WithStyles(ForwardRef(Typography))
               color="error"
@@ -1949,6 +2071,11 @@ exports[`RichEditor should render error showing input length 1`] = `
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -2248,12 +2375,16 @@ exports[`RichEditor should render error showing input length 1`] = `
               Object {
                 "current": <div
                   class=""
+                  data-testid="rek-test"
+                  id="rek-test"
                 />,
               }
             }
             instanceRef={
               Object {
                 "current": Object {
+                  "id": "rek-test-editor",
+                  "name": "rek-test-editor",
                   "on": [MockFunction] {
                     "calls": Array [
                       Array [
@@ -2263,6 +2394,34 @@ exports[`RichEditor should render error showing input length 1`] = `
                       Array [
                         "change",
                         [Function],
+                      ],
+                      Array [
+                        "contentDom",
+                        [Function],
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
+                  "setData": [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        "This is test value",
+                      ],
+                      Array [
+                        undefined,
                       ],
                     ],
                     "results": Array [
@@ -2290,6 +2449,7 @@ exports[`RichEditor should render error showing input length 1`] = `
             onChange={[MockFunction]}
             required={false}
             returnSingleValue={false}
+            richEditorId="rek-test"
             titleProps={Object {}}
             value={
               Object {
@@ -2313,6 +2473,8 @@ exports[`RichEditor should render error showing input length 1`] = `
             <span />
             <div
               className=""
+              data-testid="rek-test"
+              id="rek-test"
             />
             <WithStyles(ForwardRef(Typography))
               color="error"
@@ -2602,6 +2764,11 @@ exports[`RichEditor should render error showing maxValue and instructions 1`] = 
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -2901,12 +3068,16 @@ exports[`RichEditor should render error showing maxValue and instructions 1`] = 
               Object {
                 "current": <div
                   class=""
+                  data-testid="rek-test"
+                  id="rek-test"
                 />,
               }
             }
             instanceRef={
               Object {
                 "current": Object {
+                  "id": "rek-test-editor",
+                  "name": "rek-test-editor",
                   "on": [MockFunction] {
                     "calls": Array [
                       Array [
@@ -2917,12 +3088,33 @@ exports[`RichEditor should render error showing maxValue and instructions 1`] = 
                         "change",
                         [Function],
                       ],
+                      Array [
+                        "contentDom",
+                        [Function],
+                      ],
                     ],
                     "results": Array [
                       Object {
                         "type": "return",
                         "value": undefined,
                       },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
+                  "setData": [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        "This is test value",
+                      ],
+                    ],
+                    "results": Array [
                       Object {
                         "type": "return",
                         "value": undefined,
@@ -2943,6 +3135,7 @@ exports[`RichEditor should render error showing maxValue and instructions 1`] = 
             onChange={[MockFunction]}
             required={true}
             returnSingleValue={false}
+            richEditorId="rek-test"
             titleProps={Object {}}
             value={
               Immutable.Map {
@@ -2953,6 +3146,8 @@ exports[`RichEditor should render error showing maxValue and instructions 1`] = 
             <span />
             <div
               className=""
+              data-testid="rek-test"
+              id="rek-test"
             />
             <WithStyles(ForwardRef(Typography))
               color="error"
@@ -3240,6 +3435,11 @@ exports[`RichEditor should render given title and description 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -3542,12 +3742,16 @@ exports[`RichEditor should render given title and description 1`] = `
               Object {
                 "current": <div
                   class=""
+                  data-testid="rek-test"
+                  id="rek-test"
                 />,
               }
             }
             instanceRef={
               Object {
                 "current": Object {
+                  "id": "rek-test-editor",
+                  "name": "rek-test-editor",
                   "on": [MockFunction] {
                     "calls": Array [
                       Array [
@@ -3556,6 +3760,10 @@ exports[`RichEditor should render given title and description 1`] = `
                       ],
                       Array [
                         "change",
+                        [Function],
+                      ],
+                      Array [
+                        "contentDom",
                         [Function],
                       ],
                     ],
@@ -3568,8 +3776,13 @@ exports[`RichEditor should render given title and description 1`] = `
                         "type": "return",
                         "value": undefined,
                       },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
                     ],
                   },
+                  "setData": [MockFunction],
                   "setReadOnly": [MockFunction],
                 },
               }
@@ -3577,6 +3790,7 @@ exports[`RichEditor should render given title and description 1`] = `
             onChange={[MockFunction]}
             required={false}
             returnSingleValue={false}
+            richEditorId="rek-test"
             title="This is test title"
             titleProps={Object {}}
             value=""
@@ -3676,6 +3890,8 @@ exports[`RichEditor should render given title and description 1`] = `
             </span>
             <div
               className=""
+              data-testid="rek-test"
+              id="rek-test"
             />
           </RichEditor>
         </MuiPickersUtilsProvider>
@@ -3825,6 +4041,11 @@ exports[`RichEditor should render given title and description with error 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -4127,12 +4348,16 @@ exports[`RichEditor should render given title and description with error 1`] = `
               Object {
                 "current": <div
                   class=""
+                  data-testid="rek-test"
+                  id="rek-test"
                 />,
               }
             }
             instanceRef={
               Object {
                 "current": Object {
+                  "id": "rek-test-editor",
+                  "name": "rek-test-editor",
                   "on": [MockFunction] {
                     "calls": Array [
                       Array [
@@ -4141,6 +4366,10 @@ exports[`RichEditor should render given title and description with error 1`] = `
                       ],
                       Array [
                         "change",
+                        [Function],
+                      ],
+                      Array [
+                        "contentDom",
                         [Function],
                       ],
                     ],
@@ -4153,8 +4382,13 @@ exports[`RichEditor should render given title and description with error 1`] = `
                         "type": "return",
                         "value": undefined,
                       },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
                     ],
                   },
+                  "setData": [MockFunction],
                   "setReadOnly": [MockFunction],
                 },
               }
@@ -4167,6 +4401,7 @@ exports[`RichEditor should render given title and description with error 1`] = `
             onChange={[MockFunction]}
             required={true}
             returnSingleValue={false}
+            richEditorId="rek-test"
             title="This is title with error"
             titleProps={Object {}}
             value=""
@@ -4274,6 +4509,8 @@ exports[`RichEditor should render given title and description with error 1`] = `
             </span>
             <div
               className=""
+              data-testid="rek-test"
+              id="rek-test"
             />
             <WithStyles(ForwardRef(Typography))
               color="error"

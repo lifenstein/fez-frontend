@@ -1,10 +1,11 @@
 import React from 'react';
-import locale from 'locale/validationErrors';
-import { isAdded } from 'helpers/datastreams';
+import moment from 'moment';
 import Immutable from 'immutable';
+
+import locale from 'locale/validationErrors';
 import { MEDIATED_ACCESS_ID, ORG_TYPE_NOT_SET } from 'config/general';
 
-const moment = require('moment');
+import { isAdded } from 'helpers/datastreams';
 
 // Max Length
 export const maxLength = max => value =>
@@ -66,14 +67,14 @@ export const maxListEditorTextLength2000 = maxListEditorTextLength(2000);
 // TODO: fix validation, make it generic etc....
 export const isValidDOIValue = value => {
     const regexGroup = [
-        /^10.\d{4,9}\/[-._;()/:A-Z0-9]+$/i,
+        /^10.\d{4,9}\/[-._;()\/:A-Z0-9]+$/i,
         /^10.1002\/[^\s]+$/i,
         /^10.\d{4}\/\d+-\d+X?\(\d+\)\d+<[\d\w]+:[\d\w]*>\d+.\d+.\w+;\d$/i,
         /^10.1021\/\w\w\d+$/i,
         /^10.1207\/[\w\d]+\&\d+_\d+$/i,
     ];
 
-    return regexGroup.reduce((isValid, regex) => regex.test(value.trim()) || isValid, false);
+    return regexGroup.reduce((isValid, regex) => regex.test(value) || isValid, false);
 };
 export const isValidPubMedValue = value => {
     // pubmed id is all digits, min 3 digits
@@ -183,6 +184,13 @@ export const isValidIsbn = subject => {
     return subject.trim().length === 0 || regex.test(subject) ? '' : locale.validationErrors.isbn;
 };
 
+export const isValidKeyword = maxKeywordLength => subject => {
+    const keywords = subject.split('|');
+
+    return keywords.some(keyword => keyword.length > maxKeywordLength)
+        ? locale.validationErrors.keywords.replace('[max]', maxKeywordLength)
+        : undefined;
+};
 export const checkDigit = subject => {
     const check =
         subject &&

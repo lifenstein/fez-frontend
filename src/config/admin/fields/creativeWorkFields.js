@@ -2,52 +2,7 @@ import commonFields from './commonFields';
 
 export default {
     ...commonFields,
-    identifiers: (
-        { displayAll, displayIdentifiers, displayLocation, displayIsmn, displayIsrc } = {
-            displayAll: false,
-            displayIdentifiers: false,
-            displayLocation: false,
-            displayIsmn: false,
-            displayIsrc: false,
-        },
-    ) => [
-        {
-            title: 'Manage identifiers',
-            groups: [
-                [
-                    'fez_record_search_key_doi',
-                    displayIsmn && 'fez_record_search_key_ismn',
-                    displayIsrc && 'fez_record_search_key_isrc',
-                ].filter(Boolean),
-                displayAll && [
-                    ['fez_record_search_key_isi_loc', 'rek_wok_doc_type'],
-                    ['fez_record_search_key_scopus_id', 'rek_scopus_doc_type'],
-                    ['fez_record_search_key_pubmed_id', 'rek_pubmed_doc_type'],
-                ],
-            ].filter(Boolean),
-        },
-        {
-            title: 'Manage links',
-            groups: [['links']],
-        },
-        ...(displayIdentifiers
-            ? [
-                  {
-                      title: 'Identifiers',
-                      groups: [['fez_record_search_key_identifier']],
-                  },
-              ]
-            : []),
-        ...(displayLocation
-            ? [
-                  {
-                      title: 'Location',
-                      groups: [['fez_record_search_key_location_identifiers']],
-                  },
-              ]
-            : []),
-    ],
-    bibliographic: (isLote = false, displayEndDate = false) => [
+    bibliographic: ({ isLote = false, displayEndDate = false }) => [
         {
             title: 'Title',
             groups: [['rek_title'], ...(isLote ? [['fez_record_search_key_translated_title']] : [])],
@@ -62,7 +17,7 @@ export default {
         },
         {
             title: 'ISSN',
-            groups: [['issnField']],
+            groups: [['issns']],
         },
         {
             title: 'Bibliographic',
@@ -79,7 +34,7 @@ export default {
                     'fez_record_search_key_end_page',
                     'fez_record_search_key_total_pages',
                 ],
-                ['rek_date', displayEndDate && 'fez_record_search_key_end_date_biblio'].filter(Boolean),
+                ['rek_date', ...(displayEndDate ? ['fez_record_search_key_end_date'] : [])],
                 ['fez_record_search_key_date_available'],
                 ['rek_description'],
                 ['fez_record_search_key_original_format'],
@@ -125,31 +80,22 @@ export default {
                 ['fez_record_search_key_refereed_source', 'contentIndicators'],
                 ['fez_record_search_key_oa_status', 'fez_record_search_key_oa_status_type'],
                 ['fez_record_search_key_license'],
-                ['additionalNotes'],
             ],
         },
-        {
-            title: 'Notes',
-            groups: [['internalNotes'], ['rek_herdc_notes']],
-        },
     ],
-    ntro: (displayAudienceSize = false, displayIsrc = false, displayIsmn = false) => {
+    ntro: (displayAudienceSize = false) => {
         return [
-            !!displayAudienceSize && {
-                title: 'Audience size',
-                groups: [['fez_record_search_key_audience_size']],
-            },
+            ...(displayAudienceSize
+                ? [
+                      {
+                          title: 'Audience size',
+                          groups: [['fez_record_search_key_audience_size']],
+                      },
+                  ]
+                : []),
             {
                 title: 'Scale/Significance of work & Creator research statement',
                 groups: [['significanceAndContributionStatement']],
-            },
-            !!displayIsmn && {
-                title: 'ISMN',
-                groups: [['fez_record_search_key_ismn']],
-            },
-            !!displayIsrc && {
-                title: 'ISRC',
-                groups: [['fez_record_search_key_isrc']],
             },
             {
                 title: 'Quality indicators',
@@ -160,7 +106,7 @@ export default {
 };
 
 export const validateCreativeWork = (
-    { bibliographicSection: bs, filesSection: fs, authorsSection: as },
+    { bibliographicSection: bs, authorsSection: as },
     { validationErrorsSummary: summary },
 ) => ({
     bibliographicSection: {
@@ -170,11 +116,6 @@ export const validateCreativeWork = (
             },
         }) ||
             {}),
-    },
-    filesSection: {
-        ...((fs || {}).rek_copyright !== 'on' && {
-            rek_copyright: summary.rek_copyright,
-        }),
     },
     authorsSection: {
         ...(((as || {}).authors || []).length === 0 && {

@@ -1,7 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router';
-import { routes, AUTH_URL_LOGIN, AUTH_URL_LOGOUT, APP_URL } from 'config';
+import Cookies from 'js-cookie';
+import {
+    routes,
+    pathConfig,
+    AUTH_URL_LOGIN,
+    AUTH_URL_LOGOUT,
+    APP_URL,
+    SESSION_COOKIE_NAME,
+    SESSION_USER_GROUP_COOKIE_NAME,
+} from 'config';
 import locale from 'locale/global';
 import { isFileUrl } from 'config/routes';
 import browserUpdate from 'browser-update';
@@ -142,7 +151,11 @@ export class AppClass extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.actions.loadCurrentAccount();
+        if (!!Cookies.get(SESSION_COOKIE_NAME) && !!Cookies.get(SESSION_USER_GROUP_COOKIE_NAME)) {
+            this.props.actions.loadCurrentAccount();
+        } else {
+            this.props.actions.logout();
+        }
         this.handleResize(this.state.mediaQuery);
         this.state.mediaQuery.addListener(this.handleResize);
     }
@@ -173,6 +186,10 @@ export class AppClass extends PureComponent {
     };
 
     redirectUserToLogin = (isAuthorizedUser = false, redirectToCurrentLocation = false) => () => {
+        /* istanbul ignore next */
+        if (process.env.USE_MOCK) {
+            return;
+        }
         const redirectUrl = isAuthorizedUser ? AUTH_URL_LOGOUT : AUTH_URL_LOGIN;
         const returnUrl = redirectToCurrentLocation || !isAuthorizedUser ? window.location.href : APP_URL;
         window.location.assign(`${redirectUrl}?url=${window.btoa(returnUrl)}`);
@@ -181,18 +198,16 @@ export class AppClass extends PureComponent {
     redirectToOrcid = () => {
         if (window.location.search.indexOf('?') >= 0 && window.location.search.indexOf('code') >= 0) {
             // if user already received an orcid response - clean up query string by redirecting via window.location
-            window.location.assign(routes.pathConfig.authorIdentifiers.orcid.absoluteLink);
+            window.location.assign(pathConfig.authorIdentifiers.orcid.absoluteLink);
         } else {
-            this.props.history.push(routes.pathConfig.authorIdentifiers.orcid.link);
+            this.props.history.push(pathConfig.authorIdentifiers.orcid.link);
         }
     };
 
     isPublicPage = menuItems => {
         return (
             menuItems.filter(menuItem => this.props.location.pathname === menuItem.linkTo && menuItem.public).length >
-                0 ||
-            new RegExp(routes.pathConfig.records.view(`(${routes.pidRegExp})`)).test(this.props.location.pathname) ||
-            new RegExp(routes.pathConfig.records.view_new(`(${routes.pidRegExp})`)).test(this.props.location.pathname)
+                0 || new RegExp(pathConfig.records.view(`(${routes.pidRegExp})`)).test(this.props.location.pathname)
         );
     };
 
@@ -218,11 +233,15 @@ export class AppClass extends PureComponent {
 
         const isAuthorizedUser = !this.props.accountLoading && this.props.account !== null;
         const isAuthorLoading = this.props.accountLoading || this.props.accountAuthorLoading;
+        const isAuthorDetailsLoading = this.props.accountLoading || this.props.accountAuthorDetailsLoading;
         const isOrcidRequired =
+            this.props.authorDetails &&
+            this.props.authorDetails.is_administrator !== 1 &&
+            this.props.authorDetails.is_super_administrator !== 1 &&
             this.props.author &&
             Object.keys(this.props.author).length > 1 &&
             !this.props.author.aut_orcid_id &&
-            this.props.location.pathname !== routes.pathConfig.authorIdentifiers.orcid.link;
+            this.props.location.pathname !== pathConfig.authorIdentifiers.orcid.link;
         const isHdrStudent =
             !isAuthorLoading &&
             !!this.props.account &&
@@ -248,11 +267,11 @@ export class AppClass extends PureComponent {
         );
         const isPublicPage = this.isPublicPage(menuItems);
         const isThesisSubmissionPage =
-            this.props.location.pathname === routes.pathConfig.hdrSubmission ||
-            this.props.location.pathname === routes.pathConfig.sbsSubmission;
+            this.props.location.pathname === pathConfig.hdrSubmission ||
+            this.props.location.pathname === pathConfig.sbsSubmission;
         const isSearchPage =
-            this.props.location.pathname === routes.pathConfig.records.search ||
-            this.props.location.pathname === routes.pathConfig.records.search;
+            this.props.location.pathname === pathConfig.records.search ||
+            this.props.location.pathname === pathConfig.records.search;
         const showMenu = !isThesisSubmissionPage;
 
         const containerStyle = this.state.docked && !isThesisSubmissionPage ? { paddingLeft: 260 } : {};
@@ -289,7 +308,6 @@ export class AppClass extends PureComponent {
             components: pages,
             authorDetails: this.props.authorDetails,
             account: this.props.account,
-            accountAuthorDetailsLoading: this.props.accountAuthorDetailsLoading,
             forceOrcidRegistration: isOrcidRequired && isHdrStudent,
             isHdrStudent: isHdrStudent,
         });
@@ -423,7 +441,7 @@ export class AppClass extends PureComponent {
                     <AppAlertContainer />
                     {isAuthorLoading && <InlineLoader message={locale.global.loadingUserAccount} />}
 
-                    {!isAuthorLoading && (
+                    {!isAuthorLoading && !isAuthorDetailsLoading && (
                         <AccountContext.Provider
                             value={{
                                 account: { ...this.props.account, ...this.props.author, ...this.props.authorDetails },
@@ -446,6 +464,4 @@ export class AppClass extends PureComponent {
     }
 }
 
-const StyledApp = withStyles(styles, { withTheme: true })(AppClass);
-const App = props => <StyledApp {...props} />;
-export default App;
+export default withStyles(styles, { withTheme: true })(AppClass);

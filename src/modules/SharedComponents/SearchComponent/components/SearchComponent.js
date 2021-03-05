@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import param from 'can-param';
 
 import Snackbar from '@material-ui/core/Snackbar';
-import { routes } from 'config';
+import { pathConfig } from 'config';
 import {
     DEFAULT_QUERY_PARAMS,
     UNPUBLISHED_STATUS_MAP,
@@ -37,7 +37,6 @@ export default class SearchComponent extends PureComponent {
         isAdmin: PropTypes.bool,
         isUnpublishedBufferPage: PropTypes.bool,
 
-        className: PropTypes.string,
         actions: PropTypes.object,
         history: PropTypes.object.isRequired,
         location: PropTypes.object,
@@ -241,9 +240,7 @@ export default class SearchComponent extends PureComponent {
 
             // navigate to search results page
             this.props.history.push({
-                pathname: this.props.isUnpublishedBufferPage
-                    ? routes.pathConfig.admin.unpublished
-                    : routes.pathConfig.records.search,
+                pathname: this.props.isUnpublishedBufferPage ? pathConfig.admin.unpublished : pathConfig.records.search,
                 search: param(searchQuery),
                 state: { ...searchQuery },
             });
@@ -497,7 +494,6 @@ export default class SearchComponent extends PureComponent {
                     <SimpleSearchComponent
                         autoFocus={this.props.autoFocus}
                         {...this.state.simpleSearch}
-                        className={this.props.className}
                         isInHeader={this.props.isInHeader}
                         showSearchButton={this.props.showSearchButton}
                         showMobileSearchButton={this.props.showMobileSearchButton}
@@ -512,7 +508,6 @@ export default class SearchComponent extends PureComponent {
                 {this.state.isAdvancedSearch && !this.props.isInHeader && (
                     <AdvancedSearchComponent
                         {...this.state.advancedSearch}
-                        className={this.props.className}
                         onToggleSearchMode={this._toggleSearchMode}
                         onToggleMinimise={this._toggleMinimise}
                         onToggleOpenAccess={this._toggleOpenAccess}

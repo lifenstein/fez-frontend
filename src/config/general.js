@@ -155,9 +155,9 @@ export const DOCUMENT_TYPES_LOOKUP = {
     [PUBLICATION_TYPE_WORKING_PAPER]: DOCUMENT_TYPE_WORKING_PAPER,
 };
 
-export const MAX_PUBLIC_SEARCH_TEXT_LENGTH = 500;
+export const MAX_PUBLIC_SEARCH_TEXT_LENGTH = 2000;
 
-export const NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK = 'Creative Work - Design/Architectural';
+export const NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK = 'Creative Work - Design/Architectural';
 export const NTRO_SUBTYPE_CW_TEXTUAL_WORK = 'Creative Work - Textual';
 export const NTRO_SUBTYPE_CW_VISUAL_WORK = 'Creative Work - Visual Art';
 export const NTRO_SUBTYPE_CW_MUSICAL_COMPOSITION = 'Creative Work - Musical Composition';
@@ -183,6 +183,7 @@ export const NTRO_SUBTYPE_RREB_NOT_FOR_PROFIT = 'Research Report for an External
 export const NTRO_SUBTYPE_RREB_OTHER = 'Research Report for an External Body - Other';
 export const SUBTYPE_RR_INTERNAL_OTHER = 'Research Report - Internal or Other';
 export const SUBTYPE_EDITED_BOOK = 'Edited book';
+export const SUBTYPE_NON_NTRO = 'Non-NTRO';
 
 export const CW_NTRO_SUBTYPES = [
     NTRO_SUBTYPE_CW_TEXTUAL_WORK,
@@ -230,13 +231,13 @@ const RESEARCH_REPORT_NTRO_SUBTYPES = [
 ];
 
 export const NTRO_SUBTYPES = [
-    NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK,
+    NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK,
     ...CREATIVE_WORK_NTRO_SUBTYPES,
     ...RESEARCH_REPORT_NTRO_SUBTYPES,
 ];
 
 export const NTRO_SUBTYPES_CATEGORY_CODE = {
-    [NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK]: 'CW1',
+    [NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK]: 'CW1',
     [NTRO_SUBTYPE_CW_TEXTUAL_WORK]: 'CW1',
     [NTRO_SUBTYPE_CW_VISUAL_WORK]: 'CW1',
     [NTRO_SUBTYPE_CW_MUSICAL_COMPOSITION]: 'CW1',
@@ -261,7 +262,58 @@ export const NTRO_SUBTYPES_CATEGORY_CODE = {
     [NTRO_SUBTYPE_RREB_NOT_FOR_PROFIT]: 'CW5',
 };
 
-export const publicationTypes = components => ({
+export const THESIS_SUBTYPES = [
+    {
+        value: 'B.A. Thesis',
+        text: 'B.A. Thesis',
+    },
+    {
+        value: 'B.Sc Thesis',
+        text: 'B.Sc Thesis',
+    },
+    {
+        value: "Bachelor's Thesis",
+        text: "Bachelor's Thesis",
+    },
+    {
+        value: 'Higher Doctorate',
+        text: 'Higher Doctorate',
+    },
+    {
+        value: 'Honours Thesis',
+        text: 'Honours Thesis',
+    },
+    {
+        value: 'M.A. Thesis',
+        text: 'M.A. Thesis',
+    },
+    {
+        value: 'M.Sc Thesis',
+        text: 'M.Sc Thesis',
+    },
+    {
+        value: "Master's Thesis",
+        text: "Master's Thesis",
+    },
+    {
+        value: 'MPhil Thesis',
+        text: 'MPhil Thesis',
+    },
+    {
+        value: 'Other',
+        text: 'Other',
+    },
+    {
+        value: 'PhD Thesis',
+        text: 'PhD Thesis',
+    },
+    {
+        value: 'Professional Doctorate',
+        text: 'Professional Doctorate',
+    },
+];
+
+export const publicationTypes = (components, isAdmin = false) => ({
     [PUBLICATION_TYPE_AUDIO_DOCUMENT]: {
         id: PUBLICATION_TYPE_AUDIO_DOCUMENT,
         name: DOCUMENT_TYPE_AUDIO_DOCUMENT,
@@ -283,7 +335,7 @@ export const publicationTypes = components => ({
             'Textbook',
             SUBTYPE_EDITED_BOOK,
             'Reference work, encyclopaedia, manual or handbook',
-            NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK,
+            NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK,
             ...CW_NTRO_SUBTYPES,
             'Other',
         ],
@@ -302,7 +354,7 @@ export const publicationTypes = components => ({
             'Chapter in textbook',
             'Chapter in reference work, encyclopaedia, manual or handbook',
             'Introduction, foreword, editorial or appendix',
-            NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK,
+            NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK,
             ...CW_NTRO_SUBTYPES,
             'Other',
         ],
@@ -357,7 +409,9 @@ export const publicationTypes = components => ({
         citationComponent: components ? components.DesignCitation : null,
         formComponent: components ? components.DesignForm : null,
         hasFormComponent: true,
-        subtypes: [NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK],
+        subtypes: isAdmin
+            ? [SUBTYPE_NON_NTRO, NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK]
+            : [NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK],
     },
     [PUBLICATION_TYPE_DIGILIB_IMAGE]: {
         id: PUBLICATION_TYPE_DIGILIB_IMAGE,
@@ -405,7 +459,7 @@ export const publicationTypes = components => ({
             'Correction/erratum',
             'Editorial',
             'Discussion - responses, round table/panel discussions, Q&A, reply',
-            NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK,
+            NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK,
             ...CW_NTRO_SUBTYPES,
             'Other',
         ],
@@ -465,6 +519,7 @@ export const publicationTypes = components => ({
         formComponent: components ? components.ThesisForm : null,
         citationComponent: components ? components.ThesisCitation : null,
         hasFormComponent: true,
+        ...(isAdmin ? { subtypes: THESIS_SUBTYPES.map(type => type.value) } : {}),
     },
     [PUBLICATION_TYPE_VIDEO_DOCUMENT]: {
         id: PUBLICATION_TYPE_VIDEO_DOCUMENT,
@@ -491,70 +546,7 @@ export const publicationTypes = components => ({
     },
 });
 
-export const QUICK_TEMPLATES = {
-    UQ_STAFF_STUDENTS_VIEW: 1,
-    UQ_STAFF_STUDENTS_PRINTERY_VIEW: 6,
-    INHERIT_FROM_ABOVE: 7,
-    CLOSED_ACCESS_ID: 8,
-    OPEN_ACCESS_ID: 9,
-};
-
-export const THESIS_SUBTYPES = [
-    {
-        value: 'B.A. Thesis',
-        label: 'B.A. Thesis',
-    },
-    {
-        value: 'B.Sc Thesis',
-        label: 'B.Sc Thesis',
-    },
-    {
-        value: "Bachelor's Thesis",
-        label: "Bachelor's Thesis",
-    },
-    {
-        value: 'Higher Doctorate',
-        label: 'Higher Doctorate',
-    },
-    {
-        value: 'Honours Thesis',
-        label: 'Honours Thesis',
-    },
-    {
-        value: 'M.A. Thesis',
-        label: 'M.A. Thesis',
-    },
-    {
-        value: 'M.Sc Thesis',
-        label: 'M.Sc Thesis',
-    },
-    {
-        value: "Master's Thesis",
-        label: "Master's Thesis",
-    },
-    {
-        value: 'MPhil Thesis',
-        label: 'MPhil Thesis',
-    },
-    {
-        value: 'Other',
-        label: 'Other',
-    },
-    {
-        value: 'PhD Thesis',
-        label: 'PhD Thesis',
-    },
-    {
-        value: 'Professional Doctorate',
-        label: 'Professional Doctorate',
-    },
-];
-
 export const THESIS_SUBMISSION_SUBTYPES = [
-    {
-        value: undefined,
-        text: 'Select a thesis type',
-    },
     {
         value: 'MPhil Thesis',
         text: 'MPhil Thesis',
@@ -636,7 +628,13 @@ export const HDR_THESIS_DEFAULT_VALUES = {
     rek_status: 3,
     fez_record_search_key_ismemberof: [{ rek_ismemberof: 'UQ:152694' }],
     rek_display_type: PUBLICATION_TYPE_THESIS,
-    fileAccessId: 3,
+    fez_record_search_key_language: [
+        {
+            rek_language: 'eng',
+            rek_language_order: 1,
+        },
+    ],
+    fileAccessId: 2,
 };
 
 export const SBS_THESIS_DEFAULT_VALUES = {
@@ -644,6 +642,12 @@ export const SBS_THESIS_DEFAULT_VALUES = {
     rek_status: 3,
     fez_record_search_key_ismemberof: [{ rek_ismemberof: 'UQ:155729' }],
     rek_display_type: PUBLICATION_TYPE_THESIS,
+    fez_record_search_key_language: [
+        {
+            rek_language: 'eng',
+            rek_language_order: 1,
+        },
+    ],
     rek_genre_type: 'Professional Doctorate',
     fileAccessId: 4,
 };
@@ -719,17 +723,36 @@ export const UNPUBLISHED_STATUS_TEXT_MAP = {
     [UNPUBLISHED]: 'Unpublished',
 };
 export const DATA_COLLECTION_CREATOR_ROLES = [
-    { value: 'Project lead/Principal investigator' },
-    { value: 'Co-investigator' },
-    { value: 'Higher degree research student' },
-    { value: 'Research assistant' },
-    { value: 'Software engineer' },
-    { value: 'Statistician' },
-    { value: 'Technician' },
+    {
+        value: 'Project lead/Principal investigator',
+        text: 'Project lead/Principal investigator',
+    },
+    {
+        value: 'Co-investigator',
+        text: 'Co-investigator',
+    },
+    {
+        value: 'Higher degree research student',
+        text: 'Higher degree research student',
+    },
+    {
+        value: 'Research assistant',
+        text: 'Research assistant',
+    },
+    {
+        value: 'Software engineer',
+        text: 'Software engineer',
+    },
+    {
+        value: 'Statistician',
+        text: 'Statistician',
+    },
+    {
+        value: 'Technician',
+        text: 'Technician',
+    },
 ];
 
-export const OPEN_ACCESS_ID = 453619;
-export const MEDIATED_ACCESS_ID = 453618;
 export const CURRENT_LICENCES = [
     {
         value: 453701,
@@ -761,38 +784,50 @@ export const CURRENT_LICENCES = [
         ],
     },
 ];
+
+export const CREATIVE_COMMONS_LICENCES = {
+    ['by']: 'Creative Commons Attribution (only)',
+    ['by-nd']: 'Creative Commons Attribution no derivatives',
+    ['by-nc']: 'Creative Commons Attribution noncommercial',
+    ['by-nc-nd']: 'Creative Commons Attribution noncommercial no derivatives',
+    ['by-nc-sa']: 'Creative Commons Attribution noncommercial share alike',
+    ['by-sa']: 'Creative Commons Attribution share alike',
+};
+
+export const getCreativeCommonsUrl = conditionSlug =>
+    `https://creativecommons.org/licenses/${conditionSlug}/3.0/deed.en_US`;
+
 export const DEPRECATED_LICENCES = [
-    {
-        value: 453608,
-        text: 'Creative Commons Attribution (only) http://creativecommons.org/licenses/by/3.0/deed.en_US',
-    },
-    {
-        value: 453609,
-        text: 'Creative Commons Attribution no derivatives http://creativecommons.org/licenses/by-nd/3.0/deed.en_US',
-    },
-    {
-        value: 453610,
-        text: 'Creative Commons Attribution noncommercial http://creativecommons.org/licenses/by-nc/3.0/deed.en_US',
-    },
-    {
-        value: 453611,
-        text:
-            'Creative Commons Attribution noncommercial no derivatives http://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US',
-    },
-    {
-        value: 453612,
-        text:
-            'Creative Commons Attribution noncommercial share alike http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US ',
-    },
-    {
-        value: 453613,
-        text: 'Creative Commons Attribution share alike http://creativecommons.org/licenses/by-sa/3.0/deed.en_US',
-    },
+    ...[
+        { value: 453608, conditionSlug: 'by' },
+        { value: 453609, conditionSlug: 'by-nd' },
+        { value: 453610, conditionSlug: 'by-nc' },
+        { value: 453611, conditionSlug: 'by-nc-nd' },
+        { value: 453612, conditionSlug: 'by-nc-sa' },
+        { value: 453613, conditionSlug: 'by-sa' },
+    ].map(item => ({
+        value: item.value,
+        text: `${CREATIVE_COMMONS_LICENCES[item.conditionSlug]} ${getCreativeCommonsUrl(item.conditionSlug)}`,
+    })),
     {
         value: 453702,
         text:
             'Permitted Non-commercial Re-use with Acknowledgement http://guides.library.uq.edu.au/deposit_your_data/terms_and_conditions',
     },
+];
+
+export const ALL_LICENCES = [
+    {
+        value: -1,
+        text: 'None',
+    },
+    ...CURRENT_LICENCES.map(licence => {
+        return {
+            value: licence.value,
+            text: licence.text + ' ' + licence.link,
+        };
+    }),
+    ...DEPRECATED_LICENCES,
 ];
 
 export const ORG_TYPE_ID_MUSEUM = '453983';
@@ -875,8 +910,8 @@ export const NEW_DOCTYPES_OPTIONS = [
 export const DOCTYPE_SUBTYPE_MAPPING = {
     [PUBLICATION_TYPE_DESIGN_CW_ARCHITECTURAL_WORK]: {
         docTypeId: PUBLICATION_TYPE_DESIGN,
-        subtype: NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK,
-        name: NTRO_SUBTYPE_DESIGN_CW_ARCHITECTURAL_WORK,
+        subtype: NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK,
+        name: NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK,
     },
     [PUBLICATION_TYPE_CW_TEXTUAL_WORK_BOOK]: {
         docTypeId: PUBLICATION_TYPE_BOOK,
@@ -1054,7 +1089,6 @@ export const AUDIENCE_SIZE = [
 ];
 
 export const LANGUAGE = [
-    { value: null, text: 'Select multiple languages as required' },
     { value: 'afr', text: 'Afrikaans' },
     { value: 'alb', text: 'Albanian' },
     { value: 'ara', text: 'Arabic' },
@@ -1165,6 +1199,14 @@ export const RECORD_ACTION_URLS = [
         inApp: false,
         showInDeleted: true,
         options: 'menubar=no,location=no,width=300,height=300,resizable=yes,scrollbars=yes,status=no',
+    },
+    {
+        label: 'Change display type',
+        url: pid => `${APP_URL}${PATH_PREFIX}admin/change-display-type/${pid}`,
+        inApp: true,
+        showInDeleted: false,
+        options: null,
+        isChangeDisplayMenu: true,
     },
     {
         label: 'More options',
@@ -1342,7 +1384,6 @@ export const PUBMED_DOC_TYPES = [
 ];
 
 export const HERDC_CODES = [
-    { value: null, text: 'Please choose an option' },
     { value: '450001', text: 'A1 Authored Book (Research)' },
     { value: '450005', text: 'AX Edited Book; Book (Other Public Output)' },
     { value: '450006', text: 'B1 Book Chapter (Research, Critical Review of Research)' },
@@ -1401,13 +1442,11 @@ export const DEPRECATED_HERDC_CODES = [
 ];
 
 export const HERDC_STATUS = [
-    { value: null, text: 'Please choose an option' },
     { value: '453220', text: 'Provisional Code' },
     { value: '453221', text: 'Confirmed Code' },
 ];
 
 export const INSTITUTIONAL_STATUS = [
-    { value: null, text: 'Please choose an option' },
     { value: '453223', text: 'UQ' },
     { value: '453224', text: 'Non-UQ' },
     { value: '453225', text: 'Unknown' },
@@ -1425,7 +1464,6 @@ export const REFEREED_SOURCES = [
 ];
 
 export const ALTERNATE_GENRE = [
-    { value: null, text: 'Please choose an option' },
     { value: '453663', text: 'Conversation' },
     { value: '453664', text: 'Culture, stories, people' },
     { value: '453665', text: 'Session organisation' },
@@ -1435,13 +1473,12 @@ export const ALTERNATE_GENRE = [
 ];
 
 export const OA_STATUS = [
-    { value: null, text: 'Please choose an option' },
     { value: '453692', text: 'Not yet assessed' },
     { value: '453693', text: 'DOI' },
     { value: '453694', text: 'Link (no DOI)' },
     { value: '453695', text: 'File (Publisher version)' },
     { value: '453696', text: 'File (Author Post-print)' },
-    { value: '454127', text: 'File (Author Pre-print)' },
+    { value: '454127', text: 'Preprint' },
     { value: '453697', text: 'Other' },
     { value: '453698', text: 'Not Open Access' },
     { value: '453700', text: 'Mediated Access' },
@@ -1451,7 +1488,6 @@ export const OA_STATUS = [
 ];
 
 export const OA_STATUS_TYPE = [
-    { value: null, text: 'Please choose an option' },
     { value: 454120, text: 'Green' },
     { value: 454121, text: 'Gold' },
     { value: 454122, text: 'Hybrid' },
@@ -1460,10 +1496,72 @@ export const OA_STATUS_TYPE = [
 
 export const ANDS_COLLECTION_TYPE_COLLECTION = 453615;
 export const ANDS_COLLECTION_TYPE_DATASET = 453616;
+export const ANDS_COLLECTION_TYPE_OPTIONS = [
+    {
+        value: ANDS_COLLECTION_TYPE_COLLECTION,
+        text: 'Collection',
+    },
+    {
+        value: ANDS_COLLECTION_TYPE_DATASET,
+        text: 'Dataset',
+    },
+];
 
 export const AFFILIATION_TYPE_NOT_UQ = 'NotUQ';
 export const AFFILIATION_TYPE_UQ = 'UQ';
 
-export const UQDOIPrefix = '10.14264/';
+export const UQ_DOI_PREFIX = '10.14264/';
 
 export const PLACEHOLDER_DATE = '1000-01-01T00:00:00Z';
+
+export const THESIS_UPLOAD_RETRIES = 5;
+
+export const PUB_SEARCH_BULK_EXPORT_SIZE = 500;
+export const MY_RECORDS_BULK_EXPORT_SIZE = 1000;
+export const PUB_LIST_BULK_EXPORT_SIZES = [PUB_SEARCH_BULK_EXPORT_SIZE, MY_RECORDS_BULK_EXPORT_SIZE];
+
+export const EDITORIAL_ROLE_ASSOCIATE_EDITOR = '454140';
+export const EDITORIAL_ROLE_DEPUTY_EDITOR = '454141';
+export const EDITORIAL_ROLE_EDITOR = '454142';
+export const EDITORIAL_ROLE_EDITOR_IN_CHIEF = '454143';
+export const EDITORIAL_ROLE_EDITORIAL_BOARD_MEMBER = '454144';
+export const EDITORIAL_ROLE_GUEST_EDITOR = '454145';
+export const EDITORIAL_ROLE_SECTION_EDITOR = '454146';
+export const EDITORIAL_ROLE_SINGLE_ISSUE_EDITOR = '454147';
+export const EDITORIAL_ROLE_OTHER = '454148';
+
+export const EDITORIAL_ROLE_OPTIONS = [
+    { value: EDITORIAL_ROLE_ASSOCIATE_EDITOR, text: 'Associate Editor' },
+    { value: EDITORIAL_ROLE_DEPUTY_EDITOR, text: 'Deputy Editor' },
+    { value: EDITORIAL_ROLE_EDITOR, text: 'Editor' },
+    { value: EDITORIAL_ROLE_EDITOR_IN_CHIEF, text: 'Editor-in-Chief' },
+    { value: EDITORIAL_ROLE_EDITORIAL_BOARD_MEMBER, text: 'Editorial Board Member' },
+    { value: EDITORIAL_ROLE_GUEST_EDITOR, text: 'Guest Editor' },
+    { value: EDITORIAL_ROLE_SECTION_EDITOR, text: 'Section Editor' },
+    { value: EDITORIAL_ROLE_SINGLE_ISSUE_EDITOR, text: 'Single Issue Editor' },
+    { value: EDITORIAL_ROLE_OTHER, text: 'Other' },
+];
+
+export const EDITORIAL_ROLE_MAP = {
+    [EDITORIAL_ROLE_ASSOCIATE_EDITOR]: 'Associate Editor',
+    [EDITORIAL_ROLE_DEPUTY_EDITOR]: 'Deputy Editor',
+    [EDITORIAL_ROLE_EDITOR]: 'Editor',
+    [EDITORIAL_ROLE_EDITOR_IN_CHIEF]: 'Editor-in-Chief',
+    [EDITORIAL_ROLE_EDITORIAL_BOARD_MEMBER]: 'Editorial Board Member',
+    [EDITORIAL_ROLE_GUEST_EDITOR]: 'Guest Editor',
+    [EDITORIAL_ROLE_SECTION_EDITOR]: 'Section Editor',
+    [EDITORIAL_ROLE_SINGLE_ISSUE_EDITOR]: 'Single Issue Editor',
+    [EDITORIAL_ROLE_OTHER]: 'Other',
+};
+export const OPEN_ACCESS_ID = 453619;
+export const MEDIATED_ACCESS_ID = 453618;
+export const DATASET_ACCESS_CONDITIONS_OPTIONS = [
+    {
+        value: OPEN_ACCESS_ID,
+        text: 'Open Access',
+    },
+    {
+        value: MEDIATED_ACCESS_ID,
+        text: 'Mediated Access',
+    },
+];

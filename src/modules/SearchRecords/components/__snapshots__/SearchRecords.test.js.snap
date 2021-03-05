@@ -23,7 +23,6 @@ exports[`SearchRecords page renders error alert if error occurs during search 1`
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -36,7 +35,33 @@ exports[`SearchRecords page renders error alert if error occurs during search 1`
       item={true}
       xs={12}
     >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
       <Alert
+        alertId="alert-error"
         allowDismiss={false}
         customIcon={null}
         customType={null}
@@ -77,7 +102,6 @@ exports[`SearchRecords page renders loading screen while export publications loa
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -85,6 +109,31 @@ exports[`SearchRecords page renders loading screen while export publications loa
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
   </WithStyles(ForwardRef(Grid))>
 </StandardPage>
@@ -97,6 +146,7 @@ Object {
     "ranges": Object {},
     "test1": "test2",
   },
+  "bulkExportSelected": false,
   "pageSize": 20,
   "sortBy": "score",
   "sortDirection": "Desc",
@@ -126,7 +176,6 @@ exports[`SearchRecords page should render advanced search component 1`] = `
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={true}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -134,6 +183,31 @@ exports[`SearchRecords page should render advanced search component 1`] = `
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
   </WithStyles(ForwardRef(Grid))>
 </StandardPage>
@@ -162,7 +236,6 @@ exports[`SearchRecords page should render loading screen while export publicatio
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -170,6 +243,31 @@ exports[`SearchRecords page should render loading screen while export publicatio
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -196,7 +294,8 @@ exports[`SearchRecords page should render loading screen while export publicatio
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={500}
               disabled={true}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
@@ -216,24 +315,35 @@ exports[`SearchRecords page should render loading screen while export publicatio
               onPageChanged={[Function]}
             />
           </WithStyles(ForwardRef(Grid))>
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
-          container={true}
-          justify="center"
-        >
           <WithStyles(ForwardRef(Grid))
             item={true}
+            xs={12}
           >
-            <WithStyles(InlineLoader)
-              message="Exporting search results"
+            <WithStyles(ForwardRef(Grid))
+              container={true}
+              justify="center"
+            >
+              <WithStyles(ForwardRef(Grid))
+                item={true}
+                xs={12}
+              >
+                <WithStyles(InlineLoader)
+                  message="Exporting search results"
+                />
+              </WithStyles(ForwardRef(Grid))>
+            </WithStyles(ForwardRef(Grid))>
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <WithStyles(PublicationsListPaging)
+              disabled={true}
+              loading={true}
+              onPageChanged={[Function]}
             />
           </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>
-        <WithStyles(PublicationsListPaging)
-          disabled={true}
-          loading={true}
-          onPageChanged={[Function]}
-        />
       </StandardCard>
     </WithStyles(ForwardRef(Grid))>
   </WithStyles(ForwardRef(Grid))>
@@ -263,7 +373,6 @@ exports[`SearchRecords page should render loading screen while loading publicati
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={true}
@@ -271,6 +380,31 @@ exports[`SearchRecords page should render loading screen while loading publicati
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -305,7 +439,8 @@ exports[`SearchRecords page should render loading screen while loading publicati
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={500}
               disabled={true}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
@@ -325,24 +460,35 @@ exports[`SearchRecords page should render loading screen while loading publicati
               onPageChanged={[Function]}
             />
           </WithStyles(ForwardRef(Grid))>
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
-          container={true}
-          justify="center"
-        >
           <WithStyles(ForwardRef(Grid))
             item={true}
+            xs={12}
           >
-            <WithStyles(InlineLoader)
-              message="Searching for works"
+            <WithStyles(ForwardRef(Grid))
+              container={true}
+              justify="center"
+            >
+              <WithStyles(ForwardRef(Grid))
+                item={true}
+                xs={12}
+              >
+                <WithStyles(InlineLoader)
+                  message="Searching for works"
+                />
+              </WithStyles(ForwardRef(Grid))>
+            </WithStyles(ForwardRef(Grid))>
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <WithStyles(PublicationsListPaging)
+              disabled={true}
+              loading={true}
+              onPageChanged={[Function]}
             />
           </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>
-        <WithStyles(PublicationsListPaging)
-          disabled={true}
-          loading={true}
-          onPageChanged={[Function]}
-        />
       </StandardCard>
     </WithStyles(ForwardRef(Grid))>
   </WithStyles(ForwardRef(Grid))>
@@ -372,7 +518,6 @@ exports[`SearchRecords page should render loading screen while loading search re
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={true}
@@ -380,6 +525,31 @@ exports[`SearchRecords page should render loading screen while loading search re
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -416,7 +586,6 @@ exports[`SearchRecords page should render no results 1`] = `
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -424,6 +593,31 @@ exports[`SearchRecords page should render no results 1`] = `
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -469,7 +663,6 @@ exports[`SearchRecords page should render placeholders 1`] = `
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -477,6 +670,31 @@ exports[`SearchRecords page should render placeholders 1`] = `
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
   </WithStyles(ForwardRef(Grid))>
 </StandardPage>
@@ -505,7 +723,6 @@ exports[`SearchRecords page should render when paging 1`] = `
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -513,6 +730,31 @@ exports[`SearchRecords page should render when paging 1`] = `
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -539,7 +781,8 @@ exports[`SearchRecords page should render when paging 1`] = `
             item={true}
             xs={12}
           >
-            <WithStyles(PublicationsListSorting)
+            <PublicationsListSorting
+              bulkExportSize={500}
               disabled={false}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
@@ -573,44 +816,50 @@ exports[`SearchRecords page should render when paging 1`] = `
               }
             />
           </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <ContextProvider
+              value={
+                Object {
+                  "records": Array [
+                    1,
+                    2,
+                  ],
+                }
+              }
+            >
+              <Memo(PublicationsList)
+                publicationsList={
+                  Array [
+                    1,
+                    2,
+                  ]
+                }
+                showAdminActions={false}
+                showUnpublishedBufferFields={false}
+              />
+            </ContextProvider>
+          </WithStyles(ForwardRef(Grid))>
+          <WithStyles(ForwardRef(Grid))
+            item={true}
+            xs={12}
+          >
+            <WithStyles(PublicationsListPaging)
+              disabled={false}
+              loading={false}
+              onPageChanged={[Function]}
+              pagingData={
+                Object {
+                  "from": 10,
+                  "to": 20,
+                  "total": 100,
+                }
+              }
+            />
+          </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>
-        <div
-          style={
-            Object {
-              "marginTop": 16,
-            }
-          }
-        >
-          <PublicationsList
-            hideCountDiff={false}
-            publicationsList={
-              Array [
-                1,
-                2,
-              ]
-            }
-            publicationsListSubset={Array []}
-            showAdminActions={false}
-            showDefaultActions={false}
-            showMetrics={false}
-            showSourceCountIcon={false}
-            showSources={false}
-            showUnpublishedBufferFields={false}
-            subsetCustomActions={Array []}
-          />
-        </div>
-        <WithStyles(PublicationsListPaging)
-          disabled={false}
-          loading={false}
-          onPageChanged={[Function]}
-          pagingData={
-            Object {
-              "from": 10,
-              "to": 20,
-              "total": 100,
-            }
-          }
-        />
       </StandardCard>
     </WithStyles(ForwardRef(Grid))>
   </WithStyles(ForwardRef(Grid))>
@@ -624,6 +873,7 @@ Object {
     "ranges": Object {},
   },
   "advancedSearchFields": Array [],
+  "bulkExportSelected": false,
   "page": 1,
   "pageSize": 20,
   "sortBy": "score",
@@ -653,7 +903,6 @@ exports[`SearchRecords page should show available filters or selected filters if
               "showOpenAccessOnly": true,
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -661,6 +910,31 @@ exports[`SearchRecords page should show available filters or selected filters if
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -707,7 +981,6 @@ exports[`SearchRecords page should show available filters or selected filters if
               },
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -715,6 +988,31 @@ exports[`SearchRecords page should show available filters or selected filters if
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -764,7 +1062,6 @@ exports[`SearchRecords page should show available filters or selected filters if
               },
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -772,6 +1069,31 @@ exports[`SearchRecords page should show available filters or selected filters if
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -817,7 +1139,6 @@ exports[`SearchRecords page should show available filters or selected filters if
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -825,6 +1146,31 @@ exports[`SearchRecords page should show available filters or selected filters if
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -877,7 +1223,6 @@ exports[`SearchRecords page should show available filters or selected filters if
             }
             lookupFacetsList={
               Object {
-                "Author": "Author (lookup)",
                 "Collection": "Collection (lookup)",
                 "Subject": "Subject (lookup)",
               }
@@ -921,7 +1266,6 @@ exports[`SearchRecords page should show available filters or selected filters if
               "ranges": Object {},
             }
           }
-          className="search-body"
           isAdvancedSearch={false}
           isUnpublishedBufferPage={false}
           searchLoading={false}
@@ -929,6 +1273,31 @@ exports[`SearchRecords page should show available filters or selected filters if
           updateFacetExcludesFromSearchFields={[Function]}
         />
       </StandardCard>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      xs={12}
+    >
+      <WithStyles(ConfirmDialogBox)
+        hideCancelButton={true}
+        locale={
+          Object {
+            "confirmButtonLabel": "Close",
+            "confirmationMessage": <span
+              style={
+                Object {
+                  "display": "block",
+                  "margin": "1em 0",
+                }
+              }
+            >
+              Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+            </span>,
+            "confirmationTitle": "Export queued successfully",
+          }
+        }
+        onRef={[Function]}
+      />
     </WithStyles(ForwardRef(Grid))>
     <WithStyles(ForwardRef(Grid))
       item={true}
@@ -978,7 +1347,6 @@ exports[`SearchRecords page should show available filters or selected filters if
             }
             lookupFacetsList={
               Object {
-                "Author": "Author (lookup)",
                 "Collection": "Collection (lookup)",
                 "Subject": "Subject (lookup)",
               }

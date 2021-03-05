@@ -5,8 +5,10 @@ import { FieldOfResearchField, FilteredFieldOfResearchField } from './FieldOfRes
 export const FieldOfResearchListField = fieldProps => {
     return (
         <LookupListEditor
+            listEditorId="field-of-research"
             inputField={FieldOfResearchField}
-            errorText={fieldProps.meta ? fieldProps.meta.error : null}
+            error={!!fieldProps.meta.error}
+            errorText={fieldProps.meta.error}
             onChange={fieldProps.input.onChange}
             {...fieldProps}
         />
@@ -17,7 +19,8 @@ export const FilteredFieldOfResearchListField = fieldProps => {
     return (
         <LookupListEditor
             inputField={FilteredFieldOfResearchField}
-            errorText={fieldProps.meta ? fieldProps.meta.error : null}
+            error={!!fieldProps.meta.error}
+            errorText={fieldProps.meta.error}
             onChange={fieldProps.input.onChange}
             {...fieldProps}
         />

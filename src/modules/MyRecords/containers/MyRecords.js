@@ -4,17 +4,16 @@ import MyRecords from '../components/MyRecords';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from 'actions';
-import { routes } from 'config';
+import { pathConfig } from 'config';
 
 const mapStateToProps = state => {
     return {
+        authorDetails: state.get('accountReducer').authorDetails || {},
         accountLoading: state.get('accountReducer').accountLoading,
-        ...state.get('accountReducer'),
-        authorDetails: { ...state.get('accountReducer').authorDetails },
         ...state.get('publicationsReducer').mine,
         ...state.get('exportPublicationsReducer'),
         localePages: locale.pages.myResearch,
-        thisUrl: routes.pathConfig.records.mine,
+        thisUrl: pathConfig.records.mine,
         canUseExport:
             state.get('accountReducer') &&
             state.get('accountReducer').account &&

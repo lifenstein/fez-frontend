@@ -21,6 +21,7 @@ export {
     publicationTypeListAudio,
     publicationTypeListBook,
     publicationTypeListBookChapter,
+    publicationTypeListBookEdited,
     publicationTypeListConferencePaper,
     publicationTypeListConferenceProceedings,
     publicationTypeListCreativeWork,
@@ -45,6 +46,7 @@ export {
     record,
     recordsTypeList,
     recordWithDatastreams,
+    recordWithLotOfAuthors,
     recordWithoutAuthorIds,
     recordWithTiffAndThumbnail,
     unpublishedSearchList,
@@ -52,7 +54,6 @@ export {
 } from './records';
 
 export { vocabulariesList } from './vocabularies';
-export { quickTemplates } from './acml';
 export { hindexResponse, trendingPublications, currentAuthorStats } from './academicStats';
 export { searchKeyList } from './searchKeys';
 export { authorOrcidDetails, orcidSyncStatus, orcidSyncResponse, orcidSyncNullResponse } from './orcid';
@@ -61,3 +62,15 @@ export { batchImportDirectories } from './batchImportDirectories';
 export { sherpaRomeo } from './sherpaRomeo';
 export { ulrichs } from './ulrichs';
 export { mockRecordToFix } from './testing/records';
+export { journalLookup } from './journalLookup';
+export { journalDetails } from './journal';
+
+export { bulkUpdatesList } from './bulkUpdates';
+
+// Favourite search mock data
+export { default as favouriteSearchList } from './favouriteSearch/favouriteSearchList';
+export { default as favouriteSearchItem } from './favouriteSearch/favouriteSearchItem';
+
+// My editorial appointments mock data
+export { default as myEditorialAppointmentsList } from './myEditorialAppointments/myEditorialAppointmentsList';
+export { default as myEditorialAppointmentItem } from './myEditorialAppointments/myEditorialAppointmentItem';

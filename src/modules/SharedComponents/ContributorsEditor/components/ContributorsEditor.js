@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 
+import Infinite from 'react-infinite';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,6 +13,7 @@ import ContributorRowHeader from './ContributorRowHeader';
 import ContributorRow from './ContributorRow';
 import ContributorForm from './ContributorForm';
 import { Alert } from 'modules/SharedComponents/Toolbox/Alert';
+import AuthorsList from 'modules/Admin/components/authors/AuthorsList';
 
 export class ContributorsEditor extends PureComponent {
     static propTypes = {
@@ -25,6 +27,7 @@ export class ContributorsEditor extends PureComponent {
         hideReorder: PropTypes.bool,
         input: PropTypes.object,
         isNtro: PropTypes.bool,
+        isAdmin: PropTypes.bool,
         locale: PropTypes.object,
         meta: PropTypes.object,
         onChange: PropTypes.func,
@@ -113,9 +116,9 @@ export class ContributorsEditor extends PureComponent {
                     ...contributor,
                     disabled:
                         this.props.editMode && !isContributorACurrentAuthor && !!parseInt(contributor.uqIdentifier, 10),
-                    selected: isContributorACurrentAuthor,
+                    selected: !this.props.editMode && isContributorACurrentAuthor,
                     authorId: isContributorACurrentAuthor ? this.props.author.aut_id : null,
-                    required: false,
+                    required: contributor.required || false,
                 },
                 ...this.state.contributors.slice(index + 1),
             ],
@@ -211,7 +214,6 @@ export class ContributorsEditor extends PureComponent {
                 canMoveDown={index !== contributors.length - 1}
                 canMoveUp={index !== 0}
                 contributor={contributor}
-                contributorSuffix={locale.contributorSuffix}
                 disabled={disabled}
                 hideDelete={hideDelete}
                 hideReorder={hideReorder}
@@ -259,6 +261,12 @@ export class ContributorsEditor extends PureComponent {
         );
     };
 
+    handleAuthorsListChange = contributors => {
+        this.setState({
+            contributors,
+        });
+    };
+
     render() {
         const {
             classes,
@@ -267,6 +275,7 @@ export class ContributorsEditor extends PureComponent {
             editMode,
             hideDelete,
             isNtro,
+            isAdmin,
             meta,
             showContributorAssignment,
             showIdentifierLookup,
@@ -282,6 +291,20 @@ export class ContributorsEditor extends PureComponent {
                 React.Children.map(meta.error.props.children, (child, index) => {
                     return child.type ? React.cloneElement(child, { key: index }) : child;
                 });
+        }
+
+        if (isAdmin) {
+            return (
+                <AuthorsList
+                    contributorEditorId={contributorEditorId}
+                    disabled={disabled}
+                    list={contributors}
+                    onChange={this.handleAuthorsListChange}
+                    showRoleInput={showRoleInput}
+                    locale={this.props.locale}
+                    isNtro={isNtro}
+                />
+            );
         }
 
         return (
@@ -306,7 +329,7 @@ export class ContributorsEditor extends PureComponent {
                                     {...(this.props.locale.header || {})}
                                     disabled={disabled}
                                     hideDelete={hideDelete}
-                                    isInfinite={contributors.length > 3}
+                                    isInfinite={contributors.length > 20}
                                     isNtro={isNtro}
                                     onDeleteAll={this.deleteAllContributors}
                                     showContributorAssignment={showContributorAssignment}
@@ -323,7 +346,14 @@ export class ContributorsEditor extends PureComponent {
                                     }`,
                                 }}
                             >
-                                {this.renderContributorRows()}
+                                {// istanbul ignore next
+                                contributors.length > 20 ? (
+                                    <Infinite containerHeight={200} elementHeight={73} infiniteLoadBeginEdgeOffset={50}>
+                                        {this.renderContributorRows()}
+                                    </Infinite>
+                                ) : (
+                                    this.renderContributorRows()
+                                )}
                             </List>
                             {editMode && contributorIndexSelectedToEdit !== null && (
                                 <div style={{ marginTop: 24 }}>

@@ -711,6 +711,48 @@ exports[`ContributorsEditor chooses a contributor to edit 2`] = `
 </div>
 `;
 
+exports[`ContributorsEditor render authors list component for admin interface 1`] = `
+<Memo(AuthorsList)
+  contributorEditorId="test"
+  isNtro={false}
+  list={Array []}
+  locale={
+    Object {
+      "form": Object {
+        "locale": Object {
+          "addButton": "Add rek-author",
+          "creatorRoleHint": "Select role from list or type the role of the creator in relation to the dataset",
+          "creatorRoleLabel": "Enter creator's role",
+          "identifierLabel": "UQ identifier (if available)",
+          "nameAsPublishedHint": "Type the name exactly as published (eg. Smith, John)",
+          "nameAsPublishedLabel": "Rek-author's name as published",
+        },
+      },
+      "header": Object {
+        "locale": Object {
+          "contributorAssignmentColumn": "Select your name",
+          "identifierColumn": "UQ identifiers",
+          "nameColumn": "Rek-author's name as published",
+          "organisationColumn": "Organisation/Organisation type",
+          "roleColumn": "Creator role",
+        },
+      },
+      "row": Object {
+        "locale": Object {
+          "deleteHint": "Remove this item",
+          "editHint": "Edit this item",
+          "moveDownHint": "Move item down the order",
+          "moveUpHint": "Move item up the order",
+          "suffix": " listed rek-author",
+        },
+      },
+    }
+  }
+  onChange={[Function]}
+  showRoleInput={false}
+/>
+`;
+
 exports[`ContributorsEditor renders 3 contributor rows with no infinite scroll 1`] = `
 <div
   className="contributorEditor"
@@ -1012,7 +1054,7 @@ exports[`ContributorsEditor renders 4 contributor rows wrapped in an infinite sc
       >
         <WithStyles(ContributorRowHeader)
           hideDelete={false}
-          isInfinite={true}
+          isInfinite={false}
           isNtro={false}
           onDeleteAll={[Function]}
           showContributorAssignment={false}
@@ -1362,6 +1404,11 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -2765,6 +2812,8 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                             clearSuggestions={[Function]}
                                             defaultValue=""
                                             disabled={false}
+                                            error={false}
+                                            errorText="Type UQ author name to search"
                                             filterOptions={[Function]}
                                             floatingLabelText="UQ Author ID"
                                             getOptionLabel={[Function]}
@@ -2904,6 +2953,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                       }
                                                     }
                                                     disabled={false}
+                                                    error={false}
                                                     fullWidth={true}
                                                     helperText=""
                                                     id="test-aut-id"
@@ -2931,6 +2981,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                             class="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                                                             data-testid="test-aut-id-input"
                                                             id="test-aut-id-input"
+                                                            name="test-aut-id"
                                                             spellcheck="false"
                                                             type="text"
                                                             value=""
@@ -2941,6 +2992,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                       }
                                                     }
                                                     label="UQ Author ID"
+                                                    name="test-aut-id"
                                                     onChange={[Function]}
                                                     value=""
                                                   >
@@ -2989,6 +3041,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                         }
                                                       }
                                                       disabled={false}
+                                                      error={false}
                                                       fullWidth={true}
                                                       helperText=""
                                                       id="test-aut-id"
@@ -3016,6 +3069,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                               class="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                                                               data-testid="test-aut-id-input"
                                                               id="test-aut-id-input"
+                                                              name="test-aut-id"
                                                               spellcheck="false"
                                                               type="text"
                                                               value=""
@@ -3026,6 +3080,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                         }
                                                       }
                                                       label="UQ Author ID"
+                                                      name="test-aut-id"
                                                       onChange={[Function]}
                                                       value=""
                                                     >
@@ -3183,6 +3238,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                       class="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                                                                       data-testid="test-aut-id-input"
                                                                       id="test-aut-id-input"
+                                                                      name="test-aut-id"
                                                                       spellcheck="false"
                                                                       type="text"
                                                                       value=""
@@ -3193,6 +3249,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                 }
                                                               }
                                                               multiline={false}
+                                                              name="test-aut-id"
                                                               onChange={[Function]}
                                                               value=""
                                                             >
@@ -3270,6 +3327,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                         class="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                                                                         data-testid="test-aut-id-input"
                                                                         id="test-aut-id-input"
+                                                                        name="test-aut-id"
                                                                         spellcheck="false"
                                                                         type="text"
                                                                         value=""
@@ -3280,6 +3338,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                   }
                                                                 }
                                                                 multiline={false}
+                                                                name="test-aut-id"
                                                                 onChange={[Function]}
                                                                 value=""
                                                               >
@@ -3358,6 +3417,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                           class="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                                                                           data-testid="test-aut-id-input"
                                                                           id="test-aut-id-input"
+                                                                          name="test-aut-id"
                                                                           spellcheck="false"
                                                                           type="text"
                                                                           value=""
@@ -3368,6 +3428,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                     }
                                                                   }
                                                                   multiline={false}
+                                                                  name="test-aut-id"
                                                                   onChange={[Function]}
                                                                   type="text"
                                                                   value=""
@@ -3451,6 +3512,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                             class="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                                                                             data-testid="test-aut-id-input"
                                                                             id="test-aut-id-input"
+                                                                            name="test-aut-id"
                                                                             spellcheck="false"
                                                                             type="text"
                                                                             value=""
@@ -3461,6 +3523,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                       }
                                                                     }
                                                                     multiline={false}
+                                                                    name="test-aut-id"
                                                                     onChange={[Function]}
                                                                     type="text"
                                                                     value=""
@@ -3481,6 +3544,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                         data-testid="test-aut-id-input"
                                                                         disabled={false}
                                                                         id="test-aut-id-input"
+                                                                        name="test-aut-id"
                                                                         onAnimationStart={[Function]}
                                                                         onBlur={[Function]}
                                                                         onChange={[Function]}
@@ -3571,7 +3635,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                                   <span
                                                                                     className="MuiIconButton-label"
                                                                                   >
-                                                                                    <ForwardRef
+                                                                                    <CloseIcon
                                                                                       fontSize="small"
                                                                                     >
                                                                                       <WithStyles(ForwardRef(SvgIcon))
@@ -3605,7 +3669,7 @@ exports[`ContributorsEditor renders full component for admin user 1`] = `
                                                                                           </svg>
                                                                                         </ForwardRef(SvgIcon)>
                                                                                       </WithStyles(ForwardRef(SvgIcon))>
-                                                                                    </ForwardRef>
+                                                                                    </CloseIcon>
                                                                                   </span>
                                                                                   <WithStyles(memo)
                                                                                     center={true}
@@ -4575,6 +4639,11 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -5668,7 +5737,6 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                           "IconComponent": Object {
                                                             "$$typeof": Symbol(react.memo),
                                                             "compare": null,
-                                                            "displayName": "ArrowDropDownIcon",
                                                             "muiName": "SvgIcon",
                                                             "type": Object {
                                                               "$$typeof": Symbol(react.forward_ref),
@@ -5793,7 +5861,6 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                             "IconComponent": Object {
                                                               "$$typeof": Symbol(react.memo),
                                                               "compare": null,
-                                                              "displayName": "ArrowDropDownIcon",
                                                               "muiName": "SvgIcon",
                                                               "type": Object {
                                                                 "$$typeof": Symbol(react.forward_ref),
@@ -5919,7 +5986,6 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                               "IconComponent": Object {
                                                                 "$$typeof": Symbol(react.memo),
                                                                 "compare": null,
-                                                                "displayName": "ArrowDropDownIcon",
                                                                 "muiName": "SvgIcon",
                                                                 "type": Object {
                                                                   "$$typeof": Symbol(react.forward_ref),
@@ -6051,7 +6117,6 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                 "IconComponent": Object {
                                                                   "$$typeof": Symbol(react.memo),
                                                                   "compare": null,
-                                                                  "displayName": "ArrowDropDownIcon",
                                                                   "muiName": "SvgIcon",
                                                                   "type": Object {
                                                                     "$$typeof": Symbol(react.forward_ref),
@@ -6127,7 +6192,6 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                   Object {
                                                                     "$$typeof": Symbol(react.memo),
                                                                     "compare": null,
-                                                                    "displayName": "ArrowDropDownIcon",
                                                                     "muiName": "SvgIcon",
                                                                     "type": Object {
                                                                       "$$typeof": Symbol(react.forward_ref),
@@ -6205,7 +6269,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                   type="hidden"
                                                                   value=""
                                                                 />
-                                                                <ForwardRef
+                                                                <ArrowDropDownIcon
                                                                   className="MuiSelect-icon"
                                                                 >
                                                                   <WithStyles(ForwardRef(SvgIcon))
@@ -6239,7 +6303,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                       </svg>
                                                                     </ForwardRef(SvgIcon)>
                                                                   </WithStyles(ForwardRef(SvgIcon))>
-                                                                </ForwardRef>
+                                                                </ArrowDropDownIcon>
                                                                 <WithStyles(ForwardRef(Menu))
                                                                   MenuListProps={
                                                                     Object {
@@ -7075,6 +7139,8 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                             clearSuggestions={[Function]}
                                             defaultValue=""
                                             disabled={true}
+                                            error={false}
+                                            errorText="Type UQ author name to search"
                                             filterOptions={[Function]}
                                             floatingLabelText="UQ Author ID"
                                             getOptionLabel={[Function]}
@@ -7203,6 +7269,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                       }
                                                     }
                                                     disabled={true}
+                                                    error={false}
                                                     fullWidth={true}
                                                     helperText=""
                                                     id="test-aut-id"
@@ -7231,6 +7298,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                             data-testid="test-aut-id-input"
                                                             disabled=""
                                                             id="test-aut-id-input"
+                                                            name="test-aut-id"
                                                             spellcheck="false"
                                                             type="text"
                                                             value=""
@@ -7241,6 +7309,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                       }
                                                     }
                                                     label="UQ Author ID"
+                                                    name="test-aut-id"
                                                     onChange={[Function]}
                                                     value=""
                                                   >
@@ -7278,6 +7347,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                         }
                                                       }
                                                       disabled={true}
+                                                      error={false}
                                                       fullWidth={true}
                                                       helperText=""
                                                       id="test-aut-id"
@@ -7306,6 +7376,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                               data-testid="test-aut-id-input"
                                                               disabled=""
                                                               id="test-aut-id-input"
+                                                              name="test-aut-id"
                                                               spellcheck="false"
                                                               type="text"
                                                               value=""
@@ -7316,6 +7387,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                         }
                                                       }
                                                       label="UQ Author ID"
+                                                      name="test-aut-id"
                                                       onChange={[Function]}
                                                       value=""
                                                     >
@@ -7463,6 +7535,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                       data-testid="test-aut-id-input"
                                                                       disabled=""
                                                                       id="test-aut-id-input"
+                                                                      name="test-aut-id"
                                                                       spellcheck="false"
                                                                       type="text"
                                                                       value=""
@@ -7473,6 +7546,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                 }
                                                               }
                                                               multiline={false}
+                                                              name="test-aut-id"
                                                               onChange={[Function]}
                                                               value=""
                                                             >
@@ -7540,6 +7614,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                         data-testid="test-aut-id-input"
                                                                         disabled=""
                                                                         id="test-aut-id-input"
+                                                                        name="test-aut-id"
                                                                         spellcheck="false"
                                                                         type="text"
                                                                         value=""
@@ -7550,6 +7625,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                   }
                                                                 }
                                                                 multiline={false}
+                                                                name="test-aut-id"
                                                                 onChange={[Function]}
                                                                 value=""
                                                               >
@@ -7618,6 +7694,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                           data-testid="test-aut-id-input"
                                                                           disabled=""
                                                                           id="test-aut-id-input"
+                                                                          name="test-aut-id"
                                                                           spellcheck="false"
                                                                           type="text"
                                                                           value=""
@@ -7628,6 +7705,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                     }
                                                                   }
                                                                   multiline={false}
+                                                                  name="test-aut-id"
                                                                   onChange={[Function]}
                                                                   type="text"
                                                                   value=""
@@ -7701,6 +7779,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                             data-testid="test-aut-id-input"
                                                                             disabled=""
                                                                             id="test-aut-id-input"
+                                                                            name="test-aut-id"
                                                                             spellcheck="false"
                                                                             type="text"
                                                                             value=""
@@ -7711,6 +7790,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                       }
                                                                     }
                                                                     multiline={false}
+                                                                    name="test-aut-id"
                                                                     onChange={[Function]}
                                                                     type="text"
                                                                     value=""
@@ -7731,6 +7811,7 @@ exports[`ContributorsEditor renders full component with NTRO fields 1`] = `
                                                                         data-testid="test-aut-id-input"
                                                                         disabled={true}
                                                                         id="test-aut-id-input"
+                                                                        name="test-aut-id"
                                                                         onAnimationStart={[Function]}
                                                                         onBlur={[Function]}
                                                                         onChange={[Function]}

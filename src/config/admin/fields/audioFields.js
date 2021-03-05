@@ -3,7 +3,7 @@ import { isAuthorOrEditorSelected } from 'config/validation';
 
 export default {
     ...commonFields,
-    bibliographic: (isLote = false) => [
+    bibliographic: ({ isLote = false }) => [
         {
             title: 'Title',
             groups: [['rek_title'], ...(isLote ? [['fez_record_search_key_translated_title']] : [])],
@@ -18,7 +18,7 @@ export default {
         },
         {
             title: 'ISSN',
-            groups: [['issnField']],
+            groups: [['issns']],
         },
         {
             title: 'Bibliographic',
@@ -28,8 +28,9 @@ export default {
                 ['rek_date'],
                 ['fez_record_search_key_date_available', 'fez_record_search_key_date_recorded'],
                 ['rek_description'],
+                ['fez_record_search_key_type_of_data'],
                 ['fez_record_search_key_acknowledgements'],
-                ['fez_record_search_key_length', 'rek_genre'],
+                ['fez_record_search_key_length'],
                 ['fez_record_search_key_original_format'],
                 ['fez_record_search_key_source'],
                 ['fez_record_search_key_rights'],
@@ -52,6 +53,10 @@ export default {
         {
             title: 'Subject',
             groups: [['subjects']],
+        },
+        {
+            title: 'Related publications', // Succeeds
+            groups: [['fez_record_search_key_isderivationof']],
         },
     ],
     authors: () => [
@@ -76,19 +81,14 @@ export default {
                 ['fez_record_search_key_refereed_source', 'contentIndicators'],
                 ['fez_record_search_key_oa_status', 'fez_record_search_key_oa_status_type'],
                 ['fez_record_search_key_license'],
-                ['additionalNotes'],
             ],
-        },
-        {
-            title: 'Notes',
-            groups: [['internalNotes'], ['rek_herdc_notes']],
         },
     ],
     ntro: () => [],
 };
 
 export const validateAudioDocument = (
-    { bibliographicSection: bs, filesSection: fs, authorsSection: as },
+    { bibliographicSection: bs, authorsSection: as },
     { validationErrorsSummary: summary },
 ) => ({
     bibliographicSection: {
@@ -98,11 +98,6 @@ export const validateAudioDocument = (
             },
         }) ||
             {}),
-    },
-    filesSection: {
-        ...((fs || {}).rek_copyright !== 'on' && {
-            rek_copyright: summary.rek_copyright,
-        }),
     },
     authorsSection: isAuthorOrEditorSelected(as || {}, true),
 });

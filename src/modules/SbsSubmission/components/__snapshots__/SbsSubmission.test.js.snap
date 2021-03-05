@@ -113,6 +113,7 @@ exports[`SbsSubmission test should render sbs thesis submission form 1`] = `
                   height={50}
                   name="thesisTitle"
                   required={true}
+                  richEditorId="rek-title"
                   title="Thesis title"
                   validate={
                     Array [
@@ -150,22 +151,13 @@ exports[`SbsSubmission test should render sbs thesis submission form 1`] = `
                 xs={12}
               >
                 <Field
-                  component={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [Function],
-                      "compare": null,
-                      "displayName": "Connect(GenericSelectField)",
-                      "type": [Function],
-                    }
-                  }
+                  ariaLabel="Select a thesis type"
+                  component={[Function]}
                   disabled={false}
+                  genericSelectFieldId="rek-genre-type"
+                  id="thesis-subtype"
                   itemsList={
                     Array [
-                      Object {
-                        "text": "Select a thesis type",
-                        "value": undefined,
-                      },
                       Object {
                         "text": "MPhil Thesis",
                         "value": "MPhil Thesis",
@@ -180,13 +172,10 @@ exports[`SbsSubmission test should render sbs thesis submission form 1`] = `
                       },
                     ]
                   }
-                  locale={
-                    Object {
-                      "label": "Thesis type",
-                    }
-                  }
+                  label="Thesis type"
                   name="rek_genre_type"
                   required={true}
+                  selectPrompt="Please select a thesis type"
                   validate={
                     Array [
                       [Function],
@@ -208,7 +197,6 @@ exports[`SbsSubmission test should render sbs thesis submission form 1`] = `
                         "type": [Function],
                       },
                       "compare": null,
-                      "displayName": "Connect(Component)",
                       "type": [Function],
                     }
                   }
@@ -238,7 +226,6 @@ exports[`SbsSubmission test should render sbs thesis submission form 1`] = `
                         "type": [Function],
                       },
                       "compare": null,
-                      "displayName": "Connect(Component)",
                       "type": [Function],
                     }
                   }
@@ -284,6 +271,7 @@ exports[`SbsSubmission test should render sbs thesis submission form 1`] = `
                   disabled={false}
                   name="thesisAbstract"
                   required={true}
+                  richEditorId="rek-description"
                   title="Abstract"
                   validate={
                     Array [
@@ -522,7 +510,7 @@ exports[`SbsSubmission test should render sbs thesis submission form 1`] = `
               disabled={false}
               locale={
                 Object {
-                  "delayMessage": "During peak times, there may be a delay before newly uploaded files appear on the record.",
+                  "delayMessage": "During peak times, there may be a delay before newly uploaded files appear on the work.",
                   "delayNotice": "Notice",
                   "errorTitle": "Upload Errors",
                   "fileUploadInstruction": <p>
@@ -530,7 +518,7 @@ exports[`SbsSubmission test should render sbs thesis submission form 1`] = `
                   </p>,
                   "fileUploadRestrictionHeading": "File upload restrictions",
                   "fileUploadRestrictions": <div>
-                    Maximum file size is 8GB. 
+                    Maximum file size is 5GB. 
                     <br />
                     PDF files must be saved using the following naming structure
                      
@@ -675,6 +663,7 @@ exports[`SbsSubmission test should render sbs thesis submission form 2`] = `
                   height={50}
                   name="thesisTitle"
                   required={true}
+                  richEditorId="rek-title"
                   title="Thesis title"
                   validate={
                     Array [
@@ -712,22 +701,13 @@ exports[`SbsSubmission test should render sbs thesis submission form 2`] = `
                 xs={12}
               >
                 <Field
-                  component={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [Function],
-                      "compare": null,
-                      "displayName": "Connect(GenericSelectField)",
-                      "type": [Function],
-                    }
-                  }
+                  ariaLabel="Select a thesis type"
+                  component={[Function]}
                   disabled={false}
+                  genericSelectFieldId="rek-genre-type"
+                  id="thesis-subtype"
                   itemsList={
                     Array [
-                      Object {
-                        "text": "Select a thesis type",
-                        "value": undefined,
-                      },
                       Object {
                         "text": "MPhil Thesis",
                         "value": "MPhil Thesis",
@@ -742,13 +722,10 @@ exports[`SbsSubmission test should render sbs thesis submission form 2`] = `
                       },
                     ]
                   }
-                  locale={
-                    Object {
-                      "label": "Thesis type",
-                    }
-                  }
+                  label="Thesis type"
                   name="rek_genre_type"
                   required={true}
+                  selectPrompt="Please select a thesis type"
                   validate={
                     Array [
                       [Function],
@@ -770,7 +747,6 @@ exports[`SbsSubmission test should render sbs thesis submission form 2`] = `
                         "type": [Function],
                       },
                       "compare": null,
-                      "displayName": "Connect(Component)",
                       "type": [Function],
                     }
                   }
@@ -800,7 +776,6 @@ exports[`SbsSubmission test should render sbs thesis submission form 2`] = `
                         "type": [Function],
                       },
                       "compare": null,
-                      "displayName": "Connect(Component)",
                       "type": [Function],
                     }
                   }
@@ -846,6 +821,7 @@ exports[`SbsSubmission test should render sbs thesis submission form 2`] = `
                   disabled={false}
                   name="thesisAbstract"
                   required={true}
+                  richEditorId="rek-description"
                   title="Abstract"
                   validate={
                     Array [
@@ -1084,7 +1060,7 @@ exports[`SbsSubmission test should render sbs thesis submission form 2`] = `
               disabled={false}
               locale={
                 Object {
-                  "delayMessage": "During peak times, there may be a delay before newly uploaded files appear on the record.",
+                  "delayMessage": "During peak times, there may be a delay before newly uploaded files appear on the work.",
                   "delayNotice": "Notice",
                   "errorTitle": "Upload Errors",
                   "fileUploadInstruction": <p>
@@ -1092,7 +1068,7 @@ exports[`SbsSubmission test should render sbs thesis submission form 2`] = `
                   </p>,
                   "fileUploadRestrictionHeading": "File upload restrictions",
                   "fileUploadRestrictions": <div>
-                    Maximum file size is 8GB. 
+                    Maximum file size is 5GB. 
                     <br />
                     PDF files must be saved using the following naming structure
                      

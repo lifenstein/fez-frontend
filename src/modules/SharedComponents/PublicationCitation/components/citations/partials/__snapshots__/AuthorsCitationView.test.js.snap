@@ -72,20 +72,11 @@ exports[`AuthorsCitationView test  should render a header correctly when too man
     value="Smith, J"
   />
   , 
+   ... 
   <CitationView
     citationId="rek-author-2"
     className="citationAuthor"
     key="citationAuthor_3"
-    prefix=""
-    suffix=""
-    value="Andersen, J"
-  />
-  , 
-   ... 
-  <CitationView
-    citationId="rek-author-3"
-    className="citationAuthor"
-    key="citationAuthor_4"
     prefix=""
     suffix=""
     value="Andersen, J A"
@@ -124,7 +115,7 @@ exports[`AuthorsCitationView test  should render a list with ellipsis when elast
     suffix=""
     value="Andersen, J"
   />
-   and 5 more
+   and 1 more
    
 </span>
 `;
@@ -269,6 +260,11 @@ exports[`AuthorsCitationView test  should render component with 1 author 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -766,6 +762,11 @@ exports[`AuthorsCitationView test  should render component with 2 authors 1`] = 
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -1115,6 +1116,7 @@ exports[`AuthorsCitationView test  should render component with 2 authors 1`] = 
                   Pedroso, Marcelo Monteiro
                 </span>
               </CitationView>
+               and 
               <CitationView
                 citationId="rek-author-1"
                 className="citationAuthor"
@@ -1280,6 +1282,11 @@ exports[`AuthorsCitationView test  should render component with 2 authors for pu
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -1847,6 +1854,11 @@ exports[`AuthorsCitationView test  should render component with 2 authors for pu
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -2217,6 +2229,7 @@ exports[`AuthorsCitationView test  should render component with 2 authors for pu
                   </a>
                 </LinkAnchor>
               </Link>
+               and 
               <Link
                 className="authorNameLink"
                 data-testid="rek-author-1-link"
@@ -2403,6 +2416,11 @@ exports[`AuthorsCitationView test  should render component with 3 authors 1`] = 
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -2777,6 +2795,7 @@ exports[`AuthorsCitationView test  should render component with 3 authors 1`] = 
                 </span>
               </CitationView>
               , 
+               and 
               <CitationView
                 citationId="rek-author-2"
                 className="citationAuthor"
@@ -2942,6 +2961,11 @@ exports[`AuthorsCitationView test  should render component with 3 authors for pu
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -3555,6 +3579,11 @@ exports[`AuthorsCitationView test  should render component with 3 authors with p
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -3929,6 +3958,7 @@ exports[`AuthorsCitationView test  should render component with 3 authors with p
                 </span>
               </CitationView>
               , 
+               and 
               <CitationView
                 citationId="rek-author-2"
                 className="citationAuthor"
@@ -4096,6 +4126,11 @@ exports[`AuthorsCitationView test  should render component with 3 authors with p
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -4470,6 +4505,7 @@ exports[`AuthorsCitationView test  should render component with 3 authors with p
                 </span>
               </CitationView>
               , 
+               and 
               <CitationView
                 citationId="rek-author-2"
                 className="citationAuthor"
@@ -4599,6 +4635,7 @@ exports[`AuthorsCitationView test  should render component with 10 authors and s
     value="Andersen, J H"
   />
   , 
+   and 
   <CitationView
     citationId="rek-author-11"
     className="citationAuthor"
@@ -4697,6 +4734,7 @@ exports[`AuthorsCitationView test  should render component with exactly 10 autho
     value="Andersen, J F"
   />
   , 
+   and 
   <CitationView
     citationId="rek-author-9"
     className="citationAuthor"
@@ -4849,6 +4887,11 @@ exports[`AuthorsCitationView test  should render component with no authors 1`] =
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -5316,6 +5359,11 @@ exports[`AuthorsCitationView test  should set class on component with no authors
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {

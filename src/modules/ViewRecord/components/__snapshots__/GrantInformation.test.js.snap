@@ -110,15 +110,7 @@ exports[`Grant Information Component  should not break if rek_grant_id is not in
           "rek_grant_id_pid": "UQ:676287",
         }
       }
-      grantText={
-        Object {
-          "rek_grant_text": "We thank Jonathan Harris for the provision of DHT and David Miller for technical assistance and Kyle Upton for his critical review of the manuscript. Research was funded by the National Breast Cancer Foundation (NBCF: 2007003445 and CG-12-07) of Australia, the Australian Research Council (ARC: DP0985025), the Cancer Council of Queensland (CCQ: 1026095) and The University of Queensland. DHD was supported by a Collaborative Program Grant from the, National Breast Cancer Foundation [NBCF; CG-08-03]. Institute, Integrative Cancer Biology Program U54CA1113001 (KPN). SLE, JDF, AMS and ED are supported by Fellowships from the NBCF [ID# ECF-10-05, ECF-12-04, ECF-12-12 and ECF-13-04 respectively]. FA is supported by Future Fellowship from the Australian Research Council [ID: FT130101417]. JMWG is funding by a Scientific Fellowship from Breast Cancer Now. MJM and JAB are supported by an Australian Postgraduate Award (APA). AS was supported from NBCF program grant. SJC supported by NHMRC fellowship. Funding to pay the Open Access publication charges for this article was provided by The University of Queensland.",
-          "rek_grant_text_id": 583,
-          "rek_grant_text_order": 1,
-          "rek_grant_text_pid": "UQ:676287",
-          "rek_grant_text_xsdmf_id": 0,
-        }
-      }
+      grantText={Object {}}
       index={0}
       key="0"
       order={1}
@@ -202,15 +194,7 @@ exports[`Grant Information Component  should render component 1`] = `
           "rek_grant_id_pid": "UQ:676287",
         }
       }
-      grantText={
-        Object {
-          "rek_grant_text": "We thank Jonathan Harris for the provision of DHT and David Miller for technical assistance and Kyle Upton for his critical review of the manuscript. Research was funded by the National Breast Cancer Foundation (NBCF: 2007003445 and CG-12-07) of Australia, the Australian Research Council (ARC: DP0985025), the Cancer Council of Queensland (CCQ: 1026095) and The University of Queensland. DHD was supported by a Collaborative Program Grant from the, National Breast Cancer Foundation [NBCF; CG-08-03]. Institute, Integrative Cancer Biology Program U54CA1113001 (KPN). SLE, JDF, AMS and ED are supported by Fellowships from the NBCF [ID# ECF-10-05, ECF-12-04, ECF-12-12 and ECF-13-04 respectively]. FA is supported by Future Fellowship from the Australian Research Council [ID: FT130101417]. JMWG is funding by a Scientific Fellowship from Breast Cancer Now. MJM and JAB are supported by an Australian Postgraduate Award (APA). AS was supported from NBCF program grant. SJC supported by NHMRC fellowship. Funding to pay the Open Access publication charges for this article was provided by The University of Queensland.",
-          "rek_grant_text_id": 583,
-          "rek_grant_text_order": 1,
-          "rek_grant_text_pid": "UQ:676287",
-          "rek_grant_text_xsdmf_id": 0,
-        }
-      }
+      grantText={Object {}}
       index={0}
       key="0"
       order={1}
@@ -403,6 +387,11 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -1438,24 +1427,19 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                 ],
                 "fez_record_search_key_issn": Array [
                   Object {
-                    "fez_journal_issns": Array [
-                      Object {
-                        "fez_journal": Object {
-                          "jnl_created_date": "2010-11-19 00:00:00",
-                          "jnl_era_id": 2234,
-                          "jnl_era_year": 2010,
-                          "jnl_foreign_name": null,
-                          "jnl_id": 7538,
-                          "jnl_journal_name": "Journal of Cell Science",
-                          "jnl_rank": "A",
-                          "jnl_updated_date": "2010-11-19 00:00:00",
+                    "fez_journal": Object {
+                      "fez_journal_era": Array [
+                        Object {
+                          "jnl_era_jid": 20339,
+                          "jnl_era_source_id": "122966",
+                          "jnl_era_source_year": 2010,
                         },
-                        "jni_id": 13071,
-                        "jni_issn": "1477-9137",
-                        "jni_issn_order": 2,
-                        "jni_jnl_id": 7538,
-                      },
-                    ],
+                      ],
+                      "jni_id": 13071,
+                      "jni_issn": "1477-9137",
+                      "jni_issn_order": 2,
+                      "jni_jnl_id": 7538,
+                    },
                     "fez_sherpa_romeo": Object {
                       "srm_date_updated": "2017-09-30 18:26:18",
                       "srm_id": 13764,
@@ -1888,6 +1872,11 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                   "width": "100%",
                                 },
                               },
+                              "MuiIconButton": Object {
+                                "colorInherit": Object {
+                                  "color": "none",
+                                },
+                              },
                               "MuiMenuItem": Object {
                                 "root": Object {
                                   "&$selected": Object {
@@ -2180,6 +2169,7 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                         <WithStyles(ForwardRef(Card))
                           className="Cards-card-104 StandardCard"
                           data-testid="standard-card-grant-information"
+                          id="standard-card-grant-information"
                           style={Object {}}
                         >
                           <ForwardRef(Card)
@@ -2190,12 +2180,14 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                               }
                             }
                             data-testid="standard-card-grant-information"
+                            id="standard-card-grant-information"
                             style={Object {}}
                           >
                             <WithStyles(ForwardRef(Paper))
                               className="MuiCard-root Cards-card-104 StandardCard"
                               data-testid="standard-card-grant-information"
                               elevation={1}
+                              id="standard-card-grant-information"
                               style={Object {}}
                             >
                               <ForwardRef(Paper)
@@ -2234,11 +2226,13 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                 }
                                 data-testid="standard-card-grant-information"
                                 elevation={1}
+                                id="standard-card-grant-information"
                                 style={Object {}}
                               >
                                 <div
                                   className="MuiPaper-root MuiCard-root Cards-card-104 StandardCard MuiPaper-elevation1 MuiPaper-rounded"
                                   data-testid="standard-card-grant-information"
+                                  id="standard-card-grant-information"
                                   style={Object {}}
                                 >
                                   <WithStyles(ForwardRef(CardHeader))
@@ -2255,6 +2249,7 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                         "color": "inherit",
                                         "component": "h3",
                                         "data-testid": "standard-card-grant-information-header",
+                                        "id": "standard-card-grant-information-header",
                                         "variant": "h5",
                                       }
                                     }
@@ -2278,6 +2273,7 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                           "color": "inherit",
                                           "component": "h3",
                                           "data-testid": "standard-card-grant-information-header",
+                                          "id": "standard-card-grant-information-header",
                                           "variant": "h5",
                                         }
                                       }
@@ -2295,6 +2291,7 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                             component="h3"
                                             data-testid="standard-card-grant-information-header"
                                             display="block"
+                                            id="standard-card-grant-information-header"
                                             variant="h5"
                                           >
                                             <ForwardRef(Typography)
@@ -2337,11 +2334,13 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                               component="h3"
                                               data-testid="standard-card-grant-information-header"
                                               display="block"
+                                              id="standard-card-grant-information-header"
                                               variant="h5"
                                             >
                                               <h3
                                                 className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
                                                 data-testid="standard-card-grant-information-header"
+                                                id="standard-card-grant-information-header"
                                               >
                                                 Grant information
                                               </h3>
@@ -2354,6 +2353,7 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                   <WithStyles(ForwardRef(CardContent))
                                     className=""
                                     data-testid="standard-card-grant-information-content"
+                                    id="standard-card-grant-information-content"
                                   >
                                     <ForwardRef(CardContent)
                                       className=""
@@ -2363,10 +2363,12 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                         }
                                       }
                                       data-testid="standard-card-grant-information-content"
+                                      id="standard-card-grant-information-content"
                                     >
                                       <div
                                         className="MuiCardContent-root"
                                         data-testid="standard-card-grant-information-content"
+                                        id="standard-card-grant-information-content"
                                       >
                                         <WithStyles(ForwardRef(Typography))
                                           data-testid="rek-grant-text"
@@ -2440,15 +2442,7 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                               "rek_grant_id_pid": "UQ:676287",
                                             }
                                           }
-                                          grantText={
-                                            Object {
-                                              "rek_grant_text": "We thank Jonathan Harris for the provision of DHT and David Miller for technical assistance and Kyle Upton for his critical review of the manuscript. Research was funded by the National Breast Cancer Foundation (NBCF: 2007003445 and CG-12-07) of Australia, the Australian Research Council (ARC: DP0985025), the Cancer Council of Queensland (CCQ: 1026095) and The University of Queensland. DHD was supported by a Collaborative Program Grant from the, National Breast Cancer Foundation [NBCF; CG-08-03]. Institute, Integrative Cancer Biology Program U54CA1113001 (KPN). SLE, JDF, AMS and ED are supported by Fellowships from the NBCF [ID# ECF-10-05, ECF-12-04, ECF-12-12 and ECF-13-04 respectively]. FA is supported by Future Fellowship from the Australian Research Council [ID: FT130101417]. JMWG is funding by a Scientific Fellowship from Breast Cancer Now. MJM and JAB are supported by an Australian Postgraduate Award (APA). AS was supported from NBCF program grant. SJC supported by NHMRC fellowship. Funding to pay the Open Access publication charges for this article was provided by The University of Queensland.",
-                                              "rek_grant_text_id": 583,
-                                              "rek_grant_text_order": 1,
-                                              "rek_grant_text_pid": "UQ:676287",
-                                              "rek_grant_text_xsdmf_id": 0,
-                                            }
-                                          }
+                                          grantText={Object {}}
                                           index={0}
                                           key="0"
                                           order={1}
@@ -2980,9 +2974,7 @@ exports[`Grant Information Component  should render component mounted 1`] = `
                                                             <p
                                                               className="MuiTypography-root MuiTypography-body2"
                                                               data-testid="rek-grant-text-0"
-                                                            >
-                                                              We thank Jonathan Harris for the provision of DHT and David Miller for technical assistance and Kyle Upton for his critical review of the manuscript. Research was funded by the National Breast Cancer Foundation (NBCF: 2007003445 and CG-12-07) of Australia, the Australian Research Council (ARC: DP0985025), the Cancer Council of Queensland (CCQ: 1026095) and The University of Queensland. DHD was supported by a Collaborative Program Grant from the, National Breast Cancer Foundation [NBCF; CG-08-03]. Institute, Integrative Cancer Biology Program U54CA1113001 (KPN). SLE, JDF, AMS and ED are supported by Fellowships from the NBCF [ID# ECF-10-05, ECF-12-04, ECF-12-12 and ECF-13-04 respectively]. FA is supported by Future Fellowship from the Australian Research Council [ID: FT130101417]. JMWG is funding by a Scientific Fellowship from Breast Cancer Now. MJM and JAB are supported by an Australian Postgraduate Award (APA). AS was supported from NBCF program grant. SJC supported by NHMRC fellowship. Funding to pay the Open Access publication charges for this article was provided by The University of Queensland.
-                                                            </p>
+                                                            />
                                                           </ForwardRef(Typography)>
                                                         </WithStyles(ForwardRef(Typography))>
                                                       </div>

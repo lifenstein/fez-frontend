@@ -142,6 +142,11 @@ exports[`Component Links  Full mount render 1`] = `
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -3000,6 +3005,11 @@ exports[`Component Links  Full mount render 1`] = `
                           "width": "100%",
                         },
                       },
+                      "MuiIconButton": Object {
+                        "colorInherit": Object {
+                          "color": "none",
+                        },
+                      },
                       "MuiMenuItem": Object {
                         "root": Object {
                           "&$selected": Object {
@@ -3484,6 +3494,11 @@ exports[`Component Links  Full mount render 1`] = `
                                       "width": "100%",
                                     },
                                   },
+                                  "MuiIconButton": Object {
+                                    "colorInherit": Object {
+                                      "color": "none",
+                                    },
+                                  },
                                   "MuiMenuItem": Object {
                                     "root": Object {
                                       "&$selected": Object {
@@ -3776,6 +3791,7 @@ exports[`Component Links  Full mount render 1`] = `
                             <WithStyles(ForwardRef(Card))
                               className="Cards-card-107 StandardCard"
                               data-testid="standard-card-links"
+                              id="standard-card-links"
                               style={Object {}}
                             >
                               <ForwardRef(Card)
@@ -3786,12 +3802,14 @@ exports[`Component Links  Full mount render 1`] = `
                                   }
                                 }
                                 data-testid="standard-card-links"
+                                id="standard-card-links"
                                 style={Object {}}
                               >
                                 <WithStyles(ForwardRef(Paper))
                                   className="MuiCard-root Cards-card-107 StandardCard"
                                   data-testid="standard-card-links"
                                   elevation={1}
+                                  id="standard-card-links"
                                   style={Object {}}
                                 >
                                   <ForwardRef(Paper)
@@ -3830,11 +3848,13 @@ exports[`Component Links  Full mount render 1`] = `
                                     }
                                     data-testid="standard-card-links"
                                     elevation={1}
+                                    id="standard-card-links"
                                     style={Object {}}
                                   >
                                     <div
                                       className="MuiPaper-root MuiCard-root Cards-card-107 StandardCard MuiPaper-elevation1 MuiPaper-rounded"
                                       data-testid="standard-card-links"
+                                      id="standard-card-links"
                                       style={Object {}}
                                     >
                                       <WithStyles(ForwardRef(CardHeader))
@@ -3851,6 +3871,7 @@ exports[`Component Links  Full mount render 1`] = `
                                             "color": "inherit",
                                             "component": "h3",
                                             "data-testid": "standard-card-links-header",
+                                            "id": "standard-card-links-header",
                                             "variant": "h5",
                                           }
                                         }
@@ -3874,6 +3895,7 @@ exports[`Component Links  Full mount render 1`] = `
                                               "color": "inherit",
                                               "component": "h3",
                                               "data-testid": "standard-card-links-header",
+                                              "id": "standard-card-links-header",
                                               "variant": "h5",
                                             }
                                           }
@@ -3891,6 +3913,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                 component="h3"
                                                 data-testid="standard-card-links-header"
                                                 display="block"
+                                                id="standard-card-links-header"
                                                 variant="h5"
                                               >
                                                 <ForwardRef(Typography)
@@ -3933,11 +3956,13 @@ exports[`Component Links  Full mount render 1`] = `
                                                   component="h3"
                                                   data-testid="standard-card-links-header"
                                                   display="block"
+                                                  id="standard-card-links-header"
                                                   variant="h5"
                                                 >
                                                   <h3
                                                     className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
                                                     data-testid="standard-card-links-header"
+                                                    id="standard-card-links-header"
                                                   >
                                                     Links
                                                   </h3>
@@ -3950,6 +3975,7 @@ exports[`Component Links  Full mount render 1`] = `
                                       <WithStyles(ForwardRef(CardContent))
                                         className=""
                                         data-testid="standard-card-links-content"
+                                        id="standard-card-links-content"
                                       >
                                         <ForwardRef(CardContent)
                                           className=""
@@ -3959,10 +3985,12 @@ exports[`Component Links  Full mount render 1`] = `
                                             }
                                           }
                                           data-testid="standard-card-links-content"
+                                          id="standard-card-links-content"
                                         >
                                           <div
                                             className="MuiCardContent-root"
                                             data-testid="standard-card-links-content"
+                                            id="standard-card-links-content"
                                           >
                                             <Hidden
                                               xsDown={true}
@@ -4373,6 +4401,11 @@ exports[`Component Links  Full mount render 1`] = `
                                                                                 "width": "100%",
                                                                               },
                                                                             },
+                                                                            "MuiIconButton": Object {
+                                                                              "colorInherit": Object {
+                                                                                "color": "none",
+                                                                              },
+                                                                            },
                                                                             "MuiMenuItem": Object {
                                                                               "root": Object {
                                                                                 "&$selected": Object {
@@ -4671,7 +4704,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                                         target="_blank"
                                                                         title="Full text via Pubmed Central (open access)"
                                                                       >
-                                                                        <ForwardRef
+                                                                        <OpenInNewIcon
                                                                           className="ExternalLink-externalLinkIcon-179"
                                                                         >
                                                                           <WithStyles(ForwardRef(SvgIcon))
@@ -4705,7 +4738,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                                               </svg>
                                                                             </ForwardRef(SvgIcon)>
                                                                           </WithStyles(ForwardRef(SvgIcon))>
-                                                                        </ForwardRef>
+                                                                        </OpenInNewIcon>
                                                                         https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12345678
                                                                       </a>
                                                                     </ExternalLink>
@@ -5538,6 +5571,11 @@ exports[`Component Links  Full mount render 1`] = `
                                                                                   "width": "100%",
                                                                                 },
                                                                               },
+                                                                              "MuiIconButton": Object {
+                                                                                "colorInherit": Object {
+                                                                                  "color": "none",
+                                                                                },
+                                                                              },
                                                                               "MuiMenuItem": Object {
                                                                                 "root": Object {
                                                                                   "&$selected": Object {
@@ -5836,7 +5874,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                                           target="_blank"
                                                                           title="Open this DOI in an new window"
                                                                         >
-                                                                          <ForwardRef
+                                                                          <OpenInNewIcon
                                                                             className="ExternalLink-externalLinkIcon-179"
                                                                           >
                                                                             <WithStyles(ForwardRef(SvgIcon))
@@ -5870,7 +5908,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                                                 </svg>
                                                                               </ForwardRef(SvgIcon)>
                                                                             </WithStyles(ForwardRef(SvgIcon))>
-                                                                          </ForwardRef>
+                                                                          </OpenInNewIcon>
                                                                           https://doi.org/10.1093/hmg/ddw177
                                                                         </a>
                                                                       </ExternalLink>
@@ -6234,7 +6272,13 @@ exports[`Component Links  Full mount render 1`] = `
                                                 </WithStyles(ExternalLink)>
                                               }
                                               linkId="rek-link-0"
-                                              openAccessStatus={Object {}}
+                                              openAccessStatus={
+                                                Object {
+                                                  "embargoDate": null,
+                                                  "isOpenAccess": true,
+                                                  "openAccessStatusId": 453694,
+                                                }
+                                              }
                                             >
                                               <WithStyles(ForwardRef(Grid))
                                                 alignContent="center"
@@ -6606,6 +6650,11 @@ exports[`Component Links  Full mount render 1`] = `
                                                                               "width": "100%",
                                                                             },
                                                                           },
+                                                                          "MuiIconButton": Object {
+                                                                            "colorInherit": Object {
+                                                                              "color": "none",
+                                                                            },
+                                                                          },
                                                                           "MuiMenuItem": Object {
                                                                             "root": Object {
                                                                               "&$selected": Object {
@@ -6903,7 +6952,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                                       target="_blank"
                                                                       title="Link to publication"
                                                                     >
-                                                                      <ForwardRef
+                                                                      <OpenInNewIcon
                                                                         className="ExternalLink-externalLinkIcon-179"
                                                                       >
                                                                         <WithStyles(ForwardRef(SvgIcon))
@@ -6937,7 +6986,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                                             </svg>
                                                                           </ForwardRef(SvgIcon)>
                                                                         </WithStyles(ForwardRef(SvgIcon))>
-                                                                      </ForwardRef>
+                                                                      </OpenInNewIcon>
                                                                       http://www.thisisatest.com
                                                                     </a>
                                                                   </ExternalLink>
@@ -7261,7 +7310,11 @@ exports[`Component Links  Full mount render 1`] = `
                                                             }
                                                           }
                                                         >
-                                                          <WithStyles(OpenAccessIcon)>
+                                                          <WithStyles(OpenAccessIcon)
+                                                            embargoDate={null}
+                                                            isOpenAccess={true}
+                                                            openAccessStatusId={453694}
+                                                          >
                                                             <OpenAccessIcon
                                                               classes={
                                                                 Object {
@@ -7270,13 +7323,102 @@ exports[`Component Links  Full mount render 1`] = `
                                                                 }
                                                               }
                                                               embargoDate={null}
-                                                              isOpenAccess={false}
+                                                              isOpenAccess={true}
+                                                              openAccessStatusId={453694}
                                                               securityStatus={true}
                                                               showEmbargoText={false}
                                                             >
-                                                              <span
-                                                                className="noOaIcon"
-                                                              />
+                                                              <WithStyles(ForwardRef(Tooltip))
+                                                                TransitionComponent={
+                                                                  Object {
+                                                                    "$$typeof": Symbol(react.forward_ref),
+                                                                    "propTypes": Object {
+                                                                      "children": [Function],
+                                                                      "in": [Function],
+                                                                      "onEnter": [Function],
+                                                                      "onExit": [Function],
+                                                                      "style": [Function],
+                                                                      "timeout": [Function],
+                                                                    },
+                                                                    "render": [Function],
+                                                                  }
+                                                                }
+                                                                placement="left"
+                                                                title="Open Access - Free to read"
+                                                              >
+                                                                <ForwardRef(Tooltip)
+                                                                  TransitionComponent={
+                                                                    Object {
+                                                                      "$$typeof": Symbol(react.forward_ref),
+                                                                      "propTypes": Object {
+                                                                        "children": [Function],
+                                                                        "in": [Function],
+                                                                        "onEnter": [Function],
+                                                                        "onExit": [Function],
+                                                                        "style": [Function],
+                                                                        "timeout": [Function],
+                                                                      },
+                                                                      "render": [Function],
+                                                                    }
+                                                                  }
+                                                                  classes={
+                                                                    Object {
+                                                                      "arrow": "MuiTooltip-arrow",
+                                                                      "popper": "MuiTooltip-popper",
+                                                                      "popperArrow": "MuiTooltip-popperArrow",
+                                                                      "popperInteractive": "MuiTooltip-popperInteractive",
+                                                                      "tooltip": "MuiTooltip-tooltip",
+                                                                      "tooltipArrow": "MuiTooltip-tooltipArrow",
+                                                                      "tooltipPlacementBottom": "MuiTooltip-tooltipPlacementBottom",
+                                                                      "tooltipPlacementLeft": "MuiTooltip-tooltipPlacementLeft",
+                                                                      "tooltipPlacementRight": "MuiTooltip-tooltipPlacementRight",
+                                                                      "tooltipPlacementTop": "MuiTooltip-tooltipPlacementTop",
+                                                                      "touch": "MuiTooltip-touch",
+                                                                    }
+                                                                  }
+                                                                  placement="left"
+                                                                  title="Open Access - Free to read"
+                                                                >
+                                                                  <span
+                                                                    aria-describedby={null}
+                                                                    aria-label="Open Access - Free to read"
+                                                                    className="fez-icon openAccess large"
+                                                                    onBlur={[Function]}
+                                                                    onFocus={[Function]}
+                                                                    onMouseLeave={[Function]}
+                                                                    onMouseOver={[Function]}
+                                                                    onTouchEnd={[Function]}
+                                                                    onTouchStart={[Function]}
+                                                                    role="img"
+                                                                    title="Open Access - Free to read"
+                                                                  />
+                                                                  <ForwardRef(Popper)
+                                                                    anchorEl={
+                                                                      <span
+                                                                        aria-label="Open Access - Free to read"
+                                                                        class="fez-icon openAccess large"
+                                                                        role="img"
+                                                                        title="Open Access - Free to read"
+                                                                      />
+                                                                    }
+                                                                    className="MuiTooltip-popper"
+                                                                    id={null}
+                                                                    open={false}
+                                                                    placement="left"
+                                                                    popperOptions={
+                                                                      Object {
+                                                                        "modifiers": Object {
+                                                                          "arrow": Object {
+                                                                            "element": null,
+                                                                            "enabled": false,
+                                                                          },
+                                                                        },
+                                                                      }
+                                                                    }
+                                                                    transition={true}
+                                                                  />
+                                                                </ForwardRef(Tooltip)>
+                                                              </WithStyles(ForwardRef(Tooltip))>
                                                             </OpenAccessIcon>
                                                           </WithStyles(OpenAccessIcon)>
                                                         </div>
@@ -7299,7 +7441,13 @@ exports[`Component Links  Full mount render 1`] = `
                                                 </WithStyles(ExternalLink)>
                                               }
                                               linkId="rek-link-1"
-                                              openAccessStatus={Object {}}
+                                              openAccessStatus={
+                                                Object {
+                                                  "embargoDate": null,
+                                                  "isOpenAccess": true,
+                                                  "openAccessStatusId": 453694,
+                                                }
+                                              }
                                             >
                                               <WithStyles(ForwardRef(Grid))
                                                 alignContent="center"
@@ -7671,6 +7819,11 @@ exports[`Component Links  Full mount render 1`] = `
                                                                               "width": "100%",
                                                                             },
                                                                           },
+                                                                          "MuiIconButton": Object {
+                                                                            "colorInherit": Object {
+                                                                              "color": "none",
+                                                                            },
+                                                                          },
                                                                           "MuiMenuItem": Object {
                                                                             "root": Object {
                                                                               "&$selected": Object {
@@ -7968,7 +8121,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                                       target="_blank"
                                                                       title="Click to open link in a new window"
                                                                     >
-                                                                      <ForwardRef
+                                                                      <OpenInNewIcon
                                                                         className="ExternalLink-externalLinkIcon-179"
                                                                       >
                                                                         <WithStyles(ForwardRef(SvgIcon))
@@ -8002,7 +8155,7 @@ exports[`Component Links  Full mount render 1`] = `
                                                                             </svg>
                                                                           </ForwardRef(SvgIcon)>
                                                                         </WithStyles(ForwardRef(SvgIcon))>
-                                                                      </ForwardRef>
+                                                                      </OpenInNewIcon>
                                                                       http://www.thisisanothertest.com
                                                                     </a>
                                                                   </ExternalLink>
@@ -8326,7 +8479,11 @@ exports[`Component Links  Full mount render 1`] = `
                                                             }
                                                           }
                                                         >
-                                                          <WithStyles(OpenAccessIcon)>
+                                                          <WithStyles(OpenAccessIcon)
+                                                            embargoDate={null}
+                                                            isOpenAccess={true}
+                                                            openAccessStatusId={453694}
+                                                          >
                                                             <OpenAccessIcon
                                                               classes={
                                                                 Object {
@@ -8335,13 +8492,102 @@ exports[`Component Links  Full mount render 1`] = `
                                                                 }
                                                               }
                                                               embargoDate={null}
-                                                              isOpenAccess={false}
+                                                              isOpenAccess={true}
+                                                              openAccessStatusId={453694}
                                                               securityStatus={true}
                                                               showEmbargoText={false}
                                                             >
-                                                              <span
-                                                                className="noOaIcon"
-                                                              />
+                                                              <WithStyles(ForwardRef(Tooltip))
+                                                                TransitionComponent={
+                                                                  Object {
+                                                                    "$$typeof": Symbol(react.forward_ref),
+                                                                    "propTypes": Object {
+                                                                      "children": [Function],
+                                                                      "in": [Function],
+                                                                      "onEnter": [Function],
+                                                                      "onExit": [Function],
+                                                                      "style": [Function],
+                                                                      "timeout": [Function],
+                                                                    },
+                                                                    "render": [Function],
+                                                                  }
+                                                                }
+                                                                placement="left"
+                                                                title="Open Access - Free to read"
+                                                              >
+                                                                <ForwardRef(Tooltip)
+                                                                  TransitionComponent={
+                                                                    Object {
+                                                                      "$$typeof": Symbol(react.forward_ref),
+                                                                      "propTypes": Object {
+                                                                        "children": [Function],
+                                                                        "in": [Function],
+                                                                        "onEnter": [Function],
+                                                                        "onExit": [Function],
+                                                                        "style": [Function],
+                                                                        "timeout": [Function],
+                                                                      },
+                                                                      "render": [Function],
+                                                                    }
+                                                                  }
+                                                                  classes={
+                                                                    Object {
+                                                                      "arrow": "MuiTooltip-arrow",
+                                                                      "popper": "MuiTooltip-popper",
+                                                                      "popperArrow": "MuiTooltip-popperArrow",
+                                                                      "popperInteractive": "MuiTooltip-popperInteractive",
+                                                                      "tooltip": "MuiTooltip-tooltip",
+                                                                      "tooltipArrow": "MuiTooltip-tooltipArrow",
+                                                                      "tooltipPlacementBottom": "MuiTooltip-tooltipPlacementBottom",
+                                                                      "tooltipPlacementLeft": "MuiTooltip-tooltipPlacementLeft",
+                                                                      "tooltipPlacementRight": "MuiTooltip-tooltipPlacementRight",
+                                                                      "tooltipPlacementTop": "MuiTooltip-tooltipPlacementTop",
+                                                                      "touch": "MuiTooltip-touch",
+                                                                    }
+                                                                  }
+                                                                  placement="left"
+                                                                  title="Open Access - Free to read"
+                                                                >
+                                                                  <span
+                                                                    aria-describedby={null}
+                                                                    aria-label="Open Access - Free to read"
+                                                                    className="fez-icon openAccess large"
+                                                                    onBlur={[Function]}
+                                                                    onFocus={[Function]}
+                                                                    onMouseLeave={[Function]}
+                                                                    onMouseOver={[Function]}
+                                                                    onTouchEnd={[Function]}
+                                                                    onTouchStart={[Function]}
+                                                                    role="img"
+                                                                    title="Open Access - Free to read"
+                                                                  />
+                                                                  <ForwardRef(Popper)
+                                                                    anchorEl={
+                                                                      <span
+                                                                        aria-label="Open Access - Free to read"
+                                                                        class="fez-icon openAccess large"
+                                                                        role="img"
+                                                                        title="Open Access - Free to read"
+                                                                      />
+                                                                    }
+                                                                    className="MuiTooltip-popper"
+                                                                    id={null}
+                                                                    open={false}
+                                                                    placement="left"
+                                                                    popperOptions={
+                                                                      Object {
+                                                                        "modifiers": Object {
+                                                                          "arrow": Object {
+                                                                            "element": null,
+                                                                            "enabled": false,
+                                                                          },
+                                                                        },
+                                                                      }
+                                                                    }
+                                                                    transition={true}
+                                                                  />
+                                                                </ForwardRef(Tooltip)>
+                                                              </WithStyles(ForwardRef(Tooltip))>
                                                             </OpenAccessIcon>
                                                           </WithStyles(OpenAccessIcon)>
                                                         </div>
@@ -8656,7 +8902,13 @@ exports[`Component Links  should render 3 non OA links and NO OA google scholar 
         </WithStyles(ExternalLink)>
       }
       linkId="rek-link-0"
-      openAccessStatus={Object {}}
+      openAccessStatus={
+        Object {
+          "embargoDate": null,
+          "isOpenAccess": true,
+          "openAccessStatusId": 453694,
+        }
+      }
     />
     <Component
       description="Another link to publication"
@@ -8671,7 +8923,13 @@ exports[`Component Links  should render 3 non OA links and NO OA google scholar 
         </WithStyles(ExternalLink)>
       }
       linkId="rek-link-1"
-      openAccessStatus={Object {}}
+      openAccessStatus={
+        Object {
+          "embargoDate": null,
+          "isOpenAccess": true,
+          "openAccessStatusId": 453694,
+        }
+      }
     />
     <Component
       description="Click to open link in a new window"
@@ -8686,7 +8944,13 @@ exports[`Component Links  should render 3 non OA links and NO OA google scholar 
         </WithStyles(ExternalLink)>
       }
       linkId="rek-link-2"
-      openAccessStatus={Object {}}
+      openAccessStatus={
+        Object {
+          "embargoDate": null,
+          "isOpenAccess": true,
+          "openAccessStatusId": 453694,
+        }
+      }
     />
   </StandardCard>
 </WithStyles(ForwardRef(Grid))>
@@ -8832,6 +9096,11 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -9402,6 +9671,11 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                   "width": "100%",
                                 },
                               },
+                              "MuiIconButton": Object {
+                                "colorInherit": Object {
+                                  "color": "none",
+                                },
+                              },
                               "MuiMenuItem": Object {
                                 "root": Object {
                                   "&$selected": Object {
@@ -9694,6 +9968,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                         <WithStyles(ForwardRef(Card))
                           className="Cards-card-107 StandardCard"
                           data-testid="standard-card-links"
+                          id="standard-card-links"
                           style={Object {}}
                         >
                           <ForwardRef(Card)
@@ -9704,12 +9979,14 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                               }
                             }
                             data-testid="standard-card-links"
+                            id="standard-card-links"
                             style={Object {}}
                           >
                             <WithStyles(ForwardRef(Paper))
                               className="MuiCard-root Cards-card-107 StandardCard"
                               data-testid="standard-card-links"
                               elevation={1}
+                              id="standard-card-links"
                               style={Object {}}
                             >
                               <ForwardRef(Paper)
@@ -9748,11 +10025,13 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                 }
                                 data-testid="standard-card-links"
                                 elevation={1}
+                                id="standard-card-links"
                                 style={Object {}}
                               >
                                 <div
                                   className="MuiPaper-root MuiCard-root Cards-card-107 StandardCard MuiPaper-elevation1 MuiPaper-rounded"
                                   data-testid="standard-card-links"
+                                  id="standard-card-links"
                                   style={Object {}}
                                 >
                                   <WithStyles(ForwardRef(CardHeader))
@@ -9769,6 +10048,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                         "color": "inherit",
                                         "component": "h3",
                                         "data-testid": "standard-card-links-header",
+                                        "id": "standard-card-links-header",
                                         "variant": "h5",
                                       }
                                     }
@@ -9792,6 +10072,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                           "color": "inherit",
                                           "component": "h3",
                                           "data-testid": "standard-card-links-header",
+                                          "id": "standard-card-links-header",
                                           "variant": "h5",
                                         }
                                       }
@@ -9809,6 +10090,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                             component="h3"
                                             data-testid="standard-card-links-header"
                                             display="block"
+                                            id="standard-card-links-header"
                                             variant="h5"
                                           >
                                             <ForwardRef(Typography)
@@ -9851,11 +10133,13 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                               component="h3"
                                               data-testid="standard-card-links-header"
                                               display="block"
+                                              id="standard-card-links-header"
                                               variant="h5"
                                             >
                                               <h3
                                                 className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
                                                 data-testid="standard-card-links-header"
+                                                id="standard-card-links-header"
                                               >
                                                 Links
                                               </h3>
@@ -9868,6 +10152,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                   <WithStyles(ForwardRef(CardContent))
                                     className=""
                                     data-testid="standard-card-links-content"
+                                    id="standard-card-links-content"
                                   >
                                     <ForwardRef(CardContent)
                                       className=""
@@ -9877,10 +10162,12 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                         }
                                       }
                                       data-testid="standard-card-links-content"
+                                      id="standard-card-links-content"
                                     >
                                       <div
                                         className="MuiCardContent-root"
                                         data-testid="standard-card-links-content"
+                                        id="standard-card-links-content"
                                       >
                                         <Hidden
                                           xsDown={true}
@@ -10291,6 +10578,11 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                             "width": "100%",
                                                                           },
                                                                         },
+                                                                        "MuiIconButton": Object {
+                                                                          "colorInherit": Object {
+                                                                            "color": "none",
+                                                                          },
+                                                                        },
                                                                         "MuiMenuItem": Object {
                                                                           "root": Object {
                                                                             "&$selected": Object {
@@ -10589,7 +10881,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                     target="_blank"
                                                                     title="Full text via Pubmed Central (open access)"
                                                                   >
-                                                                    <ForwardRef
+                                                                    <OpenInNewIcon
                                                                       className="ExternalLink-externalLinkIcon-179"
                                                                     >
                                                                       <WithStyles(ForwardRef(SvgIcon))
@@ -10623,7 +10915,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                           </svg>
                                                                         </ForwardRef(SvgIcon)>
                                                                       </WithStyles(ForwardRef(SvgIcon))>
-                                                                    </ForwardRef>
+                                                                    </OpenInNewIcon>
                                                                     https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5179926
                                                                   </a>
                                                                 </ExternalLink>
@@ -11460,6 +11752,11 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                               "width": "100%",
                                                                             },
                                                                           },
+                                                                          "MuiIconButton": Object {
+                                                                            "colorInherit": Object {
+                                                                              "color": "none",
+                                                                            },
+                                                                          },
                                                                           "MuiMenuItem": Object {
                                                                             "root": Object {
                                                                               "&$selected": Object {
@@ -11758,7 +12055,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                       target="_blank"
                                                                       title="Open this DOI in an new window"
                                                                     >
-                                                                      <ForwardRef
+                                                                      <OpenInNewIcon
                                                                         className="ExternalLink-externalLinkIcon-179"
                                                                       >
                                                                         <WithStyles(ForwardRef(SvgIcon))
@@ -11792,7 +12089,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                             </svg>
                                                                           </ForwardRef(SvgIcon)>
                                                                         </WithStyles(ForwardRef(SvgIcon))>
-                                                                      </ForwardRef>
+                                                                      </OpenInNewIcon>
                                                                       https://doi.org/10.1016/j.pnsc.2012.12.004
                                                                     </a>
                                                                   </ExternalLink>
@@ -12619,6 +12916,11 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -12916,7 +13218,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                   target="_blank"
                                                                   title="Link to publication"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -12950,7 +13252,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.thisisatest.com
                                                                 </a>
                                                               </ExternalLink>
@@ -13682,6 +13984,11 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -13979,7 +14286,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                   target="_blank"
                                                                   title="Another link to publication"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -14013,7 +14320,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.thisisanothertest.com
                                                                 </a>
                                                               </ExternalLink>
@@ -14745,6 +15052,11 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -15042,7 +15354,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                   target="_blank"
                                                                   title="Click to open link in a new window"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -15076,7 +15388,7 @@ exports[`Component Links  should render 3 not OA links and DOI and PMC links wit
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.nodescription.com
                                                                 </a>
                                                               </ExternalLink>
@@ -15720,6 +16032,11 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -16282,6 +16599,11 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                   "width": "100%",
                                 },
                               },
+                              "MuiIconButton": Object {
+                                "colorInherit": Object {
+                                  "color": "none",
+                                },
+                              },
                               "MuiMenuItem": Object {
                                 "root": Object {
                                   "&$selected": Object {
@@ -16574,6 +16896,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                         <WithStyles(ForwardRef(Card))
                           className="Cards-card-107 StandardCard"
                           data-testid="standard-card-links"
+                          id="standard-card-links"
                           style={Object {}}
                         >
                           <ForwardRef(Card)
@@ -16584,12 +16907,14 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                               }
                             }
                             data-testid="standard-card-links"
+                            id="standard-card-links"
                             style={Object {}}
                           >
                             <WithStyles(ForwardRef(Paper))
                               className="MuiCard-root Cards-card-107 StandardCard"
                               data-testid="standard-card-links"
                               elevation={1}
+                              id="standard-card-links"
                               style={Object {}}
                             >
                               <ForwardRef(Paper)
@@ -16628,11 +16953,13 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                 }
                                 data-testid="standard-card-links"
                                 elevation={1}
+                                id="standard-card-links"
                                 style={Object {}}
                               >
                                 <div
                                   className="MuiPaper-root MuiCard-root Cards-card-107 StandardCard MuiPaper-elevation1 MuiPaper-rounded"
                                   data-testid="standard-card-links"
+                                  id="standard-card-links"
                                   style={Object {}}
                                 >
                                   <WithStyles(ForwardRef(CardHeader))
@@ -16649,6 +16976,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                         "color": "inherit",
                                         "component": "h3",
                                         "data-testid": "standard-card-links-header",
+                                        "id": "standard-card-links-header",
                                         "variant": "h5",
                                       }
                                     }
@@ -16672,6 +17000,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                           "color": "inherit",
                                           "component": "h3",
                                           "data-testid": "standard-card-links-header",
+                                          "id": "standard-card-links-header",
                                           "variant": "h5",
                                         }
                                       }
@@ -16689,6 +17018,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                             component="h3"
                                             data-testid="standard-card-links-header"
                                             display="block"
+                                            id="standard-card-links-header"
                                             variant="h5"
                                           >
                                             <ForwardRef(Typography)
@@ -16731,11 +17061,13 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                               component="h3"
                                               data-testid="standard-card-links-header"
                                               display="block"
+                                              id="standard-card-links-header"
                                               variant="h5"
                                             >
                                               <h3
                                                 className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
                                                 data-testid="standard-card-links-header"
+                                                id="standard-card-links-header"
                                               >
                                                 Links
                                               </h3>
@@ -16748,6 +17080,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                   <WithStyles(ForwardRef(CardContent))
                                     className=""
                                     data-testid="standard-card-links-content"
+                                    id="standard-card-links-content"
                                   >
                                     <ForwardRef(CardContent)
                                       className=""
@@ -16757,10 +17090,12 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                         }
                                       }
                                       data-testid="standard-card-links-content"
+                                      id="standard-card-links-content"
                                     >
                                       <div
                                         className="MuiCardContent-root"
                                         data-testid="standard-card-links-content"
+                                        id="standard-card-links-content"
                                       >
                                         <Hidden
                                           xsDown={true}
@@ -17171,6 +17506,11 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                             "width": "100%",
                                                                           },
                                                                         },
+                                                                        "MuiIconButton": Object {
+                                                                          "colorInherit": Object {
+                                                                            "color": "none",
+                                                                          },
+                                                                        },
                                                                         "MuiMenuItem": Object {
                                                                           "root": Object {
                                                                             "&$selected": Object {
@@ -17469,7 +17809,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                     target="_blank"
                                                                     title="Full text via Pubmed Central (open access)"
                                                                   >
-                                                                    <ForwardRef
+                                                                    <OpenInNewIcon
                                                                       className="ExternalLink-externalLinkIcon-179"
                                                                     >
                                                                       <WithStyles(ForwardRef(SvgIcon))
@@ -17503,7 +17843,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                           </svg>
                                                                         </ForwardRef(SvgIcon)>
                                                                       </WithStyles(ForwardRef(SvgIcon))>
-                                                                    </ForwardRef>
+                                                                    </OpenInNewIcon>
                                                                     https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5179926
                                                                   </a>
                                                                 </ExternalLink>
@@ -18329,6 +18669,11 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -18626,7 +18971,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                   target="_blank"
                                                                   title="Link to publication"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -18660,7 +19005,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.thisisatest.com
                                                                 </a>
                                                               </ExternalLink>
@@ -19392,6 +19737,11 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -19689,7 +20039,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                   target="_blank"
                                                                   title="Another link to publication"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -19723,7 +20073,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.thisisanothertest.com
                                                                 </a>
                                                               </ExternalLink>
@@ -20455,6 +20805,11 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -20752,7 +21107,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                   target="_blank"
                                                                   title="Click to open link in a new window"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -20786,7 +21141,7 @@ exports[`Component Links  should render 3 not OA links and PMC link with OA for 
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.nodescription.com
                                                                 </a>
                                                               </ExternalLink>
@@ -21295,6 +21650,11 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
                   "width": "100%",
+                },
+              },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
                 },
               },
               "MuiMenuItem": Object {
@@ -21865,6 +22225,11 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                   "width": "100%",
                                 },
                               },
+                              "MuiIconButton": Object {
+                                "colorInherit": Object {
+                                  "color": "none",
+                                },
+                              },
                               "MuiMenuItem": Object {
                                 "root": Object {
                                   "&$selected": Object {
@@ -22157,6 +22522,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                         <WithStyles(ForwardRef(Card))
                           className="Cards-card-107 StandardCard"
                           data-testid="standard-card-links"
+                          id="standard-card-links"
                           style={Object {}}
                         >
                           <ForwardRef(Card)
@@ -22167,12 +22533,14 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                               }
                             }
                             data-testid="standard-card-links"
+                            id="standard-card-links"
                             style={Object {}}
                           >
                             <WithStyles(ForwardRef(Paper))
                               className="MuiCard-root Cards-card-107 StandardCard"
                               data-testid="standard-card-links"
                               elevation={1}
+                              id="standard-card-links"
                               style={Object {}}
                             >
                               <ForwardRef(Paper)
@@ -22211,11 +22579,13 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                 }
                                 data-testid="standard-card-links"
                                 elevation={1}
+                                id="standard-card-links"
                                 style={Object {}}
                               >
                                 <div
                                   className="MuiPaper-root MuiCard-root Cards-card-107 StandardCard MuiPaper-elevation1 MuiPaper-rounded"
                                   data-testid="standard-card-links"
+                                  id="standard-card-links"
                                   style={Object {}}
                                 >
                                   <WithStyles(ForwardRef(CardHeader))
@@ -22232,6 +22602,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                         "color": "inherit",
                                         "component": "h3",
                                         "data-testid": "standard-card-links-header",
+                                        "id": "standard-card-links-header",
                                         "variant": "h5",
                                       }
                                     }
@@ -22255,6 +22626,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                           "color": "inherit",
                                           "component": "h3",
                                           "data-testid": "standard-card-links-header",
+                                          "id": "standard-card-links-header",
                                           "variant": "h5",
                                         }
                                       }
@@ -22272,6 +22644,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                             component="h3"
                                             data-testid="standard-card-links-header"
                                             display="block"
+                                            id="standard-card-links-header"
                                             variant="h5"
                                           >
                                             <ForwardRef(Typography)
@@ -22314,11 +22687,13 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                               component="h3"
                                               data-testid="standard-card-links-header"
                                               display="block"
+                                              id="standard-card-links-header"
                                               variant="h5"
                                             >
                                               <h3
                                                 className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
                                                 data-testid="standard-card-links-header"
+                                                id="standard-card-links-header"
                                               >
                                                 Links
                                               </h3>
@@ -22331,6 +22706,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                   <WithStyles(ForwardRef(CardContent))
                                     className=""
                                     data-testid="standard-card-links-content"
+                                    id="standard-card-links-content"
                                   >
                                     <ForwardRef(CardContent)
                                       className=""
@@ -22340,10 +22716,12 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                         }
                                       }
                                       data-testid="standard-card-links-content"
+                                      id="standard-card-links-content"
                                     >
                                       <div
                                         className="MuiCardContent-root"
                                         data-testid="standard-card-links-content"
+                                        id="standard-card-links-content"
                                       >
                                         <Hidden
                                           xsDown={true}
@@ -22754,6 +23132,11 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                             "width": "100%",
                                                                           },
                                                                         },
+                                                                        "MuiIconButton": Object {
+                                                                          "colorInherit": Object {
+                                                                            "color": "none",
+                                                                          },
+                                                                        },
                                                                         "MuiMenuItem": Object {
                                                                           "root": Object {
                                                                             "&$selected": Object {
@@ -23052,7 +23435,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                     target="_blank"
                                                                     title="Full text via Pubmed Central (open access)"
                                                                   >
-                                                                    <ForwardRef
+                                                                    <OpenInNewIcon
                                                                       className="ExternalLink-externalLinkIcon-179"
                                                                     >
                                                                       <WithStyles(ForwardRef(SvgIcon))
@@ -23086,7 +23469,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                           </svg>
                                                                         </ForwardRef(SvgIcon)>
                                                                       </WithStyles(ForwardRef(SvgIcon))>
-                                                                    </ForwardRef>
+                                                                    </OpenInNewIcon>
                                                                     https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5179926
                                                                   </a>
                                                                 </ExternalLink>
@@ -23917,6 +24300,11 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                               "width": "100%",
                                                                             },
                                                                           },
+                                                                          "MuiIconButton": Object {
+                                                                            "colorInherit": Object {
+                                                                              "color": "none",
+                                                                            },
+                                                                          },
                                                                           "MuiMenuItem": Object {
                                                                             "root": Object {
                                                                               "&$selected": Object {
@@ -24215,7 +24603,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                       target="_blank"
                                                                       title="Open this DOI in an new window"
                                                                     >
-                                                                      <ForwardRef
+                                                                      <OpenInNewIcon
                                                                         className="ExternalLink-externalLinkIcon-179"
                                                                       >
                                                                         <WithStyles(ForwardRef(SvgIcon))
@@ -24249,7 +24637,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                             </svg>
                                                                           </ForwardRef(SvgIcon)>
                                                                         </WithStyles(ForwardRef(SvgIcon))>
-                                                                      </ForwardRef>
+                                                                      </OpenInNewIcon>
                                                                       https://doi.org/10.1016/j.pnsc.2012.12.004
                                                                     </a>
                                                                   </ExternalLink>
@@ -24983,6 +25371,11 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -25280,7 +25673,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                   target="_blank"
                                                                   title="Link to publication"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -25314,7 +25707,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.thisisatest.com
                                                                 </a>
                                                               </ExternalLink>
@@ -26046,6 +26439,11 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -26343,7 +26741,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                   target="_blank"
                                                                   title="Another link to publication"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -26377,7 +26775,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.thisisanothertest.com
                                                                 </a>
                                                               </ExternalLink>
@@ -27109,6 +27507,11 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -27406,7 +27809,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                   target="_blank"
                                                                   title="Click to open link in a new window"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -27440,7 +27843,7 @@ exports[`Component Links  should render 3 not OA links and PMC with OA and DOI l
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.nodescription.com
                                                                 </a>
                                                               </ExternalLink>
@@ -28084,6 +28487,11 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -28646,6 +29054,11 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                   "width": "100%",
                                 },
                               },
+                              "MuiIconButton": Object {
+                                "colorInherit": Object {
+                                  "color": "none",
+                                },
+                              },
                               "MuiMenuItem": Object {
                                 "root": Object {
                                   "&$selected": Object {
@@ -28938,6 +29351,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                         <WithStyles(ForwardRef(Card))
                           className="Cards-card-107 StandardCard"
                           data-testid="standard-card-links"
+                          id="standard-card-links"
                           style={Object {}}
                         >
                           <ForwardRef(Card)
@@ -28948,12 +29362,14 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                               }
                             }
                             data-testid="standard-card-links"
+                            id="standard-card-links"
                             style={Object {}}
                           >
                             <WithStyles(ForwardRef(Paper))
                               className="MuiCard-root Cards-card-107 StandardCard"
                               data-testid="standard-card-links"
                               elevation={1}
+                              id="standard-card-links"
                               style={Object {}}
                             >
                               <ForwardRef(Paper)
@@ -28992,11 +29408,13 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                 }
                                 data-testid="standard-card-links"
                                 elevation={1}
+                                id="standard-card-links"
                                 style={Object {}}
                               >
                                 <div
                                   className="MuiPaper-root MuiCard-root Cards-card-107 StandardCard MuiPaper-elevation1 MuiPaper-rounded"
                                   data-testid="standard-card-links"
+                                  id="standard-card-links"
                                   style={Object {}}
                                 >
                                   <WithStyles(ForwardRef(CardHeader))
@@ -29013,6 +29431,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                         "color": "inherit",
                                         "component": "h3",
                                         "data-testid": "standard-card-links-header",
+                                        "id": "standard-card-links-header",
                                         "variant": "h5",
                                       }
                                     }
@@ -29036,6 +29455,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                           "color": "inherit",
                                           "component": "h3",
                                           "data-testid": "standard-card-links-header",
+                                          "id": "standard-card-links-header",
                                           "variant": "h5",
                                         }
                                       }
@@ -29053,6 +29473,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                             component="h3"
                                             data-testid="standard-card-links-header"
                                             display="block"
+                                            id="standard-card-links-header"
                                             variant="h5"
                                           >
                                             <ForwardRef(Typography)
@@ -29095,11 +29516,13 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                               component="h3"
                                               data-testid="standard-card-links-header"
                                               display="block"
+                                              id="standard-card-links-header"
                                               variant="h5"
                                             >
                                               <h3
                                                 className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
                                                 data-testid="standard-card-links-header"
+                                                id="standard-card-links-header"
                                               >
                                                 Links
                                               </h3>
@@ -29112,6 +29535,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                   <WithStyles(ForwardRef(CardContent))
                                     className=""
                                     data-testid="standard-card-links-content"
+                                    id="standard-card-links-content"
                                   >
                                     <ForwardRef(CardContent)
                                       className=""
@@ -29121,10 +29545,12 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                         }
                                       }
                                       data-testid="standard-card-links-content"
+                                      id="standard-card-links-content"
                                     >
                                       <div
                                         className="MuiCardContent-root"
                                         data-testid="standard-card-links-content"
+                                        id="standard-card-links-content"
                                       >
                                         <Hidden
                                           xsDown={true}
@@ -29538,6 +29964,11 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                               "width": "100%",
                                                                             },
                                                                           },
+                                                                          "MuiIconButton": Object {
+                                                                            "colorInherit": Object {
+                                                                              "color": "none",
+                                                                            },
+                                                                          },
                                                                           "MuiMenuItem": Object {
                                                                             "root": Object {
                                                                               "&$selected": Object {
@@ -29836,7 +30267,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                       target="_blank"
                                                                       title="Open this DOI in an new window"
                                                                     >
-                                                                      <ForwardRef
+                                                                      <OpenInNewIcon
                                                                         className="ExternalLink-externalLinkIcon-179"
                                                                       >
                                                                         <WithStyles(ForwardRef(SvgIcon))
@@ -29870,7 +30301,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                             </svg>
                                                                           </ForwardRef(SvgIcon)>
                                                                         </WithStyles(ForwardRef(SvgIcon))>
-                                                                      </ForwardRef>
+                                                                      </OpenInNewIcon>
                                                                       https://doi.org/10.1016/j.pnsc.2012.12.004
                                                                     </a>
                                                                   </ExternalLink>
@@ -30344,7 +30775,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                 <span
                                                                   className="MuiBadge-badge MuiBadge-anchorOriginTopRightRectangle"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <AccessTimeIcon
                                                                     className="OpenAccessIcon-embargoedBadgeStyle-190"
                                                                     fontSize="small"
                                                                   >
@@ -30384,7 +30815,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </AccessTimeIcon>
                                                                 </span>
                                                               </span>
                                                             </ForwardRef(Badge)>
@@ -30783,6 +31214,11 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -31080,7 +31516,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                   target="_blank"
                                                                   title="Link to publication"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -31114,7 +31550,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.thisisatest.com
                                                                 </a>
                                                               </ExternalLink>
@@ -31846,6 +32282,11 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -32143,7 +32584,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                   target="_blank"
                                                                   title="Another link to publication"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -32177,7 +32618,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.thisisanothertest.com
                                                                 </a>
                                                               </ExternalLink>
@@ -32909,6 +33350,11 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                           "width": "100%",
                                                                         },
                                                                       },
+                                                                      "MuiIconButton": Object {
+                                                                        "colorInherit": Object {
+                                                                          "color": "none",
+                                                                        },
+                                                                      },
                                                                       "MuiMenuItem": Object {
                                                                         "root": Object {
                                                                           "&$selected": Object {
@@ -33206,7 +33652,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                   target="_blank"
                                                                   title="Click to open link in a new window"
                                                                 >
-                                                                  <ForwardRef
+                                                                  <OpenInNewIcon
                                                                     className="ExternalLink-externalLinkIcon-179"
                                                                   >
                                                                     <WithStyles(ForwardRef(SvgIcon))
@@ -33240,7 +33686,7 @@ exports[`Component Links  should render list of 3 not OA links and DOI link with
                                                                         </svg>
                                                                       </ForwardRef(SvgIcon)>
                                                                     </WithStyles(ForwardRef(SvgIcon))>
-                                                                  </ForwardRef>
+                                                                  </OpenInNewIcon>
                                                                   http://www.nodescription.com
                                                                 </a>
                                                               </ExternalLink>
@@ -33647,6 +34093,24 @@ Object {
 }
 `;
 
+exports[`Component Links  should render oa icon for Link (no DOI) for link 1`] = `
+Object {
+  "description": "Click to open link in a new window",
+  "index": 0,
+  "link": <WithStyles(ExternalLink)
+    href="https://google.com"
+    title="Click to open link in a new window"
+  >
+    https://google.com
+  </WithStyles(ExternalLink)>,
+  "openAccessStatus": Object {
+    "embargoDate": null,
+    "isOpenAccess": true,
+    "openAccessStatusId": 453694,
+  },
+}
+`;
+
 exports[`Component Links  should render oa icon for open access rdm link 1`] = `
 Object {
   "description": "Access this dataset",
@@ -33756,7 +34220,7 @@ exports[`Component Links  should render only an OA google scholar link for OPEN_
       openAccessStatus={
         Object {
           "embargoDate": null,
-          "isOpenAccess": true,
+          "isOpenAccess": false,
           "openAccessStatusId": 453954,
         }
       }

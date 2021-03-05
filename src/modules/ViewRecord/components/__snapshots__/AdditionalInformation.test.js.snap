@@ -142,6 +142,11 @@ exports[`Additional Information Component  Full mount render 1`] = `
                   "width": "100%",
                 },
               },
+              "MuiIconButton": Object {
+                "colorInherit": Object {
+                  "color": "none",
+                },
+              },
               "MuiMenuItem": Object {
                 "root": Object {
                   "&$selected": Object {
@@ -1173,24 +1178,19 @@ exports[`Additional Information Component  Full mount render 1`] = `
                 ],
                 "fez_record_search_key_issn": Array [
                   Object {
-                    "fez_journal_issns": Array [
-                      Object {
-                        "fez_journal": Object {
-                          "jnl_created_date": "2010-11-19 00:00:00",
-                          "jnl_era_id": 2234,
-                          "jnl_era_year": 2010,
-                          "jnl_foreign_name": null,
-                          "jnl_id": 7538,
-                          "jnl_journal_name": "Journal of Cell Science",
-                          "jnl_rank": "A",
-                          "jnl_updated_date": "2010-11-19 00:00:00",
+                    "fez_journal": Object {
+                      "fez_journal_era": Array [
+                        Object {
+                          "jnl_era_jid": 20339,
+                          "jnl_era_source_id": "122966",
+                          "jnl_era_source_year": 2010,
                         },
-                        "jni_id": 13071,
-                        "jni_issn": "1477-9137",
-                        "jni_issn_order": 2,
-                        "jni_jnl_id": 7538,
-                      },
-                    ],
+                      ],
+                      "jni_id": 13071,
+                      "jni_issn": "1477-9137",
+                      "jni_issn_order": 2,
+                      "jni_jnl_id": 7538,
+                    },
                     "fez_sherpa_romeo": Object {
                       "srm_date_updated": "2017-09-30 18:26:18",
                       "srm_id": 13764,
@@ -2167,24 +2167,19 @@ exports[`Additional Information Component  Full mount render 1`] = `
                   ],
                   "fez_record_search_key_issn": Array [
                     Object {
-                      "fez_journal_issns": Array [
-                        Object {
-                          "fez_journal": Object {
-                            "jnl_created_date": "2010-11-19 00:00:00",
-                            "jnl_era_id": 2234,
-                            "jnl_era_year": 2010,
-                            "jnl_foreign_name": null,
-                            "jnl_id": 7538,
-                            "jnl_journal_name": "Journal of Cell Science",
-                            "jnl_rank": "A",
-                            "jnl_updated_date": "2010-11-19 00:00:00",
+                      "fez_journal": Object {
+                        "fez_journal_era": Array [
+                          Object {
+                            "jnl_era_jid": 20339,
+                            "jnl_era_source_id": "122966",
+                            "jnl_era_source_year": 2010,
                           },
-                          "jni_id": 13071,
-                          "jni_issn": "1477-9137",
-                          "jni_issn_order": 2,
-                          "jni_jnl_id": 7538,
-                        },
-                      ],
+                        ],
+                        "jni_id": 13071,
+                        "jni_issn": "1477-9137",
+                        "jni_issn_order": 2,
+                        "jni_jnl_id": 7538,
+                      },
                       "fez_sherpa_romeo": Object {
                         "srm_date_updated": "2017-09-30 18:26:18",
                         "srm_id": 13764,
@@ -3167,24 +3162,19 @@ exports[`Additional Information Component  Full mount render 1`] = `
                     ],
                     "fez_record_search_key_issn": Array [
                       Object {
-                        "fez_journal_issns": Array [
-                          Object {
-                            "fez_journal": Object {
-                              "jnl_created_date": "2010-11-19 00:00:00",
-                              "jnl_era_id": 2234,
-                              "jnl_era_year": 2010,
-                              "jnl_foreign_name": null,
-                              "jnl_id": 7538,
-                              "jnl_journal_name": "Journal of Cell Science",
-                              "jnl_rank": "A",
-                              "jnl_updated_date": "2010-11-19 00:00:00",
+                        "fez_journal": Object {
+                          "fez_journal_era": Array [
+                            Object {
+                              "jnl_era_jid": 20339,
+                              "jnl_era_source_id": "122966",
+                              "jnl_era_source_year": 2010,
                             },
-                            "jni_id": 13071,
-                            "jni_issn": "1477-9137",
-                            "jni_issn_order": 2,
-                            "jni_jnl_id": 7538,
-                          },
-                        ],
+                          ],
+                          "jni_id": 13071,
+                          "jni_issn": "1477-9137",
+                          "jni_issn_order": 2,
+                          "jni_jnl_id": 7538,
+                        },
                         "fez_sherpa_romeo": Object {
                           "srm_date_updated": "2017-09-30 18:26:18",
                           "srm_id": 13764,
@@ -3480,6 +3470,11 @@ exports[`Additional Information Component  Full mount render 1`] = `
                           "textOverflow": "ellipsis",
                           "whiteSpace": "nowrap",
                           "width": "100%",
+                        },
+                      },
+                      "MuiIconButton": Object {
+                        "colorInherit": Object {
+                          "color": "none",
                         },
                       },
                       "MuiMenuItem": Object {
@@ -3966,6 +3961,11 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                       "width": "100%",
                                     },
                                   },
+                                  "MuiIconButton": Object {
+                                    "colorInherit": Object {
+                                      "color": "none",
+                                    },
+                                  },
                                   "MuiMenuItem": Object {
                                     "root": Object {
                                       "&$selected": Object {
@@ -4258,6 +4258,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                             <WithStyles(ForwardRef(Card))
                               className="Cards-card-106 StandardCard"
                               data-testid="standard-card-additional-information"
+                              id="standard-card-additional-information"
                               style={Object {}}
                             >
                               <ForwardRef(Card)
@@ -4268,12 +4269,14 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                   }
                                 }
                                 data-testid="standard-card-additional-information"
+                                id="standard-card-additional-information"
                                 style={Object {}}
                               >
                                 <WithStyles(ForwardRef(Paper))
                                   className="MuiCard-root Cards-card-106 StandardCard"
                                   data-testid="standard-card-additional-information"
                                   elevation={1}
+                                  id="standard-card-additional-information"
                                   style={Object {}}
                                 >
                                   <ForwardRef(Paper)
@@ -4312,11 +4315,13 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                     }
                                     data-testid="standard-card-additional-information"
                                     elevation={1}
+                                    id="standard-card-additional-information"
                                     style={Object {}}
                                   >
                                     <div
                                       className="MuiPaper-root MuiCard-root Cards-card-106 StandardCard MuiPaper-elevation1 MuiPaper-rounded"
                                       data-testid="standard-card-additional-information"
+                                      id="standard-card-additional-information"
                                       style={Object {}}
                                     >
                                       <WithStyles(ForwardRef(CardHeader))
@@ -4333,6 +4338,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                             "color": "inherit",
                                             "component": "h3",
                                             "data-testid": "standard-card-additional-information-header",
+                                            "id": "standard-card-additional-information-header",
                                             "variant": "h5",
                                           }
                                         }
@@ -4356,6 +4362,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                               "color": "inherit",
                                               "component": "h3",
                                               "data-testid": "standard-card-additional-information-header",
+                                              "id": "standard-card-additional-information-header",
                                               "variant": "h5",
                                             }
                                           }
@@ -4373,6 +4380,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                 component="h3"
                                                 data-testid="standard-card-additional-information-header"
                                                 display="block"
+                                                id="standard-card-additional-information-header"
                                                 variant="h5"
                                               >
                                                 <ForwardRef(Typography)
@@ -4415,11 +4423,13 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                   component="h3"
                                                   data-testid="standard-card-additional-information-header"
                                                   display="block"
+                                                  id="standard-card-additional-information-header"
                                                   variant="h5"
                                                 >
                                                   <h3
                                                     className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
                                                     data-testid="standard-card-additional-information-header"
+                                                    id="standard-card-additional-information-header"
                                                   >
                                                     Additional information
                                                   </h3>
@@ -4432,6 +4442,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                       <WithStyles(ForwardRef(CardContent))
                                         className=""
                                         data-testid="standard-card-additional-information-content"
+                                        id="standard-card-additional-information-content"
                                       >
                                         <ForwardRef(CardContent)
                                           className=""
@@ -4441,10 +4452,12 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                             }
                                           }
                                           data-testid="standard-card-additional-information-content"
+                                          id="standard-card-additional-information-content"
                                         >
                                           <div
                                             className="MuiCardContent-root"
                                             data-testid="standard-card-additional-information-content"
+                                            id="standard-card-additional-information-content"
                                           >
                                             <div
                                               key="0"
@@ -5660,24 +5673,19 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                       ],
                                                                       "fez_record_search_key_issn": Array [
                                                                         Object {
-                                                                          "fez_journal_issns": Array [
-                                                                            Object {
-                                                                              "fez_journal": Object {
-                                                                                "jnl_created_date": "2010-11-19 00:00:00",
-                                                                                "jnl_era_id": 2234,
-                                                                                "jnl_era_year": 2010,
-                                                                                "jnl_foreign_name": null,
-                                                                                "jnl_id": 7538,
-                                                                                "jnl_journal_name": "Journal of Cell Science",
-                                                                                "jnl_rank": "A",
-                                                                                "jnl_updated_date": "2010-11-19 00:00:00",
+                                                                          "fez_journal": Object {
+                                                                            "fez_journal_era": Array [
+                                                                              Object {
+                                                                                "jnl_era_jid": 20339,
+                                                                                "jnl_era_source_id": "122966",
+                                                                                "jnl_era_source_year": 2010,
                                                                               },
-                                                                              "jni_id": 13071,
-                                                                              "jni_issn": "1477-9137",
-                                                                              "jni_issn_order": 2,
-                                                                              "jni_jnl_id": 7538,
-                                                                            },
-                                                                          ],
+                                                                            ],
+                                                                            "jni_id": 13071,
+                                                                            "jni_issn": "1477-9137",
+                                                                            "jni_issn_order": 2,
+                                                                            "jni_jnl_id": 7538,
+                                                                          },
                                                                           "fez_sherpa_romeo": Object {
                                                                             "srm_date_updated": "2017-09-30 18:26:18",
                                                                             "srm_id": 13764,
@@ -6668,24 +6676,19 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                         ],
                                                                         "fez_record_search_key_issn": Array [
                                                                           Object {
-                                                                            "fez_journal_issns": Array [
-                                                                              Object {
-                                                                                "fez_journal": Object {
-                                                                                  "jnl_created_date": "2010-11-19 00:00:00",
-                                                                                  "jnl_era_id": 2234,
-                                                                                  "jnl_era_year": 2010,
-                                                                                  "jnl_foreign_name": null,
-                                                                                  "jnl_id": 7538,
-                                                                                  "jnl_journal_name": "Journal of Cell Science",
-                                                                                  "jnl_rank": "A",
-                                                                                  "jnl_updated_date": "2010-11-19 00:00:00",
+                                                                            "fez_journal": Object {
+                                                                              "fez_journal_era": Array [
+                                                                                Object {
+                                                                                  "jnl_era_jid": 20339,
+                                                                                  "jnl_era_source_id": "122966",
+                                                                                  "jnl_era_source_year": 2010,
                                                                                 },
-                                                                                "jni_id": 13071,
-                                                                                "jni_issn": "1477-9137",
-                                                                                "jni_issn_order": 2,
-                                                                                "jni_jnl_id": 7538,
-                                                                              },
-                                                                            ],
+                                                                              ],
+                                                                              "jni_id": 13071,
+                                                                              "jni_issn": "1477-9137",
+                                                                              "jni_issn_order": 2,
+                                                                              "jni_jnl_id": 7538,
+                                                                            },
                                                                             "fez_sherpa_romeo": Object {
                                                                               "srm_date_updated": "2017-09-30 18:26:18",
                                                                               "srm_id": 13764,
@@ -6991,6 +6994,11 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                               "textOverflow": "ellipsis",
                                                                               "whiteSpace": "nowrap",
                                                                               "width": "100%",
+                                                                            },
+                                                                          },
+                                                                          "MuiIconButton": Object {
+                                                                            "colorInherit": Object {
+                                                                              "color": "none",
                                                                             },
                                                                           },
                                                                           "MuiMenuItem": Object {
@@ -9823,24 +9831,19 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                       ],
                                                                       "fez_record_search_key_issn": Array [
                                                                         Object {
-                                                                          "fez_journal_issns": Array [
-                                                                            Object {
-                                                                              "fez_journal": Object {
-                                                                                "jnl_created_date": "2010-11-19 00:00:00",
-                                                                                "jnl_era_id": 2234,
-                                                                                "jnl_era_year": 2010,
-                                                                                "jnl_foreign_name": null,
-                                                                                "jnl_id": 7538,
-                                                                                "jnl_journal_name": "Journal of Cell Science",
-                                                                                "jnl_rank": "A",
-                                                                                "jnl_updated_date": "2010-11-19 00:00:00",
+                                                                          "fez_journal": Object {
+                                                                            "fez_journal_era": Array [
+                                                                              Object {
+                                                                                "jnl_era_jid": 20339,
+                                                                                "jnl_era_source_id": "122966",
+                                                                                "jnl_era_source_year": 2010,
                                                                               },
-                                                                              "jni_id": 13071,
-                                                                              "jni_issn": "1477-9137",
-                                                                              "jni_issn_order": 2,
-                                                                              "jni_jnl_id": 7538,
-                                                                            },
-                                                                          ],
+                                                                            ],
+                                                                            "jni_id": 13071,
+                                                                            "jni_issn": "1477-9137",
+                                                                            "jni_issn_order": 2,
+                                                                            "jni_jnl_id": 7538,
+                                                                          },
                                                                           "fez_sherpa_romeo": Object {
                                                                             "srm_date_updated": "2017-09-30 18:26:18",
                                                                             "srm_id": 13764,
@@ -10188,6 +10191,11 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                                     "width": "100%",
                                                                                   },
                                                                                 },
+                                                                                "MuiIconButton": Object {
+                                                                                  "colorInherit": Object {
+                                                                                    "color": "none",
+                                                                                  },
+                                                                                },
                                                                                 "MuiMenuItem": Object {
                                                                                   "root": Object {
                                                                                     "&$selected": Object {
@@ -10485,7 +10493,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                             target="_blank"
                                                                             title="Link to https://example.com/ will open in a new window."
                                                                           >
-                                                                            <ForwardRef
+                                                                            <OpenInNewIcon
                                                                               className="ExternalLink-externalLinkIcon-179"
                                                                             >
                                                                               <WithStyles(ForwardRef(SvgIcon))
@@ -10519,7 +10527,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                                   </svg>
                                                                                 </ForwardRef(SvgIcon)>
                                                                               </WithStyles(ForwardRef(SvgIcon))>
-                                                                            </ForwardRef>
+                                                                            </OpenInNewIcon>
                                                                             Check publisher's open access policy
                                                                           </a>
                                                                         </ExternalLink>
@@ -12604,6 +12612,11 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                                   "width": "100%",
                                                                                 },
                                                                               },
+                                                                              "MuiIconButton": Object {
+                                                                                "colorInherit": Object {
+                                                                                  "color": "none",
+                                                                                },
+                                                                              },
                                                                               "MuiMenuItem": Object {
                                                                                 "root": Object {
                                                                                   "&$selected": Object {
@@ -12902,7 +12915,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                           target="_blank"
                                                                           title="Open this DOI in an new window"
                                                                         >
-                                                                          <ForwardRef
+                                                                          <OpenInNewIcon
                                                                             className="ExternalLink-externalLinkIcon-179"
                                                                           >
                                                                             <WithStyles(ForwardRef(SvgIcon))
@@ -12936,7 +12949,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                                                                 </svg>
                                                                               </ForwardRef(SvgIcon)>
                                                                             </WithStyles(ForwardRef(SvgIcon))>
-                                                                          </ForwardRef>
+                                                                          </OpenInNewIcon>
                                                                           https://doi.org/10.1242/jcs.196659
                                                                         </a>
                                                                       </ExternalLink>
@@ -18508,7 +18521,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                               </WithStyles(ForwardRef(Grid))>
                                             </div>
                                             <div
-                                              key="27"
+                                              key="28"
                                               style={
                                                 Object {
                                                   "padding": 8,
@@ -19012,7 +19025,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                               </WithStyles(ForwardRef(Grid))>
                                             </div>
                                             <div
-                                              key="28"
+                                              key="29"
                                               style={
                                                 Object {
                                                   "padding": 8,
@@ -19516,7 +19529,7 @@ exports[`Additional Information Component  Full mount render 1`] = `
                                               </WithStyles(ForwardRef(Grid))>
                                             </div>
                                             <div
-                                              key="29"
+                                              key="30"
                                               style={
                                                 Object {
                                                   "padding": 8,
@@ -20061,33 +20074,8 @@ exports[`Additional Information Component  renderLicense() 1`] = `
 exports[`Additional Information Component  renderMap() for Australia 1`] = `<span />`;
 
 exports[`Additional Information Component  renderMap() for Australia 2`] = `
-<lifecycle(withScriptjs(withGoogleMap(GoogleMapViewComponent)))
-  containerElement={
-    <div
-      data-testid="rek-geographic-area"
-      style={
-        Object {
-          "height": "400px",
-        }
-      }
-    />
-  }
+<Memo(PublicationMap)
   coordinates="test"
-  googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-  loadingElement={
-    <div
-      className="googleMap loading"
-    />
-  }
-  mapElement={
-    <div
-      style={
-        Object {
-          "height": "100%",
-        }
-      }
-    />
-  }
   readOnly={true}
 />
 `;
@@ -20095,33 +20083,8 @@ exports[`Additional Information Component  renderMap() for Australia 2`] = `
 exports[`Additional Information Component  renderMap() for China 1`] = `<span />`;
 
 exports[`Additional Information Component  renderMap() for China 2`] = `
-<lifecycle(withScriptjs(withGoogleMap(GoogleMapViewComponent)))
-  containerElement={
-    <div
-      data-testid="rek-geographic-area"
-      style={
-        Object {
-          "height": "400px",
-        }
-      }
-    />
-  }
+<Memo(PublicationMap)
   coordinates="test"
-  googleMapURL="http://maps.google.cn/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-  loadingElement={
-    <div
-      className="googleMap loading"
-    />
-  }
-  mapElement={
-    <div
-      style={
-        Object {
-          "height": "100%",
-        }
-      }
-    />
-  }
   readOnly={true}
 />
 `;
@@ -22057,7 +22020,6 @@ exports[`Additional Information Component  should render component with book 1`]
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={3}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -23550,7 +23512,6 @@ exports[`Additional Information Component  should render component with book cha
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={3}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -26550,7 +26511,6 @@ exports[`Additional Information Component  should render component with conferen
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={2}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -29089,7 +29049,6 @@ exports[`Additional Information Component  should render component with data col
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={1}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -32190,7 +32149,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="22"
+      key="23"
       style={
         Object {
           "padding": 8,
@@ -32232,33 +32191,8 @@ exports[`Additional Information Component  should render component with data col
             component="span"
             variant="body2"
           >
-            <lifecycle(withScriptjs(withGoogleMap(GoogleMapViewComponent)))
-              containerElement={
-                <div
-                  data-testid="rek-geographic-area"
-                  style={
-                    Object {
-                      "height": "400px",
-                    }
-                  }
-                />
-              }
+            <Memo(PublicationMap)
               coordinates="153.050537,-27.352253"
-              googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-              loadingElement={
-                <div
-                  className="googleMap loading"
-                />
-              }
-              mapElement={
-                <div
-                  style={
-                    Object {
-                      "height": "100%",
-                    }
-                  }
-                />
-              }
               readOnly={true}
             />
           </WithStyles(ForwardRef(Typography))>
@@ -32266,7 +32200,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="23"
+      key="24"
       style={
         Object {
           "padding": 8,
@@ -32324,7 +32258,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="25"
+      key="26"
       style={
         Object {
           "padding": 8,
@@ -32376,7 +32310,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="26"
+      key="27"
       style={
         Object {
           "padding": 8,
@@ -32429,7 +32363,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="27"
+      key="28"
       style={
         Object {
           "padding": 8,
@@ -32489,7 +32423,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="28"
+      key="29"
       style={
         Object {
           "padding": 8,
@@ -32536,54 +32470,6 @@ exports[`Additional Information Component  should render component with data col
             >
               2015, The University of Queensland
             </span>
-          </WithStyles(ForwardRef(Typography))>
-        </WithStyles(ForwardRef(Grid))>
-      </WithStyles(ForwardRef(Grid))>
-    </div>
-    <div
-      key="32"
-      style={
-        Object {
-          "padding": 8,
-        }
-      }
-    >
-      <WithStyles(ForwardRef(Grid))
-        alignItems="flex-start"
-        className="gridRow"
-        container={true}
-        key="additional-info-Additional notes"
-        spacing={2}
-      >
-        <WithStyles(ForwardRef(Grid))
-          item={true}
-          sm={3}
-          xs={12}
-        >
-          <WithStyles(ForwardRef(Typography))
-            classes={
-              Object {
-                "root": "header",
-              }
-            }
-            component="span"
-            data-testid="rek-additional-notes-label"
-            variant="body2"
-          >
-            Additional notes
-          </WithStyles(ForwardRef(Typography))>
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
-          className="data"
-          item={true}
-          sm={9}
-          xs={12}
-        >
-          <WithStyles(ForwardRef(Typography))
-            component="span"
-            variant="body2"
-          >
-            CheckM is open source software available at http://ecogenomics.github.io/CheckM
           </WithStyles(ForwardRef(Typography))>
         </WithStyles(ForwardRef(Grid))>
       </WithStyles(ForwardRef(Grid))>
@@ -32748,7 +32634,6 @@ exports[`Additional Information Component  should render component with data col
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={1}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -34597,7 +34482,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="22"
+      key="23"
       style={
         Object {
           "padding": 8,
@@ -34639,33 +34524,8 @@ exports[`Additional Information Component  should render component with data col
             component="span"
             variant="body2"
           >
-            <lifecycle(withScriptjs(withGoogleMap(GoogleMapViewComponent)))
-              containerElement={
-                <div
-                  data-testid="rek-geographic-area"
-                  style={
-                    Object {
-                      "height": "400px",
-                    }
-                  }
-                />
-              }
+            <Memo(PublicationMap)
               coordinates="178.849182,-16.826275 179.129333,-16.826275 179.129333,-17.251690 178.849182,-17.251690 178.849182,-16.826275"
-              googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-              loadingElement={
-                <div
-                  className="googleMap loading"
-                />
-              }
-              mapElement={
-                <div
-                  style={
-                    Object {
-                      "height": "100%",
-                    }
-                  }
-                />
-              }
               readOnly={true}
             />
           </WithStyles(ForwardRef(Typography))>
@@ -34673,7 +34533,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="25"
+      key="26"
       style={
         Object {
           "padding": 8,
@@ -34725,7 +34585,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="26"
+      key="27"
       style={
         Object {
           "padding": 8,
@@ -34778,7 +34638,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="27"
+      key="28"
       style={
         Object {
           "padding": 8,
@@ -34838,7 +34698,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="28"
+      key="29"
       style={
         Object {
           "padding": 8,
@@ -34890,7 +34750,7 @@ exports[`Additional Information Component  should render component with data col
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="29"
+      key="30"
       style={
         Object {
           "padding": 8,
@@ -35980,7 +35840,7 @@ exports[`Additional Information Component  should render component with design d
         alignItems="flex-start"
         className="gridRow"
         container={true}
-        key="additional-info-Consultant(s)"
+        key="additional-info-Contributor(s)"
         spacing={2}
       >
         <WithStyles(ForwardRef(Grid))
@@ -35998,7 +35858,7 @@ exports[`Additional Information Component  should render component with design d
             data-testid="rek-contributor-label"
             variant="body2"
           >
-            Consultant(s)
+            Contributor(s)
           </WithStyles(ForwardRef(Typography))>
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
@@ -36013,7 +35873,6 @@ exports[`Additional Information Component  should render component with design d
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={9}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -36515,7 +36374,7 @@ exports[`Additional Information Component  should render component with design d
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="21"
+      key="22"
       style={
         Object {
           "padding": 8,
@@ -36612,6 +36471,59 @@ exports[`Additional Information Component  should render component with design d
                 </Link>
               </li>
             </ul>
+          </WithStyles(ForwardRef(Typography))>
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </div>
+    <div
+      key="25"
+      style={
+        Object {
+          "padding": 8,
+        }
+      }
+    >
+      <WithStyles(ForwardRef(Grid))
+        alignItems="flex-start"
+        className="gridRow"
+        container={true}
+        key="additional-info-Job number"
+        spacing={2}
+      >
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          sm={3}
+          xs={12}
+        >
+          <WithStyles(ForwardRef(Typography))
+            classes={
+              Object {
+                "root": "header",
+              }
+            }
+            component="span"
+            data-testid="rek-job-number-label"
+            variant="body2"
+          >
+            Job number
+          </WithStyles(ForwardRef(Typography))>
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          className="data"
+          item={true}
+          sm={9}
+          xs={12}
+        >
+          <WithStyles(ForwardRef(Typography))
+            component="span"
+            variant="body2"
+          >
+            <Link
+              data-testid="rek-job-number"
+              to="/records/search?page=1&pageSize=20&sortBy=score&sortDirection=Desc&searchQueryParams%5Ball%5D=UQFL158%2C+job+no.+1006-2"
+            >
+              UQFL158, job no. 1006-2
+            </Link>
           </WithStyles(ForwardRef(Typography))>
         </WithStyles(ForwardRef(Grid))>
       </WithStyles(ForwardRef(Grid))>
@@ -37918,7 +37830,7 @@ exports[`Additional Information Component  should render component with generic 
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="5"
+      key="7"
       style={
         Object {
           "padding": 8,
@@ -37978,7 +37890,7 @@ exports[`Additional Information Component  should render component with generic 
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="6"
+      key="8"
       style={
         Object {
           "padding": 8,
@@ -38036,7 +37948,7 @@ exports[`Additional Information Component  should render component with generic 
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="7"
+      key="9"
       style={
         Object {
           "padding": 8,
@@ -38561,7 +38473,7 @@ exports[`Additional Information Component  should render component with generic 
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="8"
+      key="10"
       style={
         Object {
           "padding": 8,
@@ -38605,7 +38517,6 @@ exports[`Additional Information Component  should render component with generic 
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={2}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -39087,7 +38998,7 @@ exports[`Additional Information Component  should render component with generic 
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="9"
+      key="11"
       style={
         Object {
           "padding": 8,
@@ -39149,7 +39060,7 @@ exports[`Additional Information Component  should render component with image 1`
     title="Additional information"
   >
     <div
-      key="1"
+      key="0"
       style={
         Object {
           "padding": 8,
@@ -39305,7 +39216,6 @@ exports[`Additional Information Component  should render component with journal 
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={1}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -41008,24 +40918,19 @@ exports[`Additional Information Component  should render component with journal 
                   ],
                   "fez_record_search_key_issn": Array [
                     Object {
-                      "fez_journal_issns": Array [
-                        Object {
-                          "fez_journal": Object {
-                            "jnl_created_date": "2010-11-19 00:00:00",
-                            "jnl_era_id": 2234,
-                            "jnl_era_year": 2010,
-                            "jnl_foreign_name": null,
-                            "jnl_id": 7538,
-                            "jnl_journal_name": "Journal of Cell Science",
-                            "jnl_rank": "A",
-                            "jnl_updated_date": "2010-11-19 00:00:00",
+                      "fez_journal": Object {
+                        "fez_journal_era": Array [
+                          Object {
+                            "jnl_era_jid": 20339,
+                            "jnl_era_source_id": "122966",
+                            "jnl_era_source_year": 2010,
                           },
-                          "jni_id": 13071,
-                          "jni_issn": "1477-9137",
-                          "jni_issn_order": 2,
-                          "jni_jnl_id": 7538,
-                        },
-                      ],
+                        ],
+                        "jni_id": 13071,
+                        "jni_issn": "1477-9137",
+                        "jni_issn_order": 2,
+                        "jni_jnl_id": 7538,
+                      },
                       "fez_sherpa_romeo": Object {
                         "srm_date_updated": "2017-09-30 18:26:18",
                         "srm_id": 13764,
@@ -42151,24 +42056,19 @@ exports[`Additional Information Component  should render component with journal 
                   ],
                   "fez_record_search_key_issn": Array [
                     Object {
-                      "fez_journal_issns": Array [
-                        Object {
-                          "fez_journal": Object {
-                            "jnl_created_date": "2010-11-19 00:00:00",
-                            "jnl_era_id": 2234,
-                            "jnl_era_year": 2010,
-                            "jnl_foreign_name": null,
-                            "jnl_id": 7538,
-                            "jnl_journal_name": "Journal of Cell Science",
-                            "jnl_rank": "A",
-                            "jnl_updated_date": "2010-11-19 00:00:00",
+                      "fez_journal": Object {
+                        "fez_journal_era": Array [
+                          Object {
+                            "jnl_era_jid": 20339,
+                            "jnl_era_source_id": "122966",
+                            "jnl_era_source_year": 2010,
                           },
-                          "jni_id": 13071,
-                          "jni_issn": "1477-9137",
-                          "jni_issn_order": 2,
-                          "jni_jnl_id": 7538,
-                        },
-                      ],
+                        ],
+                        "jni_id": 13071,
+                        "jni_issn": "1477-9137",
+                        "jni_issn_order": 2,
+                        "jni_jnl_id": 7538,
+                      },
                       "fez_sherpa_romeo": Object {
                         "srm_date_updated": "2017-09-30 18:26:18",
                         "srm_id": 13764,
@@ -44124,7 +44024,6 @@ exports[`Additional Information Component  should render component with manuscri
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={2}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -44955,54 +44854,6 @@ exports[`Additional Information Component  should render component with manuscri
                 </Link>
               </li>
             </ul>
-          </WithStyles(ForwardRef(Typography))>
-        </WithStyles(ForwardRef(Grid))>
-      </WithStyles(ForwardRef(Grid))>
-    </div>
-    <div
-      key="21"
-      style={
-        Object {
-          "padding": 8,
-        }
-      }
-    >
-      <WithStyles(ForwardRef(Grid))
-        alignItems="flex-start"
-        className="gridRow"
-        container={true}
-        key="additional-info-Additional notes"
-        spacing={2}
-      >
-        <WithStyles(ForwardRef(Grid))
-          item={true}
-          sm={3}
-          xs={12}
-        >
-          <WithStyles(ForwardRef(Typography))
-            classes={
-              Object {
-                "root": "header",
-              }
-            }
-            component="span"
-            data-testid="rek-additional-notes-label"
-            variant="body2"
-          >
-            Additional notes
-          </WithStyles(ForwardRef(Typography))>
-        </WithStyles(ForwardRef(Grid))>
-        <WithStyles(ForwardRef(Grid))
-          className="data"
-          item={true}
-          sm={9}
-          xs={12}
-        >
-          <WithStyles(ForwardRef(Typography))
-            component="span"
-            variant="body2"
-          >
-            Letter dated 15 July 1944 from Thea Astley to Mr [Paul] Grano sending 9 poems for criticism. Poems not included in collection.
           </WithStyles(ForwardRef(Typography))>
         </WithStyles(ForwardRef(Grid))>
       </WithStyles(ForwardRef(Grid))>
@@ -45867,7 +45718,6 @@ exports[`Additional Information Component  should render component with newspape
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={1}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -51408,7 +51258,6 @@ exports[`Additional Information Component  should render component with referenc
           >
             <EditorsCitationView
               citationStyle="all"
-              initialNumberOfEditors={2}
               key="additional-information-editors"
               prefix=""
               publication={
@@ -52923,24 +52772,19 @@ exports[`Additional Information Component  should render component with rek_herd
                   ],
                   "fez_record_search_key_issn": Array [
                     Object {
-                      "fez_journal_issns": Array [
-                        Object {
-                          "fez_journal": Object {
-                            "jnl_created_date": "2010-11-19 00:00:00",
-                            "jnl_era_id": 2234,
-                            "jnl_era_year": 2010,
-                            "jnl_foreign_name": null,
-                            "jnl_id": 7538,
-                            "jnl_journal_name": "Journal of Cell Science",
-                            "jnl_rank": "A",
-                            "jnl_updated_date": "2010-11-19 00:00:00",
+                      "fez_journal": Object {
+                        "fez_journal_era": Array [
+                          Object {
+                            "jnl_era_jid": 20339,
+                            "jnl_era_source_id": "122966",
+                            "jnl_era_source_year": 2010,
                           },
-                          "jni_id": 13071,
-                          "jni_issn": "1477-9137",
-                          "jni_issn_order": 2,
-                          "jni_jnl_id": 7538,
-                        },
-                      ],
+                        ],
+                        "jni_id": 13071,
+                        "jni_issn": "1477-9137",
+                        "jni_issn_order": 2,
+                        "jni_jnl_id": 7538,
+                      },
                       "fez_sherpa_romeo": Object {
                         "srm_date_updated": "2017-09-30 18:26:18",
                         "srm_id": 13764,
@@ -54066,24 +53910,19 @@ exports[`Additional Information Component  should render component with rek_herd
                   ],
                   "fez_record_search_key_issn": Array [
                     Object {
-                      "fez_journal_issns": Array [
-                        Object {
-                          "fez_journal": Object {
-                            "jnl_created_date": "2010-11-19 00:00:00",
-                            "jnl_era_id": 2234,
-                            "jnl_era_year": 2010,
-                            "jnl_foreign_name": null,
-                            "jnl_id": 7538,
-                            "jnl_journal_name": "Journal of Cell Science",
-                            "jnl_rank": "A",
-                            "jnl_updated_date": "2010-11-19 00:00:00",
+                      "fez_journal": Object {
+                        "fez_journal_era": Array [
+                          Object {
+                            "jnl_era_jid": 20339,
+                            "jnl_era_source_id": "122966",
+                            "jnl_era_source_year": 2010,
                           },
-                          "jni_id": 13071,
-                          "jni_issn": "1477-9137",
-                          "jni_issn_order": 2,
-                          "jni_jnl_id": 7538,
-                        },
-                      ],
+                        ],
+                        "jni_id": 13071,
+                        "jni_issn": "1477-9137",
+                        "jni_issn_order": 2,
+                        "jni_jnl_id": 7538,
+                      },
                       "fez_sherpa_romeo": Object {
                         "srm_date_updated": "2017-09-30 18:26:18",
                         "srm_id": 13764,
@@ -55193,7 +55032,7 @@ exports[`Additional Information Component  should render component with rek_herd
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="27"
+      key="28"
       style={
         Object {
           "padding": 8,
@@ -55246,7 +55085,7 @@ exports[`Additional Information Component  should render component with rek_herd
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="28"
+      key="29"
       style={
         Object {
           "padding": 8,
@@ -55299,7 +55138,7 @@ exports[`Additional Information Component  should render component with rek_herd
       </WithStyles(ForwardRef(Grid))>
     </div>
     <div
-      key="29"
+      key="30"
       style={
         Object {
           "padding": 8,

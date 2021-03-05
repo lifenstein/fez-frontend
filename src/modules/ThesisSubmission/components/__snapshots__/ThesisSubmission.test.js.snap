@@ -192,6 +192,7 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
                   height={50}
                   name="thesisTitle"
                   required={true}
+                  richEditorId="rek-title"
                   title="Thesis title"
                   validate={
                     Array [
@@ -229,23 +230,13 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
                 xs={12}
               >
                 <Field
-                  component={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [Function],
-                      "compare": null,
-                      "displayName": "Connect(GenericSelectField)",
-                      "type": [Function],
-                    }
-                  }
+                  ariaLabel="Select a thesis type"
+                  component={[Function]}
                   disabled={false}
+                  genericSelectFieldId="rek-genre-type"
                   id="thesis-subtype"
                   itemsList={
                     Array [
-                      Object {
-                        "text": "Select a thesis type",
-                        "value": undefined,
-                      },
                       Object {
                         "text": "MPhil Thesis",
                         "value": "MPhil Thesis",
@@ -263,6 +254,7 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
                   label="Thesis type"
                   name="rek_genre_type"
                   required={true}
+                  selectPrompt="Please select a thesis type"
                   validate={
                     Array [
                       [Function],
@@ -284,7 +276,6 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
                         "type": [Function],
                       },
                       "compare": null,
-                      "displayName": "Connect(Component)",
                       "type": [Function],
                     }
                   }
@@ -309,6 +300,7 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
                   disabled={false}
                   name="thesisAbstract"
                   required={true}
+                  richEditorId="rek-description"
                   title="Abstract"
                   validate={
                     Array [
@@ -461,6 +453,7 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
             <Field
               component={[Function]}
               disabled={false}
+              isValid={[Function]}
               listEditorId="rek-keywords"
               locale={
                 Object {
@@ -503,7 +496,6 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
                 }
               }
               maxCount={10}
-              maxInputLength={111}
               name="fez_record_search_key_keywords"
               required={true}
               searchKey={
@@ -534,7 +526,7 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
               locale={
                 Object {
                   "accessTermsAndConditions": "I understand that the files indicated above as open access will be submitted as open access and will be made publicly available immediately or will be made available on the indicated embargo date.  All other files submitted will be accessible by UQ eSpace administrators.",
-                  "delayMessage": "During peak times, there may be a delay before newly uploaded files appear on the record.",
+                  "delayMessage": "During peak times, there may be a delay before newly uploaded files appear on the work.",
                   "delayNotice": "Notice",
                   "errorTitle": "Upload Errors",
                   "fileUploadInstruction": <p>
@@ -542,7 +534,7 @@ exports[`ThesisSubmission should render hdr thesis submission form 1`] = `
                   </p>,
                   "fileUploadRestrictionHeading": "File upload restrictions",
                   "fileUploadRestrictions": <div>
-                    Maximum file size is 8GB. 
+                    Maximum file size is 5GB. 
                     <br />
                     PDF files must be saved using the following naming structure
                      
@@ -744,6 +736,7 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
                   height={50}
                   name="thesisTitle"
                   required={true}
+                  richEditorId="rek-title"
                   title="Thesis title"
                   validate={
                     Array [
@@ -781,23 +774,13 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
                 xs={12}
               >
                 <Field
-                  component={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [Function],
-                      "compare": null,
-                      "displayName": "Connect(GenericSelectField)",
-                      "type": [Function],
-                    }
-                  }
+                  ariaLabel="Select a thesis type"
+                  component={[Function]}
                   disabled={false}
+                  genericSelectFieldId="rek-genre-type"
                   id="thesis-subtype"
                   itemsList={
                     Array [
-                      Object {
-                        "text": "Select a thesis type",
-                        "value": undefined,
-                      },
                       Object {
                         "text": "MPhil Thesis",
                         "value": "MPhil Thesis",
@@ -815,6 +798,7 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
                   label="Thesis type"
                   name="rek_genre_type"
                   required={true}
+                  selectPrompt="Please select a thesis type"
                   validate={
                     Array [
                       [Function],
@@ -836,7 +820,6 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
                         "type": [Function],
                       },
                       "compare": null,
-                      "displayName": "Connect(Component)",
                       "type": [Function],
                     }
                   }
@@ -861,6 +844,7 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
                   disabled={false}
                   name="thesisAbstract"
                   required={true}
+                  richEditorId="rek-description"
                   title="Abstract"
                   validate={
                     Array [
@@ -1013,6 +997,7 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
             <Field
               component={[Function]}
               disabled={false}
+              isValid={[Function]}
               listEditorId="rek-keywords"
               locale={
                 Object {
@@ -1055,7 +1040,6 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
                 }
               }
               maxCount={10}
-              maxInputLength={111}
               name="fez_record_search_key_keywords"
               required={true}
               searchKey={
@@ -1086,7 +1070,7 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
               locale={
                 Object {
                   "accessTermsAndConditions": "I understand that the files indicated above as open access will be submitted as open access and will be made publicly available immediately or will be made available on the indicated embargo date.  All other files submitted will be accessible by UQ eSpace administrators.",
-                  "delayMessage": "During peak times, there may be a delay before newly uploaded files appear on the record.",
+                  "delayMessage": "During peak times, there may be a delay before newly uploaded files appear on the work.",
                   "delayNotice": "Notice",
                   "errorTitle": "Upload Errors",
                   "fileUploadInstruction": <p>
@@ -1094,7 +1078,7 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
                   </p>,
                   "fileUploadRestrictionHeading": "File upload restrictions",
                   "fileUploadRestrictions": <div>
-                    Maximum file size is 8GB. 
+                    Maximum file size is 5GB. 
                     <br />
                     PDF files must be saved using the following naming structure
                      
@@ -1183,6 +1167,18 @@ exports[`ThesisSubmission should render sbs thesis submission form 1`] = `
 </StandardPage>
 `;
 
+exports[`ThesisSubmission should show file upload retry failure alert 1`] = `
+Array [
+  "Not all files were uploaded. Please contact ",
+  <a
+    href="mailto:thesis@gradschool.uq.edu.au?subject=Problem%20with%20Submission%20to%20UQ%20eSpace%20-%20First%20Last%2C%201234567"
+  >
+    the Graduate School
+  </a>,
+  " for assistance.",
+]
+`;
+
 exports[`ThesisSubmission should show the file upload failure alert 1`] = `
 <StandardPage
   title="Professional doctorate deposit"
@@ -1228,7 +1224,7 @@ exports[`ThesisSubmission should show the file upload failure alert 1`] = `
         allowDismiss={false}
         customIcon={null}
         customType={null}
-        disableAlertClick={false}
+        disableAlertClick={true}
         dismissTitle="Click to dismiss this alert"
         message={
           Array [

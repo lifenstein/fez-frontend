@@ -3,7 +3,7 @@
 exports[`AddSection component should render default view 1`] = `
 <form>
   <StandardPage
-    title="Add a new record"
+    title="Add a new work"
   >
     <WithStyles(ForwardRef(Grid))
       container={true}
@@ -14,7 +14,7 @@ exports[`AddSection component should render default view 1`] = `
         xs={12}
       >
         <StandardCard
-          title="Identify your new record"
+          title="Identify your new work"
         >
           <WithStyles(ForwardRef(Grid))
             container={true}
@@ -35,7 +35,6 @@ exports[`AddSection component should render default view 1`] = `
                       "type": [Function],
                     },
                     "compare": null,
-                    "displayName": "Connect(Component)",
                     "type": [Function],
                   }
                 }
@@ -258,7 +257,7 @@ exports[`AddSection component should render default view 1`] = `
                     id="submit-work"
                     variant="contained"
                   >
-                    Create record
+                    Create work
                   </WithStyles(ForwardRef(Button))>
                 </WithStyles(ForwardRef(Grid))>
               </WithStyles(ForwardRef(Grid))>
@@ -274,7 +273,7 @@ exports[`AddSection component should render default view 1`] = `
 exports[`AddSection component should render with subtypes 1`] = `
 <form>
   <StandardPage
-    title="Add a new record"
+    title="Add a new work"
   >
     <WithStyles(ForwardRef(Grid))
       container={true}
@@ -285,7 +284,7 @@ exports[`AddSection component should render with subtypes 1`] = `
         xs={12}
       >
         <StandardCard
-          title="Identify your new record"
+          title="Identify your new work"
         >
           <WithStyles(ForwardRef(Grid))
             container={true}
@@ -306,7 +305,6 @@ exports[`AddSection component should render with subtypes 1`] = `
                       "type": [Function],
                     },
                     "compare": null,
-                    "displayName": "Connect(Component)",
                     "type": [Function],
                   }
                 }
@@ -550,7 +548,7 @@ exports[`AddSection component should render with subtypes 1`] = `
                     id="submit-work"
                     variant="contained"
                   >
-                    Create record
+                    Create work
                   </WithStyles(ForwardRef(Button))>
                 </WithStyles(ForwardRef(Grid))>
               </WithStyles(ForwardRef(Grid))>

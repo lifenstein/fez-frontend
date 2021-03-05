@@ -1,9 +1,13 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { StandardCard } from 'modules/SharedComponents/Toolbox/StandardCard';
 import LockIcon from '@material-ui/icons/Lock';
-import { pathConfig } from 'config/routes';
+import Typography from '@material-ui/core/Typography';
+
+import { StandardCard } from 'modules/SharedComponents/Toolbox/StandardCard';
+
 import locale from 'locale/components';
+
+import { pathConfig } from 'config/pathConfig';
 import { DOI_ORG_PREFIX } from 'config/doi';
 /*
 
@@ -36,20 +40,13 @@ export default {
                 <StandardCard>
                     <h3>General Enquiries</h3>
                     <p>
-                        Tel: 07 334 69775 <br />
+                        Tel: 07 334 69981 <br />
                         Email: <a href="mailto:espace@library.uq.edu.au">espace@library.uq.edu.au</a>
                         <br />
                     </p>
-                    <h3>Staff contact</h3>
                     <p>
-                        Andrew Heath
-                        <br />
-                        Manager, UQ eSpace
-                        <br />
-                        Tel: 07 334 69981
-                        <br />
-                        Email: <a href="mailto:a.heath@library.uq.edu.au">a.heath@library.uq.edu.au</a>
-                        <br />
+                        Due to COVID-19 measures the phones may not always be monitored by on-site staff. Please email
+                        us for assistance if you are unable to reach us.
                     </p>
                     <h3>About UQ eSpace</h3>
                     The University of Queensland's institutional repository, UQ eSpace, aims to create global visibility
@@ -98,9 +95,13 @@ export default {
                 title: 'Browse eSpace help',
                 text: (
                     <div>
-                        <h3>Browse</h3>
+                        <Typography component="h4" variant="h6">
+                            Browse
+                        </Typography>
                         <p>Latest articles....</p>
-                        <h3>Browse collections</h3>
+                        <Typography component="h4" variant="h6">
+                            Browse collections
+                        </Typography>
                         <p>Latest collections....</p>
                     </div>
                 ),
@@ -241,7 +242,7 @@ export default {
             },
             possiblePublicationsLure: {
                 title: 'Claim now!',
-                message: 'We have found [count] record(s) that could possibly be your works.',
+                message: 'We have found [count] work(s) that could possibly be your works.',
                 type: 'info_outline',
                 actionButtonLabel: 'Claim your works now',
             },
@@ -266,8 +267,9 @@ export default {
             },
         },
         myResearch: {
-            pageTitle: 'My research',
-            recordCount: 'Displaying records [recordsFrom] to [recordsTo] of [recordsTotal] total records. ',
+            pageTitle: 'My works',
+            recordCount: 'Displaying works [recordsFrom] to [recordsTo] of [recordsTotal] total works. ',
+            bulkExportSizeMessage: 'The export will have the first [bulkExportSize] works.',
             text: (
                 <span>
                     Add to this list by <a href={pathConfig.records.possible}>claiming a work</a> or{' '}
@@ -291,7 +293,7 @@ export default {
         },
         myDatasets: {
             pageTitle: 'My research data',
-            recordCount: 'Displaying records [recordsFrom] to [recordsTo] of [recordsTotal] total records. ',
+            recordCount: 'Displaying works [recordsFrom] to [recordsTo] of [recordsTotal] total works. ',
             text: (
                 <span>
                     Add to this list by <a href={`${pathConfig.dataset.add}`}>adding a missing dataset</a>.
@@ -325,13 +327,14 @@ export default {
                         <br />
                         <br />
                         Your item will be published immediately and an UQ eSpace Research Outputs Officer will review
-                        the record.
+                        the work.
                     </p>
                 ),
                 fileFailConfirmationAlert: {
                     title: 'File upload and/or notes post failed',
                     message: 'lorem ipsum',
                     type: 'warning',
+                    alertId: 'alert-warning',
                 },
                 cancelButtonLabel: 'Add another missing dataset',
                 confirmButtonLabel: 'Go to my datasets',
@@ -348,7 +351,7 @@ export default {
                     </div>
                 ),
                 // help: {
-                //     title: 'No matching records found',
+                //     title: 'No matching works found',
                 //     text: 'Why search didn\'t return any items....',
                 //     buttonLabel: 'CLOSE'
                 // }
@@ -377,6 +380,7 @@ export default {
                 message: message =>
                     `Error has occurred during request and request cannot be processed. ${message} Please contact eSpace administrators or try again later.`,
                 type: 'error',
+                alertId: 'alert-error',
             },
             hideAllPublicationsConfirmation: {
                 confirmationTitle: 'Hide works',
@@ -408,9 +412,9 @@ export default {
                 noResultsFound: {
                     title: 'No matching works found',
                     text:
-                        'We were unable to match any results to your search criteria. Please search again or create a new eSpace record.',
+                        'We were unable to match any results to your search criteria. Please search again or create a new eSpace work.',
                     // help: {
-                    //     title: 'No matching records found',
+                    //     title: 'No matching works found',
                     //     text: 'Why search didn\'t return any items....',
                     //     buttonLabel: 'CLOSE'
                     // }
@@ -418,7 +422,7 @@ export default {
                 searchResults: {
                     title: 'Possible matches found',
                     resultsText: 'Top [noOfResults] potential match(es) displayed for "[searchQuery]".',
-                    text: 'Claim a matching work below, refine your search or create a new eSpace record.',
+                    text: 'Claim a matching work below, refine your search or create a new eSpace work.',
                     // help: {
                     //     title: 'Possible matches found',
                     //     text: 'Why search displays these items....',
@@ -426,7 +430,7 @@ export default {
                     // },
                     searchDashboard: {
                         title: 'Repository search',
-                        recordSuffix: ' record(s)',
+                        recordSuffix: ' work(s)',
                         ariaCircularProgressLabelSuffix: 'loading',
                         repositories: [
                             {
@@ -454,7 +458,7 @@ export default {
                 },
                 loadingMessage: 'Searching for works',
                 cancel: 'Abandon and search again',
-                submit: 'Create a new eSpace record',
+                submit: 'Create a new eSpace work',
                 claim: 'Claim this work',
                 unclaimable: 'All authors have been assigned',
             },
@@ -469,17 +473,18 @@ export default {
                         <br />
                         <br />
                         Your work will be published immediately and a UQ eSpace Research Outputs Officer will review the
-                        record.
+                        work.
                     </p>
                 ),
                 fileFailConfirmationAlert: {
                     title: 'File upload and/or notes post failed',
-                    message: 'Retry via "Fix record" screen or contact eSpace administrators.',
+                    message: 'Retry via "Fix work" screen or contact eSpace administrators.',
                     type: 'warning',
+                    alertId: 'alert-warning',
                 },
                 cancelButtonLabel: 'Add another missing work',
                 confirmButtonLabel: 'Go to my research',
-                alternateActionButtonLabel: 'Fix record',
+                alternateActionButtonLabel: 'Fix work',
             },
         },
         fixRecord: {
@@ -511,6 +516,7 @@ export default {
                 type: 'info_outline',
                 title: '',
                 message: 'This work has been deleted.',
+                alertId: 'alert-info',
             },
             notFound: {
                 title: 'Work not found',
@@ -529,6 +535,7 @@ export default {
             title: 'eSpace search',
             loadingMessage: 'Searching for works',
             recordCount: 'Displaying works [recordsFrom] to [recordsTo] of [recordsTotal] total works. ',
+            bulkExportSizeMessage: 'The export will have the first [bulkExportSize] works.',
             loadingPagingMessage: 'Searching for works',
             exportPublicationsLoadingMessage: 'Exporting search results',
             noResultsFound: {
@@ -543,6 +550,7 @@ export default {
                 type: 'error_outline',
                 title: 'Error',
                 message: message => message,
+                alertId: 'alert-error',
             },
         },
         collection: {
@@ -595,7 +603,9 @@ export default {
                 title: 'About Google Scholar',
                 text: (
                     <div>
-                        <h3>How to create Google Scholar profile?</h3>
+                        <Typography component="h4" variant="h6">
+                            How to create Google Scholar profile?
+                        </Typography>
                         <ol>
                             <li>Sign to your Google account, or create one if you don't have one.</li>
                             <li>
@@ -621,8 +631,8 @@ export default {
                 submit: 'Save Google Scholar ID',
                 cancel: 'Cancel',
                 googleScholarIdField: {
-                    floatingLabelText: 'Google Scholar ID',
-                    hintText: 'Enter your Google Scholar ID',
+                    label: 'Google Scholar ID',
+                    placeholder: 'Enter your Google Scholar ID',
                 },
             },
             add: {
@@ -667,18 +677,19 @@ export default {
             },
             errorAlert: {
                 type: 'error_outline',
+                alertId: 'alert-error',
                 title: 'Error',
-                message: message =>
-                    `Error has occurred during request and request cannot be processed. ${message} Please contact eSpace administrators or try again later.`,
             },
             progressAlert: {
                 type: 'info_outline',
+                alertId: 'alert-info',
                 title: 'Saving',
                 message: 'Request is being processed.',
                 showLoader: true,
             },
             successAlert: {
                 type: 'done',
+                alertId: 'alert-done',
                 title: 'Google Scholar ID updated',
                 message: 'Your Google Scholar ID has been updated in your eSpace profile.',
                 allowDismiss: true,
@@ -713,7 +724,7 @@ export default {
                             and your professional activities ensuring that your work is recognised.
                         </p>
                         <p>
-                            ORCID records hold only non-sensitive information such as name, email, organisation and
+                            ORCID works hold only non-sensitive information such as name, email, organisation and
                             research activities. Plus, you can control who sees information in your ORCID iD via{' '}
                             <a
                                 href="http://support.orcid.org/knowledgebase/articles/124518-orcid-privacy-settings"
@@ -773,7 +784,7 @@ export default {
                         <p>
                             Simply provide your ORCID iD when accepting a peer review assignment and upon completion the
                             organisation* you have done the peer review for will post an acknowledgement of this
-                            activity to your ORCID record, if you have granted this permission.
+                            activity to your ORCID work, if you have granted this permission.
                         </p>
                         <p>
                             <em>* The organisation needs to be participating in the ORCID peer review program.</em>
@@ -790,7 +801,7 @@ export default {
                         <p>
                             Because ORCID identifiers are designed to be persistent, obsolete iDs will be deprecated,
                             not deleted. The work associated with a deprecated iD will contain a pointer to the primary
-                            record
+                            work
                         </p>
                     </div>
                 ),
@@ -821,6 +832,7 @@ export default {
             },
             errorAlert: {
                 type: 'error_outline',
+                alertId: 'alert-error',
                 title: 'Error',
                 message: message =>
                     `Error has occurred during request and request cannot be processed. ${message} Please contact eSpace administrators or try again later.`,
@@ -828,6 +840,7 @@ export default {
             },
             successAlert: {
                 type: 'done',
+                alertId: 'alert-done',
                 title: 'ORCID linked',
                 message:
                     'Your ORCID has been linked to your eSpace profile. Works from Web of Science, Scopus PubMed and Crossref will be synced to your eSpace profile within the next 7 days.',
@@ -835,6 +848,7 @@ export default {
             },
             progressAlert: {
                 type: 'info_outline',
+                alertId: 'alert-info',
                 title: 'Linking ORCID',
                 message: 'Request is being processed.',
                 showLoader: true,
@@ -845,6 +859,15 @@ export default {
         },
         prototype: {
             title: 'Admin prototype',
+        },
+        favouriteSearch: {
+            title: 'Favourite searches',
+            loadingMessage: 'Loading list of favourite searches',
+            aliasExistsAlert: {
+                type: 'error',
+                message: 'Alias "[alias]" has been taken',
+                title: 'Alias check',
+            },
         },
         doi: {
             loadingMessage: 'Loading work',
@@ -912,17 +935,20 @@ export default {
                 bibliographic: {
                     title: 'Bibliographic',
                 },
-                grantInformation: {
-                    title: 'Grant information',
+                grants: {
+                    title: 'Grants',
                 },
-                authorDetails: {
-                    title: 'Author details',
+                authors: {
+                    title: 'Authors',
                 },
                 admin: {
                     title: 'Admin',
                 },
                 ntro: {
                     title: 'NTRO',
+                },
+                notes: {
+                    title: 'Notes',
                 },
                 files: {
                     title: 'Files',
@@ -936,13 +962,16 @@ export default {
                 title: 'Keyboard shortcuts',
                 text: (
                     <div>
-                        <br />
-                        <h3>Tab navigation</h3>
+                        <Typography component="h4" variant="h6">
+                            Tab navigation
+                        </Typography>
                         <p>
                             To navigate tabs while in tabbed mode, hold CTRL and SHIFT and use the LEFT and RIGHT arrow
                             keys.
                         </p>
-                        <h3>Form style</h3>
+                        <Typography component="h4" variant="h6">
+                            Form style
+                        </Typography>
                         <p>
                             To switch between tabbed or full form mode, hold CTRL and SHIFT and use the UP and DOWN
                             arrow keys.
@@ -950,7 +979,9 @@ export default {
                         <p>
                             Your preference is saved as a cookie on this browser and it will remember your preference.
                         </p>
-                        <h3>Page zoom</h3>
+                        <Typography component="h4" variant="h6">
+                            Page zoom
+                        </Typography>
                         <p>
                             Using <b>CTRL</b> & <b>+/-</b> will zoom the page in/out further for more screen real
                             estate.
@@ -959,7 +990,7 @@ export default {
                 ),
                 buttonLabel: 'Got it',
             },
-            loadingMessage: 'Loading record',
+            loadingMessage: 'Loading work',
             notSupportedMessage: 'Editing of [pubType] is not yet supported.',
             retractedMessage: 'This article has been retracted',
             community: {
@@ -971,53 +1002,55 @@ export default {
                 loadingMessage: 'Loading collection',
             },
             record: {
-                title: 'Edit record',
-                loadingMessage: 'Loading record',
+                title: 'Edit work',
+                loadingMessage: 'Loading work',
             },
             successWorkflowConfirmation: {
                 confirmationTitle: 'Work has been updated',
                 confirmationMessage: 'Work has been updated',
-                cancelButtonLabel: 'View updated record',
+                cancelButtonLabel: 'View updated work',
                 confirmButtonLabel: 'Edit another work',
             },
             successAddWorkflowConfirmation: {
                 confirmationTitle: 'Work has been added',
                 confirmationMessage: 'Your new work has been added to eSpace.',
-                cancelButtonLabel: 'View new record',
+                cancelButtonLabel: 'View new work',
                 confirmButtonLabel: 'Add another work',
+            },
+            successJobCreatedConfirmation: {
+                confirmationTitle: 'Work is now updating',
+                confirmationMessage:
+                    'This work requires additional time to fully process.  You will receive a status update via email soon.',
+                cancelButtonLabel: 'Return to view page',
+                confirmButtonLabel: 'Edit another work',
             },
             alerts: {
                 errorAlert: {
                     type: 'error_outline',
+                    alertId: 'alert-error',
                     title: 'Error',
                     message: message =>
                         `Error has occurred during request and request cannot be processed. ${message} Please contact eSpace administrators or try again later.`,
                 },
                 successAlert: {
                     type: 'done',
+                    alertId: 'alert-done',
                     title: 'Success',
                     message: 'Work has been saved successfully',
                     allowDismiss: true,
                 },
                 progressAlert: {
                     type: 'info_outline',
+                    alertId: 'alert-info',
                     title: 'Saving',
                     message: 'Request is being processed.',
                     showLoader: true,
                 },
                 validationAlert: {
                     type: 'warning',
+                    alertId: 'alert-warning',
                     title: 'Validation',
                     message: 'Form cannot be submitted until all fields are valid. Please review all input fields.',
-                },
-                selfLockedAlert: {
-                    type: 'custom',
-                    title: 'THIS WORK IS LOCKED',
-                    message:
-                        'You currently have this work locked ([username]). Complete your changes and submit, or cancel your changes so others may access this work.',
-                    actionButtonLabel: 'UNLOCK WORK',
-                    customIcon: <LockIcon id="locked-icon" className="icon" />,
-                    customType: 'info',
                 },
                 lockedAlert: {
                     type: 'custom',
@@ -1027,20 +1060,21 @@ export default {
                     actionButtonLabel: 'IGNORE LOCK',
                     customIcon: <LockIcon id="locked-icon" className="icon" />,
                     customType: 'error',
+                    alertId: 'alert-error',
                 },
             },
         },
         deleteRecord: {
             loadingMessage: 'Loading work',
-            title: 'Delete record',
+            title: 'Delete work',
             subTitle: 'Work to be deleted',
             cancel: 'Cancel',
             submit: 'Delete',
         },
         adminAdd: {
-            title: 'Add a new record',
-            step1: 'Identify your new record',
-            buttonLabel: 'Create record',
+            title: 'Add a new work',
+            step1: 'Identify your new work',
+            buttonLabel: 'Create work',
             cancelLabel: 'Cancel',
             submitFailed: 'Failed to assign details to the administrator add form',
             formLabels: {
@@ -1082,6 +1116,293 @@ export default {
         },
         incompletePublication: {
             title: 'Complete my work',
+        },
+        bulkUpdates: {
+            title: 'Bulk updates',
+            loadingMessage: 'Loading bulk updates',
+        },
+        editorialAppointments: {
+            title: 'My editorial appointments',
+            loadingMessage: 'Loading editorial appointments',
+        },
+        journal: {
+            view: {
+                title: 'Journal details',
+                pageId: 'journal-view',
+                loadingMessage: 'Loading journal data',
+                loadFailureAlert: {
+                    title: 'Loading failed',
+                    message: 'Unable to load journal details',
+                    type: 'error_outline',
+                },
+                booleanTrue: 'Yes',
+                booleanFalse: 'No',
+                rankingOutOf: 'out of',
+                entries: {
+                    basicSection: {
+                        id: 'journal-basic-details',
+                    },
+                    ulrAbbrevTitle: {
+                        title: 'ISO abbreviated title',
+                        id: 'ulr-abbrev-title',
+                    },
+                    issns: {
+                        title: 'ISSN(s)',
+                        id: 'issns',
+                    },
+                    eissns: {
+                        title: 'eISSN(s)',
+                        id: 'eissns',
+                    },
+                    publisherWithCountry: {
+                        title: 'Publisher',
+                        id: 'publisher-with-country',
+                    },
+                    oaSection: {
+                        title: 'Open Access (Directory of Open Access Journals - DOAJ)',
+                        id: 'journal-open-access',
+                    },
+                    urlRefereed: {
+                        title: 'Refereed',
+                        id: 'url-refereed',
+                    },
+                    ulrStartYear: {
+                        title: 'First year of publication',
+                        id: 'ulr-start-year',
+                    },
+                    ulrFrequency: {
+                        title: 'Frequency of publication',
+                        id: 'ulr-frequency',
+                    },
+                    ulrFormats: {
+                        title: 'Journal formats available',
+                        id: 'ulr-formats',
+                    },
+                    ulrOpenAccessUrl: {
+                        title: 'Journal URL',
+                        id: 'ulr-open-access-url',
+                    },
+                    ulrDescription: {
+                        title: 'Description',
+                        id: 'ulr-description',
+                    },
+                    ulrTitleLink: {
+                        title: 'View journal in Ulrichs',
+                        id: 'ulr-title-link',
+                    },
+                    ulrOpenAccess: {
+                        title: 'Open access',
+                        id: 'ulr-open-access',
+                    },
+                    doajHomepageUrl: {
+                        title: 'Journal home page',
+                        id: 'doaj-homepage-url',
+                    },
+                    doajApcAvgPrice: {
+                        title: 'Article processing charges',
+                        id: 'doaj-apc-avg-price',
+                    },
+                    licence: {
+                        title: 'Journal licence',
+                        id: 'licence',
+                    },
+                    doajSeal: {
+                        title: 'DOAJ seal',
+                        id: 'doaj-seal',
+                    },
+                    doajLastUpdated: {
+                        title: 'Last updated',
+                        id: 'doaj-last-updated',
+                    },
+                    doajJournalUrl: {
+                        title: 'View in DOAJ',
+                        id: 'doaj-journal-url',
+                    },
+                    srmJournalLink: {
+                        title: 'Sherpa Romeo open access and archiving policies',
+                        id: 'srm-journal-link',
+                    },
+                    scieSection: {
+                        title: 'Clarivate Journal Citation Reports - Science Citation Index',
+                        id: 'journal-scie',
+                    },
+                    ssciSection: {
+                        title: 'Clarivate Journal Citation Reports - Social Science Citation Index',
+                        id: 'journal-ssci',
+                    },
+                    jcrAbbrevTitle: {
+                        title: 'Abbreviated title',
+                        id: 'jcr-abbrev-title',
+                    },
+                    jcrImpactFactor: {
+                        title: 'Impact factor',
+                        id: 'jcr-impact-factor',
+                    },
+                    jcr5yrImpactFactor: {
+                        title: '5 year impact factor',
+                        id: 'jcr5yrImpactFactor',
+                    },
+                    jcrSourceDate: {
+                        title: 'JCR version',
+                        id: 'jcr-source-date',
+                    },
+                    jcrCategoryRanking: {
+                        title: 'Ranking',
+                        id: 'jcr-category-ranking',
+                    },
+                    jcrCategoryQuartile: {
+                        title: 'Quartile',
+                        id: 'jcr-category-quartile',
+                    },
+                    citeScoreSection: {
+                        title: 'Elsevier CiteScore',
+                        id: 'journal-cite-score',
+                    },
+                    citeScoreSourceDate: {
+                        title: 'CiteScore version',
+                        id: 'cite-score-source-date',
+                    },
+                    citeScoreAsjcCode: {
+                        title: 'Scopus ASJC Code and sub-subject area',
+                        id: 'cite-score-asjc-code',
+                    },
+                    citeScoreAsjcCodeCiteScore: {
+                        title: 'CiteScore',
+                        id: 'cite-score-asjc-code-cite-score',
+                    },
+                    citeScoreAsjcCodeQuartile: {
+                        title: 'Quartile',
+                        id: 'cite-score-asjc-code-quartile',
+                    },
+                    citeScoreAsjcCodeRank: {
+                        title: 'Ranked',
+                        id: 'cite-score-asjc-code-rank',
+                    },
+                    citeScoreAsjcCodeTop10Pct: {
+                        title: 'Top 10% (CiteScore Percentile)',
+                        id: 'cite-score-asjc-code-top-10-percentile',
+                    },
+                    citeScoreAsjcCodePercentile: {
+                        title: 'Percentile',
+                        id: 'cite-score-asjc-code-percentile',
+                    },
+                    citeScoreAsjcCodePercentCited: {
+                        title: 'Percent Cited',
+                        id: 'cite-score-asjc-code-percent-cited',
+                    },
+                    citeScoreAsjcCodeSnip: {
+                        title: 'SNIP',
+                        id: 'cite-score-asjc-code-snip',
+                    },
+                    citeScoreAsjcCodeSjr: {
+                        title: 'SJR',
+                        id: 'cite-score-asjc-code-sjr',
+                    },
+                    indexSection: {
+                        title: 'Indexed in',
+                        id: 'journal-indexed-in',
+                    },
+                    wosCategoryAhci: {
+                        title: 'Art and Humanities Citation Index (AHCI) - WOS Subject Categories',
+                        id: 'wos-category-ahci',
+                    },
+                    wosCategoryScie: {
+                        title: 'Science Citation Index Expanded - WOS Subject Categories',
+                        id: 'wos-category-scie',
+                    },
+                    wosCategorySsci: {
+                        title: 'Social Science Citation Index - WOS Subject Categories',
+                        id: 'wos-category-ssci',
+                    },
+                    wosCategoryEsci: {
+                        title: 'Emerging Sources Citation Index - WOS Subject Categories',
+                        id: 'wos-category-esci',
+                    },
+                    hasScopus: {
+                        title: 'Scopus',
+                        id: 'has-scopus',
+                    },
+                    hasPubmed: {
+                        title: 'Pubmed',
+                        id: 'has-pubmed',
+                    },
+                    listedSection: {
+                        title: 'Listed in',
+                        id: 'journal-listed-in',
+                    },
+                    adbcRating: {
+                        title: 'Australian Business Deans Council journal quality list',
+                        id: 'adbc-rating',
+                    },
+                    adbcForCode: {
+                        title: 'Field of Research Codes',
+                        id: 'adbc-for-code',
+                    },
+                    adbcSourceDate: {
+                        title: 'Current list',
+                        id: 'adbc-source-date',
+                    },
+                    cwtsSourceYear: {
+                        title: 'CWTS Leiden Ranking',
+                        id: 'cwts-source-year',
+                    },
+                    hasEra: {
+                        title: 'Excellence in Research for Australia (ERA)',
+                        id: 'has-era',
+                    },
+                    eraForCode: {
+                        title: 'ERA Years with Field of Research codes',
+                        id: 'era-for-code',
+                    },
+                    natureIndexSourceDate: {
+                        title: 'Nature Index',
+                        id: 'nature-index-source-date',
+                    },
+                },
+                links: {
+                    ulrOpenAccessUrl: {
+                        title: 'View OA page in a new tab',
+                    },
+                    ulrTitleLink: {
+                        title: 'View Ulrichs details in a new tab',
+                    },
+                    doajJournalUrl: {
+                        id: 'doaj-journal-url',
+                        linkPrefix: 'https://doaj.org/toc/',
+                        title: 'View journal details in DOAJ',
+                    },
+                    doajHomepageUrl: {
+                        title: 'View homepage in a new tab',
+                    },
+                    srmJournalLink: {
+                        title: 'View SHERPA/RoMEO details in a new tab',
+                    },
+                    jcrHomePage: {
+                        id: 'jcr-home-page',
+                        href: 'https://jcr-clarivate-com.ezproxy.library.uq.edu.au',
+                        title: 'Open JCR website in a new tab',
+                        text: 'Go to JCR website',
+                    },
+                    jcrMoreInfo: {
+                        id: 'jcr-more-info',
+                        linkPrefix: 'https://clarivate.com/webofsciencegroup/solutions/webofscience-',
+                        title: 'Open more info in a new tab',
+                        textPrefix: 'More info about JCR',
+                    },
+                    citeScoreSource: {
+                        id: 'cite-score-source',
+                        linkPrefix: 'https://www-scopus-com.ezproxy.library.uq.edu.au/sourceid/',
+                        title: 'Open CiteScore record in a new tab',
+                        text: 'Go to record in CiteScore',
+                    },
+                    citeScoreMoreInfo: {
+                        id: 'cite-score-more-info',
+                        href: 'https://service.elsevier.com/app/answers/detail/a_id/14880/supporthub/scopus/',
+                        title: 'View more about CiteScore in a new tab',
+                        text: 'More info about CiteScore',
+                    },
+                },
+            },
         },
     },
 };
