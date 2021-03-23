@@ -341,7 +341,7 @@ Ask for review from team-mates if you'd like other eyes on your changes.
 
 ## Deployment
 
-Application deployment is 100% automated using AWS Codebuild (and Codepipeline), and is hosted in S3. All testing and deployment commands and configuration are stored in the buildspec yaml files in the repo. All secrets (access keys and tokens for PT, Cypress, Sentry and Google) are stored in AWS Parameter Store, and then populated into ENV variables in those buildspec yaml files. 
+Application deployment is 100% automated using AWS Codebuild (and Codepipeline), and is hosted in S3. All testing and deployment commands and configuration are stored in the buildspec yaml files in the repo. All secrets (access keys and tokens for PT, Cypress, Sentry and Google) are stored in AWS Parameter Store, and then populated into ENV variables in those buildspec yaml files.
 Deployment pipelines are setup for branches: "master", "staging, "production" and several key branches starting with "feature-".
 
 - Master branch is always deployed to staging/production
