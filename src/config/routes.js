@@ -19,6 +19,7 @@ const isSuperAdmin = authorDetails => {
 // a duplicate list of routes for
 export const flattedPathConfig = [
     '/admin/add',
+    '/admin/authors',
     '/admin/bulk-updates',
     '/admin/change-display-type',
     '/admin/collection',
@@ -26,6 +27,7 @@ export const flattedPathConfig = [
     '/admin/master-journal-list-ingest',
     '/admin/masquerade',
     '/admin/unpublished',
+    '/admin/users',
     '/admin/add',
     '/admin/edit',
     '/admin/delete',
@@ -97,6 +99,12 @@ export const getRoutesConfig = ({
             component: components.SearchRecords,
             exact: true,
             pageTitle: locale.pages.searchRecords.title,
+        },
+        {
+            path: pathConfig.journal.view(id),
+            component: components.ViewJournal,
+            access: [roles.admin],
+            pageTitle: locale.pages.journal.view.title,
         },
         ...(!account
             ? [
@@ -258,9 +266,16 @@ export const getRoutesConfig = ({
                   {
                       path: pathConfig.editorialAppointments.list,
                       component: components.MyEditorialAppointments,
-                      access: [roles.researcher],
+                      access: [roles.researcher, roles.admin],
                       exact: true,
                       pageTitle: locale.pages.editorialAppointments.title,
+                  },
+                  {
+                      path: pathConfig.journal.view(id),
+                      component: components.ViewJournal,
+                      access: [roles.researcher, roles.admin],
+                      exact: true,
+                      pageTitle: locale.pages.journal.view.title,
                   },
               ]
             : []),
@@ -358,9 +373,23 @@ export const getRoutesConfig = ({
                   },
                   {
                       path: pathConfig.journal.view(id),
-                      component: components.JournalView,
+                      component: components.ViewJournal,
                       access: [roles.admin],
                       pageTitle: locale.pages.journal.view.title,
+                  },
+                  {
+                      path: pathConfig.admin.manageAuthors,
+                      component: components.ManageAuthors,
+                      exact: true,
+                      access: [roles.admin],
+                      pageTitle: locale.pages.authors.title,
+                  },
+                  {
+                      path: pathConfig.admin.manageUsers,
+                      component: components.ManageUsers,
+                      exact: true,
+                      access: [roles.admin],
+                      pageTitle: locale.pages.users.title,
                   },
               ]
             : []),
@@ -551,6 +580,14 @@ export const getMenuConfig = (account, author, authorDetails, disabled, hasIncom
                           pathConfig.admin.unpublished,
                       ),
                       ...locale.menu.unpublished,
+                  },
+                  {
+                      linkTo: pathConfig.admin.manageAuthors,
+                      ...locale.menu.manageAuthors,
+                  },
+                  {
+                      linkTo: pathConfig.admin.manageUsers,
+                      ...locale.menu.manageUsers,
                   },
                   {
                       linkTo: pathConfig.admin.legacyEspace,

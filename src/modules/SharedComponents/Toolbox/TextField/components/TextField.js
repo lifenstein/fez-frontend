@@ -9,11 +9,12 @@ export const TextFieldWrapper = React.forwardRef((props, ref) => {
     // Assign the redux validation error to the MUI input error prop and remove it from the prop payload
     const helperText = filteredProps.errorText || undefined;
     const hideLabel = !!filteredProps.hideLabel;
+    delete filteredProps.columnDef;
     delete filteredProps.errorText;
     delete filteredProps.hideLabel;
-    delete filteredProps.columnDef;
-    delete filteredProps.rowData;
+    delete filteredProps.hintText;
     delete filteredProps.onRowDataChange;
+    delete filteredProps.rowData;
     return (
         <Fragment>
             <TextField
@@ -35,6 +36,7 @@ export const TextFieldWrapper = React.forwardRef((props, ref) => {
                     'data-testid': `${props.textFieldId}-label`,
                     htmlFor: `${props.textFieldId}-input`,
                     hidden: hideLabel,
+                    ...filteredProps.InputLabelProps,
                 }}
             />
         </Fragment>

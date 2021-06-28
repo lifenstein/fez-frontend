@@ -49,14 +49,6 @@ describe('FavouriteSearch', () => {
         mockApi
             .onDelete(new RegExp(repository.routes.FAVOURITE_SEARCH_LIST_API({ id: '.*' }).apiUrl))
             .replyOnce(200, { data: {} });
-
-        /**
-         * Suppressing below warning message from material-table library
-         * Warning: React does not recognize the `scrollWidth` prop on a DOM element. If you intentionally
-         * want it to appear in the DOM as a custom attribute, spell it as lowercase `scrollwidth` instead.
-         * If you accidentally passed it from a parent component, remove it from the DOM element.
-         */
-        jest.spyOn(console, 'error').mockImplementation(jest.fn());
     });
 
     afterEach(() => {
@@ -81,21 +73,6 @@ describe('FavouriteSearch', () => {
         expect(getByText('Alias')).toBeInTheDocument();
     });
 
-    it('should handle row update', async done => {
-        const { getByText, getByTestId, getAllByTestId } = setup({});
-        const updateFavouriteSearchListItemFn = jest.spyOn(FavouriteSearchActions, 'updateFavouriteSearchListItem');
-
-        await waitFor(() => getByText('Favourite searches'));
-        fireEvent.click(getAllByTestId('favourite-search-list-item-edit')[0]);
-
-        act(() => {
-            fireEvent.click(getByTestId('favourite-search-list-item-save'));
-        });
-        expect(updateFavouriteSearchListItemFn).toBeCalled();
-
-        done();
-    });
-
     it('should not update row if alias has found', async () => {
         const { getByText, getByTestId, getAllByTestId } = setup({});
 
@@ -114,7 +91,7 @@ describe('FavouriteSearch', () => {
         expect(getByText('Alias "testing" has been taken')).toBeInTheDocument();
     });
 
-    it('should handle row delete', async done => {
+    it('should handle row delete', async () => {
         const { getByText, getByTestId, getAllByTestId } = setup({});
         const deleteFavouriteSearchListItemFn = jest.spyOn(FavouriteSearchActions, 'deleteFavouriteSearchListItem');
 
@@ -125,7 +102,5 @@ describe('FavouriteSearch', () => {
             fireEvent.click(getByTestId('favourite-search-list-item-save'));
         });
         expect(deleteFavouriteSearchListItemFn).toBeCalled();
-
-        done();
     });
 });
