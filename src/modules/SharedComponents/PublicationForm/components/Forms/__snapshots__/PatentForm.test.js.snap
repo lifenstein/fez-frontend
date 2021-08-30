@@ -40,7 +40,7 @@ exports[`PatentForm renders  component 1`] = `
             multiline={true}
             name="rek_title"
             required={true}
-            rows={1}
+            rows={3}
             type="text"
             validate={
               Array [
@@ -193,7 +193,7 @@ exports[`PatentForm renders  component 1`] = `
                 "identifierLabel": "UQ identifier (if available)",
                 "nameAsPublishedFieldId": "creators-name-as-published-field",
                 "nameAsPublishedHint": "Type the name exactly as published",
-                "nameAsPublishedLabel": "Enter each creator's name as published (eg. Smith, John)",
+                "nameAsPublishedLabel": "Creator's name as published",
               },
             },
             "header": Object {

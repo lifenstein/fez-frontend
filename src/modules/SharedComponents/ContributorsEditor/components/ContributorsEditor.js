@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 
-import Infinite from 'react-infinite';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -62,13 +61,12 @@ export class ContributorsEditor extends PureComponent {
         };
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillUpdate = (nextProps, nextState) => {
+    componentDidUpdate() {
         // notify parent component when local state has been updated, eg contributors added/removed/reordered
         if (this.props.onChange) {
-            this.props.onChange(nextState.contributors);
+            this.props.onChange(this.state.contributors);
         }
-    };
+    }
 
     getContributorsFromProps = props => {
         if (props.input && props.input.name && props.input.value) {
@@ -191,7 +189,8 @@ export class ContributorsEditor extends PureComponent {
                 this.state.contributors.map((item, itemIndex) => ({
                     ...item,
                     selected: !item.selected && index === itemIndex,
-                    authorId: index === itemIndex && this.props.author ? this.props.author.aut_id : null,
+                    // eslint-disable-next-line camelcase
+                    authorId: (index === itemIndex && this.props.author?.aut_id) || null,
                 }))) ||
             this.state.contributors;
 
@@ -289,6 +288,7 @@ export class ContributorsEditor extends PureComponent {
             classes,
             contributorEditorId,
             disabled,
+            canEdit,
             editMode,
             hideDelete,
             isNtro,
@@ -345,6 +345,7 @@ export class ContributorsEditor extends PureComponent {
                                 <ContributorRowHeader
                                     {...(this.props.locale.header || {})}
                                     disabled={disabled}
+                                    canEdit={canEdit}
                                     hideDelete={hideDelete}
                                     isInfinite={contributors.length > 20}
                                     isNtro={isNtro}
@@ -363,14 +364,7 @@ export class ContributorsEditor extends PureComponent {
                                     }`,
                                 }}
                             >
-                                {// istanbul ignore next
-                                contributors.length > 20 ? (
-                                    <Infinite containerHeight={200} elementHeight={73} infiniteLoadBeginEdgeOffset={50}>
-                                        {this.renderContributorRows()}
-                                    </Infinite>
-                                ) : (
-                                    this.renderContributorRows()
-                                )}
+                                {this.renderContributorRows()}
                             </List>
                             {editMode && contributorIndexSelectedToEdit !== null && (
                                 <div style={{ marginTop: 24 }}>
@@ -397,13 +391,17 @@ export const mapStateToProps = state => ({
     author: state && state.get('accountReducer') ? state.get('accountReducer').author : null,
 });
 
-export const styles = () => ({
+export const styles = theme => ({
     list: {
         width: '100%',
         margin: '0',
         maxHeight: 225,
-        overflow: 'hidden',
+        overflowX: 'hidden',
+        overflowY: 'hidden',
         marginBottom: 16,
+        [theme.breakpoints.down('sm')]: {
+            overflowY: 'scroll',
+        },
     },
     scroll: {
         overflowY: 'scroll',

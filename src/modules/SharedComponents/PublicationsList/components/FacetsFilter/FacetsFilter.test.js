@@ -3,7 +3,6 @@ import { rtlRender, fireEvent } from 'test-utils';
 import FacetsFilter from './FacetsFilter';
 import { possibleUnclaimedList } from 'mock/data';
 import { general } from 'config';
-import { waitFor } from '@testing-library/dom';
 
 function setup(testProps = {}) {
     return rtlRender(
@@ -146,8 +145,7 @@ describe('FacetsFilter', () => {
         expect(getByTestId('facet-category-display-type')).toBeInTheDocument();
         expect(getByText(/Work type/)).toBeInTheDocument();
 
-        fireEvent.click(getByTestId('clickable-facet-category-display-type'));
-        expect(getByTestId('clear-facet-filter-nested-item-0')).toBeInTheDocument();
+        expect(getByTestId('clear-facet-filter-nested-item-display-type-journal-article')).toBeInTheDocument();
         expect(getByText('Journal Article (2)')).toBeInTheDocument();
 
         fireEvent.click(getByText('Journal Article (2)'));

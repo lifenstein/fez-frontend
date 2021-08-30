@@ -136,6 +136,7 @@ exports[`Journal Name Component test  should render closed access 1`] = `
               },
               "MuiFormLabel": Object {
                 "root": Object {
+                  "lineHeight": "normal",
                   "overflow": "hidden",
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
@@ -145,6 +146,13 @@ exports[`Journal Name Component test  should render closed access 1`] = `
               "MuiIconButton": Object {
                 "colorInherit": Object {
                   "color": "none",
+                },
+              },
+              "MuiInput": Object {
+                "formControl": Object {
+                  "label + &": Object {
+                    "marginTop": 17,
+                  },
                 },
               },
               "MuiMenuItem": Object {
@@ -605,6 +613,7 @@ exports[`Journal Name Component test  should render embargoed 1`] = `
               },
               "MuiFormLabel": Object {
                 "root": Object {
+                  "lineHeight": "normal",
                   "overflow": "hidden",
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
@@ -614,6 +623,13 @@ exports[`Journal Name Component test  should render embargoed 1`] = `
               "MuiIconButton": Object {
                 "colorInherit": Object {
                   "color": "none",
+                },
+              },
+              "MuiInput": Object {
+                "formControl": Object {
+                  "label + &": Object {
+                    "marginTop": 17,
+                  },
                 },
               },
               "MuiMenuItem": Object {
@@ -944,13 +960,21 @@ exports[`Journal Name Component test  should render embargoed 1`] = `
                   classes={
                     Object {
                       "anchorOriginBottomLeftCircle": "MuiBadge-anchorOriginBottomLeftCircle",
+                      "anchorOriginBottomLeftCircular": "MuiBadge-anchorOriginBottomLeftCircular",
                       "anchorOriginBottomLeftRectangle": "MuiBadge-anchorOriginBottomLeftRectangle",
+                      "anchorOriginBottomLeftRectangular": "MuiBadge-anchorOriginBottomLeftRectangular",
                       "anchorOriginBottomRightCircle": "MuiBadge-anchorOriginBottomRightCircle",
+                      "anchorOriginBottomRightCircular": "MuiBadge-anchorOriginBottomRightCircular",
                       "anchorOriginBottomRightRectangle": "MuiBadge-anchorOriginBottomRightRectangle",
+                      "anchorOriginBottomRightRectangular": "MuiBadge-anchorOriginBottomRightRectangular",
                       "anchorOriginTopLeftCircle": "MuiBadge-anchorOriginTopLeftCircle",
+                      "anchorOriginTopLeftCircular": "MuiBadge-anchorOriginTopLeftCircular",
                       "anchorOriginTopLeftRectangle": "MuiBadge-anchorOriginTopLeftRectangle",
+                      "anchorOriginTopLeftRectangular": "MuiBadge-anchorOriginTopLeftRectangular",
                       "anchorOriginTopRightCircle": "MuiBadge-anchorOriginTopRightCircle",
+                      "anchorOriginTopRightCircular": "MuiBadge-anchorOriginTopRightCircular",
                       "anchorOriginTopRightRectangle": "MuiBadge-anchorOriginTopRightRectangle",
+                      "anchorOriginTopRightRectangular": "MuiBadge-anchorOriginTopRightRectangular",
                       "badge": "MuiBadge-badge",
                       "colorError": "MuiBadge-colorError",
                       "colorPrimary": "MuiBadge-colorPrimary",
@@ -1258,6 +1282,7 @@ exports[`Journal Name Component test  should render embargoed 2`] = `
               },
               "MuiFormLabel": Object {
                 "root": Object {
+                  "lineHeight": "normal",
                   "overflow": "hidden",
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
@@ -1267,6 +1292,13 @@ exports[`Journal Name Component test  should render embargoed 2`] = `
               "MuiIconButton": Object {
                 "colorInherit": Object {
                   "color": "none",
+                },
+              },
+              "MuiInput": Object {
+                "formControl": Object {
+                  "label + &": Object {
+                    "marginTop": 17,
+                  },
                 },
               },
               "MuiMenuItem": Object {
@@ -1603,13 +1635,21 @@ exports[`Journal Name Component test  should render embargoed 2`] = `
                   classes={
                     Object {
                       "anchorOriginBottomLeftCircle": "MuiBadge-anchorOriginBottomLeftCircle",
+                      "anchorOriginBottomLeftCircular": "MuiBadge-anchorOriginBottomLeftCircular",
                       "anchorOriginBottomLeftRectangle": "MuiBadge-anchorOriginBottomLeftRectangle",
+                      "anchorOriginBottomLeftRectangular": "MuiBadge-anchorOriginBottomLeftRectangular",
                       "anchorOriginBottomRightCircle": "MuiBadge-anchorOriginBottomRightCircle",
+                      "anchorOriginBottomRightCircular": "MuiBadge-anchorOriginBottomRightCircular",
                       "anchorOriginBottomRightRectangle": "MuiBadge-anchorOriginBottomRightRectangle",
+                      "anchorOriginBottomRightRectangular": "MuiBadge-anchorOriginBottomRightRectangular",
                       "anchorOriginTopLeftCircle": "MuiBadge-anchorOriginTopLeftCircle",
+                      "anchorOriginTopLeftCircular": "MuiBadge-anchorOriginTopLeftCircular",
                       "anchorOriginTopLeftRectangle": "MuiBadge-anchorOriginTopLeftRectangle",
+                      "anchorOriginTopLeftRectangular": "MuiBadge-anchorOriginTopLeftRectangular",
                       "anchorOriginTopRightCircle": "MuiBadge-anchorOriginTopRightCircle",
+                      "anchorOriginTopRightCircular": "MuiBadge-anchorOriginTopRightCircular",
                       "anchorOriginTopRightRectangle": "MuiBadge-anchorOriginTopRightRectangle",
+                      "anchorOriginTopRightRectangular": "MuiBadge-anchorOriginTopRightRectangular",
                       "badge": "MuiBadge-badge",
                       "colorError": "MuiBadge-colorError",
                       "colorPrimary": "MuiBadge-colorPrimary",
@@ -1917,6 +1957,7 @@ exports[`Journal Name Component test  should render locked 1`] = `
               },
               "MuiFormLabel": Object {
                 "root": Object {
+                  "lineHeight": "normal",
                   "overflow": "hidden",
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
@@ -1926,6 +1967,13 @@ exports[`Journal Name Component test  should render locked 1`] = `
               "MuiIconButton": Object {
                 "colorInherit": Object {
                   "color": "none",
+                },
+              },
+              "MuiInput": Object {
+                "formControl": Object {
+                  "label + &": Object {
+                    "marginTop": 17,
+                  },
                 },
               },
               "MuiMenuItem": Object {
@@ -2331,13 +2379,21 @@ exports[`Journal Name Component test  should render locked 1`] = `
                       classes={
                         Object {
                           "anchorOriginBottomLeftCircle": "MuiBadge-anchorOriginBottomLeftCircle",
+                          "anchorOriginBottomLeftCircular": "MuiBadge-anchorOriginBottomLeftCircular",
                           "anchorOriginBottomLeftRectangle": "MuiBadge-anchorOriginBottomLeftRectangle",
+                          "anchorOriginBottomLeftRectangular": "MuiBadge-anchorOriginBottomLeftRectangular",
                           "anchorOriginBottomRightCircle": "MuiBadge-anchorOriginBottomRightCircle",
+                          "anchorOriginBottomRightCircular": "MuiBadge-anchorOriginBottomRightCircular",
                           "anchorOriginBottomRightRectangle": "MuiBadge-anchorOriginBottomRightRectangle",
+                          "anchorOriginBottomRightRectangular": "MuiBadge-anchorOriginBottomRightRectangular",
                           "anchorOriginTopLeftCircle": "MuiBadge-anchorOriginTopLeftCircle",
+                          "anchorOriginTopLeftCircular": "MuiBadge-anchorOriginTopLeftCircular",
                           "anchorOriginTopLeftRectangle": "MuiBadge-anchorOriginTopLeftRectangle",
+                          "anchorOriginTopLeftRectangular": "MuiBadge-anchorOriginTopLeftRectangular",
                           "anchorOriginTopRightCircle": "MuiBadge-anchorOriginTopRightCircle",
+                          "anchorOriginTopRightCircular": "MuiBadge-anchorOriginTopRightCircular",
                           "anchorOriginTopRightRectangle": "MuiBadge-anchorOriginTopRightRectangle",
+                          "anchorOriginTopRightRectangular": "MuiBadge-anchorOriginTopRightRectangular",
                           "badge": "MuiBadge-badge",
                           "colorError": "MuiBadge-colorError",
                           "colorPrimary": "MuiBadge-colorPrimary",
@@ -2609,6 +2665,7 @@ exports[`Journal Name Component test  should render no icon 1`] = `
               },
               "MuiFormLabel": Object {
                 "root": Object {
+                  "lineHeight": "normal",
                   "overflow": "hidden",
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
@@ -2618,6 +2675,13 @@ exports[`Journal Name Component test  should render no icon 1`] = `
               "MuiIconButton": Object {
                 "colorInherit": Object {
                   "color": "none",
+                },
+              },
+              "MuiInput": Object {
+                "formControl": Object {
+                  "label + &": Object {
+                    "marginTop": 17,
+                  },
                 },
               },
               "MuiMenuItem": Object {
@@ -3079,6 +3143,7 @@ exports[`Journal Name Component test  should render open access 1`] = `
               },
               "MuiFormLabel": Object {
                 "root": Object {
+                  "lineHeight": "normal",
                   "overflow": "hidden",
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
@@ -3088,6 +3153,13 @@ exports[`Journal Name Component test  should render open access 1`] = `
               "MuiIconButton": Object {
                 "colorInherit": Object {
                   "color": "none",
+                },
+              },
+              "MuiInput": Object {
+                "formControl": Object {
+                  "label + &": Object {
+                    "marginTop": 17,
+                  },
                 },
               },
               "MuiMenuItem": Object {
@@ -3646,6 +3718,7 @@ exports[`Journal Name Component test  should render open access with OPEN_ACCESS
               },
               "MuiFormLabel": Object {
                 "root": Object {
+                  "lineHeight": "normal",
                   "overflow": "hidden",
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
@@ -3655,6 +3728,13 @@ exports[`Journal Name Component test  should render open access with OPEN_ACCESS
               "MuiIconButton": Object {
                 "colorInherit": Object {
                   "color": "none",
+                },
+              },
+              "MuiInput": Object {
+                "formControl": Object {
+                  "label + &": Object {
+                    "marginTop": 17,
+                  },
                 },
               },
               "MuiMenuItem": Object {

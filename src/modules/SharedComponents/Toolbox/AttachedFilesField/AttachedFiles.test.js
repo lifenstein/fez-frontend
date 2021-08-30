@@ -1,9 +1,9 @@
 import React from 'react';
-import AttachedFiles, { getFileOpenAccessStatus } from './AttachedFiles';
+import AttachedFiles, { getFileOpenAccessStatus, checkFileNamesForDupes } from './AttachedFiles';
 import { recordWithDatastreams } from 'mock/data';
 import { rtlRender, fireEvent, waitFor, act } from 'test-utils';
-
 import { openAccessConfig } from 'config';
+import * as fileUploadLocale from '../FileUploader/locale';
 
 import mediaQuery from 'css-mediaquery';
 
@@ -19,14 +19,25 @@ import * as UserIsAdminHook from 'hooks/userIsAdmin';
 
 jest.mock('context');
 import { useRecordContext, useFormValuesContext } from 'context';
+import {
+    CURRENT_LICENCES,
+    SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
+    SENSITIVE_HANDLING_NOTE_TYPE,
+} from '../../../../config/general';
 
 function setup(testProps = {}, renderer = rtlRender) {
+    const { locale, ...restProps } = testProps;
     const props = {
         dataStreams: recordWithDatastreams.fez_datastream_info,
         locale: {
             title: 'Files',
+            renamingFilesInstructions: {
+                title: 'File attachments',
+                text: 'TEST ALERT',
+            },
+            ...locale,
         },
-        ...testProps,
+        ...restProps,
     };
 
     return renderer(<AttachedFiles {...props} />);
@@ -120,26 +131,34 @@ describe('AttachedFiles component', () => {
         userIsAdmin.mockImplementation(() => true);
         const onDeleteFn = jest.fn();
         const onDescriptionChangeFn = jest.fn();
+        const onOrderChangeFn = jest.fn();
         const { getByTestId } = setup({
             canEdit: true,
             onDelete: onDeleteFn,
             onDescriptionChange: onDescriptionChangeFn,
+            onOrderChange: onOrderChangeFn,
         });
 
         fireEvent.click(getByTestId('delete-file-3'));
-        expect(onDeleteFn).toHaveBeenCalledWith(3);
+        expect(onDeleteFn).toHaveBeenCalledWith('FezACML_UQ_252236.xml');
 
         fireEvent.change(getByTestId('dsi-label-2-input'), { target: { value: 'test file description' } });
         expect(onDescriptionChangeFn).toHaveBeenCalledWith('dsi_label', 'test file description', 2);
+
+        fireEvent.click(getByTestId('order-down-file-1'));
+        expect(onOrderChangeFn).toHaveBeenCalledWith(2, 2, 3);
+
+        fireEvent.click(getByTestId('order-up-file-2'));
+        expect(onOrderChangeFn).toHaveBeenLastCalledWith(3, 3, 2);
     });
 
     it('should render embargo date field for open access file with embargo date in future', async () => {
         const userIsAdmin = jest.spyOn(UserIsAdminHook, 'userIsAdmin');
         userIsAdmin.mockImplementation(() => true);
-        useRecordContext.mockImplementation(() => ({
+        useRecordContext.mockImplementationOnce(() => ({
             record: { fez_record_search_key_oa_status: { rek_oa_status: 453695 } },
         }));
-        useFormValuesContext.mockImplementation(() => ({
+        useFormValuesContext.mockImplementationOnce(() => ({
             openAccessStatusId: 453695,
         }));
         const onDateChangeFn = jest.fn();
@@ -150,7 +169,38 @@ describe('AttachedFiles component', () => {
                     dsi_pid: 'UQ:252236',
                     dsi_dsid: 'My_UQ_eSpace_UPO_guidelines_2016.pdf',
                     dsi_embargo_date: '2018-01-01',
-                    dsi_open_access: 1,
+                    dsi_label: 'UPO Guide v.4',
+                    dsi_mimetype: 'application/pdf',
+                    dsi_copyright: null,
+                    dsi_state: 'A',
+                    dsi_size: 587005,
+                    dsi_security_inherited: 1,
+                    dsi_security_policy: 5,
+                },
+            ],
+            onDateChange: onDateChangeFn,
+        });
+
+        act(() => {
+            fireEvent.click(getAllByRole('button')[2]);
+        });
+
+        const calendar = await waitFor(() => getAllByRole('presentation')[0]);
+        fireEvent.click(getByText('26', calendar));
+        expect(onDateChangeFn).toHaveBeenCalledWith('dsi_embargo_date', '2018-01-26', 0);
+    });
+
+    it('should render embargo date field for public files with embargo date in future', async () => {
+        const userIsAdmin = jest.spyOn(UserIsAdminHook, 'userIsAdmin');
+        userIsAdmin.mockImplementation(() => true);
+        const onDateChangeFn = jest.fn();
+        const { getByText, getAllByRole } = setup({
+            canEdit: true,
+            dataStreams: [
+                {
+                    dsi_pid: 'UQ:252236',
+                    dsi_dsid: 'My_UQ_eSpace_UPO_guidelines_2016.pdf',
+                    dsi_embargo_date: '2018-01-01',
                     dsi_label: 'UPO Guide v.4',
                     dsi_mimetype: 'application/pdf',
                     dsi_copyright: null,
@@ -164,11 +214,23 @@ describe('AttachedFiles component', () => {
         });
 
         act(() => {
-            fireEvent.click(getAllByRole('button')[0]);
+            fireEvent.click(getAllByRole('button')[2]);
         });
+
         const calendar = await waitFor(() => getAllByRole('presentation')[0]);
         fireEvent.click(getByText('26', calendar));
         expect(onDateChangeFn).toHaveBeenCalledWith('dsi_embargo_date', '2018-01-26', 0);
+    });
+
+    it('should show general alert information for file renaming', () => {
+        const userIsAdmin = jest.spyOn(UserIsAdminHook, 'userIsAdmin');
+        userIsAdmin.mockImplementation(() => true);
+
+        const { getByText } = setup({
+            canEdit: true,
+        });
+
+        expect(getByText('TEST ALERT')).toBeInTheDocument();
     });
 
     it('should show alert for advisory statement', () => {
@@ -180,7 +242,6 @@ describe('AttachedFiles component', () => {
 
         const { getByText } = setup({
             canEdit: true,
-            hideCulturalSensitivityStatement: false,
             locale: {
                 culturalSensitivityStatement: 'test advisory',
             },
@@ -198,7 +259,6 @@ describe('AttachedFiles component', () => {
 
         const { getByText } = setup({
             canEdit: true,
-            hideCulturalSensitivityStatement: false,
             locale: {
                 culturalSensitivityStatement: 'test advisory',
             },
@@ -207,80 +267,137 @@ describe('AttachedFiles component', () => {
         expect(getByText('test advisory')).toBeInTheDocument();
     });
 
+    it('should show alert for sensitive handling note', () => {
+        const userIsAdmin = jest.spyOn(UserIsAdminHook, 'userIsAdmin');
+        userIsAdmin.mockImplementation(() => true);
+        const note = SENSITIVE_HANDLING_NOTE_TYPE.find(item => item.value !== 'Other');
+        useRecordContext.mockImplementation(() => ({
+            record: {
+                fez_record_search_key_sensitive_handling_note_id: {
+                    rek_sensitive_handling_note_id: note.value,
+                },
+            },
+        }));
+
+        const { getByText } = setup({
+            canEdit: true,
+        });
+
+        expect(getByText(note.text)).toBeInTheDocument();
+    });
+
+    it('should show alert for sensitive handling note - other', () => {
+        const userIsAdmin = jest.spyOn(UserIsAdminHook, 'userIsAdmin');
+        const text = 'sensitive handling note';
+        userIsAdmin.mockImplementation(() => true);
+        useRecordContext.mockImplementation(() => ({
+            record: {
+                fez_record_search_key_sensitive_handling_note_id: {
+                    rek_sensitive_handling_note_id: SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
+                },
+                fez_record_search_key_sensitive_handling_note_other: {
+                    rek_sensitive_handling_note_other: 'sensitive handling note',
+                },
+            },
+        }));
+
+        const { getByText } = setup({
+            canEdit: true,
+        });
+
+        expect(getByText(text)).toBeInTheDocument();
+    });
+
     it('should toggle preview', async done => {
+        const dataStreams = [
+            {
+                dsi_id: 1,
+                dsi_pid: 'UQ:252236',
+                dsi_dsid: 'test.mp4',
+                dsi_embargo_date: '2018-01-01',
+                dsi_open_access: 1,
+                dsi_label: 'UPO Guide v.4',
+                dsi_mimetype: 'video/mp4',
+                dsi_copyright: null,
+                dsi_state: 'A',
+                dsi_size: 587005,
+                dsi_security_inherited: 1,
+                dsi_security_policy: 1,
+            },
+            {
+                dsi_id: 2,
+                dsi_pid: 'UQ:252236',
+                dsi_dsid: 'thumbnail_test.jpg',
+                dsi_embargo_date: '2018-01-01',
+                dsi_open_access: 1,
+                dsi_label: 'UPO Guide v.4',
+                dsi_mimetype: 'image/jpeg',
+                dsi_copyright: null,
+                dsi_state: 'A',
+                dsi_size: 587005,
+                dsi_security_inherited: 1,
+                dsi_security_policy: 1,
+            },
+            {
+                dsi_id: 3,
+                dsi_pid: 'UQ:252236',
+                dsi_dsid: 'preview_test.jpg',
+                dsi_embargo_date: '2018-01-01',
+                dsi_open_access: 1,
+                dsi_label: 'UPO Guide v.4',
+                dsi_mimetype: 'image/jpeg',
+                dsi_copyright: null,
+                dsi_state: 'A',
+                dsi_size: 587005,
+                dsi_security_inherited: 1,
+                dsi_security_policy: 1,
+            },
+            {
+                dsi_id: 4,
+                dsi_pid: 'UQ:252236',
+                dsi_dsid: 'web_test.jpg',
+                dsi_embargo_date: '2018-01-01',
+                dsi_open_access: 1,
+                dsi_label: 'UPO Guide v.4',
+                dsi_mimetype: '',
+                dsi_copyright: null,
+                dsi_state: 'A',
+                dsi_size: 587005,
+                dsi_security_inherited: 1,
+                dsi_security_policy: 1,
+            },
+            {
+                dsi_id: 5,
+                dsi_pid: 'UQ:252236',
+                dsi_dsid: 'test_xt.mp4',
+                dsi_embargo_date: '2018-01-01',
+                dsi_open_access: 1,
+                dsi_label: 'UPO Guide v.4',
+                dsi_mimetype: 'video/mp4',
+                dsi_copyright: null,
+                dsi_state: 'A',
+                dsi_size: 0,
+                dsi_security_inherited: 1,
+                dsi_security_policy: 1,
+            },
+        ];
         Object.defineProperty(window.navigator, 'userAgent', { value: 'FireFox' });
+        useRecordContext.mockImplementation(() => ({
+            record: {
+                ...recordWithDatastreams,
+                fez_datastream_info: dataStreams,
+                fez_record_search_key_license: {
+                    // make sure previews works even when the record's files are license restricted
+                    rek_license: CURRENT_LICENCES[0].value,
+                },
+            },
+        }));
         const userIsAdmin = jest.spyOn(UserIsAdminHook, 'userIsAdmin');
         userIsAdmin.mockImplementation(() => true);
         const onDateChangeFn = jest.fn();
-        const { getByTitle, getByTestId, queryByTestId, getByText } = setup({
+        const { getByTestId, queryByTestId, getByText } = setup({
             canEdit: true,
-            dataStreams: [
-                {
-                    dsi_pid: 'UQ:252236',
-                    dsi_dsid: 'test.mp4',
-                    dsi_embargo_date: '2018-01-01',
-                    dsi_open_access: 1,
-                    dsi_label: 'UPO Guide v.4',
-                    dsi_mimetype: 'video/mp4',
-                    dsi_copyright: null,
-                    dsi_state: 'A',
-                    dsi_size: 587005,
-                    dsi_security_inherited: 1,
-                    dsi_security_policy: 1,
-                },
-                {
-                    dsi_pid: 'UQ:252236',
-                    dsi_dsid: 'thumbnail_test.jpg',
-                    dsi_embargo_date: '2018-01-01',
-                    dsi_open_access: 1,
-                    dsi_label: 'UPO Guide v.4',
-                    dsi_mimetype: 'image/jpeg',
-                    dsi_copyright: null,
-                    dsi_state: 'A',
-                    dsi_size: 587005,
-                    dsi_security_inherited: 1,
-                    dsi_security_policy: 1,
-                },
-                {
-                    dsi_pid: 'UQ:252236',
-                    dsi_dsid: 'preview_test.jpg',
-                    dsi_embargo_date: '2018-01-01',
-                    dsi_open_access: 1,
-                    dsi_label: 'UPO Guide v.4',
-                    dsi_mimetype: 'image/jpeg',
-                    dsi_copyright: null,
-                    dsi_state: 'A',
-                    dsi_size: 587005,
-                    dsi_security_inherited: 1,
-                    dsi_security_policy: 1,
-                },
-                {
-                    dsi_pid: 'UQ:252236',
-                    dsi_dsid: 'web_test.jpg',
-                    dsi_embargo_date: '2018-01-01',
-                    dsi_open_access: 1,
-                    dsi_label: 'UPO Guide v.4',
-                    dsi_mimetype: '',
-                    dsi_copyright: null,
-                    dsi_state: 'A',
-                    dsi_size: 587005,
-                    dsi_security_inherited: 1,
-                    dsi_security_policy: 1,
-                },
-                {
-                    dsi_pid: 'UQ:252236',
-                    dsi_dsid: 'test_xt.mp4',
-                    dsi_embargo_date: '2018-01-01',
-                    dsi_open_access: 1,
-                    dsi_label: 'UPO Guide v.4',
-                    dsi_mimetype: 'video/mp4',
-                    dsi_copyright: null,
-                    dsi_state: 'A',
-                    dsi_size: 0,
-                    dsi_security_inherited: 1,
-                    dsi_security_policy: 1,
-                },
-            ],
+            dataStreams: dataStreams,
             onDateChange: onDateChangeFn,
         });
 
@@ -289,15 +406,22 @@ describe('AttachedFiles component', () => {
         ).toBeInTheDocument();
 
         act(() => {
-            fireEvent.click(getByTitle('Click to open a preview of http://localhost/view/UQ:252236/test.mp4'));
+            // fireEvent.click(getByTitle('Click to open a preview of http://localhost/view/UQ:252236/test.mp4'));
+            fireEvent.click(getByTestId('preview-link-test.mp4'));
         });
-
-        const previewEl = await waitFor(() => expect(getByTestId('media-preview')).toBeInTheDocument());
-
+        let previewEl = await waitFor(() => expect(getByTestId('media-preview')).toBeInTheDocument());
         act(() => {
             fireEvent.click(getByTestId('close-preview', previewEl));
         });
+        await waitFor(() => expect(queryByTestId('media-preview')).not.toBeInTheDocument());
 
+        act(() => {
+            fireEvent.click(getByTestId('file-name-1-preview'));
+        });
+        previewEl = await waitFor(() => expect(getByTestId('media-preview')).toBeInTheDocument());
+        act(() => {
+            fireEvent.click(getByTestId('close-preview', previewEl));
+        });
         await waitFor(() => expect(queryByTestId('media-preview')).not.toBeInTheDocument());
 
         done();
@@ -319,5 +443,238 @@ describe('AttachedFiles component', () => {
         };
         expect(getFileOpenAccessStatus(openAccessStatusId, { dsi_embargo_date: testDate })).toEqual(expected1);
         expect(getFileOpenAccessStatus(openAccessStatusId, { dsi_embargo_date: '1920-09-09' })).toEqual(expected2);
+    });
+
+    describe('Attached file renaming', () => {
+        it('should check calls to rename fire expected function calls', async () => {
+            const userIsAdmin = jest.spyOn(UserIsAdminHook, 'userIsAdmin');
+            userIsAdmin.mockImplementation(() => true);
+            const originalFilename = 'My_UQ_eSpace_UPO_guidelines_2016.pdf';
+            const badNewFilename = 'renamed.pdf';
+            const goodNewFilename = 'renamed';
+            const dataStreams = [
+                {
+                    dsi_id: 0,
+                    dsi_pid: 'UQ:252236',
+                    dsi_dsid: originalFilename,
+                    dsi_embargo_date: '2018-01-01',
+                    dsi_open_access: 1,
+                    dsi_label: 'UPO Guide v.4',
+                    dsi_mimetype: 'application/pdf',
+                    dsi_copyright: null,
+                    dsi_state: 'A',
+                    dsi_size: 587005,
+                    dsi_security_inherited: 1,
+                    dsi_security_policy: 1,
+                },
+            ];
+            const dataStreamsRenamed = [
+                {
+                    dsi_id: 0,
+                    dsi_pid: 'UQ:252236',
+                    dsi_dsid: `${goodNewFilename}.pdf`,
+                    dsi_dsid_new: originalFilename,
+                    dsi_embargo_date: '2018-01-01',
+                    dsi_open_access: 1,
+                    dsi_label: 'UPO Guide v.4',
+                    dsi_mimetype: 'application/pdf',
+                    dsi_copyright: null,
+                    dsi_state: 'A',
+                    dsi_size: 587005,
+                    dsi_security_inherited: 1,
+                    dsi_security_policy: 1,
+                    dsi_order: null,
+                },
+            ];
+
+            const onFilenameSave = jest.fn();
+            const onFilenameChange = jest.fn();
+
+            const { rerender, getByTestId, queryByTestId } = setup({
+                canEdit: true,
+                dataStreams,
+                onFilenameSave,
+            });
+
+            expect(getByTestId('file-name-0-edit')).toBeInTheDocument();
+            act(() => {
+                fireEvent.click(getByTestId('file-name-0-edit'));
+            });
+            await waitFor(() => expect(queryByTestId('file-name-0-editing-input')).toBeInTheDocument());
+
+            expect(getByTestId('file-name-0-cancel')).toBeInTheDocument(); // cancel btn
+            expect(getByTestId('file-name-0-save')).toBeInTheDocument(); // save btn
+
+            act(() => {
+                fireEvent.click(getByTestId('file-name-0-cancel'));
+            });
+
+            await waitFor(() => expect(getByTestId('file-name-0-edit')).toBeInTheDocument());
+
+            act(() => {
+                fireEvent.click(getByTestId('file-name-0-edit'));
+            });
+            await waitFor(() => expect(queryByTestId('file-name-0-editing-input')).toBeInTheDocument());
+
+            fireEvent.change(getByTestId('file-name-0-editing-input'), { target: { value: badNewFilename } });
+
+            act(() => {
+                fireEvent.click(getByTestId('file-name-0-save'));
+            });
+
+            // bad filename shouldnt call the save method
+            expect(onFilenameSave).not.toHaveBeenCalled();
+
+            fireEvent.change(getByTestId('file-name-0-editing-input'), { target: { value: goodNewFilename } });
+
+            act(() => {
+                fireEvent.click(getByTestId('file-name-0-save'));
+            });
+
+            expect(onFilenameSave).toHaveBeenCalledWith(
+                [
+                    { key: 'dsi_dsid_new', value: originalFilename },
+                    { key: 'dsi_dsid', value: `${goodNewFilename}.pdf` },
+                ],
+                null,
+                0,
+            );
+
+            setup(
+                {
+                    canEdit: true,
+                    dataStreams: dataStreamsRenamed,
+                    onFilenameSave,
+                    onFilenameChange,
+                },
+                rerender,
+            );
+
+            await waitFor(() => expect(queryByTestId('file-name-0-reset')).toBeInTheDocument());
+
+            act(() => {
+                fireEvent.click(getByTestId('file-name-0-reset'));
+            });
+
+            expect(onFilenameChange).toHaveBeenCalledWith('dsi_dsid', originalFilename, 0, badNewFilename);
+
+            // code coverage
+            await waitFor(() => expect(queryByTestId('file-name-0-edit')).toBeInTheDocument());
+
+            act(() => {
+                fireEvent.click(getByTestId('file-name-0-edit'));
+            });
+            await waitFor(() => expect(queryByTestId('file-name-0-editing-input')).toBeInTheDocument());
+
+            fireEvent.change(getByTestId('file-name-0-editing-input'), { target: { value: 'test.pdf.invalid' } });
+
+            act(() => {
+                fireEvent.click(getByTestId('file-name-0-save'));
+            });
+
+            // state of buttons doesnt change for invalid entries
+            expect(getByTestId('file-name-0-editing-input')).toBeInTheDocument();
+            expect(queryByTestId('file-name-0-edit')).not.toBeInTheDocument();
+        });
+    });
+    describe('helper functions', () => {
+        const getErrorMessageFormatted = file =>
+            fileUploadLocale.default.validation.sameFileNameWithDifferentExt.replace('[fileNames]', file);
+        it('checkFileNamesForDupes should check for duplicate filenames after rename', () => {
+            const setErrorMessage = jest.fn();
+            const dataStreams = [
+                {
+                    dsi_dsid: 'file1.jpg',
+                },
+                {
+                    dsi_dsid: 'file2_renamed.jpg',
+                    dsi_dsid_new: 'file2.jpg',
+                },
+            ];
+            const formValuesFromContext = [];
+            const excludeIndex = 1;
+            const callback = checkFileNamesForDupes(dataStreams, formValuesFromContext, setErrorMessage, excludeIndex);
+            const expectedErrorMessage = getErrorMessageFormatted('file1.jpg');
+            expect(callback('file1.jpg')).toEqual(false);
+            expect(setErrorMessage).toHaveBeenCalledWith(expectedErrorMessage);
+            expect(callback('file_new.jpg')).toEqual(true);
+        });
+        it('checkFileNamesForDupes should check for duplicate filenames with different extensions after rename', () => {
+            const setErrorMessage = jest.fn();
+            const dataStreams = [
+                {
+                    dsi_dsid: 'file1.pdf',
+                },
+                {
+                    dsi_dsid: 'file2_renamed.jpg',
+                    dsi_dsid_new: 'file2.jpg',
+                },
+            ];
+            const formValuesFromContext = [];
+            const excludeIndex = 1;
+            const callback = checkFileNamesForDupes(dataStreams, formValuesFromContext, setErrorMessage, excludeIndex);
+            const expectedErrorMessage = getErrorMessageFormatted('file1.jpg');
+            expect(callback('file1.jpg')).toEqual(false); // test file names with different extensions are captured
+            expect(setErrorMessage).toHaveBeenCalledWith(expectedErrorMessage);
+            expect(callback('file_new.jpg')).toEqual(true);
+        });
+        it('checkFileNamesForDupes should check for duplicate filenames after already renamed', () => {
+            const setErrorMessage = jest.fn();
+            const dataStreams = [
+                {
+                    dsi_dsid: 'file1.jpg',
+                },
+                {
+                    dsi_dsid: 'file2_renamed.jpg',
+                    dsi_dsid_new: 'file2.jpg',
+                },
+            ];
+            const formValuesFromContext = [];
+            const excludeIndex = 0;
+            const callback = checkFileNamesForDupes(dataStreams, formValuesFromContext, setErrorMessage, excludeIndex);
+            const expectedErrorMessage = getErrorMessageFormatted('file2_renamed.jpg');
+            expect(callback('file2_renamed.jpg')).toEqual(false);
+            expect(setErrorMessage).toHaveBeenCalledWith(expectedErrorMessage);
+            expect(callback('file2.jpg')).toEqual(false);
+            expect(callback('file_new.jpg')).toEqual(true);
+        });
+        it('checkFileNamesForDupes should check for duplicate filenames with new file attached and before rename', () => {
+            const setErrorMessage = jest.fn();
+            const dataStreams = [
+                {
+                    dsi_dsid: 'file1.jpg',
+                },
+                {
+                    dsi_dsid: 'file2_renamed.jpg',
+                    dsi_dsid_new: 'file2.jpg',
+                },
+            ];
+            const formValuesFromContext = { files: { queue: [{ name: 'attached.jpg' }] } };
+            const excludeIndex = 1;
+            const callback = checkFileNamesForDupes(dataStreams, formValuesFromContext, setErrorMessage, excludeIndex);
+            const expectedErrorMessage = getErrorMessageFormatted('attached.jpg');
+            expect(callback('attached.jpg')).toEqual(false);
+            expect(setErrorMessage).toHaveBeenCalledWith(expectedErrorMessage);
+            expect(callback('file_new.jpg')).toEqual(true);
+        });
+
+        it('checkFileNamesForDupes should check for duplicate filenames with new file attached and after rename', () => {
+            const setErrorMessage = jest.fn();
+            const dataStreams = [
+                {
+                    dsi_dsid: 'file1.jpg',
+                },
+                {
+                    dsi_dsid: 'attached.jpg',
+                    dsi_dsid_new: 'file2.jpg',
+                },
+            ];
+            const formValuesFromContext = { files: { queue: [{ name: 'attached.jpg' }] } };
+            const excludeIndex = 0;
+            const callback = checkFileNamesForDupes(dataStreams, formValuesFromContext, setErrorMessage, excludeIndex);
+            const expectedErrorMessage = getErrorMessageFormatted('attached.jpg');
+            expect(callback('attached.jpg')).toEqual(false);
+            expect(setErrorMessage).toHaveBeenCalledWith(expectedErrorMessage);
+        });
     });
 });

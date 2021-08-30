@@ -14,7 +14,6 @@ exports[`Snapshot tests for StandardPage component renders StandardPage with hel
       component="h2"
       data-testid="page-title"
       id="page-title"
-      variant="h4"
     >
       Test
     </WithStyles(ForwardRef(Typography))>
@@ -52,7 +51,6 @@ exports[`Snapshot tests for StandardPage component renders StandardPage with tit
       component="h2"
       data-testid="page-title"
       id="page-title"
-      variant="h4"
     >
       standard page title
     </WithStyles(ForwardRef(Typography))>
@@ -223,6 +221,7 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
               },
               "MuiFormLabel": Object {
                 "root": Object {
+                  "lineHeight": "normal",
                   "overflow": "hidden",
                   "textOverflow": "ellipsis",
                   "whiteSpace": "nowrap",
@@ -232,6 +231,13 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
               "MuiIconButton": Object {
                 "colorInherit": Object {
                   "color": "none",
+                },
+              },
+              "MuiInput": Object {
+                "formControl": Object {
+                  "label + &": Object {
+                    "marginTop": 17,
+                  },
                 },
               },
               "MuiMenuItem": Object {
@@ -618,6 +624,7 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                       },
                       "MuiFormLabel": Object {
                         "root": Object {
+                          "lineHeight": "normal",
                           "overflow": "hidden",
                           "textOverflow": "ellipsis",
                           "whiteSpace": "nowrap",
@@ -627,6 +634,13 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                       "MuiIconButton": Object {
                         "colorInherit": Object {
                           "color": "none",
+                        },
+                      },
+                      "MuiInput": Object {
+                        "formControl": Object {
+                          "label + &": Object {
+                            "marginTop": 17,
+                          },
                         },
                       },
                       "MuiMenuItem": Object {
@@ -1010,11 +1024,11 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                         "grid-xs-auto": "MuiGrid-grid-xs-auto",
                         "grid-xs-true": "MuiGrid-grid-xs-true",
                         "item": "MuiGrid-item",
-                        "justify-xs-center": "MuiGrid-justify-xs-center",
-                        "justify-xs-flex-end": "MuiGrid-justify-xs-flex-end",
-                        "justify-xs-space-around": "MuiGrid-justify-xs-space-around",
-                        "justify-xs-space-between": "MuiGrid-justify-xs-space-between",
-                        "justify-xs-space-evenly": "MuiGrid-justify-xs-space-evenly",
+                        "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                        "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                        "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                        "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                        "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
                         "root": "MuiGrid-root",
                         "spacing-xs-1": "MuiGrid-spacing-xs-1",
                         "spacing-xs-10": "MuiGrid-spacing-xs-10",
@@ -1127,11 +1141,11 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                               "grid-xs-auto": "MuiGrid-grid-xs-auto",
                               "grid-xs-true": "MuiGrid-grid-xs-true",
                               "item": "MuiGrid-item",
-                              "justify-xs-center": "MuiGrid-justify-xs-center",
-                              "justify-xs-flex-end": "MuiGrid-justify-xs-flex-end",
-                              "justify-xs-space-around": "MuiGrid-justify-xs-space-around",
-                              "justify-xs-space-between": "MuiGrid-justify-xs-space-between",
-                              "justify-xs-space-evenly": "MuiGrid-justify-xs-space-evenly",
+                              "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                              "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                              "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                              "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                              "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
                               "root": "MuiGrid-root",
                               "spacing-xs-1": "MuiGrid-spacing-xs-1",
                               "spacing-xs-10": "MuiGrid-spacing-xs-10",
@@ -1160,7 +1174,6 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                               component="h2"
                               data-testid="page-title"
                               id="page-title"
-                              variant="h4"
                             >
                               <ForwardRef(Typography)
                                 className="Page-layoutTitle-2"
@@ -1202,10 +1215,9 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                                 component="h2"
                                 data-testid="page-title"
                                 id="page-title"
-                                variant="h4"
                               >
                                 <h2
-                                  className="MuiTypography-root Page-layoutTitle-2 MuiTypography-h4 MuiTypography-colorPrimary"
+                                  className="MuiTypography-root Page-layoutTitle-2 MuiTypography-body1 MuiTypography-colorPrimary"
                                   data-testid="page-title"
                                   id="page-title"
                                 >
@@ -1306,6 +1318,7 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                                   aria-describedby={null}
                                   aria-label="Click for more information"
                                   className=""
+                                  data-testid="help-icon"
                                   id="help-icon"
                                   onBlur={[Function]}
                                   onClick={[Function]}
@@ -1333,6 +1346,7 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                                         "sizeSmall": "MuiIconButton-sizeSmall",
                                       }
                                     }
+                                    data-testid="help-icon"
                                     id="help-icon"
                                     onBlur={[Function]}
                                     onClick={[Function]}
@@ -1348,6 +1362,7 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                                       aria-label="Click for more information"
                                       centerRipple={true}
                                       className="MuiIconButton-root"
+                                      data-testid="help-icon"
                                       disabled={false}
                                       focusRipple={true}
                                       id="help-icon"
@@ -1372,6 +1387,7 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                                             "root": "MuiButtonBase-root",
                                           }
                                         }
+                                        data-testid="help-icon"
                                         disabled={false}
                                         focusRipple={true}
                                         id="help-icon"
@@ -1388,6 +1404,7 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                                           aria-describedby={null}
                                           aria-label="Click for more information"
                                           className="MuiButtonBase-root MuiIconButton-root"
+                                          data-testid="help-icon"
                                           disabled={false}
                                           id="help-icon"
                                           onBlur={[Function]}
@@ -1490,6 +1507,7 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                                     <button
                                       aria-label="Click for more information"
                                       class="MuiButtonBase-root MuiIconButton-root"
+                                      data-testid="help-icon"
                                       id="help-icon"
                                       tabindex="0"
                                       title="Click for more information"
@@ -1629,11 +1647,11 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                               "grid-xs-auto": "MuiGrid-grid-xs-auto",
                               "grid-xs-true": "MuiGrid-grid-xs-true",
                               "item": "MuiGrid-item",
-                              "justify-xs-center": "MuiGrid-justify-xs-center",
-                              "justify-xs-flex-end": "MuiGrid-justify-xs-flex-end",
-                              "justify-xs-space-around": "MuiGrid-justify-xs-space-around",
-                              "justify-xs-space-between": "MuiGrid-justify-xs-space-between",
-                              "justify-xs-space-evenly": "MuiGrid-justify-xs-space-evenly",
+                              "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                              "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                              "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                              "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                              "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
                               "root": "MuiGrid-root",
                               "spacing-xs-1": "MuiGrid-spacing-xs-1",
                               "spacing-xs-10": "MuiGrid-spacing-xs-10",
@@ -1750,11 +1768,11 @@ exports[`Snapshot tests for full mount StandardPage component renders StandardPa
                               "grid-xs-auto": "MuiGrid-grid-xs-auto",
                               "grid-xs-true": "MuiGrid-grid-xs-true",
                               "item": "MuiGrid-item",
-                              "justify-xs-center": "MuiGrid-justify-xs-center",
-                              "justify-xs-flex-end": "MuiGrid-justify-xs-flex-end",
-                              "justify-xs-space-around": "MuiGrid-justify-xs-space-around",
-                              "justify-xs-space-between": "MuiGrid-justify-xs-space-between",
-                              "justify-xs-space-evenly": "MuiGrid-justify-xs-space-evenly",
+                              "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                              "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                              "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                              "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                              "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
                               "root": "MuiGrid-root",
                               "spacing-xs-1": "MuiGrid-spacing-xs-1",
                               "spacing-xs-10": "MuiGrid-spacing-xs-10",

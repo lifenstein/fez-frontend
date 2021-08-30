@@ -23,6 +23,7 @@ export const FacetFilterNestedListItemsList = React.memo(function FacetFilterNes
         const isActive = isFacetFilterActive(activeFacets.filters, facetCategory.facetTitle, item.key);
         return (
             <FacetFilterNestedListItem
+                facet={facetCategory.facetTitle}
                 key={index}
                 index={index}
                 onFacetClick={handleFacetClick(facetCategory.facetTitle, item.key)}
@@ -120,7 +121,7 @@ export const FacetsFilter = ({
         ...activeFacets.ranges,
     });
 
-    const [showOpenAccessOnly, setShowOpenAccessOnly] = useState(false);
+    const [showOpenAccessOnly, setShowOpenAccessOnly] = useState(!!activeFacets.showOpenAccessOnly);
 
     const [hasActiveFilters, setHasActiveFilters] = useState(false);
 
@@ -213,7 +214,7 @@ export const FacetsFilter = ({
         return <span id="empty-facet-filters" className="facetsFilter empty" />;
     }
     return (
-        <div className="facetsFilter">
+        <div className="facetsFilter" id="facets-filter" data-testid="facets-filter">
             <List component="nav" dense>
                 {facetsToDisplay.map(item => {
                     // const isActive = this.state.activeFacets.filters.hasOwnProperty(item.title);
@@ -223,6 +224,7 @@ export const FacetsFilter = ({
                             key={`facet-category-${item.facetTitle.replace(/ /g, '-').toLowerCase()}`}
                             title={item.title}
                             disabled={disabled}
+                            isActive={activeFacetsFilters.hasOwnProperty(item.facetTitle)}
                             nestedItems={
                                 <FacetFilterNestedListItemsList
                                     facetCategory={item}
@@ -258,7 +260,7 @@ export const FacetsFilter = ({
                 )}
             </List>
             {hasActiveFilters && (
-                <Grid container justify="flex-end">
+                <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Button variant="contained" onClick={_handleResetClick}>
                             {resetButtonText}

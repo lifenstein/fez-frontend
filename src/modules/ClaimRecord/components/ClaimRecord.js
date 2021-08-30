@@ -24,6 +24,9 @@ import {
 import { claimRecordConfig, pathConfig, validation } from 'config';
 import locale from 'locale/forms';
 import Hidden from '@material-ui/core/Hidden';
+import { CLAIM_PRE_CHECK } from '../../../repositories/routes';
+
+export const isClaimPreCheckResponse = error => error?.request?.responseURL?.includes?.(CLAIM_PRE_CHECK().apiUrl);
 
 export default class ClaimRecord extends PureComponent {
     static propTypes = {
@@ -41,8 +44,9 @@ export default class ClaimRecord extends PureComponent {
         actions: PropTypes.object.isRequired,
     };
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillMount() {
+    constructor(props) {
+        super(props);
+
         const author = this.props.initialValues.get('author') ? this.props.initialValues.get('author').toJS() : null;
         const publication = this.props.initialValues.get('publication')
             ? this.props.initialValues.get('publication').toJS()
@@ -51,7 +55,6 @@ export default class ClaimRecord extends PureComponent {
             this.props.history.go(-1);
         }
     }
-
     componentDidMount() {
         const publication = this.props.initialValues.get('publication')
             ? this.props.initialValues.get('publication').toJS()
@@ -61,13 +64,11 @@ export default class ClaimRecord extends PureComponent {
         }
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (nextProps.submitSucceeded !== this.props.submitSucceeded) {
+    componentDidUpdate(prevProps) {
+        if (prevProps.submitSucceeded !== this.props.submitSucceeded) {
             this.successConfirmationBox.showConfirmation();
         }
     }
-
     componentWillUnmount() {
         // clear previously selected publication for a claim
         this.props.actions.clearClaimPublication();
@@ -121,6 +122,14 @@ export default class ClaimRecord extends PureComponent {
             ...(this.props.initialValues.get('publication') && this.props.initialValues.get('publication').toJS(0)),
             ...this.props.fullPublicationToClaim,
         };
+    };
+
+    _useCustomErrorMessageIfAvailable = (error, defaultMessage) => {
+        if (error?.original?.data && typeof error?.original?.data === 'string' && isClaimPreCheckResponse(error)) {
+            return error.original.data;
+        }
+
+        return defaultMessage;
     };
 
     render() {
@@ -188,8 +197,8 @@ export default class ClaimRecord extends PureComponent {
             // display a custom error message
             alertProps = validation.getErrorAlertProps({
                 ...this.props,
+                error: this._useCustomErrorMessageIfAvailable(this.props.error, txt.errorAlert.incompleteData),
                 dirty: true,
-                error: txt.errorAlert.incompleteData,
                 alertLocale: txt,
             });
         } else if (publication.rek_pid && (authorLinked || contributorLinked)) {
@@ -197,6 +206,7 @@ export default class ClaimRecord extends PureComponent {
         } else {
             alertProps = validation.getErrorAlertProps({
                 ...this.props,
+                error: this.props.error?.message || this.props.error,
                 dirty: true,
                 alertLocale: txt,
             });
@@ -283,6 +293,7 @@ export default class ClaimRecord extends PureComponent {
                                                 <Grid item xs={12}>
                                                     <Field
                                                         component={TextField}
+                                                        textFieldId="claim-comments"
                                                         disabled={this.props.submitting}
                                                         name="comments"
                                                         type="text"
@@ -295,6 +306,7 @@ export default class ClaimRecord extends PureComponent {
                                                 <Grid item xs={12}>
                                                     <Field
                                                         component={TextField}
+                                                        textFieldId="claim-link"
                                                         disabled={this.props.submitting}
                                                         name="rek_link"
                                                         type="text"
@@ -319,6 +331,7 @@ export default class ClaimRecord extends PureComponent {
                                                     <Grid item xs={12}>
                                                         <Field
                                                             component={ContentIndicatorsField}
+                                                            displayType={publication.rek_display_type}
                                                             disabled={this.props.submitting}
                                                             id="content-indicators"
                                                             name="contentIndicators"

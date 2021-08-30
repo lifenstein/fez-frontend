@@ -4,23 +4,32 @@ export const initialState = {
     recordToView: null,
     loadingRecordToView: true,
     recordToViewError: null,
-    hideCulturalSensitivityStatement: false,
     isRecordLocked: false,
     isDeleted: false,
+    isDeletedVersion: false,
     isJobCreated: false,
+    error: null,
 };
 
 const handlers = {
-    [actions.VIEW_RECORD_LOADING]: state => ({
+    [actions.VIEW_RECORD_LOADING]: () => ({
         ...initialState,
-        hideCulturalSensitivityStatement: state.hideCulturalSensitivityStatement,
     }),
 
-    [actions.VIEW_RECORD_LOADED]: (state, action) => ({
+    [actions.VIEW_RECORD_LOADED]: (state, action) => {
+        return {
+            ...initialState,
+            loadingRecordToView: false,
+            recordToView: action.payload,
+            isRecordLocked: !!action.payload.rek_editing_user,
+        };
+    },
+
+    [actions.VIEW_RECORD_VERSION_DELETED_LOADED]: (state, action) => ({
         ...initialState,
+        isDeletedVersion: true,
         loadingRecordToView: false,
         recordToView: action.payload,
-        hideCulturalSensitivityStatement: state.hideCulturalSensitivityStatement,
         isRecordLocked: !!action.payload.rek_editing_user,
     }),
 
@@ -28,26 +37,18 @@ const handlers = {
         ...initialState,
         loadingRecordToView: false,
         recordToViewError: action.payload,
-        hideCulturalSensitivityStatement: true,
     }),
 
     [actions.VIEW_RECORD_DELETED]: (state, action) => ({
         ...initialState,
         loadingRecordToView: false,
         recordToView: action.payload,
-        hideCulturalSensitivityStatement: true,
         isDeleted: true,
     }),
 
-    [actions.VIEW_RECORD_CLEAR]: state => ({
+    [actions.VIEW_RECORD_CLEAR]: () => ({
         ...initialState,
-        hideCulturalSensitivityStatement: state.hideCulturalSensitivityStatement,
         isRecordLocked: false,
-    }),
-
-    [actions.VIEW_RECORD_CULTURAL_SENSITIVITY_STATEMENT_HIDE]: state => ({
-        ...state,
-        hideCulturalSensitivityStatement: true,
     }),
 
     [actions.VIEW_RECORD_UNLOCK]: state => ({
@@ -58,6 +59,25 @@ const handlers = {
     [actions.ADMIN_UPDATE_WORK_JOB_CREATED]: state => ({
         ...state,
         isJobCreated: true,
+    }),
+
+    [actions.ADMIN_UPDATE_WORK_FAILED]: (state, action) => ({
+        ...state,
+        error: action.payload,
+    }),
+
+    [actions.DETAILED_HISTORY_LOADING]: state => ({
+        ...state,
+        isLoadingDetailedHistory: true,
+    }),
+    [actions.DETAILED_HISTORY_LOADING_SUCCESS]: (state, action) => ({
+        ...state,
+        isLoadingDetailedHistory: false,
+        recordDetailedHistory: action.payload,
+    }),
+    [actions.DETAILED_HISTORY_LOADING_FAILED]: state => ({
+        ...state,
+        isLoadingDetailedHistory: false,
     }),
 };
 

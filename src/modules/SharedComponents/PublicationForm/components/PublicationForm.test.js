@@ -1,8 +1,7 @@
 import PublicationForm from './PublicationForm';
 import Immutable from 'immutable';
 import { JournalArticleForm, BookForm, GenericDocumentForm, ResearchReportForm } from './Forms';
-import { validation, routes } from 'config';
-import { PUBLICATION_TYPE_THESIS } from 'config/general';
+import { validation } from 'config';
 
 function setup(testProps = {}) {
     const props = {
@@ -210,7 +209,7 @@ describe('Component PublicationForm', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('should call UNSAFE_componentWillReceiveProps when props change', () => {
+    it('should call getDerivedStateFromProps when props change', () => {
         const changeDisplayType = jest.fn();
         const changeFormType = jest.fn();
         const wrapper = setup({
@@ -218,8 +217,7 @@ describe('Component PublicationForm', () => {
             changeDisplayType: changeDisplayType,
             changeFormType: changeFormType,
         });
-        // eslint-disable-next-line camelcase
-        const UNSAFE_componentWillReceiveProps = jest.spyOn(wrapper.instance(), 'UNSAFE_componentWillReceiveProps');
+
         wrapper.setProps({
             submitSucceeded: true,
             hasSubtypes: false,
@@ -229,7 +227,7 @@ describe('Component PublicationForm', () => {
             hasDefaultDocTypeSubType: false,
             docTypeSubTypeCombo: null,
         });
-        expect(UNSAFE_componentWillReceiveProps).toHaveBeenCalled();
+
         // Testing conditional paths
         expect(toJson(wrapper)).toMatchSnapshot();
         wrapper.setProps({
@@ -241,7 +239,7 @@ describe('Component PublicationForm', () => {
             hasDefaultDocTypeSubType: false,
             docTypeSubTypeCombo: null,
         });
-        expect(UNSAFE_componentWillReceiveProps).toHaveBeenCalled();
+
         expect(toJson(wrapper)).toMatchSnapshot();
 
         wrapper.setProps({
@@ -253,7 +251,7 @@ describe('Component PublicationForm', () => {
             hasDefaultDocTypeSubType: false,
             docTypeSubTypeCombo: null,
         });
-        expect(UNSAFE_componentWillReceiveProps).toHaveBeenCalled();
+
         expect(toJson(wrapper)).toMatchSnapshot();
 
         wrapper.setProps({
@@ -265,7 +263,7 @@ describe('Component PublicationForm', () => {
             hasDefaultDocTypeSubType: true,
             docTypeSubTypeCombo: null,
         });
-        expect(UNSAFE_componentWillReceiveProps).toHaveBeenCalled();
+
         expect(changeDisplayType).toHaveBeenCalled();
         expect(changeFormType).toHaveBeenCalled();
         expect(toJson(wrapper)).toMatchSnapshot();

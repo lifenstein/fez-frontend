@@ -8,20 +8,40 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import Box from '@material-ui/core/Box';
 
 const styles = theme => ({
     pageButton: {
-        width: 32,
+        flex: '1 0 auto',
         height: 32,
         minWidth: 32,
         minHeight: 32,
         margin: '0 2px',
     },
+    current: {
+        fontWeight: 900,
+        fontSize: '1.2rem',
+    },
     nextPrevButtons: {
+        flex: '0 1 auto',
         height: 32,
         minHeight: 32,
         maxHeight: 32,
+        minWidth: 'auto',
         overflow: 'hidden',
+        [theme.breakpoints.down('md')]: {
+            paddingLeft: 0,
+            paddingRight: 0,
+            '& > span': {
+                lineHeight: '0.875rem',
+            },
+        },
+        '&.paging-previous': {
+            justifyContent: 'flex-start',
+        },
+        '&.paging-next': {
+            justifyContent: 'flex-end',
+        },
     },
     nextPrevIcons: {
         fontSize: '1rem',
@@ -29,7 +49,75 @@ const styles = theme => ({
     fakeDisabled: {
         backgroundColor: theme.palette.primary.main,
     },
+    gridContainer: {
+        flexWrap: 'nowrap',
+        justifyContent: 'space-between',
+    },
+    paginationGridContainer: {
+        textAlign: 'center',
+    },
 });
+
+export const paginate = (totalItems, currentPage = 1, pageSize = 10, maxPages = 10) => {
+    let currPage = currentPage;
+    // calculate total pages
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    // ensure current page isn't out of range
+    if (currentPage < 1) {
+        currPage = 1;
+    } else if (currentPage > totalPages) {
+        currPage = totalPages;
+    }
+
+    let startPage;
+    let endPage;
+    if (totalPages <= maxPages) {
+        // total pages less than max so show all pages
+        startPage = 1;
+        endPage = totalPages;
+    } else {
+        // total pages more than max so calculate start and end pages
+        const maxPagesBeforeCurrentPage = Math.floor(maxPages / 2);
+        const maxPagesAfterCurrentPage = Math.ceil(maxPages / 2) - 1;
+        if (currPage <= maxPagesBeforeCurrentPage) {
+            // current page near the start
+            startPage = 1;
+            endPage = maxPages;
+        } else if (currPage + maxPagesAfterCurrentPage >= totalPages) {
+            // current page near the end
+            startPage = totalPages - maxPages + 1;
+            endPage = totalPages;
+        } else {
+            // current page somewhere in the middle
+            startPage = currPage - maxPagesBeforeCurrentPage;
+            endPage = currPage + maxPagesAfterCurrentPage;
+        }
+    }
+
+    // create an array of pages
+    const pages = Array.from(Array(endPage + 1 - startPage).keys(), i => startPage + i);
+
+    // adjust the paging array to account for the edge case
+    // where if the currentPage is exactly 1 position in from
+    // the starting page 1 or end page totalPages, we end up
+    // rendering an additional number. Although not a breaking issue
+    // it is a jarring UI artefact so to fix, we either remove a page
+    // number from the start or the end of the array
+    if (startPage === 2 && endPage !== totalPages + 1) pages.pop();
+    else if (endPage === totalPages - 1) pages.shift();
+
+    // return object with all pager properties required by the view
+    return {
+        totalItems: totalItems,
+        currentPage: currPage,
+        pageSize: pageSize,
+        totalPages: totalPages,
+        startPage: startPage,
+        endPage: endPage,
+        pages: pages,
+    };
+};
 
 export class PublicationsListPaging extends Component {
     static propTypes = {
@@ -43,6 +131,7 @@ export class PublicationsListPaging extends Component {
             per_page: PropTypes.number,
             current_page: PropTypes.number,
         }),
+        pagingId: PropTypes.string,
     };
 
     constructor(props) {
@@ -52,11 +141,11 @@ export class PublicationsListPaging extends Component {
         };
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (!nextProps.disabled && JSON.stringify(nextProps.pagingData) !== JSON.stringify(this.state)) {
-            this.setState({ ...nextProps.pagingData });
+    static getDerivedStateFromProps(props, state) {
+        if (!props.disabled && JSON.stringify(props.pagingData) !== JSON.stringify(state)) {
+            return { ...props.pagingData };
         }
+        return {};
     }
 
     pageChanged = newPage => {
@@ -65,9 +154,10 @@ export class PublicationsListPaging extends Component {
 
     renderButton = key => {
         const currentPage = this.state.current_page;
-        const isCurrentPage = !!(key === currentPage);
+        const isCurrentPage = key === currentPage;
         const totalPages =
             this.state.total && this.state.per_page ? Math.ceil(this.state.total / this.state.per_page) : 0;
+
         return (
             <Button
                 variant={'text'}
@@ -75,53 +165,50 @@ export class PublicationsListPaging extends Component {
                 size={'small'}
                 className={`${classNames(
                     this.props.classes.pageButton,
-                    isCurrentPage && this.props.classes.pageButton,
+                    isCurrentPage && this.props.classes.current,
                 )} paging-button`}
                 onClick={() => {
                     this.pageChanged(key);
                 }}
-                disabled={this.props.disabled || isCurrentPage}
+                disabled={this.props.disabled}
                 color={isCurrentPage ? 'primary' : 'default'}
                 aria-label={locale.components.paging.pageButtonAriaLabel
                     .replace('[pageNumber]', key)
                     .replace('[totalPages]', totalPages)}
                 children={key}
+                data-testid={`${this.props.pagingId}-select-page-${key}`}
+                id={`${this.props.pagingId}-select-page-${key}`}
             />
         );
     };
 
-    renderPageButtons = () => {
-        const totalPages =
-            this.state.total && this.state.per_page ? Math.ceil(this.state.total / this.state.per_page) : 0;
-        const pageBracket = locale.components.paging.pagingBracket;
-        const currentPage = this.state.current_page;
-        const startPage = currentPage - pageBracket < 1 ? 1 : currentPage - pageBracket;
-        const endPage = currentPage + pageBracket > totalPages ? totalPages : currentPage + pageBracket;
-        const totalToRender = endPage - startPage + 1;
-        return Array(totalToRender)
+    renderPageButtons = (pagesToShow = []) => {
+        return Array(pagesToShow.length)
             .fill()
-            .map((page, index) => {
-                return this.renderButton(index + startPage);
-            });
+            .map((page, index) => this.renderButton(pagesToShow[index]));
     };
 
     render() {
         const { classes } = this.props;
         const txt = locale.components.paging;
-        const totalPages =
-            this.state.total && this.state.per_page ? Math.ceil(this.state.total / this.state.per_page) : 0;
+        const maxPagesToShow = locale.components.paging.maxPagesToShow;
+        const pagination = paginate(this.state.total, this.state.current_page, this.state.per_page, maxPagesToShow);
+        const paginationPages = pagination.pages;
+        const totalPages = pagination.totalPages;
+
+        const renderedPageButtons = this.renderPageButtons(paginationPages);
+
         const currentPage = this.state.current_page;
         if (totalPages === 0 || this.state.current_page < 1 || this.state.current_page > totalPages) {
             return <span className="publicationsListControls empty" />;
         }
         return (
-            <div>
+            <div data-testid={this.props.pagingId} id={this.props.pagingId}>
                 {totalPages > 1 && (
-                    <Grid container spacing={0}>
+                    <Grid container spacing={0} className={classes.gridContainer}>
                         {currentPage >= 1 && (
-                            <Grid item>
+                            <Grid item xs={'auto'}>
                                 <Button
-                                    style={{ paddingLeft: 4 }}
                                     variant={'text'}
                                     className={`${classes.nextPrevButtons} paging-previous`}
                                     onClick={() => {
@@ -134,34 +221,32 @@ export class PublicationsListPaging extends Component {
                                 </Button>
                             </Grid>
                         )}
-                        <Grid item style={{ flexGrow: 1 }} />
                         <Hidden xsDown>
-                            <Grid item>
-                                {currentPage - (txt.pagingBracket + 1) >= 1 && this.renderButton(1)}
-                                {currentPage - (txt.pagingBracket + 2) >= 1 && txt.firstLastSeparator}
-                                {this.renderPageButtons()}
-                                {currentPage + (txt.pagingBracket + 2) <= totalPages && txt.firstLastSeparator}
-                                {currentPage + (txt.pagingBracket + 1) <= totalPages && this.renderButton(totalPages)}
+                            <Grid item sm={'auto'} className={classes.paginationGridContainer}>
+                                {paginationPages.indexOf(1) === -1 && this.renderButton(1)}
+                                {paginationPages[0] - 1 > 1 && txt.firstLastSeparator}
+                                {renderedPageButtons}
+                                {paginationPages[paginationPages.length - 1] + 1 < totalPages && txt.firstLastSeparator}
+                                {paginationPages.indexOf(totalPages) === -1 && this.renderButton(totalPages)}
                             </Grid>
                         </Hidden>
                         <Hidden smUp>
-                            <Grid item style={{ flexGrow: 1 }}>
-                                <Button
-                                    style={{ margin: '0 auto' }}
-                                    variant={'text'}
-                                    className={classes.nextPrevButtons}
-                                    children={txt.pageOf
-                                        .replace('[currentPage]', currentPage)
-                                        .replace('[totalPages]', totalPages)}
-                                />
+                            <Grid item xs>
+                                <Box textAlign={'center'} paddingLeft={1} paddingRight={1}>
+                                    <Button
+                                        variant={'text'}
+                                        className={classes.nextPrevButtons}
+                                        children={txt.pageOf
+                                            .replace('[currentPage]', currentPage)
+                                            .replace('[totalPages]', totalPages)}
+                                    />
+                                </Box>
                             </Grid>
                         </Hidden>
-                        <Grid item style={{ flexGrow: 1 }} />
                         {currentPage <= totalPages && (
-                            <Grid item>
+                            <Grid item xs={'auto'}>
                                 <Button
                                     variant={'text'}
-                                    size={'small'}
                                     className={`${classes.nextPrevButtons} paging-next`}
                                     onClick={() => {
                                         this.pageChanged(currentPage + 1);

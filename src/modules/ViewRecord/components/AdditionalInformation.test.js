@@ -1,6 +1,6 @@
 import * as records from 'mock/data/testing/records';
-import { AdditionalInformationClass } from './AdditionalInformation';
-import AdditionalInformation from './AdditionalInformation';
+import AdditionalInformation, { AdditionalInformationClass } from './AdditionalInformation';
+import { PLACEHOLDER_ISO8601_ZULU_DATE } from '../../../config/general';
 
 function setup(testProps = {}, args = { context: { userCountry: 'AU' } }) {
     const props = {
@@ -43,10 +43,51 @@ describe('Additional Information Component ', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
+    it('should render component with data collection with license link', () => {
+        const wrapper = setup({
+            publication: {
+                ...records.dataCollection,
+                fez_record_search_key_license: {
+                    ...records.dataCollectionWithFoRCodes.fez_record_search_key_license,
+                    rek_license: 456807,
+                },
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
     it('should render component with audio document', () => {
         const wrapper = setup({ publication: records.audioDocument });
         expect(toJson(wrapper)).toMatchSnapshot();
-        // expect(wrapper.find('.license.cc-by-nc-nd').length).toEqual(1);
+    });
+
+    it('should render component with Attribution incomplete', () => {
+        const wrapper = setup({
+            publication: {
+                ...records.journalArticle,
+                rek_ci_notice_attribution_incomplete: 1,
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should render component without Attribution incomplete, set to 0', () => {
+        const wrapper = setup({
+            publication: {
+                ...records.journalArticle,
+                rek_ci_notice_attribution_incomplete: 0,
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should render component without Attribution incomplete, wirh no value', () => {
+        const wrapper = setup({
+            publication: {
+                ...records.journalArticle,
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
     });
 
     it('should render component with book', () => {
@@ -71,6 +112,16 @@ describe('Additional Information Component ', () => {
 
     it('should render component with creative work', () => {
         const wrapper = setup({ publication: records.creativeWork });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should render component with a community', () => {
+        const wrapper = setup({ publication: records.communityRecord });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should render component with a collection', () => {
+        const wrapper = setup({ publication: records.collectionRecord });
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
@@ -607,16 +658,26 @@ describe('Additional Information Component ', () => {
 
     it('should skip render of date if it has a placeholder value', () => {
         const publication = {
-            rek_date: '1000-01-01T00:00:00Z',
+            rek_date: PLACEHOLDER_ISO8601_ZULU_DATE,
             rek_display_type_lookup: 'Journal Article',
         };
         const wrapper = setup({ publication });
         expect(wrapper.instance().renderColumns()).toMatchSnapshot();
     });
 
+    it('should not render empty doi', () => {
+        const wrapper = setup({
+            publication: {
+                ...records.journalArticle,
+                fez_record_search_key_doi: { rek_doi: '' },
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
     it('renderLicense()', () => {
         const publication = {
-            rek_date: '1000-01-01T00:00:00Z',
+            rek_date: PLACEHOLDER_ISO8601_ZULU_DATE,
             rek_display_type_lookup: 'Journal Article',
         };
         const wrapper = setup({ publication });

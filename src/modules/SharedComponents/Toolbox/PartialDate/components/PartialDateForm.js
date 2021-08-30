@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { withStyles } from '@material-ui/core/styles';
-import { PLACEHOLDER_DATE } from 'config/general';
+import { PLACEHOLDER_ISO8601_ZULU_DATE } from 'config/general';
 
 import moment from 'moment';
 
@@ -34,7 +34,7 @@ export const STATUS_FUTURE_DATE = 3; // the date entered is valid but in the fut
 
 export const MONTH_UNSELECTED = -1;
 
-export class PartialDateForm extends Component {
+export class PartialDateForm extends PureComponent {
     static propTypes = {
         locale: PropTypes.object,
         onChange: PropTypes.func,
@@ -101,27 +101,27 @@ export class PartialDateForm extends Component {
             (props.input && props.input.value && moment(props.input.value)) ||
             (props.meta && props.meta.initial && moment(props.meta.initial)) ||
             null;
-        if (!!dateValue && dateValue.isValid() && !dateValue.isSame(PLACEHOLDER_DATE)) {
+        if (!!dateValue && dateValue.isValid() && !dateValue.isSame(PLACEHOLDER_ISO8601_ZULU_DATE)) {
             this.state = {
                 day: dateValue.date(),
                 month: dateValue.month(),
                 year: dateValue.year(),
+                setDate: this._setDate,
             };
         } else {
             this.state = {
                 day: '',
                 month: -1,
                 year: '',
+                setDate: this._setDate,
             };
         }
         this.errors = { day: '', month: '', year: '' };
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillUpdate(nextProps, nextState) {
-        if (this.props.onChange) {
-            this.props.onChange(this._setDate(nextState));
-        }
+    static getDerivedStateFromProps(props, state) {
+        props.onChange?.(state.setDate(state));
+        return { ...state };
     }
 
     /**
@@ -248,7 +248,7 @@ export class PartialDateForm extends Component {
 
         this._displayErrors(date, validationStatus, this.props.allowPartial, this.props.required);
 
-        // moment validation doesn't recognise -1 as a valid date
+        // moment validation doesn't recognise -1 as a valid date.
         const month = date.month === MONTH_UNSELECTED ? null : date.month;
         const day = isNaN(date.day) || !date.day ? null : date.day;
         const momentDate = { ...date, month, day };

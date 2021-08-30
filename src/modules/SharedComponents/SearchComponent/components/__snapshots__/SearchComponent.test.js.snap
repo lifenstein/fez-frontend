@@ -176,7 +176,7 @@ exports[`SearchComponent should display simple search with query string 2`] = `
     onSearch={[Function]}
     onSearchTextChange={[Function]}
     onToggleSearchMode={[Function]}
-    searchText="i feel very lucky"
+    searchText=""
     showAdvancedSearchButton={false}
     showMobileSearchButton={false}
     showPrefixIcon={false}
@@ -373,6 +373,51 @@ exports[`SearchComponent should render default view with advanced search 1`] = `
     }
     isMinimised={false}
     isOpenAccess={false}
+    onAdvancedSearchReset={[Function]}
+    onAdvancedSearchRowAdd={[Function]}
+    onAdvancedSearchRowChange={[Function]}
+    onAdvancedSearchRowRemove={[Function]}
+    onSearch={[Function]}
+    onToggleMinimise={[Function]}
+    onToggleOpenAccess={[Function]}
+    onToggleSearchMode={[Function]}
+    showUnpublishedFields={false}
+    updateDateRange={[Function]}
+    updateDocTypeValues={[Function]}
+    updateYearRangeFilter={[Function]}
+    updatedRange={Object {}}
+    yearFilter={Object {}}
+  />
+  <WithStyles(ForwardRef(Snackbar))
+    anchorOrigin={
+      Object {
+        "horizontal": "left",
+        "vertical": "bottom",
+      }
+    }
+    autoHideDuration={5000}
+    message=""
+    open={false}
+  />
+</Fragment>
+`;
+
+exports[`SearchComponent should render in advanced search and take in consideration isOpenAccessInAdvancedMode changes 1`] = `
+<Fragment>
+  <AdvancedSearchComponent
+    createdRange={Object {}}
+    docTypes={Array []}
+    fieldRows={
+      Array [
+        Object {
+          "label": "",
+          "searchField": "0",
+          "value": "",
+        },
+      ]
+    }
+    isMinimised={false}
+    isOpenAccess={true}
     onAdvancedSearchReset={[Function]}
     onAdvancedSearchRowAdd={[Function]}
     onAdvancedSearchRowChange={[Function]}
@@ -774,8 +819,8 @@ exports[`SearchComponent should toggle search to minimised view of advanced sear
       Array [
         Object {
           "label": "",
-          "searchField": "all",
-          "value": "i feel very lucky",
+          "searchField": "0",
+          "value": "",
         },
       ]
     }
@@ -794,12 +839,7 @@ exports[`SearchComponent should toggle search to minimised view of advanced sear
     updateDocTypeValues={[Function]}
     updateYearRangeFilter={[Function]}
     updatedRange={Object {}}
-    yearFilter={
-      Object {
-        "from": undefined,
-        "to": undefined,
-      }
-    }
+    yearFilter={Object {}}
   />
   <WithStyles(ForwardRef(Snackbar))
     anchorOrigin={

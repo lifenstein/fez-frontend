@@ -504,21 +504,17 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -527,9 +523,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -538,21 +532,17 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -561,9 +551,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -601,15 +589,14 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -617,9 +604,10 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -679,7 +667,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -696,7 +684,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -797,7 +785,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -1447,21 +1435,17 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -1470,9 +1454,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -1481,21 +1463,17 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -1504,9 +1482,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -1544,15 +1520,14 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -1560,9 +1535,10 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -1622,7 +1598,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -1639,7 +1615,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -1740,7 +1716,7 @@ exports[`Component MyIncompleteRecord should display confirmation box after succ
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -2408,21 +2384,17 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -2431,9 +2403,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -2442,21 +2412,17 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -2465,9 +2431,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -2505,15 +2469,14 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -2521,9 +2484,10 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -2583,7 +2547,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -2600,7 +2564,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -2701,7 +2665,7 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -2834,12 +2798,18 @@ exports[`Component MyIncompleteRecord should render file upload field 1`] = `
                         file names contain only upper and lowercase alphanumeric characters, and underscores
                       </li>
                       <li>
+                        file names must not contain any spaces
+                      </li>
+                      <li>
                         file names have only a single period which precedes the file extension: e.g. “.pdf”, “.mov”, “.tiff”, “.wav” etc.
                         <br />
                         (two periods are allowed for multipart zip files. Allowed formats for part description are: e.g. “.001 ... .999”, “.r01 ... .r999” and “.part1 ... .part999”)
                       </li>
                       <li>
                         file names have one of the following extensions: 7z, avi, csv, gif, gsheet, gz, jpe, jpeg, jpg, m1v, m2v, m4a, mk3d, mks, mkv, mov, mp3, mp4, mp4v, mpe, mpeg, mpg, mxf, ods, pdf, png, qt, rar, tar, tif, tiff, wav, wma, wmv, xla, xlc, xlm, xls, xlsx, xlt, xlw, zip
+                      </li>
+                      <li>
+                        file names, regardless of extension, must be unique
                       </li>
                       <li>
                         files are uploaded individually and not inside a folder
@@ -3438,21 +3408,17 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -3461,9 +3427,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -3472,21 +3436,17 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -3495,9 +3455,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -3535,15 +3493,14 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -3551,9 +3508,10 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -3613,7 +3571,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -3630,7 +3588,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -3731,7 +3689,7 @@ exports[`Component MyIncompleteRecord should render langauge field 1`] = `
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -4381,21 +4339,17 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -4404,9 +4358,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -4415,21 +4367,17 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -4438,9 +4386,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -4478,15 +4424,14 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -4494,9 +4439,10 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -4556,7 +4502,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -4573,7 +4519,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -4674,7 +4620,7 @@ exports[`Component MyIncompleteRecord should render no fields as they are comple
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -5324,21 +5270,17 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -5347,9 +5289,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -5358,21 +5298,17 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -5381,9 +5317,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -5421,15 +5355,14 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -5437,9 +5370,10 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -5499,7 +5433,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -5516,7 +5450,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -5617,7 +5551,7 @@ exports[`Component MyIncompleteRecord should render record citation, two actions
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -6267,21 +6201,17 @@ exports[`Component MyIncompleteRecord should render significance and contributio
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -6290,9 +6220,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -6301,21 +6229,17 @@ exports[`Component MyIncompleteRecord should render significance and contributio
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -6324,9 +6248,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -6364,15 +6286,14 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -6380,9 +6301,10 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -6442,7 +6364,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -6459,7 +6381,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -6560,7 +6482,7 @@ exports[`Component MyIncompleteRecord should render significance and contributio
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -7210,21 +7132,17 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -7233,9 +7151,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -7244,21 +7160,17 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -7267,9 +7179,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -7307,15 +7217,14 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -7323,9 +7232,10 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -7385,7 +7295,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -7402,7 +7312,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -7503,7 +7413,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -8166,21 +8076,17 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -8189,9 +8095,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -8200,21 +8104,17 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -8223,9 +8123,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -8263,15 +8161,14 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -8279,9 +8176,10 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -8341,7 +8239,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -8358,7 +8256,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -8459,7 +8357,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box with 
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -9109,21 +9007,17 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -9132,9 +9026,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -9143,21 +9035,17 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -9166,9 +9054,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -9206,15 +9092,14 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -9222,9 +9107,10 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -9284,7 +9170,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -9301,7 +9187,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -9402,7 +9288,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {
@@ -10052,21 +9938,17 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridType-1"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Type of work
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -10075,9 +9957,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Journal Article
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -10086,21 +9966,17 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
             <WithStyles(ForwardRef(Grid))
               className="makeStyles-GridSubType-2"
               container={true}
-              spacing={1}
             >
               <WithStyles(ForwardRef(Grid))
                 alignItems="flex-start"
                 container={true}
-                spacing={2}
               >
                 <WithStyles(ForwardRef(Grid))
                   item={true}
                   sm={3}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Sub-type
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -10109,9 +9985,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   sm={9}
                   xs={12}
                 >
-                  <WithStyles(ForwardRef(Typography))
-                    variant="body2"
-                  >
+                  <WithStyles(ForwardRef(Typography))>
                     Other
                   </WithStyles(ForwardRef(Typography))>
                 </WithStyles(ForwardRef(Grid))>
@@ -10149,15 +10023,14 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
                     "placeholder": "Remember to include substantiation of your major or minor scale/significance claim above.",
                   },
                   "scaleOfWork": Object {
-                    "description": "Select the option that best describes the significance of the work.",
-                    "label": <span>
-                      Scale/Significance of work*
+                    "description": <span>
+                      Select the option that best describes the significance of the work*
                       <span
                         style={
                           Object {
@@ -10165,9 +10038,10 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                           }
                         }
                       >
-                        (not for public view)
+                         (not for public view)
                       </span>
                     </span>,
+                    "label": "Scale/Significance of work",
                   },
                 },
                 "help": Object {
@@ -10227,7 +10101,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   },
                   "extent": Object {
                     "label": "Total pages/Extent",
-                    "placeholder": "Enter total pages, size or duration of work",
+                    "placeholder": "Total pages, size, or duration",
                   },
                   "issue": Object {
                     "label": "Issue",
@@ -10244,7 +10118,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                   },
                   "physicalDescription": Object {
                     "label": "Physical description",
-                    "placeholder": "Building, Exhibition, Performance, Composition",
+                    "placeholder": "e.g Building, Exhibit, Performance",
                   },
                   "series": Object {
                     "floatingLabelText": "Series",
@@ -10345,7 +10219,7 @@ exports[`Component MyIncompleteRecord should render the confirm dialog box witho
                       "identifierLabel": "UQ identifier (if available)",
                       "nameAsPublishedFieldId": "authors-name-as-published-field",
                       "nameAsPublishedHint": "Type the name exactly as published",
-                      "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                      "nameAsPublishedLabel": "Author's name as published",
                     },
                   },
                   "header": Object {

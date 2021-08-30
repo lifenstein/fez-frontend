@@ -146,12 +146,12 @@ context('Journal Article admin edit', () => {
                             issns.forEach((issn, index) => {
                                 cy.get(`#rek-issn-list-row-${index}`).should('contain.text', issn.rek_issn);
                                 cy.get(`#rek-issn-list-row-${index}`).within(() => {
-                                    cy.get('#external-link-sherparomeo')
+                                    cy.get('#sherparomeo-link')
                                         .should('contain.text', 'SHERPA/RoMEO')
                                         .should('have.attr', 'href', issn.fez_sherpa_romeo.srm_journal_link);
                                 });
                                 cy.get(`#rek-issn-list-row-${index}`).within(() => {
-                                    cy.get('#external-link-ulrichs')
+                                    cy.get('#ulrichs-link')
                                         .should('contain.text', 'Ulrichs')
                                         .should(
                                             'have.attr',
@@ -270,6 +270,7 @@ context('Journal Article admin edit', () => {
                     const authorUsernames = record.fez_record_search_key_author_id.map(
                         item => item.author.aut_org_username,
                     );
+                    // eslint-disable-next-line max-len
                     // const authorNames = record.fez_record_search_key_author_id.map(item => item.rek_author_id_lookup);
                     const authorIDs = record.fez_record_search_key_author_id.map(item => item.rek_author_id);
                     // const authorAffs = record.fez_record_search_key_author_affiliation_name.map(
@@ -312,8 +313,8 @@ context('Journal Article admin edit', () => {
                 .eq(0)
                 .as('collectionsCard')
                 .within(() => {
-                    cy.get('h4').should('contain', 'Member of collections');
-                    cy.get('#rek-ismemberof-label').should('contain', 'Member of collections');
+                    cy.get('h4').should('contain', 'Member of collection');
+                    cy.get('#rek-ismemberof-label').should('contain', 'Member of collection');
                     cy.get('[class*="MuiAutocomplete-tag-"]')
                         .eq(0)
                         .should('have.text', 'School of Nursing, Midwifery and Social Work Publications');
@@ -392,7 +393,7 @@ context('Journal Article admin edit', () => {
                 .should('have.text', 'This field is required');
         });
 
-        cy.adminEditVerifyAlerts(1, ['You must select atleast one collection']);
+        cy.adminEditVerifyAlerts(1, ['You must select at least one collection']);
 
         // ----------------------------------------- GRANT INFORMATION TAB -------------------------------------------
         cy.log('Grant Information tab');
@@ -449,33 +450,32 @@ context('Journal Article admin edit', () => {
         cy.log('Files Tab');
         cy.get('[data-testid=files-section-header]').should('have.text', 'Files');
         cy.get('[data-testid=files-section-content]').within(() => {
-            // prettier-ignore
-            const fileSizeInMB = Math.round(
-                            record.fez_datastream_info[1].dsi_size / 1024 / 1024 * 100
-                        ) / 100;
+            const fileSizeInMB = Math.round((record.fez_datastream_info[1].dsi_size / 1024 / 1024) * 100) / 100;
             cy.get('h4')
                 .eq(0)
                 .should('have.text', 'Attached files');
             cy.get('p')
                 .eq(0)
+                .should(
+                    'have.text',
+                    'There may be a delay before newly uploaded or renamed files appear on the record.',
+                );
+            cy.get('p')
+                .eq(2)
                 .should('have.text', record.fez_datastream_info[1].dsi_dsid);
             cy.get('input')
                 .eq(0)
                 .should('have.value', record.fez_datastream_info[1].dsi_label);
             cy.get('p')
-                .eq(1)
+                .eq(3)
                 .should('have.text', `${fileSizeInMB} MB`);
             cy.get('input')
                 .eq(1)
                 .should('have.value', moment(record.fez_datastream_info[1].dsi_embargo_date).format('DD/MM/YYYY'));
         });
         cy.get('[data-testid=files-section-content]').within(() => {
-            cy.get('h4')
-                .eq(2)
-                .should('contain', 'Advisory statement');
-            cy.get('h4')
-                .eq(3)
-                .should('contain', 'Copyright agreement');
+            cy.contains('h4', 'Advisory statement');
+            cy.contains('h4', 'Copyright agreement');
             cy.get('[data-testid=rek-copyright-input]').should($checkbox => {
                 if (record.rek_copyright === 'on') {
                     expect($checkbox).to.be.checked;

@@ -15,6 +15,7 @@ import {
     REFEREED_SOURCES,
     SCOPUS_DOC_TYPES,
     WOS_DOC_TYPES,
+    COLLECTION_VIEW_TYPE,
 } from 'config/general';
 import { selectFields } from 'locale/selectFields';
 import { default as formLocale } from 'locale/publicationForm';
@@ -40,6 +41,8 @@ import {
     PUBLICATION_TYPE_THESIS,
     PUBLICATION_TYPE_VIDEO_DOCUMENT,
 } from 'config/general';
+
+import { AttributionIncompleteField } from 'modules/SharedComponents/Toolbox/AttributionIncompleteField';
 
 import { AttachedFilesField } from 'modules/SharedComponents/Toolbox/AttachedFilesField';
 import { AudienceSizeField } from 'modules/SharedComponents/Toolbox/AudienceSizeField';
@@ -69,13 +72,20 @@ import {
     ListEditorField,
     NewListEditorField,
     KeywordsForm,
-    ScaleOfSignificanceListEditorField,
 } from 'modules/SharedComponents/Toolbox/ListEditor';
+import { ScaleOfSignificanceListEditorField } from 'modules/SharedComponents/ScaleOfSignificanceListEditor';
 import { PublicationSubtypeField } from 'modules/SharedComponents/PublicationSubtype';
 import { RichEditorField } from 'modules/SharedComponents/RichEditor';
 import { TextField as GenericTextField } from 'modules/SharedComponents/Toolbox/TextField';
 import { IssnRowItemTemplate } from 'modules/SharedComponents/Toolbox/ListEditor';
 import { NewGenericSelectField } from 'modules/SharedComponents/GenericSelectField';
+import SensitiveHandlingNoteField from '../../modules/SharedComponents/SensitiveHandlingNote/containers/SensitiveHandlingNoteField';
+import { CommunityField } from 'modules/SharedComponents/LookupFields/containers/CommunityField';
+
+const transformCollectionView = () =>
+    COLLECTION_VIEW_TYPE.map(viewType => {
+        return { value: viewType.id, text: viewType.label };
+    });
 
 export default {
     default: {
@@ -237,19 +247,65 @@ export default {
                 partialDateFieldId: 'rek-date',
             },
         },
+        communities: {
+            component: CommunityField,
+            componentProps: {
+                floatingLabelText: 'Member of communities',
+                hintText: 'Begin typing to select and add communities',
+                name: 'adminSection.communities',
+                id: 'member-of-communities-input',
+                required: true,
+                fullWidth: true,
+                validate: [validation.requiredList],
+                communityFieldId: 'rek-ismemberof',
+            },
+        },
+        reason: {
+            component: GenericTextField,
+            componentProps: {
+                textFieldId: 'reason',
+                name: 'reasonSection.reason',
+                fullWidth: true,
+                label: 'Reason for Edit (optional - will be added to object history)',
+                placeholder: 'Reason for Edit',
+            },
+        },
+        rek_ci_notice_attribution_incomplete: {
+            component: AttributionIncompleteField,
+            componentProps: {
+                name: 'notesSection.rek_ci_notice_attribution_incomplete',
+                label: 'Attribution Incomplete',
+                placeholder: 'Attribution Incomplete Placeholder',
+                attributionIncompleteFieldId: 'rek_ci_notice_attribution_incomplete',
+                attributionIncompleteStatement: 'Attribution Incomplete',
+                attributionIncompleteDetail:
+                    'Determines if the record or collection is to be CI labelled Attribution Incomplete.',
+            },
+        },
+        fez_record_search_key_collection_view_type: {
+            component: NewGenericSelectField,
+            componentProps: {
+                name: 'adminSection.fez_record_search_key_collection_view_type.rek_collection_view_type',
+                itemsList: transformCollectionView(),
+                multiple: false,
+                genericSelectFieldId: 'collection-view-type',
+                ...selectFields.collectionViewType,
+            },
+        },
         collections: {
             component: CollectionField,
             componentProps: {
-                floatingLabelText: 'Member of collections',
+                floatingLabelText: 'Member of collection',
                 hintText: 'Begin typing to select and add collection(s)',
                 name: 'adminSection.collections',
                 id: 'member-of-collections-input',
                 required: true,
-                fullwidth: true,
+                fullWidth: true,
                 validate: [validation.requiredList],
                 collectionFieldId: 'rek-ismemberof',
             },
         },
+
         rek_subtype: {
             component: PublicationSubtypeField,
             componentProps: {
@@ -883,7 +939,7 @@ export default {
             componentProps: {
                 name: 'adminSection.fez_record_search_key_oa_status_type.rek_oa_status_type',
                 genericSelectFieldId: 'rek-oa-status-type',
-                itemsList: OA_STATUS_TYPE,
+                itemsList: [{ value: '0', text: 'None' }, ...OA_STATUS_TYPE],
                 canUnselect: true,
                 ...selectFields.oaStatusType,
             },
@@ -931,6 +987,13 @@ export default {
                 richEditorId: 'rek-advisory-statement',
             },
         },
+        sensitiveHandlingNote: {
+            isComposed: true,
+            component: SensitiveHandlingNoteField,
+            componentProps: {
+                name: 'filesSection.sensitiveHandlingNote',
+            },
+        },
         fez_record_search_key_transcript: {
             component: RichEditorField,
             componentProps: {
@@ -954,6 +1017,7 @@ export default {
                 label: 'Scale/significance of work - Contribution statement',
                 placeholder: '',
                 locale: locale.components.scaleOfSignificanceListAdminForm.field,
+                canEdit: true,
             },
         },
         qualityIndicators: {
@@ -979,6 +1043,7 @@ export default {
                 name: 'filesSection.fez_datastream_info',
                 locale: { ...locale.components.attachedFiles, title: 'Attached files' },
                 canEdit: true,
+                validate: [validation.validFileNames],
             },
         },
         rek_copyright: {

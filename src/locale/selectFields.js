@@ -9,6 +9,11 @@ export const selectFields = {
         selectPrompt: 'Select access conditions',
         errorMessage: 'This field is required',
     },
+    securityPolicy: {
+        label: 'Security policy',
+        selectPrompt: 'Select security policy',
+        errorMessage: 'This field is required',
+    },
     andsCollectionType: {
         label: 'Collection type',
         ariaLabel: 'Please select a collection type',
@@ -25,6 +30,11 @@ export const selectFields = {
         ariaLabel: 'Select a community',
         selectPrompt: 'Please select a community',
         loadingHint: 'Loading communities...',
+    },
+    collectionViewType: {
+        label: 'Select default collection view',
+        ariaLabel: 'Select default collection view',
+        selectPrompt: 'Please select a default view',
     },
     directory: {
         label: 'Select folder where CSV and datastream files are located',
@@ -81,6 +91,11 @@ export const selectFields = {
         label: 'OA status type',
         ariaLabel: 'Please select an oa status type',
         selectPrompt: 'Select an oa status type',
+    },
+    sensitiveHandlingNoteType: {
+        label: 'Sensitive Handling Note',
+        ariaLabel: 'Please select sensitive handling note',
+        selectPrompt: 'Select a sensitive handling note',
     },
     pubmedDocType: {
         label: 'PubMed doc type(s)',

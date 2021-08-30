@@ -7,12 +7,15 @@ import publicationTypeListConferencePaper from 'mock/data/records/publicationTyp
 import publicationTypeListJournalArticle from 'mock/data/records/publicationTypeListJournalArticle';
 import publicationTypeListResearchReport from 'mock/data/records/publicationTypeListResearchReport';
 import collectionRecord from 'mock/data/records/collectionRecord';
+import publicationTypeListBookChapter from 'mock/data/records/publicationTypeListBookChapter';
 import {
     DOI_CROSSREF_NAME,
     DOI_CROSSREF_PREFIX,
     DOI_DATACITE_NAME,
     PUBLICATION_TYPE_DATA_COLLECTION,
-} from '../../../../config/general';
+    UQ_FULL_NAME,
+} from 'config/general';
+import { rccDatasetCollection } from 'config/doi';
 
 const confPaperRecord = {
     ...publicationTypeListConferencePaper.data[0],
@@ -20,14 +23,23 @@ const confPaperRecord = {
         rek_doi: DOI_CROSSREF_PREFIX,
     },
     fez_record_search_key_publisher: {
-        rek_publisher: 'The University of Queensland',
+        rek_publisher: `Test Publisher, ${UQ_FULL_NAME}`,
     },
 };
 const journalArticleRecord = publicationTypeListJournalArticle.data[0];
 const mockRecord = {
     ...publicationTypeListResearchReport.data[0],
     fez_record_search_key_publisher: {
-        rek_publisher: 'The University of Queensland',
+        rek_publisher: `Test Publisher, ${UQ_FULL_NAME}`,
+    },
+};
+const bookChapterRecord = {
+    ...publicationTypeListBookChapter.data[0],
+    fez_record_search_key_doi: {
+        rek_doi: DOI_CROSSREF_PREFIX,
+    },
+    fez_record_search_key_publisher: {
+        rek_publisher: `Test Publisher, ${UQ_FULL_NAME}`,
     },
 };
 
@@ -115,6 +127,161 @@ describe('DOI component', () => {
         expect(renderedWarningMessage.text()).toBe(
             'Error:Sorry, only the following subytypes are supported for Conference Paper: Fully published paper',
         );
+    });
+
+    it('should render error for book chapter without a parent book', () => {
+        const wrapper = setup({
+            record: {
+                ...bookChapterRecord,
+            },
+        });
+        const renderedWarningMessage = shallow(wrapper.find('Alert').props().message);
+        expect(renderedWarningMessage.text()).toBe(
+            "Error:Sorry, this book chapter doesn't seem to belong to a existing book",
+        );
+    });
+
+    it('should render error for book chapter with parent with missing nested relation', () => {
+        const wrapper = setup({
+            record: {
+                ...bookChapterRecord,
+                fez_record_search_key_isderivationof: [
+                    {
+                        rek_isderivationof_pid: 'UQ:173575',
+                        rek_isderivationof: 'UQ:123456',
+                        rek_isderivationof_order: 1,
+                        rek_isderivationof_lookup: 'A Book',
+                    },
+                ],
+            },
+        });
+        const renderedWarningMessage = shallow(wrapper.find('Alert').props().message);
+        expect(renderedWarningMessage.text()).toBe(
+            "Error:Sorry, this book chapter doesn't seem to belong to a existing book",
+        );
+    });
+
+    it('should render error for book chapter with parent with missing UQ DOI and UQ Publisher', () => {
+        const wrapper = setup({
+            record: {
+                ...bookChapterRecord,
+                fez_record_search_key_isderivationof: [
+                    {
+                        rek_isderivationof_pid: 'UQ:173575',
+                        rek_isderivationof: 'UQ:123456',
+                        rek_isderivationof_order: 1,
+                        rek_isderivationof_lookup: 'A Book',
+                        parent: {
+                            rek_pid: 'UQ:123456',
+                            rek_subtype: 'Edited Book',
+                        },
+                    },
+                ],
+            },
+        });
+        const renderedWarningMessage = shallow(wrapper.find('Alert').props().message);
+        expect(renderedWarningMessage.text()).toBe(
+            'Error:The parent Book does not appear to be have an UQ DOI' +
+                `The parent Book's Publisher should contain "${UQ_FULL_NAME}".`,
+        );
+    });
+
+    it('should render error for book chapter with parent with missing UQ DOI and UQ Publisher', () => {
+        const wrapper = setup({
+            record: {
+                ...bookChapterRecord,
+                fez_record_search_key_isderivationof: [
+                    {
+                        rek_isderivationof_pid: 'UQ:173575',
+                        rek_isderivationof: 'UQ:123456',
+                        rek_isderivationof_order: 1,
+                        rek_isderivationof_lookup: 'A Book',
+                        parent: {
+                            rek_pid: 'UQ:123456',
+                            rek_subtype: 'Other',
+                        },
+                    },
+                ],
+            },
+        });
+        const renderedWarningMessage = shallow(wrapper.find('Alert').props().message);
+        expect(renderedWarningMessage.text()).toBe(
+            'Error:Sorry, only the following subytypes are supported for the parent Book: Edited book' +
+                'The parent Book does not appear to be have an UQ DOI' +
+                `The parent Book's Publisher should contain "${UQ_FULL_NAME}".`,
+        );
+    });
+
+    it('should render error for book chapter with parent with missing missing UQ DOI', () => {
+        const wrapper = setup({
+            record: {
+                ...bookChapterRecord,
+                fez_record_search_key_isderivationof: [
+                    {
+                        rek_isderivationof_pid: 'UQ:173575',
+                        rek_isderivationof: 'UQ:123456',
+                        rek_isderivationof_order: 1,
+                        rek_isderivationof_lookup: 'A Book',
+                        parent: {
+                            rek_pid: 'UQ:123456',
+                            rek_subtype: 'Edited Book',
+                            fez_record_search_key_publisher: {
+                                rek_publisher_pid: 'UQ:123456',
+                                rek_publisher: `Test Publisher, ${UQ_FULL_NAME}`,
+                            },
+                        },
+                    },
+                ],
+            },
+        });
+        const renderedWarningMessage = shallow(wrapper.find('Alert').props().message);
+        expect(renderedWarningMessage.text()).toBe('Error:The parent Book does not appear to be have an UQ DOI');
+    });
+
+    it('should render error for book chapter with parent with missing missing UQ Publisher', () => {
+        const wrapper = setup({
+            record: {
+                ...bookChapterRecord,
+                fez_record_search_key_isderivationof: [
+                    {
+                        rek_isderivationof_pid: 'UQ:173575',
+                        rek_isderivationof: 'UQ:123456',
+                        rek_isderivationof_order: 1,
+                        rek_isderivationof_lookup: 'A Book',
+                        parent: {
+                            rek_pid: 'UQ:123456',
+                            rek_subtype: 'Edited Book',
+                            fez_record_search_key_doi: {
+                                rek_doi_pid: 'UQ:123456',
+                                rek_doi: `${DOI_CROSSREF_PREFIX}/12345`,
+                            },
+                        },
+                    },
+                ],
+            },
+        });
+        const renderedWarningMessage = shallow(wrapper.find('Alert').props().message);
+        expect(renderedWarningMessage.text()).toBe(
+            `Error:The parent Book's Publisher should contain "${UQ_FULL_NAME}".`,
+        );
+    });
+
+    it('should render error for RCC datasets', () => {
+        const wrapper = setup({
+            record: {
+                ...mockRecord,
+                rek_display_type: PUBLICATION_TYPE_DATA_COLLECTION,
+                fez_record_search_key_ismemberof: [
+                    {
+                        rek_ismemberof: rccDatasetCollection,
+                        rek_ismemberof_order: 1,
+                    },
+                ],
+            },
+        });
+
+        const renderedWarningMessage = shallow(wrapper.find('Alert').props().message);
+        expect(renderedWarningMessage.text()).toBe('Error:RCC Datasets are not allowed.');
     });
 
     it('should flag required field with no data', () => {

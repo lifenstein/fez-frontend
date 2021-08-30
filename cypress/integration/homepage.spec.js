@@ -33,37 +33,38 @@ context('Homepage', () => {
             .should('not.contain', 'Web of Science citation count')
             .should('contain', 'Altmetric score');
 
-        cy.get('.StandardPage > div > div > div:nth-of-type(2) h3').should('contain', 'What is eSpace?');
+        cy.contains('h3', 'Acknowledgement of Country');
+        cy.contains('h3', 'Cultural advice');
     });
 
     it('Has expected menu items for a public user', () => {
         cy.visit('/?user=uqexpired');
-        checkMenuItemCount(4);
+        checkMenuItemCount(5);
     });
 
     it('Has expected menu items for a researcher', () => {
         cy.visit('/?user=uqresearcher');
-        checkMenuItemCount(13);
+        checkMenuItemCount(14);
     });
 
     it('Has expected menu items for an admin', () => {
         cy.visit('/?user=uqstaff');
-        checkMenuItemCount(26);
+        checkMenuItemCount(27);
     });
 
     it('Has expected menu items for a student without an author account', () => {
         cy.visit('/?user=s3333333');
-        checkMenuItemCount(4);
+        checkMenuItemCount(6);
     });
 
     it('Has expected menu items for a RHD student', () => {
         cy.visit('/?user=s2222222');
-        checkMenuItemCount(13);
+        checkMenuItemCount(14);
     });
 
     it('Has expected menu items for a Masqueradable staff member', () => {
         cy.visit('/?user=uqmasquerade');
-        checkMenuItemCount(14);
+        checkMenuItemCount(15);
         cy.get('#mainMenu .menu-item-container p').contains('uq.masquerader@example.uq.edu.au');
     });
 

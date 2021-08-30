@@ -1,11 +1,16 @@
 import locale from 'locale/global';
 import templates from 'locale/templates';
-import { CONTENT_INDICATORS } from 'config/general';
 import {
     FILE_ACCESS_CONDITION_CLOSED,
-    FILE_ACCESS_CONDITION_OPEN,
     FILE_ACCESS_CONDITION_INHERIT,
+    FILE_ACCESS_CONDITION_OPEN,
+    FILE_SECURITY_POLICY_ADMIN,
+    FILE_SECURITY_POLICY_PUBLIC,
 } from 'modules/SharedComponents/Toolbox/FileUploader';
+import { contentIndicators } from '../config';
+import { NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK, PLACEHOLDER_ISO8601_DATE } from '../config/general';
+import { isSensitiveHandlingNoteTypeOther } from '../modules/SharedComponents/SensitiveHandlingNote/containers/SensitiveHandlingNoteField';
+import { isDerivative } from 'helpers/datastreams';
 
 const moment = require('moment');
 
@@ -20,10 +25,15 @@ export const getIssueValues = data => {
     const newContentIndicators =
         !!data.contentIndicators &&
         data.contentIndicators.filter(item => initialContentIndicators.indexOf(item) === -1);
+    const availableContentIndicators = contentIndicators(
+        (data.publication && data.publication.rek_display_type) || null,
+    );
     return {
         contentIndicators:
             (newContentIndicators &&
-                newContentIndicators.map(id => CONTENT_INDICATORS.find(item => item.value === id).text).join('; ')) ||
+                newContentIndicators
+                    .map(id => availableContentIndicators.find(item => item.value === id).text)
+                    .join('; ')) ||
             null,
         comments: data.comments || null,
         files:
@@ -125,9 +135,29 @@ export const getRecordFileAttachmentSearchKey = (files, record) => {
         rek_file_attachment_name: item.name,
         rek_file_attachment_name_order: initialCount + index + 1,
     }));
+    // const attachmentSecurityPolicies = files.map((item, index) => ({
+    //     rek_file_attachment_security_policy: item.security_policy,
+    //     rek_file_attachment_security_policy_order: initialCount + index + 1,
+    // }));
+    const attachmentSecurityPolicies = files
+        .map((item, index) => {
+            if (!item.hasOwnProperty('security_policy')) return null;
+            let accessCondition = item.security_policy;
+            if (accessCondition === FILE_SECURITY_POLICY_PUBLIC && item.date && moment(item.date).isAfter()) {
+                accessCondition = FILE_SECURITY_POLICY_ADMIN;
+            }
+            return {
+                rek_file_attachment_security_policy: accessCondition,
+                rek_file_attachment_security_policy_order: initialCount + index + 1,
+            };
+        })
+        .filter(file => file !== null);
+
     const attachmentEmbargoDates = files
         .map((item, index) => {
-            if (!item.hasOwnProperty('date') || !item.date || moment(item.date).isSame(moment(), 'day')) return null;
+            if (!item.hasOwnProperty('date') || !item.date || moment(item.date).isSame(moment(), 'day')) {
+                return null;
+            }
             return {
                 rek_file_attachment_embargo_date: moment(item.date).format(locale.global.embargoDateFormat),
                 rek_file_attachment_embargo_date_order: initialCount + index + 1,
@@ -169,6 +199,10 @@ export const getRecordFileAttachmentSearchKey = (files, record) => {
             ...((record && record.fez_record_search_key_file_attachment_access_condition) || []),
             ...attachmentAccessConditions,
         ],
+        fez_record_search_key_file_attachment_security_policy: [
+            ...((record && record.fez_record_search_key_file_attachment_security_policy) || []),
+            ...attachmentSecurityPolicies,
+        ],
     };
 };
 
@@ -180,7 +214,12 @@ export const getRecordFileAttachmentSearchKey = (files, record) => {
  * @returns {Object} formatted {fez_record_search_key_author} for record request
  */
 export const getRecordAuthorsSearchKey = authors => {
-    if (!authors || authors.length === 0) return {};
+    if (!authors || authors.length === 0) {
+        return {
+            fez_record_search_key_author: [],
+        };
+    }
+
     return {
         fez_record_search_key_author: authors.map((item, index) => ({
             rek_author: item.nameAsPublished,
@@ -230,7 +269,11 @@ export const getRecordSupervisorsSearchKey = supervisors => {
  */
 export const getRecordAuthorsIdSearchKey = (authors, defaultAuthorId) => {
     // return empty object if all parameters are null
-    if ((!authors || authors.length === 0) && !defaultAuthorId) return {};
+    if ((!authors || authors.length === 0) && !defaultAuthorId) {
+        return {
+            fez_record_search_key_author_id: [],
+        };
+    }
 
     // return default author if provided
     if ((!authors || authors.length === 0) && defaultAuthorId) {
@@ -260,7 +303,14 @@ export const getRecordAuthorsIdSearchKey = (authors, defaultAuthorId) => {
 };
 
 export const getRecordAuthorAffiliationSearchKey = authors => {
-    if (!authors || authors.length === 0) return {};
+    if (!authors || authors.length === 0) {
+        return {
+            fez_record_search_key_author_affiliation_id: [],
+            fez_record_search_key_author_affiliation_name: [],
+            fez_record_search_key_author_affiliation_country: [],
+            fez_record_search_key_author_affiliation_full_address: [],
+        };
+    }
 
     return {
         fez_record_search_key_author_affiliation_name: authors.map((item, index) => ({
@@ -271,7 +321,11 @@ export const getRecordAuthorAffiliationSearchKey = authors => {
 };
 
 export const getRecordAuthorAffiliationTypeSearchKey = authors => {
-    if (!authors || authors.length === 0) return {};
+    if (!authors || authors.length === 0) {
+        return {
+            fez_record_search_key_author_affiliation_type: [],
+        };
+    }
 
     return {
         fez_record_search_key_author_affiliation_type: authors.map((item, index) => ({
@@ -701,7 +755,9 @@ export const getSearchKey = (searchKey, currentAuthorOrder, initialValues = [], 
                   if (initialValue[searchKey.value.orderKey] === currentAuthorOrder) {
                       authorOrderMatched = true;
                       return currentAuthorSearchKeyObject;
-                  } else return initialValue;
+                  } else {
+                      return initialValue;
+                  }
               })
             : [currentAuthorSearchKeyObject];
 
@@ -727,7 +783,7 @@ export const getSignificanceAndContributionStatementSearchKeys = data => {
                 },
             },
             currentAuthorOrder,
-            data.initialSignificance,
+            data.initialValues?.initialSignificance,
             data.significance,
         ),
         ...getSearchKey(
@@ -739,7 +795,7 @@ export const getSignificanceAndContributionStatementSearchKeys = data => {
                 },
             },
             currentAuthorOrder,
-            data.initialContributionStatements,
+            data.initialValues?.initialContributionStatements,
             (data.impactStatement || {}).htmlText || (data.impactStatement || {}).plainText || null,
         ),
     };
@@ -794,6 +850,37 @@ export const getRecordLocationSearchKey = locations => {
             ...location,
         })),
     };
+};
+
+export const cleanDatastreamsObject = data => {
+    // Clean the datastream object, where required.
+    // If an admin has renamed an existing, attached file in the record there will be a
+    // unique dsi_dsid_new key that we must do something with.
+    //
+    // IF the dsi_dsid === dsi_dsid_new, delete the latter
+    // IF dsi_dsid !== dsi_dsid_new, swap values between keys.
+    //
+    // Background: the backend server will look for dsi_dsid_new when
+    // processing the record and, if found, will proceed to rename
+    // the original file and all derivatives with the value of
+    // dsi_dsid_new.
+    // The frontend, however, uses dsi_dsid to present filename information
+    // on screen and with every update from the user, so a record of the original
+    // is stored in _new for processing here.
+    if (!!!data) return {};
+
+    const newDatastreamObject = data.map(entry => {
+        if (!entry.hasOwnProperty('dsi_dsid_new')) return entry;
+        if (entry.dsi_dsid === entry.dsi_dsid_new) {
+            delete entry.dsi_dsid_new;
+        } else {
+            const newFilename = entry.dsi_dsid;
+            entry.dsi_dsid = entry.dsi_dsid_new;
+            entry.dsi_dsid_new = newFilename;
+        }
+        return entry;
+    });
+    return newDatastreamObject;
 };
 
 const cleanBlankEntries = data => {
@@ -910,6 +997,7 @@ export const getRecordIsDerivationOfSearchKey = relatedPubs => {
 
 export const getFezMatchedJournalsKey = matchedJournal => {
     // No match was present in unedited record
+
     if (matchedJournal === undefined) {
         return {};
     }
@@ -931,12 +1019,41 @@ export const getFezMatchedJournalsKey = matchedJournal => {
     }
 
     // New match
-    return {
-        fez_matched_journals: { mtj_jnl_id: matchedJournal.jnl_jid, mtj_status: 'M' },
-    };
+    if (matchedJournal.jnl_jid && matchedJournal.jnl_jid !== 0) {
+        return {
+            fez_matched_journals: { mtj_jnl_id: matchedJournal.jnl_jid, mtj_status: 'M' },
+        };
+    } else {
+        return {
+            fez_matched_journals: null,
+        };
+    }
 };
 
-export const getBibliographicSectionSearchKeys = (data = {}) => {
+/**
+ * @param data
+ * @param rekSubtype
+ * @return {string|string}
+ */
+export const getRekDate = (data, rekSubtype) => {
+    if (
+        // eslint-disable-next-line camelcase
+        rekSubtype === NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK &&
+        // eslint-disable-next-line camelcase
+        data.fez_record_search_key_project_start_date?.rek_project_start_date
+    ) {
+        // sync rek_date with rek_project_start_date
+        return moment(data.fez_record_search_key_project_start_date.rek_project_start_date).format(
+            'YYYY-MM-DD 00:00:00',
+        );
+    }
+    // eslint-disable-next-line camelcase
+    return !data.rek_date || !moment(data.rek_date).isValid()
+        ? PLACEHOLDER_ISO8601_DATE
+        : moment(data.rek_date).format('YYYY-MM-DD 00:00:00');
+};
+
+export const getBibliographicSectionSearchKeys = (data = {}, rekSubtype) => {
     const {
         rek_title: title,
         rek_description: description,
@@ -975,10 +1092,7 @@ export const getBibliographicSectionSearchKeys = (data = {}) => {
                   },
               }
             : {}),
-        rek_date:
-            !data.rek_date || !moment(data.rek_date).isValid()
-                ? '1000-01-01 00:00:00'
-                : moment(data.rek_date).format('YYYY-MM-DD 00:00:00'),
+        rek_date: getRekDate(data, rekSubtype),
         ...(!!data.rek_genre_type ? { rek_subtype: data.rek_genre_type } : {}),
         ...(!!title && title.hasOwnProperty('plainText') ? { rek_title: title.plainText } : {}),
         ...(!!title && title.hasOwnProperty('htmlText') ? { rek_formatted_title: title.htmlText } : {}),
@@ -1134,7 +1248,7 @@ export const getRecordIsMemberOfSearchKey = collections => {
 
 export const getHerdcCodeSearchKey = record => {
     // return empty object if all parameters are null
-    if (!!record.rek_herdc_code && record.rek_herdc_code.value === null) {
+    if (record.rek_herdc_code === '0' || (!!record.rek_herdc_code && record.rek_herdc_code.value === null)) {
         return {
             fez_record_search_key_herdc_code: {
                 rek_herdc_code: null,
@@ -1168,9 +1282,12 @@ export const getHerdcStatusSearchKey = record => {
 
 export const getOpenAccessStatusTypeSearchKey = record => {
     // return empty object if all parameters are null
-    if (!!record.rek_oa_status_type && record.rek_oa_status_type.value === null) {
+    if (
+        record.rek_oa_status_type === '0' ||
+        (!!record.rek_oa_status_type && record.rek_oa_status_type.value === null)
+    ) {
         return {
-            fez_record_search_key_oa_status_type: {},
+            fez_record_search_key_oa_status_type: null,
         };
     }
 
@@ -1214,6 +1331,7 @@ export const getOpenAccessStatusSearchKey = record => {
 export const getAdminSectionSearchKeys = (data = {}) => {
     const {
         collections,
+        communities,
         contentIndicators,
         contactName,
         contactNameId,
@@ -1227,8 +1345,8 @@ export const getAdminSectionSearchKeys = (data = {}) => {
         fez_record_search_key_end_date: endDate,
         ...rest
     } = data;
-
     return {
+        ...getRecordIsMemberOfSearchKey(communities),
         ...getRecordIsMemberOfSearchKey(collections),
         ...getContentIndicatorSearchKey(contentIndicators),
         ...(!!contactName && !!contactEmail
@@ -1250,7 +1368,7 @@ export const getAdminSectionSearchKeys = (data = {}) => {
 };
 
 export const getFilesSectionSearchKeys = data => {
-    const { advisoryStatement, ...rest } = data;
+    const { advisoryStatement, sensitiveHandlingNote, ...rest } = data;
     return !data.hasOwnProperty('advisoryStatement')
         ? { ...cleanBlankEntries(rest) }
         : {
@@ -1258,6 +1376,22 @@ export const getFilesSectionSearchKeys = data => {
               ...(!!advisoryStatement && advisoryStatement.hasOwnProperty('htmlText') && !!advisoryStatement.htmlText
                   ? { fez_record_search_key_advisory_statement: { rek_advisory_statement: advisoryStatement.htmlText } }
                   : { fez_record_search_key_advisory_statement: null }),
+              ...{
+                  fez_record_search_key_sensitive_handling_note_id:
+                      parseInt(sensitiveHandlingNote?.id, 10) > 0
+                          ? {
+                                rek_sensitive_handling_note_id: sensitiveHandlingNote?.id,
+                            }
+                          : null,
+              },
+              ...{
+                  fez_record_search_key_sensitive_handling_note_other:
+                      !!sensitiveHandlingNote?.other && isSensitiveHandlingNoteTypeOther(sensitiveHandlingNote?.id)
+                          ? {
+                                rek_sensitive_handling_note_other: sensitiveHandlingNote?.other,
+                            }
+                          : null,
+              },
           };
 };
 
@@ -1278,12 +1412,15 @@ export const getDatastreamInfo = (
     dataStreamsFromFileSection = [],
     dataStreamsFromSecuritySection = [],
 ) => {
-    const dataStreamsLabelMap = dataStreamsFromFileSection.reduce(
+    const cleanedDataStreamsFromFileSection = cleanDatastreamsObject(dataStreamsFromFileSection);
+    const dataStreamsLabelMap = cleanedDataStreamsFromFileSection.reduce(
         (map, ds) => ({
             ...map,
             [ds.dsi_dsid]: {
                 dsi_label: ds.dsi_label,
+                ...(ds.hasOwnProperty('dsi_dsid_new') ? { dsi_dsid_new: ds.dsi_dsid_new } : {}),
                 dsi_embargo_date: ds.dsi_embargo_date,
+                dsi_order: ds.dsi_order,
             },
         }),
         {},
@@ -1306,7 +1443,7 @@ export const getDatastreamInfo = (
                 ...dataStream,
                 ...(dataStreamsLabelMap.hasOwnProperty(dataStream.dsi_dsid)
                     ? { ...dataStreamsLabelMap[dataStream.dsi_dsid] }
-                    : { dsi_state: 'D' }),
+                    : { ...(!isDerivative(dataStream) ? { dsi_state: 'D' } : /* istanbul ignore next */ {}) }), // only set delete status on non-derivatives
                 ...(dataStreamsSecurityMap.hasOwnProperty(dataStream.dsi_dsid)
                     ? { ...dataStreamsSecurityMap[dataStream.dsi_dsid] }
                     : {}),
@@ -1316,7 +1453,13 @@ export const getDatastreamInfo = (
 };
 
 export const getNotesSectionSearchKeys = (data = {}) => {
-    const { additionalNotes, internalNotes, rek_herdc_notes: herdcNotes } = data;
+    const {
+        additionalNotes,
+        internalNotes,
+        rek_herdc_notes: herdcNotes,
+        rek_ci_notice_attribution_incomplete: ciNotices,
+    } = data;
+
     return {
         ...(!!additionalNotes && additionalNotes.hasOwnProperty('htmlText') && !!additionalNotes.htmlText
             ? {
@@ -1328,6 +1471,23 @@ export const getNotesSectionSearchKeys = (data = {}) => {
             ? { fez_internal_notes: { ain_detail: internalNotes.htmlText } }
             : { fez_internal_notes: null }),
         ...(!!herdcNotes && herdcNotes.hasOwnProperty('htmlText') ? { rek_herdc_notes: herdcNotes.htmlText } : {}),
+
+        ...(!(ciNotices === null || ciNotices === undefined)
+            ? { rek_ci_notice_attribution_incomplete: !!ciNotices ? 1 : 0 }
+            : {}),
+    };
+};
+
+export const getThesisTypeSearchKey = type => ({
+    fez_record_search_key_thesis_type: {
+        rek_thesis_type: type,
+    },
+});
+
+export const getReasonSectionSearchKeys = (data = {}) => {
+    const { reason } = data;
+    return {
+        ...(!!reason ? { reason: reason } : {}),
     };
 };
 
@@ -1405,6 +1565,16 @@ export const getRemoveFromCollectionData = (records, data) => {
     }));
 };
 
+export const getRemoveFromCommunityData = (records, data) => {
+    const selectedCommunities = data.communities.map(community => community.rek_pid);
+    return records.map(record => ({
+        rek_pid: record.rek_pid,
+        fez_record_search_key_ismemberof: record.fez_record_search_key_ismemberof.filter(
+            community => !selectedCommunities.includes(community.rek_ismemberof),
+        ),
+    }));
+};
+
 export const getCopyToCollectionData = (records, data) => {
     return records.map(record => {
         const existingCollectionPids = record.fez_record_search_key_ismemberof.map(
@@ -1421,6 +1591,35 @@ export const getCopyToCollectionData = (records, data) => {
                         rek_ismemberof_order: record.fez_record_search_key_ismemberof.length + index + 1,
                     })),
             ],
+        };
+    });
+};
+export const getCopyToCommunityData = (records, data) => {
+    return records.map(record => {
+        const existingCommunityPids = record.fez_record_search_key_ismemberof.map(
+            existingCommunity => existingCommunity.rek_pid,
+        );
+        return {
+            rek_pid: record.rek_pid,
+            fez_record_search_key_ismemberof: [
+                ...record.fez_record_search_key_ismemberof,
+                ...data.communities
+                    .filter(newCommunity => existingCommunityPids.indexOf(newCommunity.rek_pid) === -1)
+                    .map((community, index) => ({
+                        rek_ismemberof: community.rek_pid,
+                        rek_ismemberof_order: record.fez_record_search_key_ismemberof.length + index + 1,
+                    })),
+            ],
+        };
+    });
+};
+export const createOrUpdateDoi = records => {
+    return records.map(record => {
+        return {
+            rek_pid: record.rek_pid,
+            fez_record_search_key_doi: {
+                rek_doi: true,
+            },
         };
     });
 };

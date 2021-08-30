@@ -57,10 +57,10 @@ export default {
                 },
                 title: 'Optional: Content Indicators',
                 description:
-                    'If relevant to your work, you can select multiple (of 3 available) content indicators to ' +
+                    'If relevant to your work, you can select multiple content indicators to ' +
                     'add more information about your work, but you cannot remove indicators already selected. ' +
                     'To amend existing information, Suggest changes above.',
-                label: 'Please add any relevant indicator(s).',
+                label: 'Add any relevant indicator(s).',
             },
             comments: {
                 title: 'Optional: Suggest changes or add links to this work',
@@ -70,7 +70,7 @@ export default {
                 //     buttonLabel: 'CLOSE'
                 // },
                 fieldLabels: {
-                    comments: 'Type edits/changes/comments here',
+                    comments: 'Type changes or comments here',
                     url: 'Link (URL)',
                 },
             },
@@ -114,9 +114,22 @@ export default {
             errorAlert: {
                 type: 'error_outline',
                 title: 'Error',
-                message: message =>
-                    `Error has occurred during request and request cannot be processed. ${message}` +
-                    'Please contact eSpace administrators or try again later.',
+                message: message => (
+                    <>
+                        Error has occurred during request and request cannot be processed.
+                        <p>
+                            {message.split('\n').map((item, key) => {
+                                return (
+                                    <span key={key}>
+                                        {item}
+                                        <br />
+                                    </span>
+                                );
+                            })}
+                        </p>
+                        <p>Please contact eSpace administrators or try again later if applicable.</p>
+                    </>
+                ),
                 incompleteData:
                     'The selected source has incomplete data. You will need to ADD A MISSING ' +
                     'RECORD and enter the information manually.',
@@ -184,10 +197,10 @@ export default {
                 },
                 title: 'Optional: Content Indicators',
                 description:
-                    'If relevant to your work, you can select multiple (of 3 available) content indicators to ' +
-                    'add more information about your work, but you cannot remove indicators already selected. ' +
+                    'If relevant to your work, you can select multiple content indicators to add more ' +
+                    'information about your work, but you cannot remove indicators already selected. ' +
                     'To amend existing information, Suggest a correction above.',
-                label: 'Please add any relevant indicator(s).',
+                label: 'Add any relevant indicator(s).',
             },
             comments: {
                 title: 'Suggest a correction',
@@ -197,7 +210,7 @@ export default {
                 //     buttonLabel: 'CLOSE'
                 // },
                 fieldLabels: {
-                    comments: 'Describe the problem with this work, eg work is a duplicate, or suggested changes',
+                    comments: 'Type changes or comments here',
                     url: 'Link (URL)',
                 },
             },
@@ -281,7 +294,18 @@ export default {
                 type: 'error_outline',
                 title: 'Error',
                 message: message =>
-                    `Error has occurred during request and request cannot be processed. ${message} Please contact eSpace administrators or try again later.`,
+                    `Error has occurred during request and request cannot be processed. ${message}. Please contact eSpace administrators or try again later.`,
+            },
+            errorCustom: {
+                communityCollection: [
+                    {
+                        httpStatus: 409,
+                        message: rekType =>
+                            `Error occurred during request and request cannot be processed. The ${rekType} contains ${
+                                rekType === 'Community' ? 'Collections' : 'records'
+                            } that must be manually unlinked first.`,
+                    },
+                ],
             },
             progressAlert: {
                 type: 'info_outline',

@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MaterialTable, { MTableAction, MTableBodyRow, MTableEditRow } from 'material-table';
 import moment from 'moment';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { tableIcons } from './MyEditorialAppointmentsListIcons';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +15,13 @@ import { TextField } from 'modules/SharedComponents/Toolbox/TextField';
 import { RoleField, JournalIdField } from 'modules/SharedComponents/LookupFields';
 import { default as locale } from 'locale/components';
 
-import { EDITORIAL_ROLE_MAP, EDITORIAL_ROLE_OPTIONS, EDITORIAL_ROLE_OTHER } from 'config/general';
+import {
+    EDITORIAL_APPOINTMENT_MAX_YEAR,
+    EDITORIAL_APPOINTMENT_MIN_YEAR,
+    EDITORIAL_ROLE_MAP,
+    EDITORIAL_ROLE_OPTIONS,
+    EDITORIAL_ROLE_OTHER,
+} from 'config/general';
 
 export const CustomToolbar = props => {
     return (
@@ -33,7 +41,64 @@ export const CustomToolbar = props => {
     );
 };
 
-export const getColumns = () => {
+const useStyles = makeStyles(theme => ({
+    datePicker: {
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            minWidth: 120,
+        },
+    },
+    transformResponsive: {
+        [theme.breakpoints.down('sm')]: {
+            '& [class*="MuiToolbar-root-"]': {
+                padding: 0,
+                display: 'block',
+                marginBlockEnd: '12px',
+
+                '& > div:first-child': {
+                    display: 'none',
+                },
+            },
+
+            '& [class*="MuiTable-root-"]': {
+                '& thead': {
+                    display: 'none',
+                },
+
+                '& tr[class*="MuiTableRow-root-"]': {
+                    display: 'block',
+                    width: '100%',
+                    boxSizing: 'border-box',
+
+                    '& td[class*="MuiTableCell-root-"]:last-of-type': {
+                        display: 'block',
+                        clear: 'both',
+                        width: '100% !important',
+                        boxSizing: 'border-box',
+                    },
+                },
+                '& tr[class*="MuiTableRow-root-"]:not(:last-of-type)': {
+                    marginBottom: '12px',
+                },
+            },
+
+            '& button#my-editorial-appointments-add-new-editorial-appointment': {
+                width: '100%',
+            },
+        },
+    },
+    editTableRow: {
+        '& td:not(:last-of-type)': {
+            verticalAlign: 'top',
+        },
+    },
+}));
+
+export const GetColumns = () => {
+    const classes = useStyles();
+    const theme = useTheme();
+    const matchesMd = useMediaQuery(theme.breakpoints.up('md'));
+
     const {
         header: {
             columns: { journalName, role, startYear, endYear },
@@ -105,10 +170,16 @@ export const getColumns = () => {
                 );
             },
             validate: rowData => !!rowData.eap_journal_name && rowData.eap_journal_name !== '',
-            cellStyle: {
-                width: '45%',
-                maxWidth: '45%',
-            },
+            cellStyle: matchesMd
+                ? {
+                      width: '45%',
+                      maxWidth: '45%',
+                  }
+                : {
+                      display: 'block',
+                      width: '100%',
+                      boxSizing: 'border-box',
+                  },
             headerStyle: {
                 width: '45%',
                 maxWidth: '45%',
@@ -192,10 +263,16 @@ export const getColumns = () => {
             validate: rowData =>
                 !!rowData.eap_role_cvo_id &&
                 (rowData.eap_role_cvo_id === EDITORIAL_ROLE_OTHER ? !!rowData.eap_role_name : true),
-            cellStyle: {
-                width: '25%',
-                maxWidth: '25%',
-            },
+            cellStyle: matchesMd
+                ? {
+                      width: '25%',
+                      maxWidth: '25%',
+                  }
+                : {
+                      display: 'block',
+                      width: '100%',
+                      boxSizing: 'border-box',
+                  },
             headerStyle: {
                 width: '25%',
                 maxWidth: '25%',
@@ -248,16 +325,29 @@ export const getColumns = () => {
                             'data-testid': 'eap-start-year-label',
                             htmlFor: 'eap-start-year-input',
                         }}
+                        className={classes.datePicker}
                     />
                 );
             },
-            validate: rowData =>
-                moment(String(rowData.eap_start_year), 'YYYY').isValid() &&
-                moment(String(rowData.eap_start_year), 'YYYY').isSameOrBefore(moment(), 'year'),
-            cellStyle: {
-                width: '15%',
-                maxWidth: '15%',
+            validate: rowData => {
+                const startYearMoment = moment(String(rowData.eap_start_year), 'YYYY');
+                return (
+                    startYearMoment.isValid() &&
+                    startYearMoment.isSameOrBefore(moment(), 'year') &&
+                    startYearMoment.isSameOrAfter(moment(EDITORIAL_APPOINTMENT_MIN_YEAR, 'YYYY'))
+                );
             },
+            cellStyle: matchesMd
+                ? {
+                      width: '15%',
+                      maxWidth: '15%',
+                      float: 'none',
+                  }
+                : {
+                      width: '100%',
+                      display: 'block',
+                      boxSizing: 'border-box',
+                  },
             headerStyle: {
                 width: '15%',
                 maxWidth: '15%',
@@ -276,25 +366,26 @@ export const getColumns = () => {
                     id={`eap-end-year-${rowData.tableData.id}`}
                     data-testid={`eap-end-year-${rowData.tableData.id}`}
                 >
-                    {moment(String(rowData.eap_end_year)).format('YYYY') === moment(new Date()).format('YYYY')
+                    {moment(String(rowData.eap_end_year), 'YYYY').format('YYYY') === moment(new Date()).format('YYYY')
                         ? locale.components.myEditorialAppointmentsList.form.locale.endYearCurrentYearLabel
                         : rowData.eap_end_year}
                 </Typography>
             ),
-            editComponent: props => {
+            editComponent: ({ value, rowData, onChange }) => {
                 const minDate = new Date();
+                minDate.setFullYear(parseInt(rowData.eap_start_year, 10));
                 minDate.setDate(1);
                 minDate.setMonth(0);
                 return (
                     <KeyboardDatePicker
-                        value={(!!props.value && moment(String(props.value), 'YYYY')) || null}
-                        onChange={value => props.onChange((!!value && value.format('YYYY')) || null)}
+                        value={(!!value && moment(String(value), 'YYYY')) || null}
+                        onChange={value => onChange((!!value && value.format('YYYY')) || null)}
                         error={
-                            !moment(String(props.value), 'YYYY').isValid() ||
-                            !moment(String(props.value), 'YYYY').isSameOrAfter(moment(), 'year')
+                            !moment(String(value), 'YYYY').isValid() ||
+                            moment(String(value), 'YYYY').isBefore(moment(String(rowData.eap_start_year), 'YYYY'))
                         }
-                        {...((!!props.value &&
-                            moment(String(props.value)).format('YYYY') === moment(minDate).format('YYYY') && {
+                        {...((!!value &&
+                            moment(String(value), 'YYYY').format('YYYY') === moment().format('YYYY') && {
                                 format: `[${locale.components.myEditorialAppointmentsList.form.locale.endYearCurrentYearLabel}]`,
                             }) ||
                             {})}
@@ -325,16 +416,29 @@ export const getColumns = () => {
                             id: 'eap-end-year-button-input',
                             'data-testid': 'eap-end-year-button-input',
                         }}
+                        className={classes.datePicker}
                     />
                 );
             },
-            validate: rowData =>
-                moment(String(rowData.eap_end_year), 'YYYY').isValid() &&
-                moment(String(rowData.eap_end_year), 'YYYY').isSameOrAfter(moment(), 'year'),
-            cellStyle: {
-                width: '15%',
-                maxWidth: '15%',
+            validate: rowData => {
+                const endYearMoment = moment(String(rowData.eap_end_year), 'YYYY');
+                return (
+                    endYearMoment.isValid() &&
+                    endYearMoment.isSameOrBefore(moment(EDITORIAL_APPOINTMENT_MAX_YEAR, 'YYYY')) &&
+                    endYearMoment.isSameOrAfter(moment(String(rowData.eap_start_year), 'YYYY'))
+                );
             },
+            cellStyle: matchesMd
+                ? {
+                      width: '15%',
+                      maxWidth: '15%',
+                      float: 'none',
+                  }
+                : {
+                      width: '100%',
+                      display: 'block',
+                      boxSizing: 'border-box',
+                  },
             headerStyle: {
                 width: '15%',
                 maxWidth: '15%',
@@ -344,9 +448,10 @@ export const getColumns = () => {
 };
 
 export const MyEditorialAppointmentsList = ({ disabled, handleRowAdd, handleRowDelete, handleRowUpdate, list }) => {
+    const classes = useStyles();
     const materialTableRef = React.createRef();
     const columns = React.createRef();
-    columns.current = getColumns();
+    columns.current = GetColumns();
 
     const {
         form: {
@@ -371,7 +476,12 @@ export const MyEditorialAppointmentsList = ({ disabled, handleRowAdd, handleRowD
             columns={columns.current}
             components={{
                 Container: props => (
-                    <div {...props} id="my-editorial-appointments-list" data-testid="my-editorial-appointments-list" />
+                    <div
+                        {...props}
+                        id="my-editorial-appointments-list"
+                        data-testid="my-editorial-appointments-list"
+                        className={classes.transformResponsive}
+                    />
                 ),
                 Row: props => (
                     <MTableBodyRow
@@ -383,9 +493,10 @@ export const MyEditorialAppointmentsList = ({ disabled, handleRowAdd, handleRowD
                 EditRow: props => (
                     <MTableEditRow
                         {...props}
-                        id={`my-editorial-appointments-list-edit-row-${props.index}`}
-                        data-testid={`my-editorial-appointments-list-edit-row-${props.index}`}
+                        id={`my-editorial-appointments-list-${props.mode}-row`}
+                        data-testid={`my-editorial-appointments-list-${props.mode}-row`}
                         onEditingApproved={handleEditingApproved(props)}
+                        className={classes.editTableRow}
                     />
                 ),
                 Action: props => {

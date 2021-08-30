@@ -28,8 +28,7 @@ export default {
             'Maximum number of files ([maxNumberOfFiles]) has been exceeded. ' +
             'File(s) ([fileNames]) will not be uploaded',
         ['duplicateFiles']: 'File(s) ([fileNames]) are duplicates and have been ignored',
-        ['sameFileNameWithDifferentExt']:
-            'File(s) ([fileNames]) have same name that match with other files with different extension',
+        ['sameFileNameWithDifferentExt']: 'File(s) ([fileNames]) name matches with an existing file.',
     },
     errorTitle: 'Upload Errors',
     successTitle: 'Success',
@@ -44,6 +43,7 @@ export default {
                 <li>files are under 5GB in size</li>
                 <li>file names begin with a letter and are less than 45 characters long</li>
                 <li>file names contain only upper and lowercase alphanumeric characters, and underscores</li>
+                <li>file names must not contain any spaces</li>
                 <li>
                     file names have only a single period which precedes the file extension: e.g. “.pdf”, “.mov”,
                     “.tiff”, “.wav” etc.
@@ -56,6 +56,7 @@ export default {
                     m2v, m4a, mk3d, mks, mkv, mov, mp3, mp4, mp4v, mpe, mpeg, mpg, mxf, ods, pdf, png, qt, rar, tar,
                     tif, tiff, wav, wma, wmv, xla, xlc, xlm, xls, xlsx, xlt, xlw, zip
                 </li>
+                <li>file names, regardless of extension, must be unique</li>
                 <li>files are uploaded individually and not inside a folder</li>
             </ul>
         </div>

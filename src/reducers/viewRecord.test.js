@@ -1,6 +1,5 @@
 import * as actions from 'actions/actionTypes';
-import viewRecordReducer from './viewRecord';
-import { initialState } from './viewRecord';
+import viewRecordReducer, { initialState } from './viewRecord';
 
 describe('viewRecord reducer', () => {
     const mockRecord = {
@@ -15,25 +14,10 @@ describe('viewRecord reducer', () => {
             loadingRecordToView: true,
             isRecordLocked: false,
             isDeleted: false,
+            isDeletedVersion: false,
             recordToView: null,
             recordToViewError: null,
-            hideCulturalSensitivityStatement: false,
-            isJobCreated: false,
-        };
-        expect(testState).toEqual(expectedState);
-    });
-
-    it('should set cultural message to hide', () => {
-        const testState = viewRecordReducer(initialState, {
-            type: actions.VIEW_RECORD_CULTURAL_SENSITIVITY_STATEMENT_HIDE,
-        });
-        const expectedState = {
-            loadingRecordToView: true,
-            isRecordLocked: false,
-            isDeleted: false,
-            recordToView: null,
-            recordToViewError: null,
-            hideCulturalSensitivityStatement: true,
+            error: null,
             isJobCreated: false,
         };
         expect(testState).toEqual(expectedState);
@@ -42,18 +26,6 @@ describe('viewRecord reducer', () => {
     it('should return a record to be viewed', () => {
         const test = viewRecordReducer(initialState, { type: actions.VIEW_RECORD_LOADED, payload: mockRecord });
         expect(test.loadingRecordToView).toBeFalsy();
-        expect(test.hideCulturalSensitivityStatement).toEqual(false);
-        expect(test.recordToView).toEqual(mockRecord);
-        expect(test.recordToViewError).toBeNull();
-    });
-
-    it("should return a record to be viewed and keep hidden cultural statemet if it's hidden", () => {
-        const test = viewRecordReducer(
-            { ...initialState, hideCulturalSensitivityStatement: true },
-            { type: actions.VIEW_RECORD_LOADED, payload: mockRecord },
-        );
-        expect(test.loadingRecordToView).toBeFalsy();
-        expect(test.hideCulturalSensitivityStatement).toEqual(true);
         expect(test.recordToView).toEqual(mockRecord);
         expect(test.recordToViewError).toBeNull();
     });
@@ -120,7 +92,6 @@ describe('viewRecord reducer', () => {
         expect(test).toEqual({
             ...initialState,
             isRecordLocked: false,
-            hideCulturalSensitivityStatement: true,
             loadingRecordToView: false,
             isDeleted: true,
             recordToView: {
@@ -141,6 +112,34 @@ describe('viewRecord reducer', () => {
         expect(test).toEqual({
             ...initialState,
             isJobCreated: true,
+        });
+    });
+
+    it('should set error', () => {
+        const test = viewRecordReducer(initialState, {
+            type: actions.ADMIN_UPDATE_WORK_FAILED,
+            payload: {},
+        });
+
+        expect(test).toEqual({
+            ...initialState,
+            error: {},
+        });
+    });
+
+    it('should set isDeletedVersion', () => {
+        const test = viewRecordReducer(initialState, {
+            type: actions.VIEW_RECORD_VERSION_DELETED_LOADED,
+            payload: { data: {} },
+        });
+
+        expect(test).toEqual({
+            ...initialState,
+            isDeletedVersion: true,
+            loadingRecordToView: false,
+            recordToView: {
+                data: {},
+            },
         });
     });
 });

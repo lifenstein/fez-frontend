@@ -57,9 +57,11 @@ exports[`VideoDocumentForm renders  component 1`] = `
             disabled={false}
             fullWidth={true}
             label="Title"
+            multiline={true}
             name="rek_title"
             placeholder="Title of work"
             required={true}
+            rows={3}
             type="text"
             validate={
               Array [
@@ -95,7 +97,6 @@ exports[`VideoDocumentForm renders  component 1`] = `
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
           item={true}
-          sm={6}
           xs={12}
         >
           <Field
@@ -117,6 +118,38 @@ exports[`VideoDocumentForm renders  component 1`] = `
             name="fez_record_search_key_publisher.rek_publisher"
             placeholder="Type the name of the publisher or producer of the work."
             type="text"
+          />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          sm={6}
+          xs={12}
+        >
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "classes": [Function],
+                  "help": [Function],
+                  "innerRef": [Function],
+                  "textFieldId": [Function],
+                },
+                "render": [Function],
+              }
+            }
+            disabled={false}
+            fullWidth={true}
+            label="DOI"
+            name="fez_record_search_key_doi.rek_doi"
+            placeholder="Enter a valid DOI (e.g. 10.123/456)"
+            textFieldId="rek-doi"
+            type="text"
+            validate={
+              Array [
+                [Function],
+              ]
+            }
           />
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
@@ -215,7 +248,7 @@ exports[`VideoDocumentForm renders  component 1`] = `
                 "identifierLabel": "UQ identifier (if available)",
                 "nameAsPublishedFieldId": "creators-name-as-published-field",
                 "nameAsPublishedHint": "Type the name exactly as published",
-                "nameAsPublishedLabel": "Enter each creator's name as published (eg. Smith, John)",
+                "nameAsPublishedLabel": "Creator's name as published",
               },
             },
             "header": Object {
@@ -320,7 +353,7 @@ exports[`VideoDocumentForm renders  component 1`] = `
                 "identifierLabel": "UQ identifier (if available)",
                 "nameAsPublishedFieldId": "contributors-name-as-published-field",
                 "nameAsPublishedHint": "Type the name exactly as published",
-                "nameAsPublishedLabel": "Enter each contributor's name as published (eg. Smith, John)",
+                "nameAsPublishedLabel": "Contributor's name as published",
               },
             },
             "header": Object {
@@ -506,9 +539,11 @@ exports[`VideoDocumentForm renders  component should render contributor assignme
             disabled={false}
             fullWidth={true}
             label="Title"
+            multiline={true}
             name="rek_title"
             placeholder="Title of work"
             required={true}
+            rows={3}
             type="text"
             validate={
               Array [
@@ -544,7 +579,6 @@ exports[`VideoDocumentForm renders  component should render contributor assignme
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
           item={true}
-          sm={6}
           xs={12}
         >
           <Field
@@ -566,6 +600,38 @@ exports[`VideoDocumentForm renders  component should render contributor assignme
             name="fez_record_search_key_publisher.rek_publisher"
             placeholder="Type the name of the publisher or producer of the work."
             type="text"
+          />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          sm={6}
+          xs={12}
+        >
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "classes": [Function],
+                  "help": [Function],
+                  "innerRef": [Function],
+                  "textFieldId": [Function],
+                },
+                "render": [Function],
+              }
+            }
+            disabled={false}
+            fullWidth={true}
+            label="DOI"
+            name="fez_record_search_key_doi.rek_doi"
+            placeholder="Enter a valid DOI (e.g. 10.123/456)"
+            textFieldId="rek-doi"
+            type="text"
+            validate={
+              Array [
+                [Function],
+              ]
+            }
           />
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
@@ -664,7 +730,7 @@ exports[`VideoDocumentForm renders  component should render contributor assignme
                 "identifierLabel": "UQ identifier (if available)",
                 "nameAsPublishedFieldId": "creators-name-as-published-field",
                 "nameAsPublishedHint": "Type the name exactly as published",
-                "nameAsPublishedLabel": "Enter each creator's name as published (eg. Smith, John)",
+                "nameAsPublishedLabel": "Creator's name as published",
               },
             },
             "header": Object {
@@ -769,7 +835,7 @@ exports[`VideoDocumentForm renders  component should render contributor assignme
                 "identifierLabel": "UQ identifier (if available)",
                 "nameAsPublishedFieldId": "contributors-name-as-published-field",
                 "nameAsPublishedHint": "Type the name exactly as published",
-                "nameAsPublishedLabel": "Enter each contributor's name as published (eg. Smith, John)",
+                "nameAsPublishedLabel": "Contributor's name as published",
               },
             },
             "header": Object {

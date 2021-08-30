@@ -2,6 +2,8 @@ import React from 'react';
 import MyEditorialAppointmentsList from './MyEditorialAppointmentsList';
 import { render, fireEvent, act, waitFor, WithReduxStore } from 'test-utils';
 
+import { default as locale } from 'locale/components';
+
 function setup(testProps = {}) {
     const props = {
         list: [],
@@ -42,7 +44,7 @@ describe('MyEditorialAppointmentsList', () => {
                     eap_id: 1,
                     eap_journal_name: 'test',
                     eap_jnl_id: 1234,
-                    eap_role_cvo_id: '123456',
+                    eap_role_cvo_id: '454148',
                     eap_start_year: '2006',
                     eap_end_year: '2026',
                     eap_role_name: 'Guest Editor',
@@ -60,7 +62,7 @@ describe('MyEditorialAppointmentsList', () => {
                     eap_id: 1,
                     eap_journal_name: 'test',
                     eap_jnl_id: 1234,
-                    eap_role_cvo_id: '123456',
+                    eap_role_cvo_id: '454148',
                     eap_start_year: '2006',
                     eap_end_year: '1970',
                     eap_role_name: 'Guest Editor',
@@ -89,7 +91,15 @@ describe('MyEditorialAppointmentsList', () => {
         fireEvent.mouseDown(getByTestId('eap-role-cvo-id-input'));
         fireEvent.click(getByText('Guest Editor'));
         fireEvent.change(getByTestId('eap-start-year-input'), { target: { value: '2010' } });
+        fireEvent.change(getByTestId('eap-end-year-input'), { target: { value: '2009' } });
+
+        expect(getByTestId('my-editorial-appointments-list-add-row')).toHaveTextContent(
+            locale.components.myEditorialAppointmentsList.form.locale.endYearErrorMessage,
+        );
+
         fireEvent.change(getByTestId('eap-end-year-input'), { target: { value: '2020' } });
+
+        expect(getByTestId('my-editorial-appointments-add-save').closest('button')).not.toHaveAttribute('disabled');
 
         act(() => {
             fireEvent.click(getByTestId('my-editorial-appointments-add-save'));
@@ -195,7 +205,7 @@ describe('MyEditorialAppointmentsList', () => {
                     eap_id: 1,
                     eap_journal_name: 'test',
                     eap_jnl_id: 1234,
-                    eap_role_cvo_id: '123456',
+                    eap_role_cvo_id: '454148',
                     eap_start_year: '2006',
                     eap_end_year: '2026',
                     eap_role_name: 'Editor',
@@ -226,7 +236,7 @@ describe('MyEditorialAppointmentsList', () => {
                     eap_id: 1,
                     eap_journal_name: 'test',
                     eap_jnl_id: 1234,
-                    eap_role_cvo_id: '123456',
+                    eap_role_cvo_id: '454148',
                     eap_start_year: '2006',
                     eap_end_year: '2026',
                     eap_role_name: 'Editor',
@@ -256,7 +266,7 @@ describe('MyEditorialAppointmentsList', () => {
                     eap_id: 1,
                     eap_journal_name: 'test',
                     eap_jnl_id: 1234,
-                    eap_role_cvo_id: '123456',
+                    eap_role_cvo_id: '454148',
                     eap_start_year: '2006',
                     eap_end_year: '2026',
                     eap_role_name: 'Guest Editor',
@@ -298,7 +308,7 @@ describe('MyEditorialAppointmentsList', () => {
                     eap_id: 1,
                     eap_journal_name: 'test',
                     eap_jnl_id: 1234,
-                    eap_role_cvo_id: '123456',
+                    eap_role_cvo_id: '454148',
                     eap_start_year: '2006',
                     eap_end_year: '2022',
                     eap_role_name: 'Guest Editor',

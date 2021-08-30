@@ -1,10 +1,11 @@
 /* eslint-env jest */
 import React from 'react';
 
-import Enzyme, { shallow, render, mount } from 'enzyme';
+import Enzyme, { mount, render, shallow } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import toJson from 'enzyme-to-json';
-import '@babel/polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 import { Provider } from 'react-redux';
 import Immutable from 'immutable';
@@ -16,6 +17,8 @@ import { mui1theme } from 'config';
 import { api, sessionApi } from 'config/axios';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import prettyFormat from 'pretty-format';
+import renderer from 'react-test-renderer';
 
 // jest.mock('@date-io/moment');
 import MomentUtils from '@date-io/moment';
@@ -46,12 +49,13 @@ const setupSessionMockAdapter = () => {
 };
 
 // get a mounted or shallow element
-const getElement = (component, props, args = {}) => {
-    const { isShallow, requiresStore, context, store } = {
+global.getElement = (component, props, args = {}) => {
+    const { isShallow, requiresStore, context, store, renderer } = {
         isShallow: true,
         requiresStore: false,
         context: {},
         store: setupStoreForMount().store,
+        renderer: mount,
         ...args,
     };
 
@@ -64,7 +68,7 @@ const getElement = (component, props, args = {}) => {
             return shallow(React.createElement(component, props), { context });
         }
     }
-    return mount(
+    return renderer(
         <Provider store={store}>
             <MemoryRouter initialEntries={[{ pathname: '/', key: 'testKey' }]}>
                 <MuiThemeProvider theme={mui1theme}>
@@ -77,6 +81,12 @@ const getElement = (component, props, args = {}) => {
     );
 };
 
+global.componentToString = component => {
+    return prettyFormat(renderer.create(component), {
+        plugins: [prettyFormat.plugins.ReactTestComponent],
+    }).toString();
+};
+
 // React Enzyme adapter
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -85,9 +95,6 @@ global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 global.toJson = toJson;
-
-// make standard libraries/methods globally available to all tests
-global.getElement = getElement;
 
 // set global store for testing actions
 global.setupStoreForActions = setupStoreForActions;

@@ -79,23 +79,34 @@ export const maxListEditorTextLength = max => value => {
 export const maxListEditorTextLength800 = maxListEditorTextLength(800);
 export const maxListEditorTextLength2000 = maxListEditorTextLength(2000);
 
-// TODO: make it generic
-export const isValidDOIValue = value => {
-    const regexGroup = [
-        /^10\.\d{4,9}\/[-._;()\/:A-Z0-9]+$/i,
-        /^10\.1002\/[^\s]+$/i,
-        /^10\.\d{4}\/\d+-\d+X?\(\d+\)\d+[<\[][\d\w]+:[\d\w]*[>\]]\d+.\d+.\w+;\d$/i,
-        /^10\.1021\/\w\w\d+\+$/i,
-        /^10\.1207\/[\w\d]+\&\d+_\d+$/i,
-    ];
+const doiRegexps = [
+    /10\.\d{4,9}\/[-._;()\/:A-Z0-9]+/i,
+    /10\.1002\/[^\s]+/i,
+    /10\.\d{4}\/\d+-\d+X?\(\d+\)\d+[<\[][\d\w]+:[\d\w]*[>\]]\d+.\d+.\w+;\d/i,
+    /10\.1021\/\w\w\d+\+/i,
+    /10\.1207\/[\w\d]+\&\d+_\d+/i,
+];
 
-    return regexGroup.reduce((isValid, regex) => regex.test(value) || isValid, false);
+export const getDoi = value => {
+    for (const regex of doiRegexps) {
+        const matches = value?.trim().match(regex);
+        if (matches) {
+            return matches[0];
+        }
+    }
+    return null;
 };
+
+export const isValidDOIValue = value => !!getDoi(value);
+
+export const sanitizeDoi = value => getDoi(value) || value;
+
 export const isValidPubMedValue = value => {
     // pubmed id is all digits, min 3 digits
     const isValid = /^[\d]{3,}$/;
     return isValid.test(value.trim());
 };
+
 export const isValidPartialDOIValue = value => {
     const isValid = /^10\..*/;
     return isValid.test(value.trim());
@@ -165,6 +176,12 @@ export const dateTimeYear = value =>
         : undefined;
 export const validFileUpload = value => {
     return value && value.hasOwnProperty('isValid') && !value.isValid ? locale.validationErrors.fileUpload : undefined;
+};
+
+export const validFileNames = value => {
+    return value && value.some(file => file.hasOwnProperty('isValid') && file.isValid === false)
+        ? locale.validationErrors.fileName
+        : undefined;
 };
 
 export const fileUploadRequired = value => {
@@ -382,9 +399,7 @@ export const isAuthorOrEditorSelected = (data, isAdmin = false, allowOnlyOne = f
         }
         errors.editors = isAdmin ? locale.validationErrors.editorRequiredAdmin : locale.validationErrors.editorRequired;
     } else if (allowOnlyOne && data.authors && data.authors.length > 0 && data.editors && data.editors.length > 0) {
-        errors.authors = locale.validationErrors.onlyOneOfAuthorOrEditor;
-        errors.editors = locale.validationErrors.onlyOneOfAuthorOrEditor;
+        errors.onlyOneOfAuthorOrEditor = locale.validationErrors.onlyOneOfAuthorOrEditor;
     }
-
     return errors;
 };

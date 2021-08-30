@@ -13,7 +13,7 @@ exports[`Component InlineLoader should render as expected 1`] = `
     alignItems="center"
     container={true}
     direction="row"
-    justify="center"
+    justifyContent="center"
     spacing={1}
   >
     <Hidden
@@ -34,6 +34,7 @@ exports[`Component InlineLoader should render as expected 1`] = `
       xs="auto"
     >
       <WithStyles(ForwardRef(CircularProgress))
+        aria-label="Loading"
         color="primary"
         size={18}
         thickness={2}

@@ -40,9 +40,9 @@ export const rtlRender = (ui, options) => render(ui, { wrapper: AllTheProviders,
 
 export const renderWithRouter = (
     ui,
-    { route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {},
+    { route = '/', history = createMemoryHistory({ initialEntries: [route] }), renderMethod = render } = {},
 ) => {
-    return render(
+    return renderMethod(
         <AllTheProviders>
             <Router history={history}>{ui}</Router>
         </AllTheProviders>,
@@ -77,7 +77,6 @@ export const withRedux = (initialState = Immutable.Map()) => WrappedComponent =>
     return <Provider store={getStore(initialState)}>{WrappedComponent}</Provider>;
 };
 
-// eslint-disable-next-line react/prop-types
 export const WithReduxStore = ({ initialState = Immutable.Map(), children }) => (
     <Provider store={getStore(initialState)}>
         <AllTheProviders>{children}</AllTheProviders>

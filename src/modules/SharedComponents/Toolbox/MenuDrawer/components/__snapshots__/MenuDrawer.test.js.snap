@@ -57,9 +57,10 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider 1`
         xs={10}
         zeroMinWidth={true}
       >
-        <WithStyles(ExternalLink)
+        <ExternalLink
           className="noHover"
           href="test"
+          id="main-menu-logo"
           openInNewIcon={false}
           title="test"
         >
@@ -75,7 +76,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider 1`
           >
             test
           </div>
-        </WithStyles(ExternalLink)>
+        </ExternalLink>
       </WithStyles(ForwardRef(Grid))>
       <Hidden
         smUp={true}
@@ -87,6 +88,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider 1`
           <WithStyles(ForwardRef(IconButton))
             aria-label="Close menu"
             onClick={[MockFunction]}
+            size="small"
           >
             <Memo(ForwardRef(KeyboardArrowLeftIcon)) />
           </WithStyles(ForwardRef(IconButton))>
@@ -109,6 +111,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider 1`
               "secondary": undefined,
             }
           }
+          id="menu-itemText-0"
           primary="Primary text 0"
           secondary="secondary text 0"
         />
@@ -133,6 +136,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider 1`
               "secondary": undefined,
             }
           }
+          id="menu-itemText-2"
           primary="Primary text 1"
           secondary="secondary text 1"
         />
@@ -145,13 +149,14 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider 1`
   />
   <div>
     CRICOS Provider No: 
-    <WithStyles(ExternalLink)
+    <ExternalLink
       href="http://www.uq.edu.au/about/cricos-link"
+      id="cricos"
       openInNewIcon={false}
       title="CRICOS Provider No: "
     >
       00025B
-    </WithStyles(ExternalLink)>
+    </ExternalLink>
   </div>
 </WithStyles(ForwardRef(Drawer))>
 `;
@@ -194,9 +199,10 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
         xs={10}
         zeroMinWidth={true}
       >
-        <WithStyles(ExternalLink)
+        <ExternalLink
           className="noHover"
           href="test"
+          id="main-menu-logo"
           openInNewIcon={false}
           title="test"
         >
@@ -212,7 +218,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
           >
             test
           </div>
-        </WithStyles(ExternalLink)>
+        </ExternalLink>
       </WithStyles(ForwardRef(Grid))>
       <Hidden
         smUp={true}
@@ -224,6 +230,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
           <WithStyles(ForwardRef(IconButton))
             aria-label="Close menu"
             onClick={[MockFunction]}
+            size="small"
           >
             <Memo(ForwardRef(KeyboardArrowLeftIcon)) />
           </WithStyles(ForwardRef(IconButton))>
@@ -264,6 +271,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
               "secondary": undefined,
             }
           }
+          id="menu-itemText-0"
           primary="Primary text 0"
           secondary="secondary text 0"
         />
@@ -288,6 +296,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
               "secondary": undefined,
             }
           }
+          id="menu-itemText-2"
           primary="Primary text 1"
           secondary="secondary text 1"
         />
@@ -300,13 +309,14 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
   />
   <div>
     CRICOS Provider No: 
-    <WithStyles(ExternalLink)
+    <ExternalLink
       href="http://www.uq.edu.au/about/cricos-link"
+      id="cricos"
       openInNewIcon={false}
       title="CRICOS Provider No: "
     >
       00025B
-    </WithStyles(ExternalLink)>
+    </ExternalLink>
   </div>
 </WithStyles(ForwardRef(Drawer))>
 `;
@@ -349,9 +359,10 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
         xs={10}
         zeroMinWidth={true}
       >
-        <WithStyles(ExternalLink)
+        <ExternalLink
           className="noHover"
           href="test"
+          id="main-menu-logo"
           openInNewIcon={false}
           title="test"
         >
@@ -367,7 +378,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
           >
             test
           </div>
-        </WithStyles(ExternalLink)>
+        </ExternalLink>
       </WithStyles(ForwardRef(Grid))>
       <Hidden
         smUp={true}
@@ -379,6 +390,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
           <WithStyles(ForwardRef(IconButton))
             aria-label="Close menu"
             onClick={[MockFunction]}
+            size="small"
           >
             <Memo(ForwardRef(KeyboardArrowLeftIcon)) />
           </WithStyles(ForwardRef(IconButton))>
@@ -419,6 +431,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
               "secondary": undefined,
             }
           }
+          id="menu-itemText-0"
           primary="Primary text 0"
           secondary="secondary text 0"
         />
@@ -443,6 +456,7 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
               "secondary": undefined,
             }
           }
+          id="menu-itemText-2"
           primary="Primary text 1"
           secondary="secondary text 1"
         />
@@ -455,13 +469,14 @@ exports[`Component MenuDrawer should render opened drawer with menus, divider an
   />
   <div>
     CRICOS Provider No: 
-    <WithStyles(ExternalLink)
+    <ExternalLink
       href="http://www.uq.edu.au/about/cricos-link"
+      id="cricos"
       openInNewIcon={false}
       title="CRICOS Provider No: "
     >
       00025B
-    </WithStyles(ExternalLink)>
+    </ExternalLink>
   </div>
 </WithStyles(ForwardRef(Drawer))>
 `;

@@ -58,20 +58,15 @@ export default {
         },
         title: 'Optional: Content Indicators',
         description:
-            'If relevant to your work, you can select multiple (up to 3) content indicators ' +
+            'If relevant to your work, you can select multiple content indicators ' +
             'to add more information about your work.',
         fieldLabels: {
-            label: 'Please select any relevant indicator(s).',
+            label: 'Select any relevant indicator(s).',
         },
     },
     generic: {
         information: {
             title: 'Generic document information',
-            // help: {
-            //     title: 'General document information',
-            //     text: 'Text...',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -100,11 +95,6 @@ export default {
         authors: txt.components.authors,
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional Information',
-            //     text: 'Text...',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -120,11 +110,6 @@ export default {
     journalArticle: {
         information: {
             title: 'Journal article information',
-            // help: {
-            //     title: 'Journal article information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -133,6 +118,10 @@ export default {
                 journalTitle: {
                     label: 'Journal name',
                     placeholder: '',
+                },
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
                 },
                 date: {
                     title: 'Publication date',
@@ -146,11 +135,6 @@ export default {
         authors: txt.components.authors,
         optional: {
             title: 'Optional details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 volume: 'Volume',
                 issue: 'Issue',
@@ -165,11 +149,6 @@ export default {
     book: {
         information: {
             title: 'Book information',
-            // help: {
-            //     title: 'Book information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 bookTitle: 'Book title',
                 subtype: 'Work subtype',
@@ -187,7 +166,7 @@ export default {
                 },
                 doi: {
                     label: 'DOI',
-                    placeholder: 'Enter a valid DOI (eg. 10.4324/9780203118214)',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
                 },
             },
         },
@@ -195,11 +174,6 @@ export default {
         editors: txt.components.editors,
         optional: {
             title: 'Optional details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 articleNumber: 'Article number',
                 notes: 'Notes (not publicly viewable)',
@@ -208,27 +182,21 @@ export default {
         },
         ntro: {
             title: 'NTRO metadata',
-            // help: {
-            //     title: 'Non-traditional Research Output details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // }
         },
     },
     bookChapter: {
         information: {
             title: 'Book chapter information',
-            // help: {
-            //     title: 'Book chapter information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 bookChapterTitle: 'Book chapter title',
                 bookTitle: 'Book title',
                 subtype: 'Work subtype',
                 publicationPlace: 'Place of publication',
                 publisher: 'Publisher',
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
+                },
                 date: {
                     title: 'Date published',
                     day: 'Day',
@@ -241,11 +209,6 @@ export default {
         editors: txt.components.editors,
         other: {
             title: 'Other work details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 edition: 'Edition',
                 startPage: 'Start page',
@@ -258,21 +221,20 @@ export default {
     conferencePaper: {
         information: {
             title: 'Conference paper information',
-            // help: {
-            //     title: 'Conference paper information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 title: 'Title of paper',
                 conferenceName: 'Conference name',
                 conferenceLocation: 'Conference location',
-                conferenceDates: 'Conference dates (eg 13-15 December 2011)',
+                conferenceDates: 'Conference dates (e.g 3-5 May)',
                 proceedingsTitle: 'Proceedings title',
                 subtype: 'Work subtype',
                 publicationPlace: 'Place of publication',
                 publisher: 'Publisher',
                 journalName: 'Journal name',
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
+                },
                 date: {
                     title: 'Publication date',
                     day: 'Day',
@@ -284,11 +246,6 @@ export default {
         authors: txt.components.authors,
         other: {
             title: 'Other work details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 startPage: 'Start page',
                 endPage: 'End page',
@@ -300,11 +257,6 @@ export default {
     researchReport: {
         information: {
             title: 'Research report information',
-            // help: {
-            //     title: 'Research report information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -322,6 +274,10 @@ export default {
                     label: 'Report number',
                     placeholder: 'Type the report number',
                 },
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
+                },
                 date: {
                     title: 'Date published',
                     day: 'Day',
@@ -336,20 +292,11 @@ export default {
                     label: 'Total pages',
                     placeholder: 'Type total number of pages',
                 },
-                doi: {
-                    label: 'DOI',
-                    placeholder: 'Enter a valid DOI (eg. 10.4324/9780203118214)',
-                },
             },
         },
         authors: txt.components.authors,
         other: {
             title: 'Other work details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 abstract: {
                     label: 'Abstract',
@@ -402,6 +349,10 @@ export default {
                     label: 'Abstract',
                     placeholder: 'Provide an abstract or summary of the work.',
                 },
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
+                },
                 date: {
                     title: 'Publication date',
                     day: 'Day',
@@ -414,11 +365,6 @@ export default {
         contributor: txt.components.contributors,
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional information',
-            //     text: 'help...',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -434,11 +380,6 @@ export default {
     patent: {
         information: {
             title: 'Patent information',
-            // help: {
-            //     title: 'Patent information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 title: 'Title of patent',
                 patentNumber: 'Patent number',
@@ -455,11 +396,6 @@ export default {
         authors: txt.components.creators,
         other: {
             title: 'Other patent details',
-            // help: {
-            //     title: 'Other patent details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: 'Notes (not publicly viewable)',
                 url: 'Enter URL for this patent',
@@ -469,11 +405,6 @@ export default {
     seminarPaper: {
         information: {
             title: 'Seminar paper information',
-            // help: {
-            //     title: 'Seminar paper information',
-            //     text: 'Some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -497,16 +428,15 @@ export default {
                     month: 'Month',
                     year: 'Year',
                 },
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
+                },
             },
         },
         authors: txt.components.authors,
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional information help',
-            //     text: 'Some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -546,11 +476,6 @@ export default {
                     <p>To deposit another thesis type, use the form below.</p>
                 </React.Fragment>
             ),
-            // help: {
-            //     title: 'Thesis information',
-            //     text: 'Some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -584,34 +509,19 @@ export default {
         },
         fieldOfResearch: {
             title: 'Field of research',
-            // help: {
-            //     title: 'Field of research help',
-            //     text: 'Some help',
-            //     buttonLabel: 'Close'
-            // },
             description: 'Select up to 3 Field of Research (FoR) codes',
         },
         keywords: {
             title: 'Keywords',
-            // help: {
-            //     title: 'Optional information help',
-            //     text: 'Some help',
-            //     buttonLabel: 'Close'
-            // },
             description:
                 'Add up to 10 individual keywords, or a pipe separated list, that describe the content of the thesis. (eg. one|two|three)',
         },
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional information help',
-            //     text: 'Some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 doi: {
                     label: 'DOI',
-                    placeholder: 'Enter a valid DOI (eg. 10.4324/9780203118214)',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
                 },
                 totalPages: {
                     label: 'Total pages',
@@ -633,11 +543,6 @@ export default {
         title: 'Add a missing collection',
         information: {
             title: 'Collection information',
-            // help: {
-            //     title: 'Thesis information',
-            //     text: 'Some help',
-            //     buttonLabel: 'OK'
-            // },
             fieldLabels: {
                 documentTitle: {
                     placeholderlabel: 'Title',
@@ -671,34 +576,19 @@ export default {
         },
         fieldOfResearch: {
             title: 'Field of research',
-            // help: {
-            //     title: 'Field of research help',
-            //     text: 'Some help',
-            //     buttonLabel: 'OK'
-            // },
             description: 'Select up to 3 Field of Research (FoR) codes',
         },
         keywords: {
             title: 'Keywords',
-            // help: {
-            //     title: 'Optional information help',
-            //     text: 'Some help',
-            //     buttonLabel: 'OK'
-            // },
             description:
                 'Add up to 10 individual keywords, or a pipe separated list, that describe the content of the thesis. (eg. one|two|three)',
         },
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional information help',
-            //     text: 'Some help',
-            //     buttonLabel: 'OK'
-            // },
             fieldLabels: {
                 doi: {
                     label: 'DOI',
-                    placeholder: 'Enter a valid DOI (eg. 10.4324/9780203118214)',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
                 },
                 totalPages: {
                     label: 'Total pages',
@@ -719,11 +609,6 @@ export default {
     preprint: {
         information: {
             title: 'Preprint information',
-            // help: {
-            //     title: 'Preprint information',
-            //     text: 'Help...',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -740,11 +625,6 @@ export default {
         authors: txt.components.authors,
         optional: {
             title: 'Optional details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -767,15 +647,15 @@ export default {
                 },
                 placeOfPublication: {
                     label: 'Place of publication',
-                    placeholder: 'Enter place of publication, location or venue',
+                    placeholder: 'Enter the place, location or venue',
                 },
                 publisher: {
                     label: 'Publisher',
-                    placeholder: 'Enter the name of the publisher or producer',
+                    placeholder: 'Enter the publisher or producer',
                 },
                 doi: {
                     label: 'DOI',
-                    placeholder: 'Enter a valid DOI (eg. 10.4324/9780203118214)',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
                 },
                 date: {
                     title: 'Publication/Start date',
@@ -804,11 +684,6 @@ export default {
         authors: txt.components.authors,
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional information',
-            //     text: 'Help...',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -816,7 +691,7 @@ export default {
                 },
                 url: {
                     label: 'Link',
-                    placeholder: 'Enter a valid URL to the work, or information about this work.',
+                    placeholder: 'Enter a valid URL to the work',
                 },
             },
         },
@@ -857,6 +732,10 @@ export default {
                     label: 'Abstract',
                     placeholder: 'Provide an abstract or summary of the work.',
                 },
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
+                },
                 date: {
                     title: 'Publication date',
                     day: 'Day',
@@ -869,11 +748,6 @@ export default {
         contributor: txt.components.contributors,
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional information',
-            //     text: 'text...',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -889,15 +763,14 @@ export default {
     imageDocument: {
         information: {
             title: 'Image information',
-            // help: {
-            //     title: 'Image information',
-            //     text: 'Some text.',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
                     placeholder: 'Title of image',
+                },
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
                 },
                 date: {
                     title: 'Date created',
@@ -914,11 +787,6 @@ export default {
         creator: txt.components.creators,
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional information',
-            //     text: 'Text...',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -934,11 +802,6 @@ export default {
     design: {
         information: {
             title: 'Design information',
-            // help: {
-            //     title: 'Design information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 articleTitle: {
                     label: 'Title',
@@ -954,15 +817,19 @@ export default {
                 },
                 placeOfPublication: {
                     label: 'Place of publication',
-                    placeholder: 'Enter the geographical location for the client, builder or curator of the work.',
+                    placeholder: 'Geographical location of publisher',
                 },
                 publisher: {
                     label: 'Publisher',
-                    placeholder: 'Enter the name of the client, builder or curator of the work.',
+                    placeholder: 'The client, builder, or curator',
                 },
                 location: {
                     label: 'Location',
-                    placeholder: 'Type the geographical location for the design itself.',
+                    placeholder: 'Geographical location of design.',
+                },
+                doi: {
+                    label: 'DOI',
+                    placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
                 },
                 date: {
                     title: 'Publication/Start date',
@@ -987,11 +854,6 @@ export default {
         authors: txt.components.designers,
         optional: {
             title: 'Optional information',
-            // help: {
-            //     title: 'Optional information',
-            //     text: 'text...',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -1007,11 +869,6 @@ export default {
     newspaperArticle: {
         information: {
             title: 'Newspaper article information',
-            // help: {
-            //     title: 'Newspaper article information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -1040,11 +897,6 @@ export default {
         authors: txt.components.authors,
         optional: {
             title: 'Optional details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -1060,11 +912,6 @@ export default {
     departmentTechnicalReport: {
         information: {
             title: 'Department technical report information',
-            // help: {
-            //     title: 'Department technical report information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -1105,11 +952,6 @@ export default {
         authors: txt.components.authors,
         other: {
             title: 'Other details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -1125,11 +967,6 @@ export default {
     workingPaper: {
         information: {
             title: 'Working paper information',
-            // help: {
-            //     title: 'Working paper information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 documentTitle: {
                     label: 'Title',
@@ -1170,11 +1007,6 @@ export default {
         authors: txt.components.authors,
         other: {
             title: 'Optional details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -1190,11 +1022,6 @@ export default {
     conferenceProceedings: {
         information: {
             title: 'Conference proceedings information',
-            // help: {
-            //     title: 'Conference proceedings information',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 title: {
                     label: 'Title',
@@ -1209,7 +1036,7 @@ export default {
                     placeholder: 'Type the place of conference',
                 },
                 conferenceDates: {
-                    label: 'Conference dates (eg 13-15 December 2011)',
+                    label: 'Conference dates (e.g 3-5 May)',
                     placeholder: 'Type the dates of conference',
                 },
                 proceedingsTitle: {
@@ -1235,11 +1062,6 @@ export default {
         editors: txt.components.editors,
         other: {
             title: 'Optional details',
-            // help: {
-            //     title: 'Optional details',
-            //     text: 'some help',
-            //     buttonLabel: 'Close'
-            // },
             fieldLabels: {
                 notes: {
                     label: 'Notes (not publicly viewable)',
@@ -1254,11 +1076,6 @@ export default {
     },
     fileUpload: {
         title: 'Upload files',
-        // help: {
-        //     title: 'Upload files',
-        //     text: 'file help...',
-        //     buttonLabel: 'Close'
-        // }
     },
     cancelWorkflowConfirmation: {
         confirmationTitle: 'Abandon workflow',
@@ -1315,11 +1132,6 @@ export default {
         ),
         fileUpload: {
             title: 'Upload files',
-            // help: {
-            //     title: 'Upload files',
-            //     text: 'file help...',
-            //     buttonLabel: 'Close'
-            // },
             failedAlertLocale: {
                 type: 'error',
                 title: 'FILE UPLOAD ERROR',
@@ -1417,11 +1229,6 @@ export default {
         ),
         fileUpload: {
             title: 'Upload files',
-            // help: {
-            //     title: 'Upload files',
-            //     text: 'file help...',
-            //     buttonLabel: 'Close'
-            // },
             failedAlertLocale: {
                 title: 'FILE UPLOAD ERROR',
                 type: 'error',
@@ -1546,7 +1353,7 @@ export default {
                     },
                     doi: {
                         label: 'DOI',
-                        placeholder: ' ',
+                        placeholder: 'Enter a valid DOI (e.g. 10.123/456)',
                     },
                     date: {
                         title: 'Publication year',
@@ -1713,6 +1520,12 @@ export default {
                 },
             },
         },
+        cancelWorkflowConfirmation: {
+            confirmationTitle: 'Cancel data collection',
+            confirmationMessage: 'Are you sure you want to cancel adding this data collection?',
+            cancelButtonLabel: 'No',
+            confirmButtonLabel: 'Yes',
+        },
     },
     addACollection: {
         title: 'Add a missing collection',
@@ -1773,6 +1586,10 @@ export default {
                         },
                     },
                 },
+            },
+            internalNotes: {
+                label: 'Internal Notes (admin)',
+                placeholder: 'Optionally enter internal notes',
             },
         },
         submit: 'Add collection',
@@ -1839,6 +1656,10 @@ export default {
                         },
                     },
                 },
+            },
+            internalNotes: {
+                label: 'Internal Notes (admin)',
+                placeholder: 'Optionally enter internal notes',
             },
         },
         submit: 'Add community',

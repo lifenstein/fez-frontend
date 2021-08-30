@@ -2,20 +2,20 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import locale from 'locale/viewRecord';
-import { viewRecordsConfig, pathConfig } from 'config';
+import { pathConfig, viewRecordsConfig } from 'config';
 import { StandardCard } from 'modules/SharedComponents/Toolbox/StandardCard';
 import {
     AuthorsCitationView,
+    DateCitationView,
     DoiCitationView,
     EditorsCitationView,
-    DateCitationView,
 } from 'modules/SharedComponents/PublicationCitation/components/citations/partials';
 import { ExternalLink } from 'modules/SharedComponents/ExternalLink';
 import ReactHtmlParser from 'react-html-parser';
 import PublicationMap from './PublicationMap';
 import JournalName from './partials/JournalName';
 import { Link } from 'react-router-dom';
-import { CURRENT_LICENCES, NTRO_SUBTYPE_CW_TEXTUAL_WORK } from 'config/general';
+import { CURRENT_LICENCES, NTRO_SUBTYPE_CW_TEXTUAL_WORK, PLACEHOLDER_ISO8601_ZULU_DATE } from 'config/general';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -28,6 +28,12 @@ const styles = theme => ({
         listStyleType: 'none',
         padding: 0,
         margin: 0,
+    },
+    containerPadding: {
+        padding: `${theme.spacing(1)}px 0`,
+        [theme.breakpoints.up('sm')]: {
+            padding: theme.spacing(1),
+        },
     },
 });
 
@@ -67,7 +73,7 @@ export class AdditionalInformationClass extends PureComponent {
     renderRow = (heading, data, index, field) => {
         const labelTestId = `${field.replace(/_/g, '-')}-label`;
         return (
-            <div style={{ padding: 8 }} key={index}>
+            <div className={this.props.classes.containerPadding} key={index}>
                 <Grid
                     container
                     spacing={2}
@@ -162,7 +168,6 @@ export class AdditionalInformationClass extends PureComponent {
         }
 
         const testId = subkey.replace(/_/g, '-');
-
         switch (subkey) {
             case 'rek_doi':
                 return this.renderDoi(data);
@@ -213,6 +218,9 @@ export class AdditionalInformationClass extends PureComponent {
             case 'rek_description':
                 renderedValue = this.renderHTML(value);
                 break;
+            case 'rek_ci_notice_attribution_incomplete':
+                renderedValue = this.renderCulturalInstitutionNotice();
+                break;
             default:
                 renderedValue = value;
         }
@@ -247,12 +255,29 @@ export class AdditionalInformationClass extends PureComponent {
                         <p key={`license_description_line-${index}`}>{line}</p>
                     ))}
                 {licenseLink && (
-                    <div data-testid="rek-license-link">
-                        <ExternalLink href={licenseLink.url} openInNewIcon={!!uqLicenseLinkText}>
-                            {uqLicenseLinkText || <div className={`fez-icon license ${licenseLink.className}`} />}
-                        </ExternalLink>
-                    </div>
+                    <ExternalLink href={licenseLink.url} openInNewIcon={!!uqLicenseLinkText} id="rek-license">
+                        {uqLicenseLinkText || <div className={`fez-icon license ${licenseLink.className}`} />}
+                    </ExternalLink>
                 )}
+            </span>
+        );
+    };
+
+    renderCulturalInstitutionNotice = () => {
+        return (
+            <span>
+                <div
+                    data-testid="fez-icon-cilabel"
+                    className={'fez-icon_cilabel'}
+                    style={{
+                        backgroundImage: `url(${locale.viewRecord.culturalNoticeAI.imagePath})`,
+                        width: 100,
+                        height: 100,
+                    }}
+                />
+                <br />
+                <strong>{locale.viewRecord.culturalNoticeAI.title} - </strong>
+                {locale.viewRecord.culturalNoticeAI.text}
             </span>
         );
     };
@@ -286,7 +311,7 @@ export class AdditionalInformationClass extends PureComponent {
     };
 
     renderDoi = doi => {
-        return <DoiCitationView key="additional-information-doi" doi={doi} />;
+        return doi ? <DoiCitationView key="additional-information-doi" doi={doi} /> : null;
     };
 
     // title/description/abstract have been sanitized in middleware
@@ -325,6 +350,13 @@ export class AdditionalInformationClass extends PureComponent {
         return field.indexOf(keyPrefix) === 0 ? subkeyPrefix + field.substring(keyPrefix.length) : null;
     };
 
+    getCINoticeValue = publication => {
+        return !!publication.rek_ci_notice_attribution_incomplete &&
+            publication.rek_ci_notice_attribution_incomplete === 1
+            ? [true]
+            : null;
+    };
+
     excludeAdminOnlyFields = fields => {
         return fields.filter(item => !locale.viewRecord.adminFields.includes(item.field));
     };
@@ -344,6 +376,7 @@ export class AdditionalInformationClass extends PureComponent {
     renderColumns = () => {
         const rows = [];
         const publication = this.props.publication;
+
         const displayType = publication.rek_display_type_lookup;
         const headings = locale.viewRecord.headings;
         const displayTypeHeadings = displayType && headings[displayType] ? headings[displayType] : [];
@@ -365,9 +398,16 @@ export class AdditionalInformationClass extends PureComponent {
                         value = this.getAbstract(publication);
                         break;
                     case 'rek_date':
-                        value = moment(publication[field]).isSame(moment('1000-01-01T00:00:00Z'))
+                        value = moment(publication[field]).isSame(moment(PLACEHOLDER_ISO8601_ZULU_DATE))
                             ? null
                             : publication[field];
+                        break;
+                    case 'rek_ci_notice_attribution_incomplete':
+                        value = this.getCINoticeValue(publication);
+                        break;
+                    case 'fez_record_search_key_herdc_code':
+                        const subkey = this.transformFieldNameToSubkey(field);
+                        value = publication[field] && publication[field][subkey] !== 0 ? publication[field] : null;
                         break;
                     default:
                         value = publication[field];
@@ -387,7 +427,9 @@ export class AdditionalInformationClass extends PureComponent {
                         data = this.renderContent(field, value);
                     }
 
-                    rows.push(this.renderRow(heading, data, index, subkey || field));
+                    if (data) {
+                        rows.push(this.renderRow(heading, data, index, subkey || field));
+                    }
                 }
             });
 

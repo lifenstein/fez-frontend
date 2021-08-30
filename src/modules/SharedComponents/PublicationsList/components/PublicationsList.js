@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PublicationCitation } from 'modules/SharedComponents/PublicationCitation';
@@ -14,10 +15,16 @@ import { makeStyles } from '@material-ui/styles';
 import BulkUpdatesActions from './BulkUpdatesActions';
 import locale from 'locale/components';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
     root: {
         alignItems: 'center',
         margin: 0,
+    },
+    bulkActionContainer: {
+        [theme.breakpoints.down('xs')]: {
+            paddingLeft: `${theme.spacing(2)}px !important`,
+            marginBottom: theme.spacing(2),
+        },
     },
 }));
 
@@ -35,6 +42,8 @@ export const PublicationsList = ({
     hideCountDiff,
     hideCountTotal,
     publicationsLoading,
+    showImageThumbnails,
+    security,
 }) => {
     const {
         shouldRenderRecordsSelectors,
@@ -45,10 +54,10 @@ export const PublicationsList = ({
     } = useRecordsSelector();
 
     const classes = useStyles();
-
     const renderPublicationCitation = (index, publication) => {
         return (
             <PublicationCitation
+                showImageThumbnails={showImageThumbnails}
                 publicationsLoading={publicationsLoading}
                 key={index + publication.rek_title + publication.rek_date}
                 publication={publication}
@@ -66,61 +75,71 @@ export const PublicationsList = ({
                 hideCountDiff={hideCountDiff}
                 hideCountTotal={hideCountTotal}
                 citationStyle="list"
+                security={security}
             />
         );
     };
-
     const publications = publicationsList.map((publication, index) => {
         return renderPublicationCitation(index, publication);
     });
 
     if (!shouldRenderRecordsSelectors) {
-        return <React.Fragment>{publications}</React.Fragment>;
+        return (
+            <Box id="search-results-publications-list" data-testid="search-results-publications-list">
+                {publications}
+            </Box>
+        );
     }
 
     const handleChange = publication => event => handleClick(publication, event.target.checked);
 
     return (
         <Grid container spacing={1}>
-            <Grid item xs={12}>
-                <Box display="flex" alignItems="center">
-                    <Box flexGrow={1}>
-                        <FormControlLabel
-                            classes={{
-                                root: classes.root,
-                            }}
-                            control={
-                                <Checkbox
-                                    inputProps={{
-                                        'data-testid': 'select-all-publications-input',
-                                        id: 'select-all-publications-input',
-                                    }}
-                                    onChange={handleSelectAll}
-                                    name="select-all-publications"
-                                    color="primary"
-                                    checked={allSelected}
-                                    indeterminate={!allSelected && Object.keys(recordsSelected).length > 0}
-                                />
-                            }
-                            label={
-                                <Typography variant="caption">
-                                    {locale.components.publicationsList.selectAllText}
-                                </Typography>
-                            }
-                        />
-                    </Box>
-                    <Box alignSelf="center">
-                        <BulkUpdatesActions
-                            shouldDisplay={Object.keys(recordsSelected).length > 0}
-                            recordsSelected={recordsSelected}
-                        />
-                    </Box>
+            <Grid item xs={12} sm>
+                <Box display="flex" alignItems="center" height="100%">
+                    <FormControlLabel
+                        classes={{
+                            root: classes.root,
+                        }}
+                        control={
+                            <Checkbox
+                                inputProps={{
+                                    'data-testid': 'select-all-publications-input',
+                                    id: 'select-all-publications-input',
+                                }}
+                                onChange={handleSelectAll}
+                                name="select-all-publications"
+                                color="primary"
+                                checked={allSelected}
+                                indeterminate={!allSelected && Object.keys(recordsSelected).length > 0}
+                            />
+                        }
+                        label={
+                            <Typography variant="caption">
+                                {locale.components.publicationsList.selectAllText}
+                            </Typography>
+                        }
+                    />
+                </Box>
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                sm
+                className={classes.bulkActionContainer}
+                style={{ display: Object.keys(recordsSelected).length > 0 ? '' : 'none' }}
+            >
+                <Box display="flex" alignItems="center" height="100%">
+                    <BulkUpdatesActions
+                        shouldDisplay={Object.keys(recordsSelected).length > 0}
+                        recordsSelected={recordsSelected}
+                    />
                 </Box>
             </Grid>
             <Grid item xs={12}>
                 {publicationsList.map((publication, index) => (
                     <Grid container spacing={0} alignItems="flex-start" key={`publication-${index}`}>
-                        <Grid item xs={1}>
+                        <Grid item xs={2} sm={1}>
                             <Checkbox
                                 inputProps={{
                                     'data-testid': `select-publication-${index}-input`,
@@ -132,7 +151,7 @@ export const PublicationsList = ({
                                 checked={recordsSelected.hasOwnProperty(publication.rek_pid)}
                             />
                         </Grid>
-                        <Grid item xs={11}>
+                        <Grid item xs={10} sm={11}>
                             {renderPublicationCitation(index, publication)}
                         </Grid>
                     </Grid>
@@ -156,6 +175,8 @@ PublicationsList.propTypes = {
     hideCountDiff: PropTypes.bool,
     hideCountTotal: PropTypes.bool,
     publicationsLoading: PropTypes.bool,
+    showImageThumbnails: PropTypes.bool,
+    security: PropTypes.object,
 };
 
 PublicationsList.defaultProps = {
@@ -168,6 +189,8 @@ PublicationsList.defaultProps = {
     showMetrics: false,
     showUnpublishedBufferFields: false,
     hideCountDiff: false,
+    security: { isAdmin: false, isAuthor: false },
+    showImageThumbnails: false,
 };
 
 export default React.memo(PublicationsList);

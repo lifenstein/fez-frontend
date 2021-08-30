@@ -40,7 +40,7 @@ export default class NewspaperArticleForm extends Component {
                                     type="text"
                                     fullWidth
                                     multiline
-                                    rows={1}
+                                    rows={3}
                                     {...txt.information.fieldLabels.documentTitle}
                                     validate={[validation.required]}
                                 />
@@ -63,8 +63,6 @@ export default class NewspaperArticleForm extends Component {
                                     type="text"
                                     fullWidth
                                     {...txt.information.fieldLabels.startPage}
-                                    required
-                                    validate={[validation.required]}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={3}>
@@ -75,8 +73,6 @@ export default class NewspaperArticleForm extends Component {
                                     type="text"
                                     fullWidth
                                     {...txt.information.fieldLabels.endPage}
-                                    required
-                                    validate={[validation.required]}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>

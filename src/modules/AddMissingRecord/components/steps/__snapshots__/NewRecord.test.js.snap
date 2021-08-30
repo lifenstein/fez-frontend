@@ -65,7 +65,7 @@ exports[`Add new record should render alert about file uploading or issue error 
       Object {
         "currentAuthor": Array [
           Object {
-            "authorId": "",
+            "authorId": 1,
             "nameAsPublished": "",
           },
         ],
@@ -595,7 +595,6 @@ exports[`Add new record should render the confirm dialog with an alert for faile
           }
           className="MuiDialog-root"
           closeAfterTransition={true}
-          disableBackdropClick={false}
           disableEscapeKeyDown={false}
           open={false}
           style={

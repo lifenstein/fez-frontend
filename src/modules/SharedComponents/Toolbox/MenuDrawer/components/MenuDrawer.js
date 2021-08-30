@@ -80,9 +80,12 @@ const styles = theme => {
         },
         ListItemTextSecondary: {
             ...theme.typography.caption,
+            textOverflow: 'ellipsis',
+            overflowX: 'hidden',
+            whiteSpace: 'nowrap',
         },
         mainMenuFooter: {
-            paddingLeft: '12px',
+            textAlign: 'center',
             paddingBottom: '12px',
             fontSize: theme.typography.caption.fontSize,
             color: theme.palette.secondary.main,
@@ -159,6 +162,7 @@ export class MenuDrawer extends Component {
                         button
                         onClick={this.navigateToLink.bind(this, menuItem.linkTo, menuItem.target)}
                         id={`menu-item-${index}`}
+                        className={this.props.classes.ListItem}
                     >
                         <ListItemText
                             classes={{
@@ -167,6 +171,7 @@ export class MenuDrawer extends Component {
                             }}
                             primary={menuItem.primaryText}
                             secondary={menuItem.secondaryText}
+                            id={`menu-itemText-${menuItem.elementId ?? index}`}
                         />
                     </ListItem>
                 </span>
@@ -208,6 +213,7 @@ export class MenuDrawer extends Component {
                                 <Grid item xs={10} sm={12} zeroMinWidth>
                                     {logoImage && logoLink && logoText && (
                                         <ExternalLink
+                                            id="main-menu-logo"
                                             href={logoLink}
                                             title={logoText}
                                             openInNewIcon={false}
@@ -224,7 +230,11 @@ export class MenuDrawer extends Component {
                                 </Grid>
                                 <Hidden smUp>
                                     <Grid item xs={2}>
-                                        <IconButton onClick={onToggleDrawer} aria-label={locale.closeMenuLabel}>
+                                        <IconButton
+                                            onClick={onToggleDrawer}
+                                            aria-label={locale.closeMenuLabel}
+                                            size="small"
+                                        >
                                             <KeyboardArrowLeft className={classes.iconButton} />
                                         </IconButton>
                                     </Grid>
@@ -256,7 +266,12 @@ export class MenuDrawer extends Component {
                         <div id="afterMenuDrawer" tabIndex={-1} />
                         <div className={classes.mainMenuFooter}>
                             {txt.cricos.prefix}
-                            <ExternalLink href={txt.cricos.link} title={txt.cricos.prefix} openInNewIcon={false}>
+                            <ExternalLink
+                                href={txt.cricos.link}
+                                title={txt.cricos.prefix}
+                                openInNewIcon={false}
+                                id="cricos"
+                            >
                                 {txt.cricos.number}
                             </ExternalLink>
                         </div>

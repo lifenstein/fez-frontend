@@ -8,8 +8,10 @@ import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
-import { AuthorsPublicationsPerYearChart } from 'modules/SharedComponents/Toolbox/Charts';
-import { AuthorsPublicationTypesCountChart } from 'modules/SharedComponents/Toolbox/Charts';
+import {
+    AuthorsPublicationsPerYearChart,
+    AuthorsPublicationTypesCountChart,
+} from 'modules/SharedComponents/Toolbox/Charts';
 import { Alert } from 'modules/SharedComponents/Toolbox/Alert';
 import { InlineLoader } from 'modules/SharedComponents/Toolbox/Loaders';
 import { StandardCard } from 'modules/SharedComponents/Toolbox/StandardCard';
@@ -24,6 +26,7 @@ import { pathConfig } from 'config/pathConfig';
 import locale from 'locale/pages';
 
 import { mui1theme as theme } from 'config';
+import { withIsMobileView } from '../../../hooks';
 
 export const styles = theme => ({
     tabs: {
@@ -52,9 +55,9 @@ export const styles = theme => ({
  *
  * @param {number} iteration
  */
-export const fibonacci = iteration => {
+export const fibonacci = (iteration, from = 0) => {
     let a = 1;
-    let b = 0;
+    let b = from;
     let temp;
     let num = iteration;
 
@@ -70,6 +73,7 @@ export const fibonacci = iteration => {
 
 export class DashboardClass extends PureComponent {
     static propTypes = {
+        isMobileView: PropTypes.bool,
         // account data
         account: PropTypes.object.isRequired,
         authorDetails: PropTypes.object,
@@ -107,6 +111,7 @@ export class DashboardClass extends PureComponent {
         orcidSyncStatus: PropTypes.object,
         requestingOrcidSync: PropTypes.bool,
         orcidSyncEnabled: PropTypes.bool,
+        loadOrcidSyncDelay: PropTypes.number,
     };
 
     constructor(props) {
@@ -118,7 +123,10 @@ export class DashboardClass extends PureComponent {
     }
 
     componentDidMount() {
-        if (this.props.account && this.props.account.id) {
+        // eslint-disable-next-line camelcase
+        if (this.props.account && this.props.account.id && this.props.author?.aut_id) {
+            // eslint-disable-next-line camelcase
+            // don't call the api for non author users since the api call requires an author
             this.props.actions.countPossiblyYourPublications(this.props.account.id);
             this.props.actions.loadAuthorPublicationsStats(this.props.account.id, this.props.authorDetails);
             !this.props.incomplete.publicationsList.length &&
@@ -147,18 +155,23 @@ export class DashboardClass extends PureComponent {
             {
                 orcidSyncStatusRefreshCount: this.state.orcidSyncStatusRefreshCount + 1,
             },
-            () => this._loadOrcidSync(fibonacci(this.state.orcidSyncStatusRefreshCount) * 1000),
+            () => this._loadOrcidSync(fibonacci(this.state.orcidSyncStatusRefreshCount, 1)),
         );
 
-    _loadOrcidSync = (waitTime = 0) =>
-        global.setTimeout(() => {
-            !this.props.loadingOrcidSyncStatus &&
-                this.props.orcidSyncEnabled &&
-                (this.props.orcidSyncStatus === null || !!waitTime) &&
-                this.props.actions &&
-                this.props.actions.loadOrcidSyncStatus &&
-                this.props.actions.loadOrcidSyncStatus();
-        }, waitTime);
+    _loadOrcidSync = (waitTime = 1) => {
+        // considering loadOrcidSyncDelay props, we have to clear any previously scheduled requests
+        !!this.state.lastOrcidSyncScheduledRequest && global.clearTimeout(this.state.lastOrcidSyncScheduledRequest);
+        this.setState({
+            lastOrcidSyncScheduledRequest: global.setTimeout(() => {
+                !this.props.loadingOrcidSyncStatus &&
+                    this.props.orcidSyncEnabled &&
+                    (this.props.orcidSyncStatus === null || !!waitTime) &&
+                    this.props.actions &&
+                    this.props.actions.loadOrcidSyncStatus &&
+                    this.props.actions.loadOrcidSyncStatus();
+            }, waitTime * this.props.loadOrcidSyncDelay * 1000),
+        });
+    };
 
     _claimYourPublications = () => {
         this.props.history.push(pathConfig.records.possible);
@@ -215,15 +228,21 @@ export class DashboardClass extends PureComponent {
         const { classes } = this.props;
         const txt = locale.pages.dashboard;
         const loading =
-            this.props.loadingPublicationsByYear ||
-            this.props.accountAuthorDetailsLoading ||
-            this.props.loadingPublicationsStats;
+            // nothing to load for non author users
+            // eslint-disable-next-line camelcase
+            !!this.props.author?.aut_id &&
+            (this.props.loadingPublicationsByYear ||
+                this.props.accountAuthorDetailsLoading ||
+                this.props.loadingPublicationsStats);
         const userHasPublications =
             this.props.authorDetails &&
             this.props.authorDetails.espace &&
             this.props.authorDetails.espace.doc_count > 0;
         const barChart =
-            !loading && this.props.publicationsByYear && this.props.publicationsByYear.series.length > 0 ? (
+            !loading &&
+            !this.props.isMobileView &&
+            this.props.publicationsByYear &&
+            this.props.publicationsByYear.series.length > 0 ? (
                 <StandardCard
                     className="barChart"
                     title={txt.publicationsByYearChart.title}
@@ -238,7 +257,10 @@ export class DashboardClass extends PureComponent {
                 </StandardCard>
             ) : null;
         const donutChart =
-            !loading && this.props.publicationTypesCount && this.props.publicationTypesCount.length > 0 ? (
+            !loading &&
+            !this.props.isMobileView &&
+            this.props.publicationTypesCount &&
+            this.props.publicationTypesCount.length > 0 ? (
                 <StandardCard
                     fullHeight
                     noPadding
@@ -470,5 +492,9 @@ export class DashboardClass extends PureComponent {
     }
 }
 
-const Dashboard = withStyles(styles, { withTheme: true })(DashboardClass);
+DashboardClass.defaultProps = {
+    loadOrcidSyncDelay: 5,
+};
+
+const Dashboard = withStyles(styles, { withTheme: true })(withIsMobileView()(DashboardClass));
 export default Dashboard;

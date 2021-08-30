@@ -4,8 +4,10 @@ import LockIcon from '@material-ui/icons/Lock';
 import Typography from '@material-ui/core/Typography';
 
 import { StandardCard } from 'modules/SharedComponents/Toolbox/StandardCard';
+import OpenInNew from '@material-ui/icons/OpenInNew';
 
 import locale from 'locale/components';
+import globalLocale from './global';
 
 import { pathConfig } from 'config/pathConfig';
 import { DOI_CROSSREF_PREFIX, DOI_DATACITE_PREFIX, PUBLICATION_TYPE_DATA_COLLECTION } from '../config/general';
@@ -27,6 +29,9 @@ help: {
 - text can be plain or formatted HTML component with links/tags/etc
 - if help is not required, delete help: {} fully (including closing '},')
 
+[LS 31-3-22] Inlined external link styles because the ExternalLink component would not compile in this context.
+As the contact details changes are only temporary I think this is an ok (not great) approach to display the external link icon.
+
 */
 /* eslint-disable max-len */
 export default {
@@ -34,51 +39,100 @@ export default {
         index: {
             title: 'eSpace',
         },
-        contact: {
-            title: 'Contact UQ eSpace',
+        about: {
             children: (
-                <StandardCard>
-                    <h3>General Enquiries</h3>
-                    <p>
-                        Tel: 07 334 69981 <br />
-                        Email: <a href="mailto:espace@library.uq.edu.au">espace@library.uq.edu.au</a>
-                        <br />
-                    </p>
-                    <p>
-                        Due to COVID-19 measures the phones may not always be monitored by on-site staff. Please email
-                        us for assistance if you are unable to reach us.
-                    </p>
-                    <h3>About UQ eSpace</h3>
-                    The University of Queensland's institutional repository, UQ eSpace, aims to create global visibility
-                    and accessibility of UQ’s scholarly research by:
-                    <ul>
-                        <li>Enhancing discovery of UQ research via search engines such as Google and Trove</li>
-                        <li>
-                            Allowing researchers to deposit scholarly works, datasets and open access materials and to
-                            view associated metrics
-                        </li>
-                        <li>
-                            Maintaining a complete and accurate collection of all UQ scholarly works and data sets that
-                            feeds into central UQ systems including UQ Researchers and the Academic Portal
-                        </li>
-                        <li>
-                            Enabling government reporting such as Australian Research Council’s Excellence in Research
-                            for Australia and the Engagement and Impact Assessment
-                        </li>
-                        <li>Supporting the deposit of open access works to make UQ research globally accessible</li>
-                        <li>
-                            Preserving and making digitised materials accessible to the world including HDR theses,
-                            photographs, audio materials, videos, manuscripts and other original works.
-                        </li>
-                    </ul>
-                    <p>
-                        You can also read the{' '}
-                        <a href="https://espace.library.uq.edu.au/view/UQ:295655/eSpaceScopeandPolicy.pdf">
-                            UQ eSpace Scope and Policy
-                        </a>
-                        .
-                    </p>
-                </StandardCard>
+                <React.Fragment>
+                    <StandardCard noHeader>
+                        <h3>General Enquiries</h3>
+                        <p>
+                            For assistance or technical issues please email:{' '}
+                            <a href="mailto:espace@library.uq.edu.au">espace@library.uq.edu.au</a>
+                            <br />
+                        </p>
+                        <p>
+                            You can also view our{' '}
+                            <a
+                                href="https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="externalLink"
+                                title={
+                                    globalLocale.global.linkWillOpenInNewWindow.replace(
+                                        '[destination]',
+                                        'https://guides.library.uq.edu.au/for-researchers/uqespace-publications-datasets',
+                                    ) || undefined
+                                }
+                                tabIndex="0"
+                            >
+                                <OpenInNew className="externalLinkIcon" /> online guide
+                            </a>
+                            .
+                        </p>
+                        <h3>About UQ eSpace</h3>
+                        The University of Queensland's institutional repository, UQ eSpace, aims to create global
+                        visibility and accessibility of UQ’s scholarly research by:
+                        <ul>
+                            <li>Enhancing discovery of UQ research via search engines such as Google and Trove</li>
+                            <li>
+                                Allowing researchers to deposit scholarly works, datasets and open access materials and
+                                to view associated metrics
+                            </li>
+                            <li>
+                                Maintaining a complete and accurate collection of all UQ scholarly works and data sets
+                                that feeds into central UQ systems including UQ Researchers and the Academic Portal
+                            </li>
+                            <li>
+                                Enabling government reporting such as Australian Research Council’s Excellence in
+                                Research for Australia and the Engagement and Impact Assessment
+                            </li>
+                            <li>Supporting the deposit of open access works to make UQ research globally accessible</li>
+                            <li>
+                                Preserving and making digitised materials accessible to the world including HDR theses,
+                                photographs, audio materials, videos, manuscripts and other original works.
+                            </li>
+                        </ul>
+                        <p>
+                            You can also read the{' '}
+                            <a href="https://espace.library.uq.edu.au/view/UQ:295655/eSpaceScopeandPolicy.pdf">
+                                UQ eSpace Scope and Policy
+                            </a>
+                            .
+                        </p>
+                        <h3>Cultural Institution (CI) Notices</h3>
+                        <p>
+                            The CI Notices are used by collecting institutions, data repositories and organisations who
+                            engage in collaborative curation with Indigenous and other marginalised communities who have
+                            been traditionally excluded from processes of documentation and record keeping. There are
+                            two Notices that can be used in these contexts:
+                        </p>
+                        <div style={{ display: 'inline-block', clear: 'both' }}>
+                            <img
+                                style={{ display: 'block', float: 'left', padding: '0 10px 10px 0' }}
+                                width={100}
+                                src={locale.components.culturalNoticeOC.imagePath}
+                                alt={locale.components.culturalNoticeOC.title}
+                            />
+
+                            <p style={{ marginLeft: 110, marginTop: 0 }}>
+                                <strong>{locale.components.culturalNoticeOC.title}: </strong>
+                                {locale.components.culturalNoticeOC.text}
+                            </p>
+                        </div>
+                        <div style={{ display: 'inline-block', clear: 'both' }}>
+                            <img
+                                style={{ display: 'block', float: 'left', padding: '0 10px 10px 0' }}
+                                width={100}
+                                src={locale.components.culturalNoticeAI.imagePath}
+                                alt={locale.components.culturalNoticeAI.title}
+                            />
+
+                            <p style={{ marginLeft: 110, marginTop: 0 }}>
+                                <strong>{locale.components.culturalNoticeAI.title}: </strong>
+                                {locale.components.culturalNoticeAI.text}
+                            </p>
+                        </div>
+                    </StandardCard>
+                </React.Fragment>
             ),
         },
         browse: {
@@ -182,7 +236,6 @@ export default {
                     orcidLinkPrefix: ' orcid.org/',
                     orcidlinkLabel: 'Click to visit your ORCID profile',
                     titles: {
-                        publons: 'Publons',
                         scopus: 'Scopus',
                         researcher: 'Researcher (ISI)',
                         google_scholar: 'Google Scholar',
@@ -190,14 +243,12 @@ export default {
                     },
                     links: {
                         linkedUrl: {
-                            publons: 'https://publons.com/author/',
                             scopus: 'http://www.scopus.com/authid/detail.url?authorId=',
-                            researcher: 'http://www.researcherid.com/rid/',
+                            researcher: 'https://www.webofscience.com/wos/author/rid/',
                             google_scholar: 'https://scholar.google.com.au/citations?user=',
                             orcid: 'https://orcid.org/',
                         },
                         notLinkedUrl: {
-                            publons: 'http://guides.library.uq.edu.au/for-researchers/researcher-identifier/publons',
                             scopus:
                                 'http://guides.library.uq.edu.au/for-researchers/researcher-identifier/scopus-authorid',
                             researcher:
@@ -528,22 +579,85 @@ export default {
                     </div>
                 ),
             },
+            version: {
+                title: 'View Version',
+                alert: {
+                    version: {
+                        type: 'info_outline',
+                        title: '',
+                        message: (record, isDeletedVersion = false) => (
+                            <>
+                                You are looking at version <b>{record.rek_version}</b> of{' '}
+                                {isDeletedVersion ? <b>deleted</b> : ''} record <b>{record.rek_pid}</b>
+                            </>
+                        ),
+                        alertId: 'alert-info',
+                    },
+                    warning: {
+                        type: 'warning',
+                        title: '',
+                        message:
+                            "Note: reference values (lookups) might not be accurate as we don't keep history of these, only for the record's data.",
+                        alertId: 'alert-warning',
+                    },
+                },
+            },
+            adminRecordData: {
+                drawer: {
+                    title: 'Record Data',
+
+                    sectionTitles: {
+                        notes: 'Notes',
+                        authorAffiliations: 'Has Author Affiliations?',
+                        wosId: 'WoS ID',
+                        wosDocType: 'WoS Doc Type',
+                        scopusId: 'Scopus ID',
+                        scopusDocType: 'Scopus Doc Type',
+                        pubmedId: 'Pubmed ID',
+                        pubmedCentralId: 'Pubmed Central ID',
+                        pubmedDocType: 'Pubmed Doc Type',
+                    },
+                },
+                clipboard: {
+                    unavailable: 'Clipboard unavailable',
+                    copied: 'Copied to clipboard',
+                },
+            },
         },
         searchRecords: {
             title: 'eSpace search',
             loadingMessage: 'Searching for works',
             recordCount: 'Displaying works [recordsFrom] to [recordsTo] of [recordsTotal] total works. ',
             bulkExportSizeMessage: 'The export will have the first [bulkExportSize] works.',
+            bulkExport: {
+                buttonText: 'Bulk Export',
+                sizeMessage: 'Each export will have [bulkExportSize] works. Use the links below to queue exports.',
+                successMessage:
+                    'Bulk export requests have been queued. When the requests have been processed, ' +
+                    'you will receive an email for each request with the exported file as an attachment.',
+                rowLabel: 'Export works [start] to [end]',
+            },
             loadingPagingMessage: 'Searching for works',
             exportPublicationsLoadingMessage: 'Exporting search results',
             noResultsFound: {
                 title: 'No works found',
                 text: <div>We were unable to find any results.</div>,
+                standardCardId: 'search-records-no-results',
             },
             facetsFilter: {
                 ...locale.components.facetsFilter,
                 excludeFacetsList: ['Scopus document type', 'Genre', 'Year published', 'Published year range'],
             },
+            errorAlert: {
+                type: 'error_outline',
+                title: 'Error',
+                message: message => message,
+                alertId: 'alert-error',
+            },
+        },
+        searchJournals: {
+            title: 'Journal search',
+            loadingMessage: 'Searching for journals',
             errorAlert: {
                 type: 'error_outline',
                 title: 'Error',
@@ -568,6 +682,12 @@ export default {
                 cancelButtonLabel: 'No',
                 confirmButtonLabel: 'Yes',
             },
+        },
+        communityList: {
+            title: 'List of Communities',
+        },
+        collectionList: {
+            title: 'List of Collections',
         },
         masquerade: {
             title: 'Masquerade',
@@ -896,9 +1016,15 @@ export default {
                 missingRequiredField: 'Required field [FIELDNAME] is either missing or invalid.',
                 unsupportedMessage: 'Sorry, type [TYPE] is not currently supported.',
                 uqCheckMessage: '[FIELDNAME] should contain "The University of Queensland".',
-                uqIsNotPublisher: 'This work does not appear to be published by The University of Queensland.',
+                uqIsNotPublisher: '[SUBJECT] does not appear to be have an UQ DOI',
                 warningTitle: 'Please note:',
                 wrongSubtype: 'Sorry, only the following subytypes are supported for [TYPE]: [SUBTYPES]',
+                bookChapter: {
+                    parent: {
+                        missing: "Sorry, this book chapter doesn't seem to belong to a existing book",
+                    },
+                },
+                rccDataset: 'RCC Datasets are not allowed.',
             },
             cancelButtonLabel: 'Cancel',
             confirmButtonLabel: hasDoi => (hasDoi ? 'Update DOI' : 'Create DOI'),
@@ -957,6 +1083,12 @@ export default {
                 security: {
                     title: 'Security',
                 },
+                reason: {
+                    title: 'Reason for Edit',
+                },
+                culturalInstitutionNotice: {
+                    title: 'Cultural Institution (CI) Notice',
+                },
             },
             help: {
                 tooltip: 'Learn about keyboard shortcuts',
@@ -993,7 +1125,7 @@ export default {
             },
             loadingMessage: 'Loading work',
             notSupportedMessage: 'Editing of [pubType] is not yet supported.',
-            retractedMessage: 'This article has been retracted',
+            retractedMessage: 'This work has been retracted',
             community: {
                 title: 'Edit community',
                 loadingMessage: 'Loading community',
@@ -1137,6 +1269,16 @@ export default {
                     message: 'Unable to load journal details',
                     type: 'error_outline',
                 },
+                favouriteTooltip: {
+                    isFavourite: 'Remove journal from your favourites',
+                    isNotFavourite: 'Add journal to your favourites',
+                },
+                errorAlert: {
+                    type: 'error_outline',
+                    title: 'Error',
+                    message: message => message,
+                    alertId: 'alert-error',
+                },
             },
         },
         authors: {
@@ -1146,6 +1288,20 @@ export default {
         users: {
             title: 'Manage users',
             loadingMessage: 'Loading users',
+        },
+        journals: {
+            search: {
+                title: 'Strategic publishing search',
+            },
+            results: {
+                title: 'Strategic publishing results',
+            },
+            compare: {
+                title: 'Strategic publishing compare',
+            },
+            favourites: {
+                title: 'Strategic publishing favourites',
+            },
         },
     },
 };

@@ -1,20 +1,23 @@
-import { validation, openAccessConfig } from 'config';
+import { openAccessConfig, validation } from 'config';
 import {
     IN_CREATION,
     IN_DRAFT,
     IN_REVIEW,
-    UNPUBLISHED,
+    PUB_SEARCH_BULK_EXPORT_SIZE,
     RETRACTED,
     SUBMITTED_FOR_APPROVAL,
-    PUB_SEARCH_BULK_EXPORT_SIZE,
+    UNPUBLISHED,
 } from 'config/general';
 import param from 'can-param';
+import locale from 'locale/components';
+import { doesListContainItem } from 'helpers/general';
+import { sanitizeDoi } from '../config/validation';
 
 export const zeroPaddedYear = value => (value ? ('0000' + value).substr(-4) : '*');
 
 /**
  * Translate selected facets to query string parameters
- * @param {object} selected facets
+ * @param {object}  facets
  * @returns {object}
  */
 export const getFacetsParams = facets => {
@@ -76,7 +79,7 @@ export const getSearchType = searchQuery => {
     if (!searchQuery) return {};
 
     if (validation.isValidDOIValue(searchQuery)) {
-        return { doi: searchQuery.trim() };
+        return { doi: sanitizeDoi(searchQuery) };
     }
 
     if (validation.isValidPubMedValue(searchQuery)) {
@@ -84,6 +87,39 @@ export const getSearchType = searchQuery => {
     }
 
     return { title: searchQuery };
+};
+
+export const getValidPageSize = (defaultSize, pageSize) => {
+    let validPageSize = 10;
+    if (doesListContainItem(defaultSize, +pageSize)) {
+        validPageSize = +pageSize;
+    } else {
+        /* istanbul ignore else */
+        if (!!locale.components?.favouriteJournals?.sortingDefaults?.pageSize) {
+            validPageSize = locale.components.favouriteJournals.sortingDefaults.pageSize;
+        } else {
+            // last chance to get a value from config
+            try {
+                validPageSize = defaultSize[0];
+            } catch (e) {
+                validPageSize = 10;
+            }
+        }
+    }
+    return validPageSize;
+};
+
+export const getCCParams = ({ pid, exportPublicationsFormat, ...params }) => {
+    const exportParams = !!exportPublicationsFormat ? { export_to: exportPublicationsFormat } : {};
+    const pidParams = !!pid ? { pid } : {};
+    return {
+        per_page: params.pageSize,
+        page: params.page,
+        order_by: !!exportPublicationsFormat ? params.sortDirection : params.direction,
+        sort: params.sortBy,
+        ...pidParams,
+        ...exportParams,
+    };
 };
 
 export const CURRENT_ACCOUNT_API = () => ({
@@ -143,7 +179,6 @@ export const ACADEMIC_STATS_PUBLICATION_HINDEX_API = ({ userId }) => ({ apiUrl: 
 export const AUTHOR_TRENDING_PUBLICATIONS_API = () => ({ apiUrl: 'records/my-trending' });
 
 // lookup apis
-export const GET_NEWS_API = () => ({ apiUrl: 'fez-news' });
 export const VOCABULARIES_API = ({ id }) => ({ apiUrl: `vocabularies?cvo_ids=${id}` });
 export const GET_PUBLICATION_TYPES_API = () => ({ apiUrl: 'records/types' });
 export const JOURNAL_LOOKUP_API = ({ query }) => ({
@@ -156,6 +191,9 @@ export const FILE_UPLOAD_API = () => ({ apiUrl: 'file/upload/presigned' });
 // create/patch record apis
 export const NEW_RECORD_API = () => ({ apiUrl: 'records' });
 
+// create/patch record apis
+export const CLAIM_PRE_CHECK = () => ({ apiUrl: 'external/records/claim/pre-check' });
+
 export const NEW_COLLECTION_API = () => ({ apiUrl: 'collections' });
 
 export const NEW_COMMUNITY_API = () => ({ apiUrl: 'communities' });
@@ -164,9 +202,35 @@ export const EXISTING_RECORD_API = ({ pid, isEdit }) => ({
     apiUrl: `records/${pid}${isEdit ? '?from=admin-form' : ''}`,
 });
 
+export const EXISTING_RECORD_HISTORY_API = ({ pid }) => ({
+    apiUrl: `records/${pid}/history`,
+});
+export const EXISTING_RECORD_VERSION_API = (pid, version) => ({
+    apiUrl: `records/${pid}/${version}`,
+});
+
 export const EXISTING_COLLECTION_API = ({ pid }) => ({ apiUrl: `records/${pid}` });
 
 export const EXISTING_COMMUNITY_API = ({ pid }) => ({ apiUrl: `records/${pid}` });
+
+// Communities and Collections
+export const COMMUNITY_LIST_API = config => {
+    const params = getCCParams(config);
+    return {
+        apiUrl: 'communities',
+        options: { params },
+    };
+};
+export const COLLECTION_LIST_API = (config, action = null) => {
+    const params = getCCParams(config);
+    const pid = params.pid;
+    action !== 'export' && delete params.pid;
+
+    return {
+        apiUrl: `communities/${pid}/collections`,
+        options: { params },
+    };
+};
 
 export const RECORDS_ISSUES_API = ({ pid }) => ({ apiUrl: `records/${pid}/issues` });
 
@@ -294,10 +358,13 @@ export const SEARCH_INTERNAL_RECORDS_API = (query, route = 'search') => {
     }
 
     const exportParams = {};
-    if (route === 'export' && query.pageSize === PUB_SEARCH_BULK_EXPORT_SIZE) {
+    if (route === 'export') {
+        // && query.pageSize === PUB_SEARCH_BULK_EXPORT_SIZE) {
         // eslint-disable-next-line no-unused-vars
         const { exportPublicationsFormat, ...queryValuesToSend } = query;
-        exportParams.querystring = encodeURIComponent(param(queryValuesToSend));
+        if (query.pageSize === PUB_SEARCH_BULK_EXPORT_SIZE) {
+            exportParams.querystring = encodeURIComponent(param(queryValuesToSend));
+        }
     }
 
     return {
@@ -427,4 +494,93 @@ export const USER_API = ({ userId, userIds } = { userId: undefined, userIds: und
     }
 
     return { apiUrl: 'fez-users' };
+};
+
+export const JOURNAL_KEYWORDS_LOOKUP_API = ({ query }) => ({
+    apiUrl: `journals/search?query=${query}`,
+});
+
+/**
+ * Construct keywords query as per API requirement
+ *
+ * @param {Object} keywords
+ * @returns
+ */
+export const getKeywordsParams = keywords => {
+    if (!!keywords && Object.values(keywords).length > 0) {
+        const title = [];
+        const description = [];
+        const subject = [];
+        Object.keys(keywords).map(item => {
+            switch (keywords[item].type) {
+                case 'Title':
+                    title.push(keywords[item].text);
+                    break;
+                case 'Keyword':
+                    description.push(keywords[item].text);
+                    break;
+                case 'Subject':
+                    subject.push(keywords[item].cvoId);
+                    break;
+                default:
+                    break;
+            }
+        });
+        return {
+            title: [...title],
+            description: [...description],
+            subject: [...subject],
+        };
+    } else {
+        return {};
+    }
+};
+
+export const JOURNAL_SEARCH_API = query => {
+    const { pageSize, sortBy, sortDirection } = {
+        ...locale.components.searchJournals.sortingDefaults,
+        ...query,
+    };
+
+    const validPageSize = getValidPageSize(locale.components.sorting.recordsPerPage, pageSize);
+
+    return {
+        apiUrl: 'journals/search',
+        options: {
+            params: {
+                ...getKeywordsParams(query?.keywords),
+                ...getStandardSearchParams({
+                    ...query,
+                    facets: query?.activeFacets,
+                    pageSize: validPageSize,
+                    sortBy,
+                    sortDirection,
+                }),
+            },
+        },
+    };
+};
+
+export const JOURNAL_FAVOURITES_API = ({ append, query } = {}) => {
+    const { pageSize } = {
+        ...locale.components.favouriteJournals.sortingDefaults,
+        ...query,
+    };
+
+    const validPageSize = getValidPageSize(locale.components.sorting.recordsPerPage, pageSize);
+
+    const params = {
+        apiUrl: 'journals/favourites' + (!!append ? `/${append}` : ''),
+    };
+
+    if (query) {
+        params.options = {
+            params: {
+                ...getKeywordsParams(query.keywords),
+                ...getStandardSearchParams({ ...query, facets: query.activeFacets, pageSize: validPageSize }),
+            },
+        };
+    }
+
+    return params;
 };

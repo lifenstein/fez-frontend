@@ -1,6 +1,6 @@
 import orange from '@material-ui/core/colors/orange';
 import red from '@material-ui/core/colors/red';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import { createTheme } from '@material-ui/core/styles';
 import createPalette from '@material-ui/core/styles/createPalette';
 
 const palette = createPalette({
@@ -53,7 +53,7 @@ const palette = createPalette({
     },
 });
 
-export const mui1theme = createMuiTheme({
+export const mui1theme = createTheme({
     palette: palette,
     status: {
         danger: red[500],
@@ -73,6 +73,14 @@ export const mui1theme = createMuiTheme({
                 overflow: 'hidden',
                 width: '100%',
                 textOverflow: 'ellipsis',
+                lineHeight: 'normal',
+            },
+        },
+        MuiInput: {
+            formControl: {
+                'label + &': {
+                    marginTop: 17,
+                },
             },
         },
         MuiMenuItem: {
@@ -119,7 +127,7 @@ export const mui1theme = createMuiTheme({
     },
 });
 
-export const adminTheme = createMuiTheme({
+export const adminTheme = createTheme({
     palette: palette,
     overrides: {
         MuiFormLabel: {

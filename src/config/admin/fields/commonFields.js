@@ -12,6 +12,10 @@ export default {
             groups: [['advisoryStatement']],
         },
         {
+            title: 'Sensitive Handling Note',
+            groups: [['sensitiveHandlingNote']],
+        },
+        {
             title: isDataset ? 'Deposit agreement' : 'Copyright agreement',
             groups: [['rek_copyright']],
         },
@@ -90,6 +94,10 @@ export default {
         {
             title: 'HERDC notes',
             groups: [['rek_herdc_notes']],
+        },
+        {
+            title: 'Cultural Institute (CI) Notice',
+            groups: [['rek_ci_notice_attribution_incomplete']],
         },
     ],
 };

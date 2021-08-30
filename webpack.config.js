@@ -2,11 +2,11 @@
 
 const chalk = require('chalk');
 const { resolve, join } = require('path');
+const path = require('path');
 const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const InjectPreloader = require('preloader-html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const port = 3000;
@@ -35,24 +35,26 @@ module.exports = {
         publicPath: `http://${url}:${port}/${publicPath}`,
     },
     devServer: {
-        clientLogLevel: 'info',
+        allowedHosts: 'all',
         compress: true,
-        contentBase: __dirname,
         headers: { 'X-Custom-Header': 'yes' },
         historyApiFallback: true,
         host: url,
         hot: true,
         https: false,
-        inline: true,
-        lazy: false,
-        noInfo: true,
         open: false,
         port: port,
-        publicPath: `/${publicPath}`,
-        quiet: false,
-        stats: 'errors-only',
-        watchContentBase: false,
-        disableHostCheck: true,
+        client: {
+            logging: 'info',
+        },
+        devMiddleware: {
+            publicPath: `/${publicPath}`,
+            stats: 'errors-only',
+        },
+        static: {
+            directory: path.join(__dirname, 'public'),
+            watch: false,
+        },
     },
     module: {
         rules: [
@@ -78,6 +80,11 @@ module.exports = {
                         ],
                     },
                 },
+            },
+            {
+                test: /\.js$/,
+                include: /node_modules/,
+                use: 'react-hot-loader/webpack',
             },
             {
                 test: /\.json$/,
@@ -120,10 +127,7 @@ module.exports = {
             )} (It took :elapsed seconds to build)\n`,
             clear: false,
         }),
-        new InjectPreloader(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.NamedModulesPlugin(),
         new webpack.LoaderOptionsPlugin({
             options: {
                 sassLoader: {
@@ -168,6 +172,8 @@ module.exports = {
         },
     },
     optimization: {
+        noEmitOnErrors: true,
+        namedModules: true,
         splitChunks: {
             minChunks: 6,
             cacheGroups: {

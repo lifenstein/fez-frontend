@@ -1,5 +1,5 @@
 context('As an admin,', () => {
-    it('I can add a missing record', () => {
+    it('I can add a video', () => {
         cy.visit('/admin/add?user=uqstaff');
 
         // Choose a collection
@@ -17,6 +17,12 @@ context('As an admin,', () => {
             .contains('Create work')
             .should('exist')
             .click();
+
+        // Confirm that alert badges are present when in tabbed mode
+        cy.adminEditTabbedView();
+        cy.adminEditCheckTabErrorBadge('bibliographic', 3);
+        cy.adminEditCheckTabErrorBadge('files');
+        cy.adminEditTabbedView(false);
 
         // Fill required fields
         cy.typeCKEditor('rek-title', 'Test title');

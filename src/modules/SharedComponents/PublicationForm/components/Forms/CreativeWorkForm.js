@@ -55,6 +55,7 @@ export default class CreativeWorkForm extends Component {
             ...CPEE_NTRO_SUBTYPES,
             NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK,
         ].includes(this.props.subtype);
+        const isNtroCpeeExhibitionEvent = this.props.subtype === NTRO_SUBTYPE_CPEE_EXHIBITION_EVENT;
 
         return (
             <Grid container spacing={3}>
@@ -69,12 +70,14 @@ export default class CreativeWorkForm extends Component {
                                     name="rek_title"
                                     type="text"
                                     fullWidth
+                                    multiline
+                                    rows={3}
                                     {...txt.information.fieldLabels.articleTitle}
                                     required
                                     validate={[validation.required]}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={this.props.subtype !== NTRO_SUBTYPE_CPEE_EXHIBITION_EVENT ? 4 : 6}>
+                            <Grid item xs={12} sm={isNtroCpeeExhibitionEvent ? 12 : 6}>
                                 <Field
                                     component={TextField}
                                     disabled={this.props.submitting}
@@ -86,7 +89,7 @@ export default class CreativeWorkForm extends Component {
                                     {...txt.information.fieldLabels.placeOfPublication}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={this.props.subtype !== NTRO_SUBTYPE_CPEE_EXHIBITION_EVENT ? 4 : 6}>
+                            <Grid item xs={12} sm={isNtroCpeeExhibitionEvent ? 12 : 6}>
                                 <Field
                                     component={TextField}
                                     disabled={this.props.submitting}
@@ -98,8 +101,8 @@ export default class CreativeWorkForm extends Component {
                                     {...txt.information.fieldLabels.publisher}
                                 />
                             </Grid>
-                            {this.props.subtype !== NTRO_SUBTYPE_CPEE_EXHIBITION_EVENT && (
-                                <Grid item xs={12} sm={4}>
+                            {!isNtroCpeeExhibitionEvent && (
+                                <Grid item xs={12} sm={displayEndDate ? 12 : 6}>
                                     <Field
                                         component={TextField}
                                         disabled={this.props.submitting}

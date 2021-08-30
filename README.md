@@ -13,23 +13,66 @@ UQ's branding for Fez is UQ eSpace.
 - Legacy eSpace application <https://espace.library.uq.edu.au/>
 - eSpace production <https://espace.library.uq.edu.au/dashboard>
 - eSpace staging <https://fez-staging.library.uq.edu.au/dashboard>
+- eSpace prodtest <https://fez-testing.library.uq.edu.au/dashboard> (see notes below)
 - Current build <https://development.library.uq.edu.au/espace/master> (or your feature branch)
+
+### IMPORTANT NOTE
+
+**eSpace prodtest is a production environment**
+
+This means that it's exactly like production, except for the git branch that uses. This is useful for **carefully*** testing anything that might break production before pushing to the actual branch.
+
+***carefully**: any actions (e.g. creating, editing, deleting records) performed in eSpace prodtest will result in changes to production. This includes **email notifications, 3rd party services integrations and everything else**
 
 ## Technology
 
 - Code: `React (~16.8), Javascript (ES2015 - Babel), Immutable, SASS`
 - State: `Redux, ReduxForm`
-- Design: `Google Material Design` - [Material UI](https://v0.material-ui.com/#/components/app-bar)
+- Design: `Google Material Design` - [Material UI](https://v4.material-ui.com/components/app-bar)
 - Build and dev tools: `Webpack`
 - Unit tests: `Jest`
 - E2E tests: `Cypress`
+- [Supported Browsers](https://web.library.uq.edu.au/site-information/web-browser-compatibility)
 
 ## Development
 
-This project is using `npm` for dependency management. Make sure `npm` is installed on your machine.
+- This project uses `npm` for dependency management. Make sure `npm` is installed on your machine by following the instructions at <https://docs.npmjs.com/downloading-and-installing-node-js-and-npm>
 
-- make sure to create a .env file based on example.env
-- `nvm use 14.7.0 && npm i -g npm@6 jest webpack-dev-server` - initial setup
+- This project uses `nvm` for `node` version switching. To install or update `node`, run one of the installation commands detailed at <https://github.com/nvm-sh/nvm#install--update-script>. For example: 
+   
+   ```
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+   ```
+- The `nvm` installation process will update your environmental variables. You will either need to restart your terminal for the changes to take effect, or run the `export` command shown at the end of the `nvm` installation process. For example (using the curl command above):
+   
+   ```
+   export NVM_DIR="$HOME/.nvm"
+   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+   ```
+- With `nvm` installed and/or updated, install `node` version of at least 16.13.2:
+
+   ```
+   nvm install 16.13.2 
+   ```
+
+- Switch to the `node` version just installed and begin initial setup:
+  ```
+  nvm use 16.13.2 && npm i -g npm@8.4 jest webpack-dev-server
+  ```
+  See [gotchas](#gotchas) below for watchouts regarding `nvm` versions
+  
+  
+- In the root folder of `fez-frontend` install the required `npm` modules:
+
+   ```
+   npm install
+   ```
+
+- Finally, before starting one of the `npm run` commands shown below, ensure you have duplicated the `example.env` file in the root of `fez-frontend` and named the duplicate file `.env`
+
+You should now be able to run one of the following commands from the CLI:
+
 - `npm ci` - when weird errors happen your local npm probably doesnt match the latest project requirements, this
   clears & reinstalls npm packages
 - `npm run start`
@@ -61,11 +104,11 @@ This project is using `npm` for dependency management. Make sure `npm` is instal
   - for Hot Reloading to work in IntelliJ products, turn ["safe write"](https://www.jetbrains.com/help/phpstorm/system-settings.html#f1e47e50) off in the settings
 - `npm run start:build`
   - runs production build version on <http://dev-espace.library.uq.edu.au:9000/> and `http://localhost:9000/`
-  - uses PRODUCTION DATA from the aws api (ie <https://api.library.uq.edu.au/v1/1>) as a backend!! Careful!!
+  - To use prod's api, change config.json -> deployment.development.api key value to <https://api.library.uq.edu.au/v1/> and re-run
 - `npm run start:build:e2e`
   - runs production build version on <http://localhost:9000/>
   - uses mock data from src/mock
-  - async loading is not working since chuncks are not saved, navigate directly to required routes
+  - async loading is not working since chunks are not saved, navigate directly to required routes
 - `npm run test:cs`
   - Runs Prettier and ESLint checks on all Javascript files in the project, then lists files with code style issues. Check the other npm scripts for ways to fix the issues automatically if possible.
 - `npm run test:e2e:cc`
@@ -178,13 +221,101 @@ To keep initial load to a minimum, the following optimisations have been added t
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/);
   ```
 
-### Gotchas
+### <a name="gotchas" id="gotchas"></a>Gotchas
 
 - Because FE is served from cloudFront, add a behaviour to serve css/js filename patterns. E.g. behaviours have been
   added for `main-*` and `commons-*` files.
-- if you cant get eg <https://fez-staging.library.uq.edu.au/view/UQ:e6c5854> to load the new FE (it always loads legacy) you can use the alternate url of <https://fez-staging.library.uq.edu.au/view_new/UQ:e6c5854>
+- if you can't get eg <https://fez-staging.library.uq.edu.au/view/UQ:e6c5854> to load the new FE (it always loads legacy) you can use the alternate url of <https://fez-staging.library.uq.edu.au/view_new/UQ:e6c5854>
+- The eSpace API always returns a 200 for a GET request to /fez-author. For this reason, checking for the presence of the ```author``` (e.g. ```this.props.author```) is not enough to determine if the logged-in user is an author or not. This can be done the following check: ```this.props.autho?.aut_id``` or by checking for the response of author details API endpoint e.g. ```this.props.authorDetails```
+- Be aware that `nvm` will use the default version of node whenever a new terminal window is opened. This may catch you out if you are updating environmental variables and closing/opening Terminal as mentioned earlier.
+  
+  To check what version is in use:
+  ```
+  nvm ls
+  ```
+  
+  will display similair to:
+  
+  ```
+  v14.7.0
+  ->     v16.13.2
+  default -> 14.7.0 (-> v14.7.0)
+  iojs -> N/A (default)
+  unstable -> N/A (default)
+  node -> stable (-> v16.13.2) (default)
+  stable -> 16.13 (-> v16.13.2) (default)
+  lts/* -> lts/gallium (-> N/A)
+  lts/argon -> v4.9.1 (-> N/A)
+  lts/boron -> v6.17.1 (-> N/A)
+  lts/carbon -> v8.17.0 (-> N/A)
+  lts/dubnium -> v10.24.1 (-> N/A)
+  lts/erbium -> v12.22.10 (-> N/A)
+  lts/fermium -> v14.19.0 (-> N/A)
+  lts/gallium -> v16.14.0 (-> N/A)
+  ```
+  
+  **Note the default value above (14.7.0)**
+  
+  To ensure you're always using the correct version of Node, you can set the default nvm will use with:
+  
+  ```
+  nvm alias default 16.13.2
+  ```
+  
+  which when checked should give you something like this:
+  
+  ```
+  nvm ls
+  
+  v14.7.0
+  ->     v16.13.2
+  default -> 16.13.2 (-> v16.13.2)
+  iojs -> N/A (default)
+  unstable -> N/A (default)
+  node -> stable (-> v16.13.2) (default)
+  stable -> 16.13 (-> v16.13.2) (default)
+  lts/* -> lts/gallium (-> N/A)
+  lts/argon -> v4.9.1 (-> N/A)
+  lts/boron -> v6.17.1 (-> N/A)
+  lts/carbon -> v8.17.0 (-> N/A)
+  lts/dubnium -> v10.24.1 (-> N/A)
+  lts/erbium -> v12.22.10 (-> N/A)
+  lts/fermium -> v14.19.0 (-> N/A)
+  lts/gallium -> v16.14.0 (-> N/A)
+  ```
+  
+  Be sure to check your nvm node version if your unit tests fail to run (this typically will happen if you change your repo from package-lock.json version 1 to 2, including updating the node and npm versions as mentioned above).
 
-#### Optimisation Guidelines
+- If you wish to reference static images in the `public/images` folder outside of `src`, you must use `require()` to bring them in to your component. This is due to a hashing process during build that moves and renames images to an assets folder on S3.
+
+So instead of:
+
+``` 
+<img src='/images/someimage.jpg'>
+```
+
+use:
+
+``` 
+const myImage = require(../../public/images/someimage.jpg) // your path with depend upon where you're referencing the image in the hierarchy
+<img src={myImage}>
+// or in styles
+backgroundImage: `url(${myImage})`
+```
+
+Also be wary of the different environments your code will deploy to, e.g. dev branch, staging, production. Dev branches work slightly different to the other two when it comes to using absolute vs relative paths within IMG elements, due to how the dev server must host multiple branches each with their own build (note this is not an issue if using the image in a style, as shown above).
+Typically for localhost, staging and production you'll need to reference your image from the root, by adding a leading `\`. However, this **won't** work on the development server, which requires an image reference *without* the leading slash.
+To handle this, use the `IS_DEVELOPMENT_SERVER` constant in `src/config/general.js` to conditionally add a leading `\` when you output your image path, or leverage the convenience function `getRequiredImagePath`:
+
+```
+const myImagePath = `${!IS_DEVELOPMENT_SERVER ? '/' : ''}${myImage}`;
+
+//or
+
+const myImagePath = getRequiredImagePath(myImage);
+```
+
+### Optimisation Guidelines
 
 - do not use functional components
 - try to simplify props
@@ -223,7 +354,7 @@ Jest is used as testing tool for unit tests. Any HTMl markup is to be tested wit
 - install jest `npm install jest -g`
 - run tests `npm test`
 
-Before committing changes, locally run tests and update stapshots (if required). To update snapshots run
+Before committing changes, locally run tests and update snapshots (if required). To update snapshots run
 `npm run test:unit:update`.
 
 [Code coverage](coverage/jest/index.html) is available (after running `npm test`)
@@ -301,6 +432,16 @@ If you want Codebuild to run cypress tests before you merge to master, include t
 
 - If a test occasionally fails as "requires a DOM element." add a `.should()` test after the `.get()`, to make it wait for the element to appear (`.should()` loops)
 
+#### Gotchas
+
+When running ```npm test``` and related scripts natively in linux (without using a VM), jest can be quite demanding making the OS unresponsive.
+
+One way to avoid this is to restrict the number of CPU cores through jest's [--maxWorkers](https://jestjs.io/docs/cli#--maxworkersnumstring) option.
+
+```bash
+NODE_ENV=test FULL_PATH=http://localhost node --expose-gc ./node_modules/.bin/jest --logHeapUsage --maxWorkers=50%
+```
+
 ## Mocking
 
 To run website on mock data run `npm run start:mock` webserver will start on `http://localhost:3000/`
@@ -345,16 +486,33 @@ Ask for review from team-mates if you'd like other eyes on your changes.
 
 ## Deployment
 
-Application deployment is 100% automated using AWS Codebuild (and Codepipeline), and is hosted in S3. All testing and deployment commands and configuration are stored in the buildspec yaml files in the repo. All secrets (access keys and tokens for PT, Cypress, Sentry and Google) are stored in AWS Parameter Store, and then populated into ENV variables in those buildspec yaml files.
-Deployment pipelines are setup for branches: "master", "staging, "production" and several key branches starting with "feature-".
+Application deployment is 100% automated (except for prodtest) using AWS Codebuild (and Codepipeline), and is hosted in S3. All testing and deployment commands and configuration are stored in the buildspec yaml files in the repo. All secrets (access keys and tokens for PT, Cypress, Sentry and Google) are stored in AWS Parameter Store, and then populated into ENV variables in those buildspec yaml files. 
+Deployment pipelines are setup for branches: "master", "staging", "prodtest", "production" and several key branches starting with "feature-".
 
 - Master branch is always deployed to staging/production
 - Deployments to production are hosted on <https://espace.library.uq.edu.au/>
 - Deployments to staging are hosted on <https://fez-staging.library.uq.edu.au/>
+- Deployments to prodtest are hosted on <https://fez-testing.library.uq.edu.au/>
 - All other branches are deployed on <https://development.library.uq.edu/espace/branchName/>.
 
-Staging/production build has routing based on `createBrowserHistory()`, other branches rely on `createHashHistory()` due
+Staging/production/prodtest build has routing based on `createBrowserHistory()`, other branches rely on `createHashHistory()` due
 to URL/Cloudfront restrictions
+
+Should you need to find your feature branch files on S3, they are [here](https://s3.console.aws.amazon.com/s3/buckets/uql-dev-frontend?region=ap-southeast-2&prefix=espace/&showversions=false) (most common use is to cleanup after you finish with a feature branch: remove the S3 sub-folder from this location, the git branch, and the AWS pipeline).
+
+Note: prodtest requires a manual click for its deployment to happen: go to [this](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/fez-frontend-prodtest/view?region=ap-southeast-2) link and click the orange release changes button.
+
+### Gotchas
+
+There are some build steps that are exclusive to master, staging and production branches:
+- npm run test:unit:ci1
+- npm run test:e2e:dashboard
+
+This means that even when a given branch passes tests and builds successfully in CB, it doesn't necessary mean that it's free issues.
+
+In order to identify possible issues before pushing master upstream, make sure to run the commands above locally after merging your changes to that branch.
+
+For more details, look at ./bin/codebuild-test.sh
 
 ## Google Analytics integration
 

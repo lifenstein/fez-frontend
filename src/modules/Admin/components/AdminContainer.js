@@ -4,12 +4,17 @@ import Cookies from 'js-cookie';
 import Immutable from 'immutable';
 
 import locale from 'locale/pages';
-import { NTRO_SUBTYPES, PUBLICATION_TYPE_MANUSCRIPT, PUBLICATION_TYPE_THESIS, SUBTYPE_NON_NTRO } from 'config/general';
+import {
+    NTRO_SUBTYPES,
+    PUBLICATION_TYPE_MANUSCRIPT,
+    PUBLICATION_TYPE_THESIS,
+    RECORD_TYPE_COLLECTION,
+    RECORD_TYPE_COMMUNITY,
+    RECORD_TYPE_RECORD,
+    SUBTYPE_NON_NTRO,
+} from 'config/general';
 
-import { makeStyles } from '@material-ui/core/styles';
-import useTheme from '@material-ui/styles/useTheme';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { adminTheme } from 'config';
 
 import { InlineLoader } from 'modules/SharedComponents/Toolbox/Loaders';
@@ -25,11 +30,12 @@ import FilesSection from './files/FilesSectionContainer';
 import GrantInformationSection from './grantInformation/GrantInformationSectionContainer';
 import IdentifiersSection from './identifiers/IdentifiersSectionContainer';
 import NotesSection from './notes/NotesSection';
+import ReasonSection from './reason/ReasonSection';
 import NtroSection from './ntro/NtroSectionContainer';
 import SecuritySection from './security/SecuritySectionContainer';
-import { TabbedContext, RecordContext } from 'context';
-import { RECORD_TYPE_COLLECTION, RECORD_TYPE_COMMUNITY, RECORD_TYPE_RECORD } from 'config/general';
+import { RecordContext, TabbedContext } from 'context';
 import { StandardPage } from '../../SharedComponents/Toolbox/StandardPage';
+import { useIsMobileView } from '../../../hooks/useIsMobileView';
 
 const useStyles = makeStyles(
     theme => ({
@@ -79,15 +85,15 @@ export const AdminContainer = ({
     submitSucceeded,
     submitting,
     unlockRecord,
+    error,
 }) => {
     const [tabbed, setTabbed] = React.useState(
         Cookies.get('adminFormTabbed') && Cookies.get('adminFormTabbed') === 'tabbed',
     );
     const [showAddForm, setShowAddForm] = React.useState(!match.params.pid);
     const classes = useStyles();
-    const theme = useTheme();
+    const isMobileView = useIsMobileView();
     const tabErrors = React.useRef(null);
-
     tabErrors.current = Object.entries(
         (formErrors instanceof Immutable.Map && formErrors.toJS()) || formErrors || {},
     ).reduce(
@@ -98,23 +104,7 @@ export const AdminContainer = ({
         {},
     );
 
-    // Collections and Communities admin edit currently only has the Security tab, so don't act on errors in other tabs
-    const reducedFormErrors = formErrors => {
-        if (
-            !!recordToView &&
-            recordToView.rek_display_type_lookup &&
-            (recordToView.rek_display_type_lookup.toLowerCase() === RECORD_TYPE_COMMUNITY ||
-                recordToView.rek_display_type_lookup.toLowerCase() === RECORD_TYPE_COLLECTION)
-        ) {
-            return Object.keys(formErrors).reduce((result, key) => key === 'securitySection', {});
-        }
-        return formErrors;
-    };
-
-    const isMobileView = useMediaQuery(theme.breakpoints.down('xs')) || false;
-
     const handleToggle = React.useCallback(() => setTabbed(!tabbed), [setTabbed, tabbed]);
-
     const handleAddFormDisplay = React.useCallback(() => setShowAddForm(!showAddForm), [setShowAddForm, showAddForm]);
 
     React.useEffect(() => {
@@ -125,7 +115,6 @@ export const AdminContainer = ({
     }, [loadRecordToView, clearRecordToView, match.params.pid]);
 
     const txt = locale.pages.edit;
-
     if (!!match.params.pid && loadingRecordToView) {
         return <InlineLoader message={txt.loadingMessage} />;
     } else if (!recordToView && isDeleted) {
@@ -149,7 +138,7 @@ export const AdminContainer = ({
 
     const isActivated = () => {
         if (recordToView && recordToView.rek_object_type_lookup) {
-            return recordToView && recordToView.rek_object_type_lookup.toLowerCase() === RECORD_TYPE_RECORD;
+            return recordToView && recordToView.rek_object_type_lookup?.toLowerCase() === RECORD_TYPE_RECORD;
         }
         return false;
     };
@@ -185,20 +174,30 @@ export const AdminContainer = ({
                                 createMode={createMode}
                                 isDeleted={isDeleted}
                                 isJobCreated={isJobCreated}
-                                formErrors={reducedFormErrors(formErrors)}
+                                formErrors={formErrors}
                                 destroy={destroy}
                                 locked={locked}
                                 disabled
                                 unlockRecord={unlockRecord}
+                                error={error}
                                 tabs={{
                                     admin: {
                                         component: AdminSection,
-                                        activated: isActivated(),
+                                        activated:
+                                            isActivated() ||
+                                            [RECORD_TYPE_COLLECTION].includes(
+                                                recordToView && recordToView.rek_object_type_lookup?.toLowerCase(),
+                                            ),
                                         numberOfErrors: tabErrors.current.adminSection || null,
                                     },
+                                    /* it would go here or something */
                                     bibliographic: {
                                         component: BibliographicSection,
-                                        activated: isActivated(),
+                                        activated:
+                                            isActivated() ||
+                                            [RECORD_TYPE_COLLECTION, RECORD_TYPE_COMMUNITY].includes(
+                                                recordToView && recordToView.rek_object_type_lookup?.toLowerCase(),
+                                            ),
                                         numberOfErrors: tabErrors.current.bibliographicSection || null,
                                     },
                                     authors: {
@@ -234,7 +233,11 @@ export const AdminContainer = ({
                                     },
                                     notes: {
                                         component: NotesSection,
-                                        activated: isActivated(),
+                                        activated:
+                                            isActivated() ||
+                                            [RECORD_TYPE_COLLECTION, RECORD_TYPE_COMMUNITY].includes(
+                                                recordToView && recordToView.rek_object_type_lookup?.toLowerCase(),
+                                            ),
                                     },
                                     files: {
                                         component: FilesSection,
@@ -244,6 +247,15 @@ export const AdminContainer = ({
                                     security: {
                                         component: SecuritySection,
                                         activated: !createMode, // true,
+                                    },
+
+                                    reason: {
+                                        component: ReasonSection,
+                                        activated:
+                                            !createMode &&
+                                            [RECORD_TYPE_COLLECTION, RECORD_TYPE_COMMUNITY].includes(
+                                                recordToView && recordToView.rek_object_type_lookup?.toLowerCase(),
+                                            ),
                                     },
                                 }}
                             />
@@ -279,6 +291,7 @@ AdminContainer.propTypes = {
     submitSucceeded: PropTypes.bool,
     submitting: PropTypes.any,
     unlockRecord: PropTypes.func,
+    error: PropTypes.object,
 };
 
 export function isSame(prevProps, nextProps) {

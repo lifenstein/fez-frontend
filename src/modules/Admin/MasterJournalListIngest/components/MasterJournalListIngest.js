@@ -21,7 +21,7 @@ export const FORM_NAME = 'MasterJournalListIngest';
 const onSubmit = (values, dispatch) => {
     const data = { ...values.toJS() };
     return dispatch(requestMJLIngest(data)).catch(error => {
-        throw new SubmissionError({ _error: (error && error.message) || error });
+        throw new SubmissionError({ _error: error.message });
     });
 };
 
@@ -49,10 +49,6 @@ const MasterJournalListIngest = ({ error, handleSubmit, history, submitSucceeded
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error, formErrors, submitSucceeded, submitting]);
-
-    useEffect(() => {
-        document.title = `${txt.title}: ${document.title}`;
-    }, [txt]);
 
     const cancelIngest = () => {
         history.push(pathConfig.index);

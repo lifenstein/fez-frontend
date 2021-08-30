@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { api, sessionApi } from 'config';
+import { api, SESSION_COOKIE_NAME, SESSION_USER_GROUP_COOKIE_NAME, sessionApi } from 'config';
 import MockAdapter from 'axios-mock-adapter';
 import Cookies from 'js-cookie';
-import { SESSION_COOKIE_NAME, SESSION_USER_GROUP_COOKIE_NAME } from 'config';
 import * as routes from 'repositories/routes';
 import * as mockData from './data';
 import * as mockTestingData from './data/testing/records';
 import { PUB_LIST_BULK_EXPORT_SIZES } from 'config/general';
+import * as journalsSearch from './data/journals/search';
 
 const queryString = require('query-string');
 const mock = new MockAdapter(api, { delayResponse: 200 });
@@ -184,11 +184,12 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
             // SEARCH_INTERNAL_RECORDS_API - Advanced Search {key: searchQueryParams}
             // return [200, mockData.internalTitleSearchListNoResults];
             return [200, mockData.internalTitleSearchList];
+            // return [200, mockData.collectionSearchResultsImages];
         } else if (config.params.key && !!config.params.key.rek_status) {
             return [200, mockData.unpublishedSearchList];
         }
-        // return [404, ['Request not found']];
-        return [200, mockData.internalTitleSearchList];
+        return [404, ['Request not found']];
+        //return [200, mockData.collectionSearchResultsImages];
     })
     .onGet(
         new RegExp(
@@ -218,8 +219,6 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
     .reply(200, mockData.authorsSearch)
     .onGet(routes.GET_PUBLICATION_TYPES_API().apiUrl)
     .reply(200, mockData.recordsTypeList)
-    .onGet(routes.GET_NEWS_API().apiUrl)
-    .reply(200, mockData.newsFeed)
     .onGet(
         new RegExp(
             escapeRegExp(
@@ -239,9 +238,143 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
     .reply(200, mockData.lookupToolIncites)
     .onGet(new RegExp(routes.BULK_UPDATES_API().apiUrl))
     .reply(200, { ...mockData.bulkUpdatesList })
+    // Detailed history API check (path /view/<PID>/history)
+    .onGet(routes.EXISTING_RECORD_HISTORY_API({ pid: 'UQ:a62a760' }).apiUrl)
+    .reply(200, ...mockData.detailedHistory)
     // This tests the "Record not found" message on viewRecord and adminEdit
     .onGet(new RegExp(escapeRegExp(routes.EXISTING_RECORD_API({ pid: 'UQ:abc123' }).apiUrl)))
     .reply(404, { message: 'File not found' })
+    .onGet(new RegExp(escapeRegExp(routes.EXISTING_RECORD_VERSION_API('.*', '.*').apiUrl)))
+    // versions
+    .reply(config => {
+        const mockRecords = [...mockData.recordVersion, ...mockData.recordVersionLegacy];
+        const matchedRecord = mockRecords.find(record => {
+            const tokens = config.url.split('/');
+            return (
+                tokens.pop().replace(' ', '') === record.rek_version.replace(' ', '') && tokens.pop() === record.rek_pid
+            );
+        });
+        if (matchedRecord) {
+            return [200, { data: { ...matchedRecord } }];
+        }
+        return [404, { message: 'File not found' }];
+    })
+    .onGet(new RegExp(escapeRegExp(routes.EXISTING_RECORD_API({ pid: 'UQ:3883' }).apiUrl)))
+    .reply(config => {
+        const mockRecords = [
+            { ...mockData.collectionRecord },
+            { ...mockData.communityRecordWithExtraData },
+            { ...mockData.incompleteNTROrecord },
+            { ...mockData.incompleteNTRORecordUQ352045 },
+            { ...mockData.recordWithoutAuthorIds },
+            { ...mockData.recordWithLotOfAuthors },
+            { ...mockData.recordWithTiffAndThumbnail },
+            { ...mockData.UQ716942uqagrinb },
+            { ...mockTestingData.dataCollection },
+            ...mockData.collectionSearchList.data,
+            ...mockData.communitySearchList.data,
+            ...mockData.incompleteNTROlist.data,
+            ...mockData.internalTitleSearchList.data,
+            ...mockData.mockRecordToFix,
+            ...mockData.myRecordsList.data,
+            ...mockData.myDatasetList.data,
+            ...mockData.possibleUnclaimedList.data,
+            ...mockData.publicationTypeListAudio.data,
+            ...mockData.publicationTypeListBook.data,
+            ...mockData.publicationTypeListBookChapter.data,
+            ...mockData.publicationTypeListBookEdited.data,
+            ...mockData.publicationTypeListConferencePaper.data,
+            ...mockData.publicationTypeListConferenceProceedings.data,
+            ...mockData.publicationTypeListCreativeWork.data,
+            ...mockData.publicationTypeListDataCollection.data,
+            ...mockData.publicationTypeListDepartmentTechnicalReport.data,
+            ...mockData.publicationTypeListDesign.data,
+            ...mockData.publicationTypeListDigilibImage.data,
+            ...mockData.publicationTypeListGenericDocument.data,
+            ...mockData.publicationTypeListImage.data,
+            ...mockData.publicationTypeListJournal.data,
+            ...mockData.publicationTypeListJournalArticle.data,
+            ...mockData.publicationTypeListManuscript.data,
+            ...mockData.publicationTypeListNewspaperArticle.data,
+            ...mockData.publicationTypeListPatent.data,
+            ...mockData.publicationTypeListPreprint.data,
+            ...mockData.publicationTypeListReferenceEntry.data,
+            ...mockData.publicationTypeListResearchReport.data,
+            ...mockData.publicationTypeListSeminarPaper.data,
+            ...mockData.publicationTypeListThesis.data,
+            ...mockData.publicationTypeListVideo.data,
+            ...mockData.publicationTypeListWorkingPaper.data,
+            ...mockData.trendingPublications.data,
+            ...mockData.unpublishedSearchList.data,
+            ...mockData.UQ353708.data,
+            ...mockData.UQ339703,
+        ];
+        // const mockedPids = mockRecords.map(record => record.rek_pid);
+        // console.log(`Mocking ${mockedPids.length} pids:`, mockedPids);
+        const matchedRecord = mockRecords.find(record => config.url.indexOf(record.rek_pid) > -1);
+        if (matchedRecord) {
+            return [200, { data: { ...matchedRecord } }];
+        }
+        return [200, { data: { ...mockData.record } }];
+    })
+    .onGet(new RegExp(escapeRegExp(routes.EXISTING_RECORD_API({ pid: 'UQ:11399' }).apiUrl)))
+    .reply(config => {
+        const mockRecords = [
+            { ...mockData.collectionRecordWithExtraData },
+            { ...mockData.communityRecord },
+            { ...mockData.incompleteNTROrecord },
+            { ...mockData.incompleteNTRORecordUQ352045 },
+            { ...mockData.recordWithoutAuthorIds },
+            { ...mockData.recordWithLotOfAuthors },
+            { ...mockData.recordWithTiffAndThumbnail },
+            { ...mockData.UQ716942uqagrinb },
+            { ...mockTestingData.dataCollection },
+            ...mockData.collectionSearchList.data,
+            ...mockData.communitySearchList.data,
+            ...mockData.incompleteNTROlist.data,
+            ...mockData.internalTitleSearchList.data,
+            ...mockData.mockRecordToFix,
+            ...mockData.myRecordsList.data,
+            ...mockData.myDatasetList.data,
+            ...mockData.possibleUnclaimedList.data,
+            ...mockData.publicationTypeListAudio.data,
+            ...mockData.publicationTypeListBook.data,
+            ...mockData.publicationTypeListBookChapter.data,
+            ...mockData.publicationTypeListBookEdited.data,
+            ...mockData.publicationTypeListConferencePaper.data,
+            ...mockData.publicationTypeListConferenceProceedings.data,
+            ...mockData.publicationTypeListCreativeWork.data,
+            ...mockData.publicationTypeListDataCollection.data,
+            ...mockData.publicationTypeListDepartmentTechnicalReport.data,
+            ...mockData.publicationTypeListDesign.data,
+            ...mockData.publicationTypeListDigilibImage.data,
+            ...mockData.publicationTypeListGenericDocument.data,
+            ...mockData.publicationTypeListImage.data,
+            ...mockData.publicationTypeListJournal.data,
+            ...mockData.publicationTypeListJournalArticle.data,
+            ...mockData.publicationTypeListManuscript.data,
+            ...mockData.publicationTypeListNewspaperArticle.data,
+            ...mockData.publicationTypeListPatent.data,
+            ...mockData.publicationTypeListPreprint.data,
+            ...mockData.publicationTypeListReferenceEntry.data,
+            ...mockData.publicationTypeListResearchReport.data,
+            ...mockData.publicationTypeListSeminarPaper.data,
+            ...mockData.publicationTypeListThesis.data,
+            ...mockData.publicationTypeListVideo.data,
+            ...mockData.publicationTypeListWorkingPaper.data,
+            ...mockData.trendingPublications.data,
+            ...mockData.unpublishedSearchList.data,
+            ...mockData.UQ353708.data,
+            ...mockData.UQ339703,
+        ];
+        // const mockedPids = mockRecords.map(record => record.rek_pid);
+        // console.log(`Mocking ${mockedPids.length} pids:`, mockedPids);
+        const matchedRecord = mockRecords.find(record => config.url.indexOf(record.rek_pid) > -1);
+        if (matchedRecord) {
+            return [200, { data: { ...matchedRecord } }];
+        }
+        return [200, { data: { ...mockData.record } }];
+    })
     .onGet(new RegExp(escapeRegExp(routes.EXISTING_RECORD_API({ pid: '.*' }).apiUrl)))
     .reply(config => {
         const mockRecords = [
@@ -249,6 +382,7 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
             { ...mockData.communityRecord },
             { ...mockData.incompleteNTROrecord },
             { ...mockData.incompleteNTRORecordUQ352045 },
+            { ...mockData.incompleteNTRORecordUQe09e0b8 },
             { ...mockData.recordWithoutAuthorIds },
             { ...mockData.recordWithLotOfAuthors },
             { ...mockData.recordWithTiffAndThumbnail },
@@ -376,12 +510,88 @@ mock.onGet(routes.CURRENT_ACCOUNT_API().apiUrl)
         }
         return [200, { data }];
     })
+    // Journal main search
     .onGet(new RegExp(escapeRegExp(routes.JOURNAL_LOOKUP_API({ query: '.*' }).apiUrl)))
     .reply(200, { ...mockData.journalLookup })
+    .onGet(new RegExp(escapeRegExp(routes.JOURNAL_KEYWORDS_LOOKUP_API({ query: '.*' }).apiUrl)))
+    .reply(config => {
+        console.log(
+            'Returning lookup data for:',
+            config.url.replace('https://api.library.uq.edu.au/staging/journals/search?rule=keywords&query=', '') ||
+                'NA',
+        );
+        if (config.url.indexOf('query=null') > -1) {
+            return [200, { data: {} }];
+        } else if (config.url.indexOf('query=bio') > -1) {
+            return [200, { ...journalsSearch.keywords.bio }];
+        } else if (config.url.indexOf('query=brain') > -1) {
+            return [200, { ...journalsSearch.keywords.brain }];
+        } else if (config.url.indexOf('query=tech') > -1) {
+            return [200, { ...journalsSearch.keywords.tech }];
+        } else if (config.url.indexOf('query=cats') > -1) {
+            return [200, { ...journalsSearch.keywords.cats }];
+        } else if (config.url.indexOf('query=lung cancer') > -1) {
+            return [200, { ...journalsSearch.keywords.lungCancer }];
+        } else if (config.url.indexOf('query=1405') > -1) {
+            return [200, { ...journalsSearch.keywords.forCode }];
+        } else if (config.url.indexOf('query=virus') > -1) {
+            return [200, { ...journalsSearch.keywords.virus }];
+        }
+        return [200, { ...journalsSearch.keywords.none }];
+    })
+    .onGet(new RegExp(escapeRegExp(routes.JOURNAL_FAVOURITES_API({}).apiUrl)))
+    .reply(config => {
+        if (config.params.export_to && config.params.export_to === 'excel') {
+            return [
+                200,
+                'Exported',
+                { 'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+            ];
+        }
+        return [200, { ...journalsSearch.favourites }];
+    })
+    .onPost(new RegExp(escapeRegExp(routes.JOURNAL_FAVOURITES_API().apiUrl)))
+    .reply(200)
+    .onDelete(new RegExp(escapeRegExp(routes.JOURNAL_FAVOURITES_API().apiUrl)))
+    .reply(200)
+    .onGet(new RegExp(escapeRegExp(routes.JOURNAL_SEARCH_API({}).apiUrl)))
+    .reply(config => {
+        console.log('Returning lookup data for config:', config);
+        if (config.params.export_to && config.params.export_to === 'excel') {
+            return [
+                200,
+                'Exported',
+                { 'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+            ];
+        } else if (config.params.title?.includes('biological')) {
+            let maxCount = config.params.title?.includes('glycobiology') ? 4 : 8;
+            if (config.params.filters && config.params.filters[facets].length > 0) maxCount /= 2;
+            const data = mockData.journalList.data.filter((element, index) => index < maxCount);
+            return [200, { ...mockData.journalList, ...{ data }, ...{ total: maxCount } }];
+        }
+        return [200, { ...mockData.journalList }];
+    })
     .onGet(new RegExp(escapeRegExp(routes.JOURNAL_API({ id: '.*' }).apiUrl)))
     .reply(200, { ...mockData.journalDetails })
     .onGet(new RegExp(escapeRegExp(routes.MANAGE_USERS_LIST_API({}).apiUrl)))
-    .reply(200, { ...mockData.userList });
+    .reply(200, { ...mockData.userList })
+    .onGet(
+        new RegExp(
+            escapeRegExp(
+                routes.COMMUNITY_LIST_API({ pageSize: '.*', page: '.*', direction: '.*', sortBy: '.*' }).apiUrl,
+            ),
+        ),
+    )
+    .reply(200, { ...mockData.communityList })
+    .onGet(
+        new RegExp(
+            escapeRegExp(
+                routes.COLLECTION_LIST_API({ pid: '.*', pageSize: '.*', page: '.*', direction: '.*', sortBy: '.*' })
+                    .apiUrl,
+            ),
+        ),
+    )
+    .reply(200, { ...mockData.collectionList });
 
 // let uploadTryCount = 1;
 mock.onPut(/(s3-ap-southeast-2.amazonaws.com)/)

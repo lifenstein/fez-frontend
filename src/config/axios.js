@@ -1,12 +1,12 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { setupCache } from 'axios-cache-adapter';
-import { API_URL, SESSION_COOKIE_NAME, TOKEN_NAME, SESSION_USER_GROUP_COOKIE_NAME } from './general';
+import { API_URL, SESSION_COOKIE_NAME, SESSION_USER_GROUP_COOKIE_NAME, TOKEN_NAME } from './general';
 import { store } from 'config/store';
 import { logout } from 'actions/account';
 import { showAppAlert } from 'actions/app';
 import locale from 'locale/global';
-import Raven from 'raven-js';
+import * as Sentry from '@sentry/react';
 import param from 'can-param';
 import { pathConfig } from 'config/pathConfig';
 
@@ -46,15 +46,19 @@ export const generateCancelToken = () => {
     return CancelToken.source();
 };
 
-// If there is a local cookie available, then set the api headers for x-uql-token
-if (!!Cookies.get(SESSION_COOKIE_NAME) && !!Cookies.get(SESSION_USER_GROUP_COOKIE_NAME)) {
-    api.defaults.headers.common[TOKEN_NAME] = Cookies.get(SESSION_COOKIE_NAME);
-}
-
-// allow us to safely force a given SESSION_COOKIE_NAME during development
-if (process.env.NODE_ENV === 'development' && !!process.env.SESSION_COOKIE_NAME) {
-    api.defaults.headers.common[TOKEN_NAME] = process.env.SESSION_COOKIE_NAME;
-}
+export const setupDefaults = () => {
+    // If there is a local cookie available, then set the api headers for x-uql-token
+    if (!!Cookies.get(SESSION_COOKIE_NAME) && !!Cookies.get(SESSION_USER_GROUP_COOKIE_NAME)) {
+        api.defaults.headers.common[TOKEN_NAME] = Cookies.get(SESSION_COOKIE_NAME);
+        sessionApi.defaults.headers.common[TOKEN_NAME] = Cookies.get(SESSION_COOKIE_NAME);
+    }
+    // allow us to safely force a given SESSION_COOKIE_NAME during development
+    if (process.env.NODE_ENV === 'development' && !!process.env.SESSION_COOKIE_NAME) {
+        api.defaults.headers.common[TOKEN_NAME] = process.env.SESSION_COOKIE_NAME;
+        sessionApi.defaults.headers.common[TOKEN_NAME] = process.env.SESSION_COOKIE_NAME;
+    }
+};
+setupDefaults();
 
 api.isCancel = axios.isCancel; // needed for cancelling requests and the instance created does not have this method
 
@@ -62,7 +66,7 @@ let isGet = null;
 api.interceptors.request.use(request => {
     isGet = request.method === 'get';
     if (
-        (request.url.includes('records/search') || request.url.includes('records/export')) &&
+        (request.url?.includes('records/search') || request.url?.includes('records/export')) &&
         !!request.params &&
         !!request.params.mode &&
         request.params.mode === 'advanced'
@@ -83,8 +87,26 @@ const reportToSentry = error => {
     } else {
         detailedError = `Something happened in setting up the request that triggered an Error: ${error.message}`;
     }
-    Raven.captureException(error, { extra: { error: detailedError } });
+
+    Sentry.withScope(scope => {
+        scope.setExtras({ error: detailedError });
+        Sentry.captureException(error);
+    });
 };
+
+/**
+ * Return an instance of an alike in built-in Error class with a public message param and additional given properties
+ *
+ * @param error
+ * @param extras
+ * @return {{}}
+ */
+export const createSentryFriendlyError = (message, extras = {}) =>
+    new (class {
+        constructor(message) {
+            Object.assign(this, { ...extras, message, stack: new Error(message).stack });
+        }
+    })(message);
 
 api.interceptors.response.use(
     response => {
@@ -145,7 +167,14 @@ api.interceptors.response.use(
         }
 
         if (!!errorMessage) {
-            return Promise.reject({ ...errorMessage });
+            return Promise.reject(
+                createSentryFriendlyError(errorMessage?.message || null, {
+                    request: error.request,
+                    ...errorMessage,
+                    // allow the original error message to be handled further down the stack
+                    ...(error.response?.data ? { original: error.response.data } : {}),
+                }),
+            );
         } else {
             reportToSentry(error);
             return Promise.reject(error);

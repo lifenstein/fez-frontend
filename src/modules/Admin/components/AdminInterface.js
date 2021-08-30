@@ -27,12 +27,22 @@ import LockedAlert from './LockedAlert';
 import { FORM_NAME } from '../constants';
 import { onSubmit } from '../submitHandler';
 
-import { useTabbedContext, useRecordContext } from 'context';
+import { useRecordContext, useTabbedContext } from 'context';
 import pageLocale from 'locale/pages';
-import { pathConfig, validation, publicationTypes } from 'config';
-import { RECORD_TYPE_RECORD, UNPUBLISHED, PUBLISHED, RETRACTED } from 'config/general';
+import { pathConfig, publicationTypes, validation } from 'config';
+import {
+    PUBLISHED,
+    RECORD_TYPE_RECORD,
+    RECORD_TYPE_COMMUNITY,
+    RECORD_TYPE_COLLECTION,
+    RETRACTED,
+    UNPUBLISHED,
+} from 'config/general';
 import { adminInterfaceConfig } from 'config/admin';
 import { useIsUserSuperAdmin } from 'hooks';
+import { translateFormErrorsToText } from '../../../config/validation';
+
+// import { debounce } from 'throttle-debounce';
 
 const AdminTab = withStyles({
     root: {
@@ -84,6 +94,7 @@ export const AdminInterface = ({
     submitting,
     tabs,
     unlockRecord,
+    error,
 }) => {
     const { record } = useRecordContext();
     const { tabbed, toggleTabbed } = useTabbedContext();
@@ -97,11 +108,14 @@ export const AdminInterface = ({
     const alertProps = React.useRef(null);
     const txt = React.useRef(pageLocale.pages.edit);
 
+    const errorMessage = error && typeof error === 'object' ? ' ' : null;
     alertProps.current = validation.getErrorAlertProps({
         submitting,
         submitSucceeded,
         formErrors,
         alertLocale: txt.current.alerts,
+        // prioritise form errors
+        error: translateFormErrorsToText(formErrors) ? null : errorMessage,
     });
 
     React.useEffect(() => {
@@ -238,20 +252,24 @@ export const AdminInterface = ({
                     onClick={handleCancel}
                 />
             </Grid>
-            {!!isSuperAdmin && record.rek_status !== RETRACTED && (
-                <Grid item xs={12} sm={3}>
-                    <Button
-                        id={`admin-work-retract${placement}`}
-                        data-testid={`retract-admin${placement}`}
-                        disabled={!!submitting || !!disableSubmit}
-                        variant="contained"
-                        color="secondary"
-                        fullWidth
-                        children="Retract"
-                        onClick={setPublicationStatusAndSubmit(RETRACTED)}
-                    />
-                </Grid>
-            )}
+
+            {!!isSuperAdmin &&
+                record.rek_status !== RETRACTED &&
+                objectType !== RECORD_TYPE_COMMUNITY &&
+                objectType !== RECORD_TYPE_COLLECTION && (
+                    <Grid item xs={12} sm={3}>
+                        <Button
+                            id={`admin-work-retract${placement}`}
+                            data-testid={`retract-admin${placement}`}
+                            disabled={!!submitting || !!disableSubmit}
+                            variant="contained"
+                            color="secondary"
+                            fullWidth
+                            children="Retract"
+                            onClick={setPublicationStatusAndSubmit(RETRACTED)}
+                        />
+                    </Grid>
+                )}
             {!!record.rek_pid && objectType === RECORD_TYPE_RECORD && record.rek_status !== PUBLISHED && !isDeleted && (
                 <Grid item xs={12} sm={3}>
                     <Button
@@ -288,15 +306,7 @@ export const AdminInterface = ({
                     />
                 </Grid>
             )}
-            <Grid
-                item
-                xs={12}
-                sm={
-                    (!!record.rek_pid && objectType === RECORD_TYPE_RECORD && !isDeleted && !isSuperAdmin && 7) ||
-                    (!!record.rek_pid && objectType === RECORD_TYPE_RECORD && !isDeleted && isSuperAdmin && 4) ||
-                    10
-                }
-            >
+            <Grid item xs={12} sm>
                 <Button
                     id={`admin-work-submit${placement}`}
                     data-testid={`submit-admin${placement}`}
@@ -355,7 +365,7 @@ export const AdminInterface = ({
                         <Grid
                             container
                             alignContent="center"
-                            justify="center"
+                            justifyContent="center"
                             alignItems="center"
                             style={{ marginBottom: 12 }}
                         >
@@ -448,6 +458,7 @@ AdminInterface.propTypes = {
     submitting: PropTypes.bool,
     tabs: PropTypes.object,
     unlockRecord: PropTypes.func,
+    error: PropTypes.object,
 };
 
 export default React.memo(AdminInterface);

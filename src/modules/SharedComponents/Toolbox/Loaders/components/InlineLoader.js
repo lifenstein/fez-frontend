@@ -11,21 +11,23 @@ export class InlineLoader extends React.Component {
         message: PropTypes.string,
         classes: PropTypes.object,
         loaderId: PropTypes.string,
+        ariaLabel: PropTypes.string,
     };
 
     static defaultProps = {
         message: 'Loading',
+        ariaLabel: 'Loading',
     };
 
     render() {
-        const { loaderId, message } = this.props;
+        const { loaderId, message, ariaLabel } = this.props;
         return (
             <div style={{ padding: 8 }}>
                 <Grid
                     container
                     direction={'row'}
                     spacing={1}
-                    justify="center"
+                    justifyContent="center"
                     alignItems="center"
                     alignContent={'center'}
                     id={loaderId}
@@ -35,7 +37,7 @@ export class InlineLoader extends React.Component {
                         <Grid item xs />
                     </Hidden>
                     <Grid item xs={'auto'} style={{ textAlign: 'center' }}>
-                        <CircularProgress size={18} thickness={2} color="primary" />
+                        <CircularProgress size={18} thickness={2} color="primary" aria-label={ariaLabel} />
                     </Grid>
                     <Grid item xs={'auto'} style={{ textAlign: 'center' }}>
                         <Typography color={'primary'} variant={'h5'} component={'span'} style={{ fontSize: '1.33rem' }}>

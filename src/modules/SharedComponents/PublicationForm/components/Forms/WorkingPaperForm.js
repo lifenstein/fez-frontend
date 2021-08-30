@@ -44,7 +44,7 @@ export default class WorkingPaperForm extends Component {
                                     type="text"
                                     fullWidth
                                     multiline
-                                    rows={1}
+                                    rows={3}
                                     {...txt.information.fieldLabels.documentTitle}
                                     validate={[validation.required]}
                                 />
@@ -90,6 +90,18 @@ export default class WorkingPaperForm extends Component {
                                     fullWidth
                                     normalize={this.getNumbersOnly}
                                     {...txt.information.fieldLabels.totalPages}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Field
+                                    component={TextField}
+                                    disabled={this.props.submitting}
+                                    name="fez_record_search_key_doi.rek_doi"
+                                    textFieldId="rek-doi"
+                                    type="text"
+                                    fullWidth
+                                    validate={[validation.doi]}
+                                    {...txt.information.fieldLabels.doi}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>

@@ -2,12 +2,21 @@ import React from 'react';
 import * as repositories from 'repositories';
 import { journalDetails } from 'mock/data/journal';
 
-import { render, waitForElementToBeRemoved, WithReduxStore, fireEvent } from 'test-utils';
+import { render, waitForElementToBeRemoved, WithReduxStore, act, fireEvent } from 'test-utils';
 import ViewJournal from './ViewJournal';
+import mediaQuery from 'css-mediaquery';
 
 jest.mock('react-router', () => ({
     useParams: jest.fn(() => ({ id: 1 })),
 }));
+
+function createMatchMedia(width) {
+    return query => ({
+        matches: mediaQuery.match(query, { width }),
+        addListener: () => {},
+        removeListener: () => {},
+    });
+}
 
 const setup = () => {
     return render(
@@ -88,11 +97,11 @@ describe('ViewJournal', () => {
 
         expect(getByTestId('ulr-title-header')).toHaveTextContent('View journal in Ulrichs');
         expect(getByTestId('ulr-title-0-value')).toHaveTextContent('American Journal of Public Health');
-        expect(getByTestId('ulr-title-0-lookup')).toHaveAttribute(
+        expect(getByTestId('ulr-title-0-lookup-link')).toHaveAttribute(
             'href',
             'http://ezproxy.library.uq.edu.au/login?url=http://ulrichsweb.serialssolutions.com/title/41698',
         );
-        expect(getByTestId('ulr-title-1-lookup')).toHaveAttribute(
+        expect(getByTestId('ulr-title-1-lookup-link')).toHaveAttribute(
             'href',
             'http://ezproxy.library.uq.edu.au/login?url=http://ulrichsweb.serialssolutions.com/title/41699',
         );
@@ -109,7 +118,7 @@ describe('ViewJournal', () => {
 
         expect(getByTestId('jnl-doaj-homepage-url-header')).toHaveTextContent('Journal home page');
         expect(getByTestId('jnl-doaj-homepage-url-value')).toHaveTextContent('https://www.hindawi.com/journals/aaa');
-        expect(getByTestId('jnl-doaj-homepage-url-lookup')).toHaveAttribute(
+        expect(getByTestId('jnl-doaj-homepage-url-lookup-link')).toHaveAttribute(
             'href',
             'https://www.hindawi.com/journals/aaa',
         );
@@ -121,7 +130,7 @@ describe('ViewJournal', () => {
         expect(getByTestId('jnl-doaj-by-sa-nd-nc-value')).toHaveTextContent(
             'Creative Commons Attribution 4.0 International (CC BY 4.0)',
         );
-        expect(getByTestId('jnl-doaj-by-sa-nd-nc-lookup')).toHaveAttribute(
+        expect(getByTestId('jnl-doaj-by-sa-nd-nc-lookup-link')).toHaveAttribute(
             'href',
             'https://creativecommons.org/licenses/by/4.0/deed.en',
         );
@@ -134,7 +143,7 @@ describe('ViewJournal', () => {
 
         expect(getByTestId('ulr-open-access-jnl-issn-header')).toHaveTextContent('View in DOAJ');
         expect(getByTestId('ulr-open-access-jnl-issn-value')).toHaveTextContent('0090-0036');
-        expect(getByTestId('ulr-open-access-jnl-issn-lookup')).toHaveAttribute(
+        expect(getByTestId('ulr-open-access-jnl-issn-lookup-link')).toHaveAttribute(
             'href',
             'https://doaj.org/toc/0090-0036',
         );
@@ -143,12 +152,12 @@ describe('ViewJournal', () => {
             'Sherpa Romeo open access and archiving policies',
         );
         expect(getByTestId('srm-journal-link-0-value')).toHaveTextContent('0090-0036');
-        expect(getByTestId('srm-journal-link-0-lookup')).toHaveAttribute(
+        expect(getByTestId('srm-journal-link-0-lookup-link')).toHaveAttribute(
             'href',
             'https://v2.sherpa.ac.uk/id/publication/10303',
         );
         expect(getByTestId('srm-journal-link-1-value')).toHaveTextContent('1541-0048');
-        expect(getByTestId('srm-journal-link-1-lookup')).toHaveAttribute(
+        expect(getByTestId('srm-journal-link-1-lookup-link')).toHaveAttribute(
             'href',
             'https://v2.sherpa.ac.uk/id/publication/10303',
         );
@@ -170,14 +179,14 @@ describe('ViewJournal', () => {
 
         expect(getByTestId('jcr-home-page-scie-header')).toHaveTextContent('JCR home page');
         expect(getByTestId('jcr-home-page-scie-value')).toHaveTextContent('Go to JCR website');
-        expect(getByTestId('jcr-home-page-scie-lookup')).toHaveAttribute(
+        expect(getByTestId('jcr-home-page-scie-lookup-link')).toHaveAttribute(
             'href',
             'https://jcr-clarivate-com.ezproxy.library.uq.edu.au',
         );
 
         expect(getByTestId('jcr-more-info-scie-header')).toHaveTextContent('JCR more info');
         expect(getByTestId('jcr-more-info-scie-value')).toHaveTextContent('More info about JCR SCIE');
-        expect(getByTestId('jcr-more-info-scie-lookup')).toHaveAttribute(
+        expect(getByTestId('jcr-more-info-scie-lookup-link')).toHaveAttribute(
             'href',
             'https://clarivate.com/webofsciencegroup/solutions/webofscience-scie',
         );
@@ -226,14 +235,14 @@ describe('ViewJournal', () => {
 
         expect(getByTestId('jcr-home-page-ssci-header')).toHaveTextContent('JCR home page');
         expect(getByTestId('jcr-home-page-ssci-value')).toHaveTextContent('Go to JCR website');
-        expect(getByTestId('jcr-home-page-ssci-lookup')).toHaveAttribute(
+        expect(getByTestId('jcr-home-page-ssci-lookup-link')).toHaveAttribute(
             'href',
             'https://jcr-clarivate-com.ezproxy.library.uq.edu.au',
         );
 
         expect(getByTestId('jcr-more-info-ssci-header')).toHaveTextContent('JCR more info');
         expect(getByTestId('jcr-more-info-ssci-value')).toHaveTextContent('More info about JCR SSCI');
-        expect(getByTestId('jcr-more-info-ssci-lookup')).toHaveAttribute(
+        expect(getByTestId('jcr-more-info-ssci-lookup-link')).toHaveAttribute(
             'href',
             'https://clarivate.com/webofsciencegroup/solutions/webofscience-ssci',
         );
@@ -262,7 +271,7 @@ describe('ViewJournal', () => {
 
         expect(getByTestId('jnl-cite-score-source-id-header')).toHaveTextContent('CiteScore score');
         expect(getByTestId('jnl-cite-score-source-id-value')).toHaveTextContent('Go to record in CiteScore');
-        expect(getByTestId('jnl-cite-score-source-id-lookup')).toHaveAttribute(
+        expect(getByTestId('jnl-cite-score-source-id-lookup-link')).toHaveAttribute(
             'href',
             'https://www-scopus-com.ezproxy.library.uq.edu.au/sourceid/19561',
         );
@@ -272,7 +281,7 @@ describe('ViewJournal', () => {
 
         expect(getByTestId('jnl-cite-score-more-info-header')).toHaveTextContent('CiteScore more info');
         expect(getByTestId('jnl-cite-score-more-info-value')).toHaveTextContent('More info about CiteScore');
-        expect(getByTestId('jnl-cite-score-more-info-lookup')).toHaveAttribute(
+        expect(getByTestId('jnl-cite-score-more-info-lookup-link')).toHaveAttribute(
             'href',
             'https://service.elsevier.com/app/answers/detail/a_id/14880/supporthub/scopus/',
         );
@@ -403,7 +412,7 @@ describe('ViewJournal', () => {
         expect(getByTestId('jnl-doaj-by-sa-nd-nc-value')).toHaveTextContent(
             'Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)',
         );
-        expect(getByTestId('jnl-doaj-by-sa-nd-nc-lookup')).toHaveAttribute(
+        expect(getByTestId('jnl-doaj-by-sa-nd-nc-lookup-link')).toHaveAttribute(
             'href',
             'https://creativecommons.org/licenses/by-nd/4.0/deed.en',
         );
@@ -428,7 +437,7 @@ describe('ViewJournal', () => {
         expect(getByTestId('jnl-doaj-by-sa-nd-nc-value')).toHaveTextContent(
             'Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)',
         );
-        expect(getByTestId('jnl-doaj-by-sa-nd-nc-lookup')).toHaveAttribute(
+        expect(getByTestId('jnl-doaj-by-sa-nd-nc-lookup-link')).toHaveAttribute(
             'href',
             'https://creativecommons.org/licenses/by-nc/4.0/deed.en',
         );
@@ -453,7 +462,7 @@ describe('ViewJournal', () => {
         expect(getByTestId('jnl-doaj-by-sa-nd-nc-value')).toHaveTextContent(
             'Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
         );
-        expect(getByTestId('jnl-doaj-by-sa-nd-nc-lookup')).toHaveAttribute(
+        expect(getByTestId('jnl-doaj-by-sa-nd-nc-lookup-link')).toHaveAttribute(
             'href',
             'https://creativecommons.org/licenses/by-sa/4.0/deed.en',
         );
@@ -511,5 +520,106 @@ describe('ViewJournal', () => {
             'Public, Environmental & Occupational Health (0090-0036)',
         );
         expect(getByTestId('jnl-wos-category-ssci-0-1-value')).toHaveTextContent('Mental & Dental Health');
+    });
+    // Test for title change
+    it('Should correctly show required title change', async () => {
+        mockApi.onGet(new RegExp(repositories.routes.JOURNAL_API({ id: '.*' }).apiUrl)).reply(200, {
+            data: {
+                ...journalDetails.data,
+            },
+        });
+
+        const { getByTestId, getByText } = setup();
+
+        await waitForElementToBeRemoved(() => getByText('Loading journal data'));
+
+        // Regex: Exact pattern Match (between start and end) - Must match exactly.
+        expect(getByTestId('journal-details-uqData-header')).toHaveTextContent(/^UQ eSpace$/);
+    });
+
+    it('should display journal details Tab width in tablet size when >1 tab shown', async () => {
+        window.matchMedia = createMatchMedia(950);
+
+        mockApi.onGet(new RegExp(repositories.routes.JOURNAL_API({ id: '.*' }).apiUrl)).reply(200, {
+            data: {
+                ...journalDetails.data,
+            },
+        });
+
+        const { getByTestId, getByText } = setup();
+
+        await waitForElementToBeRemoved(() => getByText('Loading journal data'));
+
+        expect(getByTestId('journal-details-tab-fez-journal-jcr-scie-category-0-heading')).toHaveAttribute(
+            'style',
+            'max-width: calc((100vw - 68px) * 0.67); width: 100%;',
+        );
+    });
+
+    it('should display journal details Tab width in phone size when 1 tab shown', async () => {
+        window.matchMedia = createMatchMedia(590);
+
+        mockApi.onGet(new RegExp(repositories.routes.JOURNAL_API({ id: '.*' }).apiUrl)).reply(200, {
+            data: {
+                ...journalDetails.data,
+                fez_journal_jcr_scie: {
+                    fez_journal_jcr_scie_category: [
+                        {
+                            ...journalDetails.data.fez_journal_jcr_scie.fez_journal_jcr_scie_category[0],
+                        },
+                    ],
+                },
+            },
+        });
+
+        const { getByTestId, getByText } = setup();
+
+        await waitForElementToBeRemoved(() => getByText('Loading journal data'));
+
+        expect(getByTestId('journal-details-tab-fez-journal-jcr-scie-category-0-heading')).toHaveAttribute(
+            'style',
+            'max-width: 100%; width: 100%;',
+        );
+    });
+
+    describe('Favouriting', () => {
+        // beforeEach(() => {
+        //     mockApi = setupMockAdapter();
+        // });
+
+        // afterEach(() => {
+        //     mockApi.reset();
+        // });
+
+        it('should display an error message if the journal "favourite" action fails', async () => {
+            window.matchMedia = createMatchMedia(1600);
+            mockApi.onGet(new RegExp(repositories.routes.JOURNAL_API({ id: '.*' }).apiUrl)).reply(200, {
+                data: {
+                    ...journalDetails.data,
+                },
+            });
+            mockApi.onPost(new RegExp(repositories.routes.JOURNAL_FAVOURITES_API().apiUrl)).reply(500, { data: '' });
+            const { getByTestId, getByText, queryByTestId } = setup();
+
+            await waitForElementToBeRemoved(() => getByText('Loading journal data'));
+
+            expect(getByTestId('favourite-journal-notsaved')).toBeInTheDocument();
+            expect(queryByTestId('alert-error')).not.toBeInTheDocument();
+
+            await act(async () => {
+                fireEvent.click(getByTestId('favourite-journal-notsaved'));
+
+                // need some time to pass for the api call to return
+                await new Promise(r => setTimeout(r, 500));
+            });
+            expect(getByTestId('alert-error')).toBeInTheDocument();
+            expect(getByTestId('dismiss')).toBeInTheDocument();
+
+            await act(async () => {
+                fireEvent.click(getByTestId('dismiss'));
+            });
+
+            expect(queryByTestId('alert-error')).not.toBeInTheDocument();
+        });
     });
 });

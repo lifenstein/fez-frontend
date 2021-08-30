@@ -65,19 +65,19 @@ export default class NtroFields extends React.PureComponent {
                 title: 'Author/Creator research statement',
                 fields: {
                     scaleOfWork: {
-                        label: (
+                        label: 'Scale/Significance of work',
+                        description: (
                             <span>
-                                Scale/Significance of work*
-                                <span style={{ fontWeight: 700 }}>(not for public view)</span>
+                                Select the option that best describes the significance of the work*
+                                <span style={{ fontWeight: 700 }}> (not for public view)</span>
                             </span>
                         ),
-                        description: 'Select the option that best describes the significance of the work.',
                     },
                     impactStatement: {
                         label: (
                             <span>
                                 Creator research statement*. Include Background, Contribution and Significance
-                                <span style={{ fontWeight: 700 }}>(not for public view)</span>
+                                <span style={{ fontWeight: 700 }}> (not for public view)</span>
                             </span>
                         ),
                         placeholder:
@@ -135,11 +135,11 @@ export default class NtroFields extends React.PureComponent {
                     },
                     extent: {
                         label: 'Total pages/Extent',
-                        placeholder: 'Enter total pages, size or duration of work',
+                        placeholder: 'Total pages, size, or duration',
                     },
                     physicalDescription: {
                         label: 'Physical description',
-                        placeholder: 'Building, Exhibition, Performance, Composition',
+                        placeholder: 'e.g Building, Exhibit, Performance',
                     },
                     audienceSize: {
                         label: 'Audience size',
@@ -169,19 +169,18 @@ export default class NtroFields extends React.PureComponent {
         this.row5Width = this.getWidth([props.hideAudienceSize, props.hidePeerReviewActivity, props.hideLanguage]);
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    componentDidUpdate() {
         this.row3Width = this.getWidth([
-            nextProps.hideVolume,
-            nextProps.hideIssue,
-            nextProps.hideStartPage,
-            nextProps.hideEndPage,
+            this.props.hideVolume,
+            this.props.hideIssue,
+            this.props.hideStartPage,
+            this.props.hideEndPage,
         ]);
-        this.row4Width = this.getWidth([nextProps.hideExtent, nextProps.hideOriginalFormat]);
+        this.row4Width = this.getWidth([this.props.hideExtent, this.props.hideOriginalFormat]);
         this.row5Width = this.getWidth([
-            nextProps.hideAudienceSize,
-            nextProps.hidePeerReviewActivity,
-            nextProps.hideLanguage,
+            this.props.hideAudienceSize,
+            this.props.hidePeerReviewActivity,
+            this.props.hideLanguage,
         ]);
     }
 
@@ -222,10 +221,7 @@ export default class NtroFields extends React.PureComponent {
                                 // In practice, they are always incomplete together
                                 (this.props.showContributionStatement || this.props.showSignificance) && (
                                     <Grid item xs={12}>
-                                        { /* prettier-ignore */ }
-                                        <Typography>
-	                                            {contributionStatement.fields.scaleOfWork.description}
-	                                        </Typography>
+                                        <Typography>{contributionStatement.fields.scaleOfWork.description}</Typography>
                                         <Field
                                             component={SelectField}
                                             disabled={this.props.submitting}

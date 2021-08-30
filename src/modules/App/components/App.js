@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router';
 import Cookies from 'js-cookie';
 import {
-    routes,
-    pathConfig,
+    APP_URL,
     AUTH_URL_LOGIN,
     AUTH_URL_LOGOUT,
-    APP_URL,
+    pathConfig,
+    routes,
     SESSION_COOKIE_NAME,
     SESSION_USER_GROUP_COOKIE_NAME,
 } from 'config';
@@ -15,10 +15,8 @@ import locale from 'locale/global';
 import { isFileUrl } from 'config/routes';
 
 // application components
-import { AppLoader } from 'modules/SharedComponents/Toolbox/Loaders';
+import { AppLoader, ContentLoader, InlineLoader } from 'modules/SharedComponents/Toolbox/Loaders';
 import { ScrollTop } from 'modules/SharedComponents/ScrollTop';
-import { ContentLoader } from 'modules/SharedComponents/Toolbox/Loaders';
-import { InlineLoader } from 'modules/SharedComponents/Toolbox/Loaders';
 import { MenuDrawer } from 'modules/SharedComponents/Toolbox/MenuDrawer';
 import { HelpDrawer } from 'modules/SharedComponents/Toolbox/HelpDrawer';
 import { AuthButton } from 'modules/SharedComponents/Toolbox/AuthButton';
@@ -142,16 +140,22 @@ export class AppClass extends PureComponent {
         this.handleResize(this.state.mediaQuery);
         this.state.mediaQuery.addListener(this.handleResize);
     }
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (nextProps.isSessionExpired) {
+
+    componentDidUpdate(prevProps) {
+        if (this.props.isSessionExpired) {
             this.sessionExpiredConfirmationBox.showConfirmation();
         }
-        if (nextProps.account && this.props.account !== nextProps.account && !nextProps.accountLoading) {
+        // don't call the api for non author users since the api call requires an author
+        if (
+            !this.props.accountAuthorLoading &&
+            // eslint-disable-next-line camelcase
+            this.props.author?.aut_id &&
+            // eslint-disable-next-line camelcase
+            this.props.author?.aut_id !== prevProps.author?.aut_id
+        ) {
             this.props.actions.searchAuthorPublications({}, 'incomplete');
         }
     }
-
     componentWillUnmount() {
         this.state.mediaQuery.removeListener(this.handleResize);
     }
@@ -190,7 +194,10 @@ export class AppClass extends PureComponent {
     isPublicPage = menuItems => {
         return (
             menuItems.filter(menuItem => this.props.location.pathname === menuItem.linkTo && menuItem.public).length >
-                0 || new RegExp(pathConfig.records.view(`(${routes.pidRegExp})`)).test(this.props.location.pathname)
+                0 ||
+            new RegExp(pathConfig.records.view(`(${routes.pidRegExp}|${routes.notFound})`)).test(
+                this.props.location.pathname,
+            )
         );
     };
 
@@ -221,8 +228,8 @@ export class AppClass extends PureComponent {
             this.props.authorDetails &&
             this.props.authorDetails.is_administrator !== 1 &&
             this.props.authorDetails.is_super_administrator !== 1 &&
-            this.props.author &&
-            Object.keys(this.props.author).length > 1 &&
+            // eslint-disable-next-line camelcase
+            this.props.author?.aut_id &&
             !this.props.author.aut_orcid_id &&
             this.props.location.pathname !== pathConfig.authorIdentifiers.orcid.link;
         const isHdrStudent =
@@ -231,11 +238,8 @@ export class AppClass extends PureComponent {
             this.props.account.class &&
             this.props.account.class.indexOf('IS_CURRENT') >= 0 &&
             this.props.account.class.indexOf('IS_UQ_STUDENT_PLACEMENT') >= 0;
-        const isAuthor =
-            !isAuthorLoading &&
-            !!this.props.account &&
-            !!this.props.author &&
-            Object.keys(this.props.author).length > 1;
+        // eslint-disable-next-line camelcase
+        const isAuthor = !isAuthorLoading && !!this.props.account && this.props.author?.aut_id;
         const hasIncompleteWorks = !!(
             this.props.incompleteRecordList &&
             this.props.incompleteRecordList.incomplete.publicationsListPagingData &&
@@ -255,6 +259,7 @@ export class AppClass extends PureComponent {
         const isSearchPage =
             this.props.location.pathname === pathConfig.records.search ||
             this.props.location.pathname === pathConfig.records.search;
+        const isJournalRelatedPage = this.props.location.pathname?.includes('journal');
         const showMenu = !isThesisSubmissionPage;
 
         const containerStyle = this.state.docked && !isThesisSubmissionPage ? { paddingLeft: 260 } : {};
@@ -270,7 +275,14 @@ export class AppClass extends PureComponent {
                 ...locale.global.loginAlert,
                 action: this.redirectUserToLogin(),
             };
-        } else if (!isPublicPage && !isAuthorLoading && this.props.account && !this.props.author) {
+            // eslint-disable-next-line camelcase
+        } else if (
+            !isPublicPage &&
+            !isAuthorLoading &&
+            !isJournalRelatedPage &&
+            this.props.account &&
+            (!this.props.author || !this.props.author.aut_id)
+        ) {
             // user is logged in, but doesn't have eSpace author identifier
             userStatusAlert = {
                 ...locale.global.notRegisteredAuthorAlert,
@@ -296,6 +308,10 @@ export class AppClass extends PureComponent {
         });
         const titleStyle = this.state.docked && !isThesisSubmissionPage ? { paddingLeft: 284 } : { paddingLeft: 0 };
         const isIndex = this.props.history.location.pathname === '/';
+        const isAdminPage = () => {
+            return window?.location?.pathname?.startsWith('/admin') || false;
+        };
+
         return (
             <Grid container className={classes.layoutFill}>
                 <Meta routesConfig={routesConfig} />
@@ -307,7 +323,7 @@ export class AppClass extends PureComponent {
                             alignItems="center"
                             direction="row"
                             wrap="nowrap"
-                            justify="flex-start"
+                            justifyContent="flex-start"
                         >
                             {!this.state.docked && !this.state.menuDrawerOpen && !isThesisSubmissionPage && (
                                 <Grid item>
@@ -328,7 +344,13 @@ export class AppClass extends PureComponent {
                                 </Grid>
                             )}
                             <Grid item xs style={titleStyle} className={classes.nowrap}>
-                                <Grid container spacing={2} alignItems="center" justify="flex-start" wrap={'nowrap'}>
+                                <Grid
+                                    container
+                                    spacing={2}
+                                    alignItems="center"
+                                    justifyContent="flex-start"
+                                    wrap={'nowrap'}
+                                >
                                     {!this.state.docked && !this.state.menuDrawerOpen && (
                                         <Hidden xsDown>
                                             <Grid item>
@@ -402,6 +424,9 @@ export class AppClass extends PureComponent {
                     <Hidden smDown>
                         <ScrollTop show containerId="content-container" />
                     </Hidden>
+                    <div role="region" aria-label="eSpace alerts" style={{ paddingBottom: 24 }}>
+                        {!isAdminPage() && <alert-list system="espace" />}
+                    </div>
                     <ConfirmDialogBox
                         hideCancelButton
                         onRef={this.setSessionExpiredConfirmation}
@@ -412,7 +437,7 @@ export class AppClass extends PureComponent {
                         <Grid
                             container
                             alignContent="center"
-                            justify="center"
+                            justifyContent="center"
                             alignItems="center"
                             style={{ marginBottom: 12 }}
                         >

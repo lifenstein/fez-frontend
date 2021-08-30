@@ -21,6 +21,13 @@ const classNames = require('classnames');
 
 const useStyles = makeStyles(
     theme => ({
+        root: {
+            padding: 12,
+            marginTop: 5,
+            '&:first-child': {
+                marginTop: 0,
+            },
+        },
         common: {
             borderRadius: 5,
             boxShadow: theme.shadows[1],
@@ -50,6 +57,12 @@ const useStyles = makeStyles(
             alignSelf: 'center',
             padding: '6px 0',
             textShadow: '1px 1px 1px rgba(0, 0, 0, 0.2)',
+
+            '& ul, & ol': {
+                [theme.breakpoints.down('xs')]: {
+                    paddingInlineStart: 0,
+                },
+            },
         },
         actionButton: {
             '& .action': {
@@ -291,19 +304,19 @@ export const Alert = ({
     };
 
     return (
-        <div style={{ padding: 12 }} className="Alert">
+        <div className={classes.root} data-testid="alert">
             <Grid
                 container
                 spacing={3}
                 className={classNames(classes[!!customIcon ? customType : type], classes.common)}
-                justify="center"
+                justifyContent="center"
                 alignItems="flex-start"
                 alignContent="center"
                 id={alertId}
                 data-testid={alertId}
             >
                 <Grid item xs={12} sm className={(action && !disableAlertClick && classes.linked) || ''}>
-                    <Grid container justify="center" alignItems="flex-start" alignContent="center">
+                    <Grid container justifyContent="center" alignItems="flex-start" alignContent="center">
                         <Grid
                             item
                             className={`${classes.icon} alert-icon ${wiggle ? classes.wiggler : ''}`}

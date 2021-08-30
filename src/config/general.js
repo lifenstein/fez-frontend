@@ -1,5 +1,6 @@
 import locale from 'locale/components';
 import moment from 'moment';
+
 const converter = require('number-to-words');
 
 const getKeyValue = value => (process.env.NODE_ENV === 'production' ? `?key=${value}&` : '?');
@@ -15,12 +16,15 @@ export const SESSION_USER_GROUP_COOKIE_NAME = 'UQLID_USER_GROUP';
 export const TOKEN_NAME = 'X-Uql-Token';
 export const BASE_DN = 'ou=Staff,ou=People,o=The University of Queensland,c=AU';
 export const GENERIC_DATE_FORMAT = 'DD/MM/YYYY';
+export const UQ_FULL_NAME = 'The University of Queensland';
 
 // URLS - values are set in webpack build
 export const STAGING_URL = 'https://fez-staging.library.uq.edu.au/';
+export const DEVELOPMENT_DOMAIN = 'development.library.uq.edu.au';
 export const API_URL = process.env.API_URL || 'https://api.library.uq.edu.au/staging/';
 export const APP_URL = process.env.APP_URL || STAGING_URL;
 export const IS_PRODUCTION = API_URL.indexOf('staging') === -1;
+export const IS_DEVELOPMENT_SERVER = !process.env.USE_MOCK && APP_URL.indexOf(DEVELOPMENT_DOMAIN) > -1;
 
 export const AUTH_URL_LOGIN = process.env.AUTH_LOGIN_URL || 'https://fez-staging.library.uq.edu.au/login.php';
 export const AUTH_URL_LOGOUT = process.env.AUTH_LOGOUT_URL || 'https://auth.library.uq.edu.au/logout';
@@ -35,6 +39,9 @@ export const GOOGLE_MAPS_API_URL = `https://maps.googleapis.com/maps/api/js${get
 export const GOOGLE_MAPS_API_CHINA_URL = `http://maps.google.cn/maps/api/js${getKeyValue(
     process.env.GOOGLE_MAPS_API_KEY,
 )}v=3.exp&libraries=geometry,drawing,places`;
+
+// convenience method to return an image via require() with a leading / where necessary
+export const getRequiredImagePath = imagePath => `${!IS_DEVELOPMENT_SERVER ? '/' : ''}${imagePath}`;
 
 // these values must match what is in api at fez_core/src/config/fez_core.php
 export const PUBLICATION_TYPE_AUDIO_DOCUMENT = 263;
@@ -119,6 +126,7 @@ export const DOCUMENT_TYPE_WORKING_PAPER = 'Working Paper';
 export const DOCUMENT_TYPES_EDIT_ONLY = [PUBLICATION_TYPE_REFERENCE_ENTRY];
 
 export const PUBLICATION_TYPES_WITH_DOI = [
+    PUBLICATION_TYPE_BOOK_CHAPTER,
     PUBLICATION_TYPE_BOOK,
     PUBLICATION_TYPE_CONFERENCE_PAPER,
     PUBLICATION_TYPE_DATA_COLLECTION,
@@ -127,6 +135,21 @@ export const PUBLICATION_TYPES_WITH_DOI = [
     PUBLICATION_TYPE_RESEARCH_REPORT,
     PUBLICATION_TYPE_THESIS,
     PUBLICATION_TYPE_WORKING_PAPER,
+];
+
+export const CSV_INGEST_DOCUMENT_TYPES = [
+    PUBLICATION_TYPE_AUDIO_DOCUMENT,
+    PUBLICATION_TYPE_BOOK,
+    PUBLICATION_TYPE_CONFERENCE_PAPER,
+    PUBLICATION_TYPE_DATA_COLLECTION,
+    PUBLICATION_TYPE_DIGILIB_IMAGE,
+    PUBLICATION_TYPE_DESIGN,
+    PUBLICATION_TYPE_IMAGE,
+    PUBLICATION_TYPE_JOURNAL,
+    PUBLICATION_TYPE_JOURNAL_ARTICLE,
+    PUBLICATION_TYPE_MANUSCRIPT,
+    PUBLICATION_TYPE_THESIS,
+    PUBLICATION_TYPE_VIDEO_DOCUMENT,
 ];
 
 export const DOCUMENT_TYPES_LOOKUP = {
@@ -182,7 +205,7 @@ export const NTRO_SUBTYPE_RREB_PUBLIC_SECTOR = 'Research Report for an External 
 export const NTRO_SUBTYPE_RREB_INDUSTRY = 'Research Report for an External Body - Industry';
 export const NTRO_SUBTYPE_RREB_NOT_FOR_PROFIT = 'Research Report for an External Body - Not-for-profit';
 export const NTRO_SUBTYPE_RREB_OTHER = 'Research Report for an External Body - Other';
-export const SUBTYPE_RR_INTERNAL_OTHER = 'Research Report - Internal or Other';
+export const SUBTYPE_RR_INTERNAL_OTHER = 'Research Report - Other or Citation Only';
 export const SUBTYPE_EDITED_BOOK = 'Edited book';
 export const SUBTYPE_NON_NTRO = 'Non-NTRO';
 
@@ -224,7 +247,7 @@ const CREATIVE_WORK_NTRO_SUBTYPES = [
     ...CPEE_NTRO_SUBTYPES,
 ];
 
-const RESEARCH_REPORT_NTRO_SUBTYPES = [
+export const NTRO_RESEARCH_REPORT_SUBTYPES = [
     NTRO_SUBTYPE_RREB_PUBLIC_SECTOR,
     NTRO_SUBTYPE_RREB_INDUSTRY,
     NTRO_SUBTYPE_RREB_NOT_FOR_PROFIT,
@@ -234,7 +257,7 @@ const RESEARCH_REPORT_NTRO_SUBTYPES = [
 export const NTRO_SUBTYPES = [
     NTRO_SUBTYPE_CW_DESIGN_ARCHITECTURAL_WORK,
     ...CREATIVE_WORK_NTRO_SUBTYPES,
-    ...RESEARCH_REPORT_NTRO_SUBTYPES,
+    ...NTRO_RESEARCH_REPORT_SUBTYPES,
 ];
 
 export const NTRO_SUBTYPES_CATEGORY_CODE = {
@@ -503,7 +526,7 @@ export const publicationTypes = (components, isAdmin = false) => ({
         formComponent: components ? components.ResearchReportForm : null,
         citationComponent: components ? components.ResearchReportCitation : null,
         hasFormComponent: true,
-        subtypes: [...RESEARCH_REPORT_NTRO_SUBTYPES, SUBTYPE_RR_INTERNAL_OTHER],
+        subtypes: [...NTRO_RESEARCH_REPORT_SUBTYPES, SUBTYPE_RR_INTERNAL_OTHER],
     },
     [PUBLICATION_TYPE_SEMINAR_PAPER]: {
         id: PUBLICATION_TYPE_SEMINAR_PAPER,
@@ -779,6 +802,15 @@ export const CURRENT_LICENCES = [
             'I AGREE TO ACKNOWLEDGE any re-use of this dataset in any research outputs where reliance is made upon it, including conference papers and published research papers.',
             'I FURTHER AGREE TO A SHARE ALIKE RESTRICTION on this dataset, or any data included in it, which means that I Agree that I remix, transform or build upon the data, I will contributions on the same Share Alike basis as the original.',
             'The agreed form of acknowledgement is a full citation as presented on the UQ eSpace record for this record for this dataset.',
+        ],
+    },
+    {
+        value: 456807,
+        text: 'Permitted reuse only with a Data Sharing Agreement in place between UQ and recipient',
+        description: [
+            'I AGREE TO ACKNOWLEDGE any re-use of this dataset in any research outputs where reliance is made upon it, including conference papers and published research papers.',
+            'I FURTHER AGREE that my re-use of this dataset will fully comply with all terms and conditions of the Data Sharing Agreement established between myself and UQ for this purpose.',
+            'The agreed form of acknowledgement is a full citation as presented on the UQ eSpace record for this dataset.',
         ],
     },
 ];
@@ -1153,6 +1185,19 @@ export const CONTENT_INDICATORS = [
     { value: 454081, text: 'Case Study' },
 ];
 
+export const CONTENT_INDICATORS_FOR_CONFERENCE_PAPER = [
+    { value: 456746, text: 'Plenary' },
+    { value: 456747, text: 'Invited' },
+];
+
+export const CONTENT_INDICATORS_DOCTYPE_MAP = {
+    default: CONTENT_INDICATORS,
+    [PUBLICATION_TYPE_CONFERENCE_PAPER]: [...CONTENT_INDICATORS, ...CONTENT_INDICATORS_FOR_CONFERENCE_PAPER],
+};
+
+export const contentIndicators = displayType =>
+    CONTENT_INDICATORS_DOCTYPE_MAP[(displayType === PUBLICATION_TYPE_CONFERENCE_PAPER && displayType) || 'default'];
+
 export const AUDIENCE_SIZE = [
     { value: 453992, text: 'Less than 100' },
     { value: 453993, text: '100 - 500' },
@@ -1208,6 +1253,7 @@ export const LANGUAGE = [
     { value: 'por', text: 'Portuguese' },
     { value: 'rum', text: 'Romanian' },
     { value: 'rus', text: 'Russian' },
+    { value: 'san', text: 'Sanskrit' },
     { value: 'slo', text: 'Slovak' },
     { value: 'slv', text: 'Slovenian' },
     { value: 'spa', text: 'Spanish' },
@@ -1225,6 +1271,7 @@ export const LANGUAGE = [
 ];
 
 export const PATH_PREFIX = !process.env.USE_MOCK && process.env.NODE_ENV === 'development' ? '#/' : '';
+export const DELETE_SELECTED_RECORD_LABEL = 'Delete selected record';
 
 export const RECORD_ACTION_URLS = [
     {
@@ -1258,18 +1305,11 @@ export const RECORD_ACTION_URLS = [
         isDoi: true,
     },
     {
-        label: 'Delete selected record',
+        label: DELETE_SELECTED_RECORD_LABEL,
         url: pid => `${APP_URL}${PATH_PREFIX}admin/delete/${pid}`,
         inApp: true,
         showInDeleted: false,
         options: null,
-    },
-    {
-        label: 'Detailed history',
-        url: pid => `${APP_URL}${PATH_PREFIX}history.php?pid=${pid}`,
-        inApp: false,
-        showInDeleted: true,
-        options: 'menubar=no,location=no,width=300,height=300,resizable=yes,scrollbars=yes,status=no',
     },
     {
         label: 'Change display type',
@@ -1329,8 +1369,14 @@ export const TOP_LEVEL_SECURITY_POLICIES = [
 
 export const DATA_STREAM_SECURITY_POLICIES = TOP_LEVEL_SECURITY_POLICIES;
 
+export const RECORD_TYPE_COMMUNITY_ID = 11;
+export const RECORD_TYPE_COLLECTION_ID = 9;
 export const RECORD_TYPE_COMMUNITY = 'community';
 export const RECORD_TYPE_COLLECTION = 'collection';
+export const RECORD_TYPE_LOOKUP = {
+    [RECORD_TYPE_COMMUNITY_ID]: RECORD_TYPE_COMMUNITY,
+    [RECORD_TYPE_COLLECTION_ID]: RECORD_TYPE_COLLECTION,
+};
 export const RECORD_TYPE_RECORD = 'record';
 export const CONTENT_INDICATORS_DOCTYPE_BLACKLIST = [
     PUBLICATION_TYPE_DATA_COLLECTION,
@@ -1339,6 +1385,8 @@ export const CONTENT_INDICATORS_DOCTYPE_BLACKLIST = [
     PUBLICATION_TYPE_IMAGE,
     PUBLICATION_TYPE_DIGILIB_IMAGE,
 ];
+
+export const PUBLICATION_EXCLUDE_CITATION_TEXT_LIST = [RECORD_TYPE_COMMUNITY, RECORD_TYPE_COLLECTION];
 
 export const CONTENT_INDICATORS_COLLECTIONS_BLACKLIST = [
     'UQ:244548',
@@ -1580,6 +1628,40 @@ export const OA_STATUS_TYPE = [
     { value: 454123, text: 'Bronze' },
 ];
 
+export const SENSITIVE_HANDLING_NOTE_OTHER_TYPE = 456860;
+export const SENSITIVE_HANDLING_NOTE_TYPE = [
+    {
+        value: 456855,
+        text:
+            'Indigenous/First Nations people should be aware that this output contains images, voices and/or names of deceased persons.',
+    },
+    {
+        value: 456856,
+        text: 'Indigenous/First Nations people should be aware that this output is about women’s business.',
+    },
+    {
+        value: 456857,
+        text: 'Indigenous/First Nations people should be aware that this output is about men’s business.',
+    },
+    {
+        value: 456858,
+        text:
+            'Assessors should be aware that this output contains content related to any of the following: violence, ' +
+            'family or domestic violence, self-harm, sexual assault, suicide, family child removal, refugee experiences, ' +
+            'war survivor experiences or other traumatic experiences that may be distressing or harmful to some people.',
+    },
+    {
+        value: 456859,
+        text:
+            'Assessors should be aware that this output contains content with explicit language, hate speech, nudity or ' +
+            'sexuality, or drug use which may be confronting and potentially distressing to some people.',
+    },
+    {
+        value: SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
+        text: 'Other',
+    },
+];
+
 export const ANDS_COLLECTION_TYPE_COLLECTION = 453615;
 export const ANDS_COLLECTION_TYPE_DATASET = 453616;
 export const ANDS_COLLECTION_TYPE_OPTIONS = [
@@ -1601,11 +1683,13 @@ export const DOI_CROSSREF_PREFIX = '10.14264';
 export const DOI_DATACITE_NAME = 'DataCite';
 export const DOI_DATACITE_PREFIX = IS_PRODUCTION ? '10.48610' : '10.23643';
 
-export const PLACEHOLDER_DATE = '1000-01-01T00:00:00Z';
+export const PLACEHOLDER_ISO8601_ZULU_DATE = '1000-01-01T00:00:00Z';
+export const PLACEHOLDER_ISO8601_DATE = '1000-01-01 00:00:00';
 
 export const THESIS_UPLOAD_RETRIES = 5;
 
 export const PUB_SEARCH_BULK_EXPORT_SIZE = 500;
+export const COMMUNITY_COLLECTION_BULK_EXPORT_SIZE = 500;
 export const MY_RECORDS_BULK_EXPORT_SIZE = 1000;
 export const PUB_LIST_BULK_EXPORT_SIZES = [PUB_SEARCH_BULK_EXPORT_SIZE, MY_RECORDS_BULK_EXPORT_SIZE];
 
@@ -1642,6 +1726,9 @@ export const EDITORIAL_ROLE_MAP = {
     [EDITORIAL_ROLE_SINGLE_ISSUE_EDITOR]: 'Single Issue Editor',
     [EDITORIAL_ROLE_OTHER]: 'Other',
 };
+export const EDITORIAL_APPOINTMENT_MIN_YEAR = 1900;
+export const EDITORIAL_APPOINTMENT_MAX_YEAR = 2100;
+
 export const OPEN_ACCESS_ID = 453619;
 export const MEDIATED_ACCESS_ID = 453618;
 export const DATASET_ACCESS_CONDITIONS_OPTIONS = [
@@ -1664,3 +1751,9 @@ export const BULK_DELETE_AUTHOR_NOT_FOUND = 'Author not found';
 export const BULK_DELETE_AUTHOR_LINKED_WORKS = 'Cannot delete author with linked works';
 
 export const SCOPUS_INGESTED_AUTHORS = 'SCOPUS_INGESTED_AUTHORS';
+
+export const COLLECTION_VIEW_TYPE = [
+    { id: 456849, value: 'auto', label: 'Auto' },
+    { id: 456850, value: 'standard', label: 'Standard' },
+    { id: 456851, value: 'image-gallery', label: 'Image Gallery' },
+];

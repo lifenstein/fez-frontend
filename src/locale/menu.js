@@ -40,8 +40,8 @@ export default {
             primaryText: 'Search eSpace',
             secondaryText: '',
         },
-        contact: {
-            primaryText: 'Contact',
+        about: {
+            primaryText: 'About',
             secondaryText: '',
         },
         thirdPartyLookupTools: {
@@ -58,6 +58,9 @@ export default {
         },
         communityForm: {
             primaryText: 'Add a missing community',
+        },
+        communityList: {
+            primaryText: 'Browse',
         },
         unpublished: {
             primaryText: 'Unpublished buffer',
@@ -84,6 +87,11 @@ export default {
         },
         manageUsers: {
             primaryText: 'Manage users',
+        },
+        journals: {
+            search: {
+                primaryText: 'Journal search',
+            },
         },
     },
     footer: {

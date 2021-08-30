@@ -41,7 +41,7 @@ exports[`DepartmentTechnicalReportForm renders  component 1`] = `
             name="rek_title"
             placeholder="Title of report"
             required={true}
-            rows={1}
+            rows={3}
             textFieldId="rek-title"
             type="text"
             validate={
@@ -144,6 +144,36 @@ exports[`DepartmentTechnicalReportForm renders  component 1`] = `
             floatingLabelText="Report number"
             hintText=""
             name="fez_record_search_key_report_number.rek_report_number"
+          />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          sm={6}
+          xs={12}
+        >
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "classes": [Function],
+                  "help": [Function],
+                  "innerRef": [Function],
+                  "textFieldId": [Function],
+                },
+                "render": [Function],
+              }
+            }
+            disabled={false}
+            fullWidth={true}
+            name="fez_record_search_key_doi.rek_doi"
+            textFieldId="rek-doi"
+            type="text"
+            validate={
+              Array [
+                [Function],
+              ]
+            }
           />
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
@@ -258,7 +288,7 @@ exports[`DepartmentTechnicalReportForm renders  component 1`] = `
                 "identifierLabel": "UQ identifier (if available)",
                 "nameAsPublishedFieldId": "authors-name-as-published-field",
                 "nameAsPublishedHint": "Type the name exactly as published",
-                "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                "nameAsPublishedLabel": "Author's name as published",
               },
             },
             "header": Object {

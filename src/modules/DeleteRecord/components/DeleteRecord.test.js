@@ -1,5 +1,6 @@
 import DeleteRecord from './DeleteRecord';
 import { mockRecordToDelete } from 'mock/data/testing/records';
+import { communityRecord, collectionRecord } from 'mock/data/testing/communityCollection';
 import Immutable from 'immutable';
 import { DOI_CROSSREF_PREFIX, DOI_DATACITE_PREFIX } from 'config/general';
 
@@ -88,6 +89,51 @@ describe('Component DeleteRecord', () => {
         expect(wrapper.find('Field').length).toEqual(0);
     });
 
+    it('should display specific alert if trying to delete a Community that contains Collections', () => {
+        const wrapper = setup({
+            recordToDelete: {
+                ...communityRecord,
+            },
+            error: '{"status":409,"data":"Can\'t delete a record that has child records","message":"Duplicate record"}',
+        });
+
+        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('Alert').length).toEqual(1);
+    });
+
+    it('should display specific alert if trying to delete a Collection that is a part of at least one Community', () => {
+        const wrapper = setup({
+            recordToDelete: {
+                ...collectionRecord,
+            },
+            error: '{"status":409,"data":"Can\'t delete a record that has child records","message":"Duplicate record"}',
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('Alert').length).toEqual(1);
+    });
+
+    it('should display general alert if trying to delete a Community or Collection that errors', () => {
+        const wrapper = setup({
+            recordToDelete: {
+                ...communityRecord,
+            },
+            error: '{"status":400,"data":"A message from the server","message":"Test error"}',
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('Alert').length).toEqual(1);
+    });
+
+    it('should display general alert if trying to delete a non-Community or Collection that errors', () => {
+        const wrapper = setup({
+            recordToDelete: {
+                ...mockRecordToDelete,
+            },
+            error: '{"status":400,"data":"A message from the server","message":"Test error"}',
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.find('Alert').length).toEqual(1);
+    });
+
     it('should redirect to other pages', () => {
         const testMethod = jest.fn();
         const goBack = jest.fn();
@@ -133,7 +179,9 @@ describe('Component DeleteRecord', () => {
         const testMethod = jest.fn();
         const wrapper = setup({ recordToDelete: mockRecordToDelete });
         wrapper.instance().successConfirmationBox = { showConfirmation: testMethod };
-        wrapper.instance().UNSAFE_componentWillReceiveProps({ submitSucceeded: true });
+        wrapper.update();
+        expect(testMethod).not.toHaveBeenCalled();
+        wrapper.setProps({ submitSucceeded: true });
         expect(testMethod).toHaveBeenCalled();
     });
 
@@ -151,13 +199,12 @@ describe('Component DeleteRecord', () => {
         expect(testFN).toHaveBeenCalled();
     });
 
-    it('UNSAFE_componentWillReceiveProps()', () => {
+    it('componentDidUpdate()', () => {
         const wrapper = setup({
             submitSucceeded: true,
             recordToDelete: mockRecordToDelete,
         });
-        const nextProps = { submitSucceeded: true };
-        wrapper.instance().UNSAFE_componentWillReceiveProps(nextProps);
+        wrapper.setProps({ submitSucceeded: true });
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 

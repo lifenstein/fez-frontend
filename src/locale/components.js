@@ -6,6 +6,18 @@ import { selectFields } from 'locale/selectFields';
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export const loremIpsum =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
+    'Duis turpis risus, mollis in sem id, auctor tempus tellus. ' +
+    'Praesent maximus tempor tellus pellentesque tincidunt. ' +
+    'Integer maximus accumsan tellus ac aliquet. Nam sollicitudin ' +
+    'odio a leo euismod, quis pharetra arcu laoreet. Mauris malesuada ' +
+    'id diam dignissim aliquet. Aliquam rhoncus non urna in hendrerit. ' +
+    'Pellentesque leo nibh, ornare non metus consequat, tincidunt ' +
+    'scelerisque massa. Curabitur at pellentesque quam. Nulla facilisi. ' +
+    'Nullam sit amet mattis est, ut finibus orci.';
+
 export default {
     components: {
         publicationsList: {
@@ -452,9 +464,9 @@ export default {
                 form: {
                     locale: {
                         grantAgencyNameLabel: 'Funder/Sponsor name',
-                        grantAgencyNameHint: 'Enter Funder/Sponsor name for this work',
+                        grantAgencyNameHint: 'Funder/sponsor name for this work',
                         grantIdLabel: 'Grant ID',
-                        grantIdHint: 'Enter grant number for this work, if available',
+                        grantIdHint: 'Grant number for this work',
                         grantAgencyTypeLabel: 'Funder/Sponsor type',
                         grantAgencyTypeHint: 'Select Funder/Sponsor type',
                         addButton: 'Add grant',
@@ -647,7 +659,7 @@ export default {
                 form: {
                     locale: {
                         inputFieldLabel: 'ISBN value',
-                        inputFieldHint: 'Enter ISBN, e.g. 13 digit: 9780815375296 or 10 digit: 1861972717',
+                        inputFieldHint: 'Enter a 10 or 13 digit ISBN',
                         addButtonLabel: <span>Add&nbsp;ISBN</span>,
                         editButtonLabel: <span>Update&nbsp;ISBN</span>,
                         remindToAddText: (
@@ -891,6 +903,8 @@ export default {
                         contributionStatementInputFieldLabel: 'Creator contribution statement',
                         contributionStatementFieldHint: 'Enter description',
                         addButtonLabel: <span>Add&nbsp;Scale of significance and Contribution statement</span>,
+                        editButtonLabel: <span>Edit&nbsp;Scale of significance and Contribution statement</span>,
+                        addEntryButton: 'Add entry',
                         authorOrderAlert: {
                             message:
                                 'Any changes made to the author order require that all contribution statements are also manually updated to match.',
@@ -936,6 +950,8 @@ export default {
                         contributionStatementInputFieldLabel: 'Creator research statement',
                         contributionStatementFieldHint: 'Enter description',
                         addButtonLabel: 'ADD SCALE/SIGNIFICANCE AND RESEARCH STATEMENT',
+                        editButtonLabel: 'UPDATE SCALE/SIGNIFICANCE AND RESEARCH STATEMENT',
+                        resetFormLabel: 'Cancel',
                         authorOrderAlert: {
                             message:
                                 'Any changes made to the author order require that all contribution statements are also manually updated to match.',
@@ -945,7 +961,7 @@ export default {
                 },
                 header: {
                     locale: {
-                        nameColumn: 'Scale/significance of work - Creator research statement',
+                        nameColumn: 'Author - Scale/significance of work - Creator research statement',
                         reorderColumn: 'Reorder items',
                         deleteAll: 'Remove all items',
                         deleteAllConfirmation: {
@@ -967,6 +983,7 @@ export default {
                             cancelButtonLabel: 'No',
                             confirmButtonLabel: 'Yes',
                         },
+                        editHint: 'Edit this item',
                     },
                 },
             },
@@ -1010,7 +1027,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each author's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Author's name as published",
                         nameAsPublishedHint: 'Type the name exactly as published',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add author',
@@ -1123,8 +1140,8 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each editor's name as published (eg. John Smith)",
-                        nameAsPublishedHint: 'Type the name in the format eg. "John Smith"',
+                        nameAsPublishedLabel: "Editor's name as published",
+                        nameAsPublishedHint: 'e.g. "John Smith"',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add editor',
                         nameAsPublishedFieldId: 'editors-name-as-published-field',
@@ -1202,7 +1219,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each creator's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Creator's name as published",
                         nameAsPublishedHint: 'Type the name exactly as published',
                         creatorRoleLabel: "Enter creator's role",
                         creatorRoleHint:
@@ -1292,7 +1309,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each designer's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Designer's name as published",
                         nameAsPublishedHint: 'Type the name exactly as published',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add designer',
@@ -1368,7 +1385,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each supervisor's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Supervisor's name as published",
                         nameAsPublishedHint: '',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add supervisor',
@@ -1445,7 +1462,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each creator's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Creator's name as published",
                         nameAsPublishedHint: '',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add creator',
@@ -1574,7 +1591,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each contributor's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Contributor's name as published",
                         nameAsPublishedHint: 'Type the name exactly as published',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add contributor',
@@ -1716,7 +1733,7 @@ export default {
             pageSize: 'Works per page',
             pageOf: 'Page [currentPage] of [totalPages]',
             totalRecords: '([total] works)',
-            pagingBracket: 3,
+            pagingBracket: 2,
             pageButtonAriaLabel: 'Click to select page [pageNumber] of [totalPages] result pages',
             firstLastSeparator: '...',
         },
@@ -1730,12 +1747,12 @@ export default {
                 { value: 'title', label: 'Title' },
                 { value: 'created_date', label: 'Created date' },
                 { value: 'updated_date', label: 'Updated date' },
-                { value: 'altmetric_score', label: 'Altmetric score' },
-                { value: 'scopus_citation_count', label: 'Scopus citation count' },
-                { value: 'thomson_citation_count', label: 'Web of Science citation count' },
+                { value: 'altmetric_score', label: 'Altmetric score', exclude: ['image-gallery'] },
+                { value: 'scopus_citation_count', label: 'Scopus citation count', exclude: ['image-gallery'] },
+                { value: 'thomson_citation_count', label: 'Web of Science citation count', exclude: ['image-gallery'] },
             ],
             sortDirection: ['Desc', 'Asc'],
-            recordsPerPage: [20, 50, 100],
+            recordsPerPage: [10, 20, 50, 100],
             exportOnlyLabel: 'Export Only:',
             bulkExportConfirmation: {
                 confirmationTitle: 'Export queued successfully',
@@ -1747,9 +1764,78 @@ export default {
                 ),
                 confirmButtonLabel: 'Close',
             },
+            displayRecordsAsLabel: 'Display results',
         },
-        newsFeed: {
-            title: 'Latest news',
+        imageGallery: {
+            alert: {
+                restricted: 'Image restricted',
+                advisory: 'Content warning',
+                restrictedAdvisory: 'Restricted + content warning',
+                unavailable: 'Image not available',
+            },
+            thumbnail: {
+                ariaLabel: 'Thumbnail image showing [title]',
+            },
+        },
+        culturalAdvice: {
+            title: 'Cultural advice',
+            text: (
+                <span>
+                    Aboriginal and Torres Strait Islander peoples are advised that UQ eSpace may contain images, voices
+                    or names of deceased persons in photographs, film, audio recordings or printed material. Aboriginal
+                    and Torres Strait Islander material and information accessed on this site may be culturally
+                    sensitive for some individuals and communities.
+                    <br />
+                    <br />
+                    Some material may contain language, terms, or descriptions that reflect the authors’ views, or those
+                    of the period in which the item was written or recorded but may be considered inappropriate today.
+                    These views are not necessarily the views of The University of Queensland. While the information may
+                    not reflect current understandings, it is provided in an historical context.
+                </span>
+            ),
+        },
+        culturalNoticeOC: {
+            title: 'Open to Collaborate',
+            imagePath:
+                'https://storage.googleapis.com/anth-ja77-local-contexts-8985.appspot.com/labels/notices/ci-open-to-collaborate.svg',
+            text: (
+                <span>
+                    The University of Queensland is committed to the development of new modes of collaboration,
+                    engagement, and partnership with Indigenous peoples for the care and stewardship of past and future
+                    heritage collections.
+                </span>
+            ),
+            description: (
+                <span>
+                    The Open to Collaborate Notice indicates that an institution is committed to developing new modes of
+                    collaboration, engagement, and partnership over Indigenous collections and data that have colonial
+                    and/or problematic histories or unclear provenance. This notice indicates an institutional
+                    commitment to change and to develop new processes for the care and stewardship of past and future
+                    heritage collections.
+                </span>
+            ),
+        },
+        culturalNoticeAI: {
+            title: 'Attribution Incomplete',
+            imagePath:
+                'https://storage.googleapis.com/anth-ja77-local-contexts-8985.appspot.com/labels/notices/ci-attribution-incomplete.svg',
+            text: (
+                <span>
+                    Collections and items in UQ eSpace have incomplete, inaccurate, and/or missing attribution. We are
+                    using this notice to clearly identify this material so that it can be updated, or corrected by
+                    communities of origin. Our institution is committed to collaboration and partnerships to address
+                    this problem of incorrect or missing attribution.
+                </span>
+            ),
+            description: (
+                <span>
+                    The Attribution Incomplete Notice is attached to a collection or at an item level where there is
+                    incomplete, inaccurate, or missing attribution. This Notice indicates to the public that the record
+                    and/or metadata is incomplete. Visibly identifying missing attribution within collections is the
+                    first step towards correcting existing attribution to include: contributors, collaborators, other
+                    authors and/or communities of origin.
+                </span>
+            ),
         },
         ntroFields: {
             header: {
@@ -1809,7 +1895,7 @@ export default {
             },
         },
         export: {
-            label: 'Export results',
+            label: 'Export page results',
             format: [
                 { value: 'excel', label: 'Excel File' },
                 { value: 'endnote', label: 'Endnote File' },
@@ -2118,6 +2204,18 @@ export default {
                                 }) ||
                             null,
                     },
+                    mtj_jnl_id: {
+                        order: 16,
+                        map: 'Journal ID',
+                        title: 'Journal ID',
+                        combiner: 'is',
+                        type: 'TextField',
+                        hint: 'Type an journal ID to seach',
+                        validation: ['required'],
+                        ariaLabel: 'Begin typing an journal ID',
+                        id: 'mtj_jnl_id',
+                        disabled: true,
+                    },
                 },
                 openAccess: {
                     title: 'Open access',
@@ -2134,7 +2232,7 @@ export default {
                     aria: 'Click to reset the advanced search',
                 },
                 simpleSearch: {
-                    title: 'Simple search',
+                    title: 'Back To Simple search',
                     aria: 'Click to return to the simple search',
                 },
                 favouriteSearch: {
@@ -2148,18 +2246,17 @@ export default {
                 },
             },
         },
-        whatIsEspace: {
-            title: 'What is eSpace?',
+        acknowledgementOfCountry: {
+            title: 'Acknowledgement of Country',
             text: (
                 <span>
-                    The University of Queensland's institutional repository, UQ eSpace, aims to create global visibility
-                    and accessibility of UQ’s scholarly research by enhancing discovery of UQ research via search
-                    engines such as Google and Trove...
+                    The University of Queensland acknowledges the Traditional Owners and their custodianship of the
+                    lands. We pay our respects to their Ancestors and their descendants, who continue cultural and
+                    spiritual connections to Country. We recognise their valuable contributions to Australian and global
+                    society, celebrating the unique knowledges, cultures, histories and languages that have been shared
+                    and created for at least 65,000 years.
                 </span>
             ),
-            readMoreLabel: ' read more',
-            readMoreTitle: 'Click to read more about UQ eSpace',
-            readMoreLink: '/contact',
         },
         fileUploader: {
             label: 'Click here to select files, or drag files into this area to upload',
@@ -2267,6 +2364,30 @@ export default {
                 openInNewWindow: 'Open/Download file in a new window',
                 close: 'Close',
             },
+            renamingFilesInstructions: {
+                title: 'File attachments',
+                text: (
+                    <React.Fragment>
+                        <Typography component="h4" variant="h6">
+                            File attachments
+                        </Typography>
+                        <p>There may be a delay before newly uploaded or renamed files appear on the record.</p>
+                        <p>
+                            If you have recently renamed any files please allow this process to complete before updating
+                            the file(s) again. Progress can be checked via the Bulk updates menu option.
+                        </p>
+                    </React.Fragment>
+                ),
+            },
+            downloadButtonLabel: 'Download file',
+            licenceConfirmation: licence =>
+                (!!licence && {
+                    confirmationTitle: licence.text,
+                    confirmationMessage: licence?.description?.join(' '),
+                    confirmButtonLabel: 'I agree',
+                    cancelButtonLabel: 'Cancel',
+                }) ||
+                {},
         },
         digiTeam: {
             batchImport: {
@@ -2284,12 +2405,6 @@ export default {
                         placeholder: 'Select a document type',
                         ariaLabel: 'Select a document type',
                         selectPrompt: 'Please select a document type',
-                    },
-                    subType: {
-                        label: 'Select a document subtype',
-                        placeholder: 'Select a document subtype',
-                        ariaLabel: 'Select a document subtype',
-                        selectPrompt: 'Please select a document subtype',
                     },
                     directory: {
                         ...selectFields.directory,
@@ -2986,6 +3101,75 @@ export default {
                 confirmationTitle: `Bulk updates${!!action ? ' - ' + action.text : ''}`,
             }),
             bulkUpdatesForms: {
+                copyToCommunity: {
+                    formLabels: {
+                        community: 'Community / Communities',
+                        cancelButtonLabel: 'Cancel',
+                        submitButtonLabel: 'Bulk update',
+                    },
+                    alert: (isRemoveFrom = false) => ({
+                        title: `Bulk ${isRemoveFrom ? 'remove from' : 'copy to'} community`,
+                        message:
+                            'Select destination community if moving or copying to a community, source community if removing from a community',
+                        type: 'info',
+                    }),
+                    submittingAlert: (isRemoveFrom = false) => ({
+                        title: `Bulk update - ${isRemoveFrom ? 'remove from' : 'copy to'} community`,
+                        message: 'Creating bulk update job',
+                        type: 'info',
+                    }),
+                    successAlert: (isRemoveFrom = false) => ({
+                        title: `Bulk update - ${isRemoveFrom ? 'remove from' : 'copy to'} community`,
+                        message: 'Bulk update job created successfully',
+                        type: 'done',
+                    }),
+                    errorAlert: (isRemoveFrom = false) => ({
+                        title: `Bulk update - ${isRemoveFrom ? 'remove from' : 'copy to'} community`,
+                        type: 'error',
+                    }),
+                    onlyCollectionsAllowed: {
+                        title: 'Only Collections Allowed',
+                        message:
+                            'One or more selected items is not a collection-type. You can only copy or remove collection-type records to/from communities.',
+                        type: 'error',
+                    },
+                    warningAlert: {
+                        title: 'Note',
+                        message: 'Please retain membership of at least one community',
+                        type: 'warning',
+                    },
+                },
+                createOrUpdateDoiForm: {
+                    formLabels: {
+                        doi: 'DOIs',
+                        cancelButtonLabel: 'Cancel',
+                        submitButtonLabel: 'Confirm',
+                    },
+                    alert: {
+                        message: 'Would you like to create or update existing DOIs for the selected records?',
+                        type: 'info',
+                    },
+                    collectionAlert: {
+                        title: 'Note:',
+                        message:
+                            'There are one or more collections among the selected records. The changes will be apply to child records too.',
+                        type: 'warning',
+                    },
+                    submittingAlert: {
+                        title: 'Bulk create/update DOIs',
+                        message: 'Creating bulk update job',
+                        type: 'info',
+                    },
+                    successAlert: {
+                        title: 'Bulk create/update DOIs',
+                        message: 'Bulk update job created successfully',
+                        type: 'done',
+                    },
+                    errorAlert: {
+                        title: 'Bulk create/update DOIs',
+                        type: 'error',
+                    },
+                },
                 copyToOrRemoveFromCollectionForm: {
                     formLabels: {
                         collection: 'Collection(s)',
@@ -3017,14 +3201,20 @@ export default {
                         message: 'Please retain membership of at least one collection',
                         type: 'warning',
                     },
+                    onlyRecordsAllowed: {
+                        title: 'Only Records Allowed',
+                        message:
+                            'One or more selected items is a collection-type. You can only copy or remove collection-type records to/from communities.',
+                        type: 'error',
+                    },
                 },
                 changeAuthorIdForm: {
                     selectPrompt: 'Please select an option to search author by',
                     formLabels: {
-                        searchBy: 'Search author by',
+                        searchBy: 'Search author by (change from)',
                         searchByAuthorName: 'Search by Author Name',
                         searchByAuthorId: 'Search by Author Id',
-                        authorId: 'Author Id',
+                        authorId: 'Author Id (change to)',
                         cancelButtonLabel: 'Cancel',
                         submitButtonLabel: 'Bulk update',
                     },
@@ -3153,7 +3343,7 @@ export default {
             infoTextAlert: {
                 type: 'info',
                 message:
-                    'Please record your current editorial appointment on this page. This information will be made available to downstream systems such as the Individual Activity Profile (IAP). You should only record your current editorial appointments.',
+                    'Please record your editorial appointments on this page. This information will be made available to downstream systems such as the Individual Activity Profile (IAP). You only need to record your current editorial appointments.',
             },
             header: {
                 columns: {
@@ -3181,11 +3371,11 @@ export default {
                     otherRoleHint: 'Please specify the other role name',
                     startYearLabel: 'Start year',
                     startYearHint: 'Please type in start year',
-                    startYearErrorMessage: 'Year must be current or previous year',
+                    startYearErrorMessage: 'Year must be before or the same as the current year',
                     endYearLabel: 'End year',
                     endYearCurrentYearLabel: 'Current',
                     endYearHint: 'Current or future year only',
-                    endYearErrorMessage: 'Year must be current or future year',
+                    endYearErrorMessage: 'Year must be after or the same as the start year',
                     addButtonTooltip: 'Add new editorial appointment',
                     editButtonTooltip: 'Edit this editorial appointment',
                     deleteButtonTooltip: 'Delete this editorial appointment',
@@ -3565,6 +3755,463 @@ export default {
                 allowDismiss: true,
                 type: 'error',
                 message: 'A user could not be deleted.',
+            },
+        },
+        communitiesCollections: {
+            title: {
+                communities: 'Communities',
+                collections: 'Collections',
+            },
+            addCommunityText: 'Add Missing Community',
+            snackbar: {
+                message: 'Search results updated',
+            },
+            dateFormat: 'ddd MMM DD, YYYY',
+            loading: {
+                message: '...Loading Data...',
+                noCollections: 'No collections found for this community',
+                noCommunities: 'No communities found.',
+                exportLoadingMessage: 'Exporting search results',
+            },
+            columns: {
+                labels: {
+                    title: 'Title',
+                    creation_date: 'Created Date',
+                    updated_date: 'Updated Date',
+                    actions: 'Actions',
+                },
+            },
+            export: {
+                label: 'Export page results',
+                format: [{ value: 'excel', label: 'Excel File' }],
+            },
+            sorting: {
+                pageSize: 'Records per page',
+                sortLabel: 'Sort results by',
+                sortDirectionLabel: 'Sort order',
+                sortBy: [
+                    { value: 'title', label: 'Title' },
+                    { value: 'created_date', label: 'Created Date' },
+                    { value: 'updated_date', label: 'Updated Date' },
+                ],
+                sortDirection: ['Desc', 'Asc'],
+                recordsPerPage: [10, 20, 50, 100],
+                exportOnlyLabel: 'Export Only:',
+            },
+            sortingDefaults: {
+                pageSize: 10,
+                sortBy: 'title',
+                sortDirection: 'Asc',
+            },
+        },
+        favouriteJournals: {
+            title: 'My Favourite Journals',
+            buttons: {
+                removeFromFavourites: {
+                    title: 'REMOVE FROM FAVOURITES',
+                    aria: 'Remove from favourites',
+                },
+                returnToSearch: {
+                    title: 'RETURN TO JOURNAL SEARCH',
+                    aria: 'Return to Journal Search',
+                },
+            },
+            favouriteJournalsList: {
+                loading: 'Loading ...',
+                empty:
+                    "You haven't added any journals to this list. Use the checkboxes on the results page to add favourites.",
+            },
+            sortingDefaults: {
+                pageSize: 20,
+                sortBy: 'score', // for future use
+                sortDirection: 'Desc', // for future use
+            },
+        },
+        journalComparison: {
+            title: 'Journal comparison',
+            buttons: {
+                returnToSearch: {
+                    title: 'RETURN TO SEARCH RESULTS',
+                    aria: 'Return to search results',
+                },
+            },
+            journalComparisonList: {
+                empty: 'No journals were selected for comparison',
+            },
+        },
+        searchJournals: {
+            snackbar: {
+                message: 'Search results updated',
+            },
+            partials: {
+                FAQ: {
+                    title: 'Learn more',
+                    items: [
+                        {
+                            question: 'Get detailed journal info',
+                            answer: (
+                                <div>
+                                    Click on the title of the journal to explore its details such as:
+                                    <ul>
+                                        <li>aims and scope of the journal</li>
+                                        <li>journal quality</li>
+                                        <li>peer review process</li>
+                                        <li>publisher reputation and credibility</li>
+                                        <li>promotion and availability of your article</li>
+                                    </ul>
+                                    <p>
+                                        <a
+                                            target="_blank"
+                                            href="https://web.library.uq.edu.au/library-services/services-researchers/strategic-scholarly-publishing?p=1#1"
+                                        >
+                                            Read more about Strategic Publishing
+                                        </a>
+                                    </p>
+                                </div>
+                            ),
+                        },
+                        {
+                            question: 'What are journal level metrics?',
+                            answer: (
+                                <div>
+                                    <p>
+                                        There are different indicators used to measure journal quality. These indicators
+                                        are calculated by looking at the citations received in the most recent year for
+                                        publications from the previous 2-5 years. There are slight variations in the
+                                        methodology used to calculate these indicators, depending on the database
+                                        provider e.g. Journal Citation Reports, Scopus.
+                                    </p>
+                                    <p>
+                                        You can compare the different metrics for specific journals by selecting each
+                                        and then clicking the <b>Compare selected</b> button. Learn more via the{' '}
+                                        <a target="_blank" href="https://uq.libwizard.com/f/metrics">
+                                            online metrics tutorial
+                                        </a>
+                                        .
+                                    </p>
+                                </div>
+                            ),
+                        },
+                        {
+                            question: 'What are published and accepted versions for publishing open access?',
+                            answer: (
+                                <div>
+                                    <p>
+                                        The published version (
+                                        <a
+                                            href="https://web.library.uq.edu.au/library-services/services-researchers/open-access?p=0#0"
+                                            target="_blank"
+                                        >
+                                            also known as Gold open access
+                                        </a>
+                                        ) is where the free and permanently accessible final version of a publication,
+                                        is available for everyone to read immediately after publication. Published
+                                        versions can be made open access via Article process charges, without charges,
+                                        or through the Library's{' '}
+                                        <a
+                                            href="https://web.library.uq.edu.au/library-services/researchers/publish-and-share/read-and-publish-agreements-2022"
+                                            target="_blank"
+                                        >
+                                            agreements with some publishers
+                                        </a>
+                                        .
+                                    </p>
+                                    <p>
+                                        The accepted version (also referred to as{' '}
+                                        <a
+                                            href="https://web.library.uq.edu.au/library-services/services-researchers/open-access?p=2#2"
+                                            target="_blank"
+                                        >
+                                            self-archiving or Green open access
+                                        </a>
+                                        ) is the deposit of the author's version of the manuscript accepted for
+                                        publication in a publicly accessible institutional repository, such as UQ
+                                        eSpace. An author accepted manuscript (also referred to as a post-print) is the
+                                        author's version of a manuscript that has undergone peer review and has been
+                                        accepted by the publisher.{' '}
+                                        <a href="https://www.youtube.com/watch?v=okLMBxRixFQ" target="_blank">
+                                            View the Library's video guide
+                                        </a>
+                                        .
+                                    </p>
+                                    <p>
+                                        <a
+                                            target="_blank"
+                                            href="https://web.library.uq.edu.au/library-services/services-researchers/open-access"
+                                        >
+                                            Read more about open access
+                                        </a>
+                                    </p>
+                                </div>
+                            ),
+                        },
+                        {
+                            question: 'Open access and charges',
+                            answer: (
+                                <div>
+                                    <p>
+                                        There are different pathways to open access, include gold and green open access.
+                                    </p>
+                                    <p>
+                                        Some publishers have{' '}
+                                        <a href="https://web.library.uq.edu.au/node/4488/3" target="_blank">
+                                            Article processing charges (APCs)
+                                        </a>{' '}
+                                        a fee paid to make an article immediately available and openly accessible. The
+                                        Library has{' '}
+                                        <a
+                                            href="https://web.library.uq.edu.au/read-and-publish-agreements"
+                                            target="_blank"
+                                        >
+                                            agreements with some publishers
+                                        </a>{' '}
+                                        where that APC is pre-paid or discounted for UQ corresponding authors.
+                                    </p>
+                                    <p>
+                                        To find a journal which meets your requirements or funder mandate, refine your
+                                        results by Open access: accepted version or Open access: published version.
+                                    </p>
+                                    <p>
+                                        <a
+                                            target="_blank"
+                                            href="https://web.library.uq.edu.au/library-services/services-researchers/open-access"
+                                        >
+                                            Read more
+                                        </a>
+                                    </p>
+                                </div>
+                            ),
+                        },
+                        {
+                            question: "Can't find a journal?",
+                            answer: (
+                                <p>
+                                    Contact us for help at{' '}
+                                    <a href="mailto:espace@.library.uq.edu.au">espace@library.uq.edu.au</a>
+                                </p>
+                            ),
+                        },
+                        {
+                            question: 'More help',
+                            answer: (
+                                <ul>
+                                    <li>
+                                        <a target="_blank" href="https://web.library.uq.edu.au/contact-us">
+                                            Contact us for help
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            target="_blank"
+                                            href="https://web.library.uq.edu.au/library-services/services-researchers/publish-share"
+                                        >
+                                            Find out more about publishing at UQ Library
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Contact <a href="mailto:espace@.library.uq.edu.au">espace@library.uq.edu.au</a>{' '}
+                                        to let us know your feedback.
+                                    </li>
+                                </ul>
+                            ),
+                        },
+                        {
+                            question: 'Disclaimer',
+                            answer: (
+                                <p>
+                                    The journal search brings together data from many sources and providers to help you
+                                    make an evidenced based decision. Every effort is undertaken to make sure data is up
+                                    to date, but you should confirm the latest information direct from sources e.g. the
+                                    publisher's website.
+                                </p>
+                            ),
+                        },
+                    ],
+                },
+                keywordsList: {
+                    noResultsFound: 'No matches found.',
+                },
+                keywordsBrowser: {
+                    titlePrefix: 'Step 2.',
+                    title: 'Select at least one of the following to narrow the scope before searching.',
+                    aria_label:
+                        'Suggested results available below. Tab out of this field and use arrow keys to move to item lists.',
+                    exactMatch: {
+                        title: 'Exact match',
+                    },
+                    titleMatch: {
+                        title: 'Titles containing',
+                        chipTitle: 'Title',
+                    },
+                    keywordMatch: {
+                        title: 'Keyword matches',
+                        chipTitle: 'Keyword',
+                    },
+                    forCodeMatch: {
+                        title: 'Subjects & Field of research',
+                        chipTitle: 'Subject',
+                    },
+                },
+                selectedKeywords: {
+                    title: 'Searching for journals containing:',
+                    combiner: ' + ',
+                },
+                forCodeSearchKeywordsList: {
+                    help: {
+                        KeywordSearchFORSubject: {
+                            tooltip: 'Click for more information',
+                            title: 'Subjects & Fields of research',
+                            text: (
+                                <React.Fragment>
+                                    <p>Search journals by their assigned:</p>
+                                    <ul>
+                                        <li>field of research code from the ERA process (ERA);</li>
+                                        <li>
+                                            subject areas from the All Science Journal Classification (CiteScore); or
+                                        </li>
+                                        <li>
+                                            subjects from the Web of Science. For example: Science Citation Index
+                                            Expanded (WOSSCIE) or Web of Science: Emerging Sources Citation Index
+                                            (WOSESCI); Arts & Humanities Citation Index (WOSAHCI).
+                                        </li>
+                                    </ul>
+                                </React.Fragment>
+                            ),
+                            buttonLabel: 'Close',
+                        },
+                    },
+                },
+            },
+            journalSearchInput: {
+                titlePrefix: 'Step 1.',
+                title: 'Enter a journal title, ISSN, keyword, subject or field of research code',
+            },
+            journalSearchInterface: {
+                title: 'Journal search',
+                intro: (
+                    <React.Fragment>
+                        <p>Search UQ's curated master journal list to inform your strategic publishing decisions:</p>
+                        <ul>
+                            <li>Search journal titles, ISSNs, keywords and subject areas</li>
+                            <li>Identify journals with open access or pre-paid charges</li>
+                            <li>Understand, refine and rank results by indexing and a range of metrics</li>
+                            <li>Create a list of favourite journals</li>
+                            <li>Investigate journal scope, peer review processes and publisher details.</li>
+                        </ul>
+                    </React.Fragment>
+                ),
+                instructions: loremIpsum,
+                buttons: {
+                    myFavouriteJournals: {
+                        title: 'My favourite journals',
+                        aria: 'My favourite journals',
+                    },
+                    browseAllJournals: {
+                        title: 'Browse all journals',
+                        aria: 'Browse all journals',
+                    },
+                    searchJournals: {
+                        title: 'Step 3. Search',
+                        aria: 'Search',
+                    },
+                    compareJournals: {
+                        title: 'COMPARE SELECTED',
+                        aria: 'Compare Selected',
+                    },
+                    addToFavourites: {
+                        title: 'ADD TO FAVOURITES',
+                        aria: 'Add to favourites',
+                    },
+                },
+                confirmations: {
+                    addToFavourites: {
+                        confirmationMessage: 'COUNT item(s) have been added.',
+                    },
+                },
+            },
+            input: {
+                placeholder: 'Minimum of 3 characters',
+                aria_label:
+                    'This search application produces tabular results that may be problematic with a screen reader. Please contact your librarian for assistance if needed.',
+            },
+            journalSearchResult: {
+                loadingMessage: 'Loading journals list',
+                noResultsFound: {
+                    title: 'No journals found',
+                    text: <div>We were unable to find any results.</div>,
+                },
+            },
+            export: {
+                label: 'Export page results',
+                format: [{ value: 'excel', label: 'Excel File' }],
+            },
+            sorting: {
+                pageSize: 'Journals per page',
+                sortLabel: 'Sort results by',
+                sortDirectionLabel: 'Sort order',
+                sortBy: [
+                    { value: 'title', label: 'Title' },
+                    { value: 'score', label: 'Search relevance' },
+                    { value: 'highest_quartile', label: 'Highest quartile' },
+                    { value: 'cite_score', label: 'CiteScore' },
+                    { value: 'impact_factor', label: 'Impact factor' },
+                    { value: 'sjr', label: 'SJR' },
+                    { value: 'snip', label: 'SNIP' },
+                ],
+            },
+            sortingDefaults: {
+                pageSize: 10,
+                sortBy: 'highest_quartile',
+                sortDirection: 'Asc',
+            },
+            journalFacetsFilter: {
+                title: 'Refine results',
+                resetButtonText: 'Clear all filters',
+                favoriteFilter: {
+                    displayTitle: 'Favourite Journals',
+                    activeFilter: 'Show journals favourited',
+                },
+                help: {
+                    title: 'Refine results',
+                    text: (
+                        <React.Fragment>
+                            <h3>Listed in</h3>
+                            <p>
+                                Indicates a journal has met the quality indicators/requirements for a list compiled by a
+                                specific group.
+                            </p>
+                            <p>The following lists are available:</p>
+                            <ul>
+                                <li>ABDC (Australian Business Deans Council)</li>
+                                <li>CWTS (Centre of Science and Technology Studies at Leiden University)</li>
+                                <li>ERA (Excellence in Research Australia)</li>
+                            </ul>
+                            <h3>Indexed in</h3>
+                            <p>Indicates database providers which index the journal.</p>
+                            <h3>Open access: accepted version</h3>
+                            <p>
+                                Sort by length of time before an author accepted or self-archived version of an article
+                                is open and freely available via UQ eSpace.
+                            </p>
+                            <h3>Journal impact factor highest quartile</h3>
+                            <p>Sort by JIF Quartile, where Q1 is best.</p>
+                            <h3>CiteScore highest quartile</h3>
+                            <p>Sort by CiteScore Quartile, where Q1 is best.</p>
+                            <h3>Highest quartile</h3>
+                            <p>Sort by the highest quartile a journal reaches across systems and subject categories.</p>
+                            <h3>Open access: published version</h3>
+                            <p>
+                                Sort by whether charges, such as Article Processing Charges (APCs), are paid to a
+                                publisher to make a publication immediately available and openly accessible.
+                            </p>
+                            <h3>Evidence of Peer Review</h3>
+                            <p>Limit to peer reviewed or refereed journals. This data is provided via Ulrichsweb.</p>
+                        </React.Fragment>
+                    ),
+                    testId: 'journal-search-facets',
+                    buttonLabel: 'CLOSE',
+                },
+                renameFacetsList: {},
             },
         },
     },

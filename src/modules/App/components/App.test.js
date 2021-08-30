@@ -1,8 +1,6 @@
-import { AppClass } from './App';
-import App from './App';
+import App, { AppClass } from './App';
 import { accounts, authorDetails, currentAuthor } from 'mock/data';
-import { routes, AUTH_URL_LOGIN, AUTH_URL_LOGOUT, pathConfig } from 'config';
-import mui1theme from 'config';
+import mui1theme, { AUTH_URL_LOGIN, AUTH_URL_LOGOUT, pathConfig, routes } from 'config';
 import Cookies from 'js-cookie';
 
 function setup(testProps = {}) {
@@ -269,6 +267,28 @@ describe('Application component', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
+    it('should not render alert if user is not fez author and on the journal search page', () => {
+        const wrapper = setup({
+            location: {
+                pathname: pathConfig.journals.search,
+            },
+            account: account,
+            author: null,
+        });
+        expect(wrapper.find('[alertId*="not-registered-author"]').length).toBe(0);
+    });
+
+    it('should not render alert if user is not fez author and on the journal view page', () => {
+        const wrapper = setup({
+            location: {
+                pathname: pathConfig.journal.view(1),
+            },
+            account: account,
+            author: null,
+        });
+        expect(wrapper.find('[alertId*="not-registered-author"]').length).toBe(0);
+    });
+
     it('should render app for account with fez author with ORCID ID', () => {
         const wrapper = setup({
             account: account,
@@ -502,7 +522,7 @@ describe('Application component', () => {
 
         const pathExpectations = [
             {
-                pathname: '/contact',
+                pathname: '/about',
                 isPublic: true,
             },
             {
@@ -511,6 +531,10 @@ describe('Application component', () => {
             },
             {
                 pathname: '/view/UQ:123432',
+                isPublic: true,
+            },
+            {
+                pathname: `/view/${routes.notFound}`,
                 isPublic: true,
             },
             {
@@ -532,18 +556,17 @@ describe('Application component', () => {
         });
     });
 
-    it('should load the incomplete publications list when the account is loaded', () => {
+    it('should load the incomplete publications list when the author is loaded', () => {
         const testMethod = jest.fn();
         const wrapper = setup({
             account: { name: 'test1' },
-            accountLoading: false,
             actions: {
                 loadCurrentAccount: jest.fn(),
                 searchAuthorPublications: testMethod,
             },
         });
         wrapper.update();
-        wrapper.setProps({ account: { name: 'test2' } });
+        wrapper.setProps({ author: { aut_id: 1 } });
         expect(testMethod).toHaveBeenCalled();
     });
 

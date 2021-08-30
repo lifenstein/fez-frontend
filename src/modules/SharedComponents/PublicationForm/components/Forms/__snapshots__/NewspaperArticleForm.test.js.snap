@@ -41,7 +41,7 @@ exports[`NewspaperArticleForm renders  component 1`] = `
             name="rek_title"
             placeholder="Enter article title"
             required={true}
-            rows={1}
+            rows={3}
             type="text"
             validate={
               Array [
@@ -102,13 +102,7 @@ exports[`NewspaperArticleForm renders  component 1`] = `
             label="Start page"
             name="fez_record_search_key_start_page.rek_start_page"
             placeholder=""
-            required={true}
             type="text"
-            validate={
-              Array [
-                [Function],
-              ]
-            }
           />
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
@@ -134,13 +128,7 @@ exports[`NewspaperArticleForm renders  component 1`] = `
             label="End page"
             name="fez_record_search_key_end_page.rek_end_page"
             placeholder=""
-            required={true}
             type="text"
-            validate={
-              Array [
-                [Function],
-              ]
-            }
           />
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
@@ -227,7 +215,7 @@ exports[`NewspaperArticleForm renders  component 1`] = `
                 "identifierLabel": "UQ identifier (if available)",
                 "nameAsPublishedFieldId": "authors-name-as-published-field",
                 "nameAsPublishedHint": "Type the name exactly as published",
-                "nameAsPublishedLabel": "Enter each author's name as published (eg. Smith, John)",
+                "nameAsPublishedLabel": "Author's name as published",
               },
             },
             "header": Object {

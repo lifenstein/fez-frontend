@@ -47,7 +47,7 @@ export class Thumbnail extends Component {
 
     showPreview = (fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl, securityStatus, checksums = {}) => e => {
         e.preventDefault();
-        this.props.onClick(fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl, securityStatus, checksums);
+        this.props.onClick({ fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl, securityStatus, checksums });
     };
 
     render() {
@@ -68,7 +68,7 @@ export class Thumbnail extends Component {
             (mimeType.indexOf('octet-stream') >= 0 && mediaUrl.indexOf('flv') >= 0)
         ) {
             return (
-                <ExternalLink href={mediaUrl} title={fileName} openInNewIcon={false}>
+                <ExternalLink href={mediaUrl} title={fileName} openInNewIcon={false} id="thumbnail">
                     <Img
                         crossOrigin="anonymous"
                         src={thumbnailMediaUrl}
@@ -101,6 +101,8 @@ export class Thumbnail extends Component {
                     checksums,
                 )}
                 title={mediaUrl && txt.thumbnailTitle.replace('[image]', mediaUrl)}
+                id={`preview-link-${fileName}`}
+                data-testid={`preview-link-${fileName}`}
             >
                 {this.props.securityStatus ? (
                     <Img

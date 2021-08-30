@@ -25,7 +25,7 @@ context('Claim possible work', () => {
                 .should('contain', 'Claim possible works');
 
             cy.get('.StandardCard h6[class*="PublicationCitation-citationTitle"] > a').should('have.length', 8);
-            cy.get('[class*="MuiGrid-grid-sm-3"] h6')
+            cy.get('[class*="StandardRighthandCard-title"] div')
                 .should('have.length', 1)
                 .should('contain', 'Refine results');
             cy.get('[class*="MuiGrid-grid-sm-3"] .facetsFilter [class*="MuiListItem-root-"]').should('have.length', 6);
@@ -44,7 +44,7 @@ context('Claim possible work', () => {
             .should('contain', claimFormLocale.contentIndicators.title)
             .should('contain', claimFormLocale.comments.title)
             .should('contain', claimFormLocale.fileUpload.title);
-        cy.get('.Alert b')
+        cy.get('[data-testid=alert] b')
             .scrollIntoView()
             .should('contain', claimFormLocale.validationAlert.title);
         cy.contains('button', claimFormLocale.cancel).should('not.be.disabled');

@@ -1,24 +1,38 @@
-import { post, patch, put } from 'repositories/generic';
+import { patch, post, put } from 'repositories/generic';
 import {
-    NEW_RECORD_API,
-    EXISTING_RECORD_API,
-    RECORDS_ISSUES_API,
-    NEW_COLLECTION_API,
     EXISTING_COLLECTION_API,
-    NEW_COMMUNITY_API,
     EXISTING_COMMUNITY_API,
+    EXISTING_RECORD_API,
+    NEW_COLLECTION_API,
+    NEW_COMMUNITY_API,
+    NEW_RECORD_API,
+    RECORDS_ISSUES_API,
     UNLOCK_RECORD_API,
 } from 'repositories/routes';
 import { putUploadFiles } from 'repositories';
 import * as transformers from './transformers';
+import { getRekDate } from './transformers';
 import {
-    NEW_RECORD_DEFAULT_VALUES,
+    DOCUMENT_TYPES_LOOKUP,
     NEW_COLLECTION_DEFAULT_VALUES,
     NEW_COMMUNITY_DEFAULT_VALUES,
-    DOCUMENT_TYPES_LOOKUP,
+    NEW_RECORD_DEFAULT_VALUES,
 } from 'config/general';
 import * as actions from './actionTypes';
-import Raven from 'raven-js';
+import * as Sentry from '@sentry/react';
+
+/**
+ * @param data
+ * @param replacer
+ * @return {any}
+ */
+export const sanitiseData = (data, replacer) => JSON.parse(JSON.stringify(data, replacer));
+
+/**
+ * @param keys
+ * @return {function(*, *): undefined|*}
+ */
+const makeReplacer = keys => (key, value) => (keys.indexOf(key) > -1 ? undefined : value);
 
 /**
  * Save a new record involves up to three steps: create a new record, upload files, update record with uploaded files.
@@ -32,7 +46,7 @@ export function createNewRecord(data) {
         // set default values, links
         const recordRequest = {
             ...NEW_RECORD_DEFAULT_VALUES,
-            ...JSON.parse(JSON.stringify(data)),
+            ...sanitiseData(data),
             ...transformers.getRecordLinkSearchKey(data),
             ...transformers.getRecordAuthorsSearchKey(
                 data.authors || (data.currentAuthor && [data.currentAuthor[0]]) || null,
@@ -55,6 +69,7 @@ export function createNewRecord(data) {
             ...transformers.getLanguageSearchKey((data.isNtro && data.languages) || null),
             ...transformers.getQualityIndicatorSearchKey((data.isNtro && data.qualityIndicators) || null),
             ...transformers.getContentIndicatorSearchKey(data.contentIndicators || null),
+            rek_date: getRekDate(data, data.rek_subtype),
         };
 
         // delete extra form values from request object
@@ -140,19 +155,19 @@ export function createNewRecord(data) {
 const prepareThesisSubmission = data => {
     // set default values, links
     const recordRequest = {
-        ...JSON.parse(JSON.stringify(data)),
+        ...sanitiseData(data),
         ...transformers.getRecordAuthorsSearchKey(data.currentAuthor),
         ...transformers.getRecordAuthorsIdSearchKey(data.currentAuthor),
         ...transformers.getRecordSupervisorsSearchKey(data.supervisors),
         ...transformers.getRecordSubjectSearchKey(data.fieldOfResearch),
         ...transformers.getRecordFileAttachmentSearchKey(data.files.queue),
+        ...transformers.getThesisTypeSearchKey(data.isHdrThesis ? 'hdr' : 'sbs'),
         rek_title: data.thesisTitle.plainText,
         rek_formatted_title: data.thesisTitle.htmlText,
         rek_description: data.thesisAbstract.plainText,
         rek_formatted_abstract: data.thesisAbstract.htmlText,
         rek_subtype: data.rek_genre_type,
         rek_genre: DOCUMENT_TYPES_LOOKUP[data.rek_display_type],
-        _thesis_submission_type: data.isHdrThesis ? 'hdr' : 'sbs',
     };
 
     // delete extra form values from request object
@@ -228,7 +243,7 @@ export function submitThesis(data, preCreatedRecord = {}, formName = '', fullyUp
             newRecord = response.data;
             recordCreated = !!newRecord && !!newRecord.rek_pid;
             if (!recordCreated) {
-                return Promise.reject({ message: 'API did not return valid PID' });
+                return Promise.reject(new Error('API did not return valid PID'));
             }
             return (
                 (hasFilesToUpload &&
@@ -242,7 +257,7 @@ export function submitThesis(data, preCreatedRecord = {}, formName = '', fullyUp
             );
         };
         const onRecordCreationFailure = error => {
-            Raven.captureException(error);
+            Sentry.captureException(error);
             return Promise.reject(error);
         };
 
@@ -259,7 +274,7 @@ export function submitThesis(data, preCreatedRecord = {}, formName = '', fullyUp
             // If created record exists, it means only upload failed.
             if (recordCreated) {
                 const record = getRecord(true);
-                Raven.captureException(error);
+                Sentry.captureException(error);
 
                 // Do not report retry failures to Eventum
                 if (!preCreatedRecord.rek_pid) {
@@ -278,7 +293,7 @@ export function submitThesis(data, preCreatedRecord = {}, formName = '', fullyUp
          */
         const onIssueReportSuccess = () => Promise.resolve(newRecord);
         const onIssueReportFailure = error => {
-            Raven.captureException(error);
+            Sentry.captureException(error);
             if (!recordCreated) {
                 dispatch({
                     type: actions.CREATE_RECORD_FAILED,
@@ -294,6 +309,78 @@ export function submitThesis(data, preCreatedRecord = {}, formName = '', fullyUp
             .then(onIssueReportSuccess, onIssueReportFailure);
     };
 }
+
+/**
+ * Clear new record
+ * @returns {action}
+ */
+export function clearNewRecord() {
+    return dispatch => {
+        dispatch({
+            type: actions.CREATE_RECORD_RESET,
+        });
+    };
+}
+
+const getAdminRecordRequest = data => {
+    const { files, ...restFilesSection } = data.filesSection || {};
+    const hasFilesToUpload = files && files.queue && files.queue.length > 0;
+    // delete extra form values from request object
+    const keys = [
+        'pid',
+        'recordType',
+        'publication',
+        'adminSection',
+        'identifiersSection',
+        'bibliographicSection',
+        'authorsSection',
+        'grantInformationSection',
+        'notesSection',
+        'ntroSection',
+        'filesSection',
+        'securitySection',
+        'reasonSection',
+        'culturalInstitutionNoticeSection',
+    ];
+
+    return [
+        {
+            ...data.publication,
+            ...{
+                rek_genre: DOCUMENT_TYPES_LOOKUP[data.rek_display_type],
+                // eslint-disable-next-line camelcase
+                rek_genre_type: data.adminSection?.rek_subtype ?? null,
+            },
+            ...sanitiseData(data, makeReplacer(keys)),
+            ...transformers.getAdminSectionSearchKeys(data.adminSection),
+            ...transformers.getIdentifiersSectionSearchKeys(data.identifiersSection),
+            ...transformers.getBibliographicSectionSearchKeys(
+                data.bibliographicSection,
+                // eslint-disable-next-line camelcase
+                data.adminSection?.rek_subtype,
+            ),
+            ...transformers.getAuthorsSectionSearchKeys(data.authorsSection),
+            ...transformers.getGrantInformationSectionSearchKeys(data.grantInformationSection),
+            ...transformers.getNtroSectionSearchKeys(data.ntroSection),
+            ...transformers.getFilesSectionSearchKeys(restFilesSection),
+            ...transformers.getSecuritySectionSearchKeys(data.securitySection),
+            ...transformers.getNotesSectionSearchKeys(data.notesSection),
+            ...transformers.getReasonSectionSearchKeys(data.reasonSection),
+            ...transformers.getDatastreamInfo(
+                (data.publication || {}).fez_datastream_info || [],
+                (data.filesSection || {}).fez_datastream_info || [],
+                (data.securitySection || {}).dataStreams || [],
+            ),
+        },
+        hasFilesToUpload,
+        hasFilesToUpload
+            ? transformers.getRecordFileAttachmentSearchKey(files.queue, {
+                  ...data.publication,
+                  ...data.adminSection,
+              })
+            : null,
+    ];
+};
 
 /**
  * Save a new collection involves a single request.
@@ -335,17 +422,16 @@ export function createCollection(data, authorId) {
     };
 }
 
-export const updateCollection = ({ pid, date, updated }) => {
+export const updateCollection = data => {
     return dispatch => {
         dispatch({
             type: actions.COLLECTION_UPDATING,
         });
-        const patchRecordRequest = {
-            rek_date: date,
-            ...transformers.getSecuritySectionSearchKeys(updated.securitySection),
-        };
+
+        const [patchRecordRequest] = getAdminRecordRequest(data);
+
         return Promise.resolve([])
-            .then(() => patch(EXISTING_COLLECTION_API({ pid }), patchRecordRequest))
+            .then(() => put(EXISTING_COLLECTION_API({ pid: data.publication.rek_pid }), patchRecordRequest))
             .then(response => {
                 dispatch({
                     type: actions.COLLECTION_UPDATE_SUCCESS,
@@ -399,17 +485,16 @@ export function createCommunity(data, authorId) {
     };
 }
 
-export const updateCommunity = ({ pid, date, updated }) => {
+export const updateCommunity = data => {
     return dispatch => {
         dispatch({
             type: actions.COMMUNITY_UPDATING,
         });
-        const patchRecordRequest = {
-            rek_date: date,
-            ...transformers.getSecuritySectionSearchKeys(updated.securitySection),
-        };
+
+        const [patchRecordRequest] = getAdminRecordRequest(data);
+
         return Promise.resolve([])
-            .then(() => patch(EXISTING_COMMUNITY_API({ pid }), patchRecordRequest))
+            .then(() => put(EXISTING_COMMUNITY_API({ pid: data.publication.rek_pid }), patchRecordRequest))
             .then(response => {
                 dispatch({
                     type: actions.COMMUNITY_UPDATE_SUCCESS,
@@ -430,73 +515,6 @@ export const updateCommunity = ({ pid, date, updated }) => {
 };
 
 /**
- * Clear new record
- * @returns {action}
- */
-export function clearNewRecord() {
-    return dispatch => {
-        dispatch({
-            type: actions.CREATE_RECORD_RESET,
-        });
-    };
-}
-
-const sanitiseData = (data, replacer) => JSON.parse(JSON.stringify(data, replacer));
-const makeReplacer = keys => (key, value) => (keys.indexOf(key) > -1 ? undefined : value);
-
-const getAdminRecordRequest = data => {
-    const { files, ...restFilesSection } = data.filesSection || {};
-    const hasFilesToUpload = files && files.queue && files.queue.length > 0;
-    // delete extra form values from request object
-    const keys = [
-        'pid',
-        'recordType',
-        'publication',
-        'adminSection',
-        'identifiersSection',
-        'bibliographicSection',
-        'authorsSection',
-        'grantInformationSection',
-        'notesSection',
-        'ntroSection',
-        'filesSection',
-        'securitySection',
-    ];
-
-    return [
-        {
-            ...data.publication,
-            ...{
-                rek_genre: DOCUMENT_TYPES_LOOKUP[data.rek_display_type],
-                rek_genre_type: data.adminSection.rek_subtype,
-            },
-            ...sanitiseData(data, makeReplacer(keys)),
-            ...transformers.getAdminSectionSearchKeys(data.adminSection),
-            ...transformers.getIdentifiersSectionSearchKeys(data.identifiersSection),
-            ...transformers.getBibliographicSectionSearchKeys(data.bibliographicSection),
-            ...transformers.getAuthorsSectionSearchKeys(data.authorsSection),
-            ...transformers.getGrantInformationSectionSearchKeys(data.grantInformationSection),
-            ...transformers.getNtroSectionSearchKeys(data.ntroSection),
-            ...transformers.getFilesSectionSearchKeys(restFilesSection),
-            ...transformers.getSecuritySectionSearchKeys(data.securitySection),
-            ...transformers.getNotesSectionSearchKeys(data.notesSection),
-            ...transformers.getDatastreamInfo(
-                (data.publication || {}).fez_datastream_info || [],
-                (data.filesSection || {}).fez_datastream_info || [],
-                (data.securitySection || {}).dataStreams || [],
-            ),
-        },
-        hasFilesToUpload,
-        hasFilesToUpload
-            ? transformers.getRecordFileAttachmentSearchKey(files.queue, {
-                  ...data.publication,
-                  ...data.adminSection,
-              })
-            : null,
-    ];
-};
-
-/**
  * Update work request for admins: patch record
  * If error occurs on any stage failed action is displayed
  * @param {object} data to be posted, refer to backend API data
@@ -508,7 +526,6 @@ export function adminUpdate(data) {
         dispatch({
             type: actions.ADMIN_UPDATE_WORK_PROCESSING,
         });
-
         const [patchRecordRequest, hasFilesToUpload, patchFilesRequest] = getAdminRecordRequest(data);
         const collections = transformers.getCollectionsOnRecordWithSecurity({
             ...data.publication,
@@ -658,6 +675,15 @@ export const deleteAttachedFile = file => {
     };
 };
 
+export const renameAttachedFile = (prev, next) => {
+    return dispatch => {
+        dispatch({
+            type: actions.ADMIN_RENAME_ATTACHED_FILE,
+            payload: { prev, next },
+        });
+    };
+};
+
 export const unlockRecord = (pid, unlockRecordCallback) => {
     return dispatch => {
         dispatch({
@@ -671,11 +697,11 @@ export const unlockRecord = (pid, unlockRecordCallback) => {
                 return Promise.resolve(true);
             })
             .then(unlockRecordCallback)
-            .catch(() => {
+            .catch(error => {
                 dispatch({
                     type: actions.UNLOCK_RECORD_FAILED,
                 });
-                return Promise.reject(false);
+                return Promise.reject(error);
             });
     };
 };
@@ -722,6 +748,9 @@ export const changeDisplayType = (records, data, isBulkUpdate = false) => {
     const changeDisplayTypeRequest = records.map(record => ({
         rek_pid: record.rek_pid,
         ...data,
+        fez_record_search_key_herdc_code: {
+            rek_herdc_code: null,
+        },
     }));
     return async dispatch => {
         dispatch({
@@ -801,6 +830,61 @@ export const copyToOrRemoveFromCollection = (records, data, isRemoveFrom = false
         } catch (e) {
             dispatch({
                 type: actions.CHANGE_COLLECTIONS_FAILED,
+                payload: e,
+            });
+
+            return Promise.reject(e);
+        }
+    };
+};
+
+export const copyToOrRemoveFromCommunity = (records, data, isRemoveFrom = false) => {
+    const copyToOrRemoveFromCommunityRequest = isRemoveFrom
+        ? transformers.getRemoveFromCommunityData(records, data)
+        : transformers.getCopyToCommunityData(records, data);
+    return async dispatch => {
+        dispatch({
+            type: actions.CHANGE_COMMUNITIES_INPROGRESS,
+        });
+        try {
+            const response = await patch(NEW_RECORD_API(), copyToOrRemoveFromCommunityRequest);
+            dispatch({
+                type: actions.CHANGE_COMMUNITIES_SUCCESS,
+                payload: response,
+            });
+
+            return Promise.resolve(response);
+        } catch (e) {
+            dispatch({
+                type: actions.CHANGE_COMMUNITIES_FAILED,
+                payload: e,
+            });
+
+            return Promise.reject(e);
+        }
+    };
+};
+
+/**
+ * @param {array} records
+ */
+export const createOrUpdateDoi = records => {
+    const request = transformers.createOrUpdateDoi(records);
+    return async dispatch => {
+        dispatch({
+            type: actions.CREATE_OR_UPDATE_DOI_INPROGRESS,
+        });
+        try {
+            const response = await patch(NEW_RECORD_API(), request);
+            dispatch({
+                type: actions.CREATE_OR_UPDATE_DOI_SUCCESS,
+                payload: response,
+            });
+
+            return Promise.resolve(response);
+        } catch (e) {
+            dispatch({
+                type: actions.CREATE_OR_UPDATE_DOI_FAILED,
                 payload: e,
             });
 

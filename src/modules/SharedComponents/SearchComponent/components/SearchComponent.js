@@ -6,15 +6,16 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { pathConfig } from 'config';
 import {
     DEFAULT_QUERY_PARAMS,
+    GENERIC_DATE_FORMAT,
     UNPUBLISHED_STATUS_MAP,
     UNPUBLISHED_STATUS_TEXT_MAP,
-    GENERIC_DATE_FORMAT,
 } from 'config/general';
 import { locale } from 'locale';
 
 import SimpleSearchComponent from './SimpleSearchComponent';
 import AdvancedSearchComponent from './AdvancedSearchComponent';
 import moment from 'moment';
+import hash from 'hash-sum';
 
 export default class SearchComponent extends PureComponent {
     static propTypes = {
@@ -37,7 +38,6 @@ export default class SearchComponent extends PureComponent {
         isAdmin: PropTypes.bool,
         isUnpublishedBufferPage: PropTypes.bool,
 
-        actions: PropTypes.object,
         history: PropTypes.object.isRequired,
         location: PropTypes.object,
     };
@@ -61,7 +61,7 @@ export default class SearchComponent extends PureComponent {
         updateFacetExcludesFromSearchFields: () => {},
     };
 
-    constructor(props) {
+    constructor(props, context) {
         super(props);
         this.state = {
             snackbarOpen: false,
@@ -83,42 +83,73 @@ export default class SearchComponent extends PureComponent {
                 yearFilter: this.getYearRangeFromActiveFacets(props.activeFacets),
                 ...this.getDateRangeFromSearchQuery(props.searchQueryParams),
             },
+            getFieldRowsFromSearchQuery: this.getFieldRowsFromSearchQuery,
+            getDocTypesFromSearchQuery: this.getDocTypesFromSearchQuery,
+            getDateRangeFromSearchQuery: this.getDateRangeFromSearchQuery,
+            isMobile: context.isMobile,
+            prevProps: {
+                isOpenAccessInAdvancedMode: props.isOpenAccessInAdvancedMode,
+                isAdvancedSearch: props.isAdvancedSearch,
+            },
         };
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(props, state) {
+        const isOpenAccessInAdvancedModeChanged =
+            props.isOpenAccessInAdvancedMode !== state.prevProps?.isOpenAccessInAdvancedMode;
+        const isAdvancedSearchChanged = props.isAdvancedSearch !== state.prevProps?.isAdvancedSearch;
+        const isAdvancedSearchMinimisedChanged =
+            state.isMobile && props.isAdvancedSearchMinimised !== state.prevProps?.isAdvancedSearchMinimised;
+        const searchQueryChanged =
+            props.searchQueryParams &&
+            state.prevProps?.searchQueryParams &&
+            hash(props.searchQueryParams) !== hash(state.prevProps?.searchQueryParams);
+
         if (
-            Object.keys(nextProps.searchQueryParams).length !== Object.keys(this.props.searchQueryParams).length ||
-            nextProps.isAdvancedSearchMinimised !== this.props.isAdvancedSearchMinimised
+            !isOpenAccessInAdvancedModeChanged &&
+            !isAdvancedSearchChanged &&
+            !isAdvancedSearchMinimisedChanged &&
+            !searchQueryChanged
         ) {
-            this.setState(
-                {
-                    isAdvancedSearch: nextProps.isAdvancedSearch,
-                    simpleSearch: {
-                        searchText:
-                            (nextProps.searchQueryParams.all || {}).value ||
-                            (typeof nextProps.searchQueryParams.all === 'string' && nextProps.searchQueryParams.all) ||
-                            '',
-                    },
-                    advancedSearch: {
-                        fieldRows: this.getFieldRowsFromSearchQuery(nextProps.searchQueryParams),
-                        isMinimised: (this.context.isMobile && nextProps.isAdvancedSearchMinimised) || false,
-                        isOpenAccess: nextProps.isOpenAccessInAdvancedMode || false,
-                        docTypes: this.getDocTypesFromSearchQuery(nextProps.searchQueryParams),
-                        yearFilter: {
-                            from: this.state.advancedSearch.yearFilter.from,
-                            to: this.state.advancedSearch.yearFilter.to,
-                        },
-                        ...this.getDateRangeFromSearchQuery(nextProps.searchQueryParams),
-                    },
-                },
-                () => {
-                    // Update the excluded facets in SearchRecords to hide from facetFilter
-                    this.props.updateFacetExcludesFromSearchFields(this.state.advancedSearch.fieldRows);
-                },
-            );
+            return null;
         }
+
+        let newState = {
+            ...state,
+            ...(isAdvancedSearchChanged ? { isAdvancedSearch: props.isAdvancedSearch } : {}),
+            advancedSearch: {
+                ...state.advancedSearch,
+                ...(isOpenAccessInAdvancedModeChanged ? { isOpenAccess: props.isOpenAccessInAdvancedMode } : {}),
+                ...(isAdvancedSearchMinimisedChanged ? { isMinimised: props.isAdvancedSearchMinimised } : {}),
+            },
+        };
+
+        if (searchQueryChanged) {
+            newState = {
+                ...newState,
+                simpleSearch: {
+                    ...newState.simpleSearch,
+                    searchText:
+                        /* istanbul ignore next */
+                        props.searchQueryParams?.all?.value ||
+                        (typeof props.searchQueryParams?.all === 'string' && props.searchQueryParams?.all) ||
+                        '',
+                },
+                advancedSearch: {
+                    ...newState.advancedSearch,
+                    fieldRows: state.getFieldRowsFromSearchQuery(props.searchQueryParams),
+                    docTypes: state.getDocTypesFromSearchQuery(props.searchQueryParams),
+                    yearFilter: {
+                        from: state.advancedSearch.yearFilter.from,
+                        to: state.advancedSearch.yearFilter.to,
+                    },
+                    ...state.getDateRangeFromSearchQuery(props.searchQueryParams),
+                },
+            };
+        }
+        !!props.isAdvancedSearch && props.updateFacetExcludesFromSearchFields(state.advancedSearch.fieldRows);
+
+        return { ...newState, prevProps: { ...props } };
     }
 
     getFieldRowsFromSearchQuery = searchQueryParams => {
@@ -233,18 +264,14 @@ export default class SearchComponent extends PureComponent {
     };
 
     handleSearch = searchQuery => {
-        if (searchQuery && this.props.actions && this.props.actions.searchEspacePublications) {
-            // If in header, the page will redirect to a new route,
-            // which means search results from API call will be lost.
-            !this.props.isInHeader && this.props.actions.searchEspacePublications(searchQuery);
-
-            // navigate to search results page
-            this.props.history.push({
-                pathname: this.props.isUnpublishedBufferPage ? pathConfig.admin.unpublished : pathConfig.records.search,
-                search: param(searchQuery),
-                state: { ...searchQuery },
-            });
+        if (!searchQuery) {
+            return;
         }
+
+        this.props.history.push({
+            pathname: this.props.isUnpublishedBufferPage ? pathConfig.admin.unpublished : pathConfig.records.search,
+            search: param(searchQuery),
+        });
     };
 
     _toggleSearchMode = () => {

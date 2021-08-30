@@ -673,10 +673,6 @@ describe('Backend routes method', () => {
         });
     });
 
-    it('should construct url for GET_NEWS_API', () => {
-        expect(routes.GET_NEWS_API()).toEqual({ apiUrl: 'fez-news' });
-    });
-
     it('should construct url for AUTHOR_TRENDING_PUBLICATIONS_API', () => {
         expect(routes.AUTHOR_TRENDING_PUBLICATIONS_API()).toEqual({ apiUrl: 'records/my-trending' });
     });
@@ -870,6 +866,159 @@ describe('Backend routes method', () => {
     it('should construct url for journal details api', () => {
         expect(routes.JOURNAL_API({ id: '12' })).toEqual({
             apiUrl: 'journals/12',
+        });
+    });
+
+    it('should construct url for journal search api', () => {
+        const commonQueryParams = {
+            export_to: '',
+            order_by: 'asc',
+            page: 1,
+            per_page: 10,
+            sort: 'highest_quartile',
+        };
+
+        expect(routes.JOURNAL_SEARCH_API('a')).toEqual({
+            apiUrl: 'journals/search',
+            options: {
+                params: { ...commonQueryParams },
+            },
+        });
+
+        expect(
+            routes.JOURNAL_SEARCH_API({
+                keywords: [
+                    { type: 'Title', text: 'apple' },
+                    { type: 'Keyword', text: 'apple' },
+                    { type: 'Subject', text: 'apple', cvoId: 12345 },
+                ],
+            }),
+        ).toEqual({
+            apiUrl: 'journals/search',
+            options: {
+                params: {
+                    ...commonQueryParams,
+                    description: ['apple'],
+                    subject: [12345],
+                    title: ['apple'],
+                },
+            },
+        });
+
+        expect(
+            routes.JOURNAL_SEARCH_API({
+                keywords: [
+                    { type: 'unknown', text: 'apple' },
+                    { type: 'Title', text: 'apple' },
+                ],
+            }),
+        ).toEqual({
+            apiUrl: 'journals/search',
+            options: {
+                params: {
+                    ...commonQueryParams,
+                    description: [],
+                    subject: [],
+                    title: ['apple'],
+                },
+            },
+        });
+
+        expect(
+            routes.JOURNAL_SEARCH_API({
+                keywords: [{ type: 'Title', text: 'apple' }],
+                pageSize: 1,
+            }),
+        ).toEqual({
+            apiUrl: 'journals/search',
+            options: {
+                params: { ...commonQueryParams, description: [], subject: [], title: ['apple'], per_page: 20 }, // per_page should be 20, not 1
+            },
+        });
+    });
+
+    it('should construct url for journal favourites api', () => {
+        const commonQueryParams = {
+            export_to: '',
+            order_by: 'desc',
+            page: 1,
+            per_page: 20,
+            sort: 'score',
+        };
+
+        expect(routes.JOURNAL_FAVOURITES_API()).toEqual({
+            apiUrl: 'journals/favourites',
+        });
+
+        expect(routes.JOURNAL_FAVOURITES_API({ query: 'a' })).toEqual({
+            apiUrl: 'journals/favourites',
+            options: {
+                params: { ...commonQueryParams },
+            },
+        });
+
+        expect(
+            routes.JOURNAL_FAVOURITES_API({
+                query: {
+                    keywords: [
+                        { type: 'Title', text: 'apple' },
+                        { type: 'Keyword', text: 'apple' },
+                        { type: 'Subject', text: 'apple', cvoId: 12345 },
+                    ],
+                },
+            }),
+        ).toEqual({
+            apiUrl: 'journals/favourites',
+            options: {
+                params: {
+                    ...commonQueryParams,
+                    description: ['apple'],
+                    subject: [12345],
+                    title: ['apple'],
+                },
+            },
+        });
+
+        // with append
+        expect(
+            routes.JOURNAL_FAVOURITES_API({
+                append: 'append',
+                query: 'a',
+            }),
+        ).toEqual({
+            apiUrl: 'journals/favourites/append',
+            options: {
+                params: { ...commonQueryParams },
+            },
+        });
+    });
+    it('should construct url for community list api', () => {
+        expect(routes.COMMUNITY_LIST_API({ pageSize: 20, page: 1, direction: 'Asc', sortBy: 'title' })).toEqual({
+            apiUrl: 'communities',
+            options: {
+                params: {
+                    order_by: 'Asc',
+                    page: 1,
+                    per_page: 20,
+                    sort: 'title',
+                },
+            },
+        });
+    });
+
+    it('should construct url for collection list api', () => {
+        expect(
+            routes.COLLECTION_LIST_API({ pid: 'UQ:12345', pageSize: 20, page: 1, direction: 'Asc', sortBy: 'title' }),
+        ).toEqual({
+            apiUrl: 'communities/UQ:12345/collections',
+            options: {
+                params: {
+                    order_by: 'Asc',
+                    page: 1,
+                    per_page: 20,
+                    sort: 'title',
+                },
+            },
         });
     });
 });

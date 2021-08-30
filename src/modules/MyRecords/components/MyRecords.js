@@ -52,14 +52,52 @@ export default class MyRecords extends PureComponent {
                 ...props.initialFacets,
             },
             bulkExportSelected: false,
+            reloadPublications: false,
         };
 
         this.state = {
+            initState: { ...this.initState },
             // check if user has publications, once true always true
             // facets filtering might return no results, but facets should still be visible
             hasPublications: !props.loadingPublicationsList && props.publicationsList.length > 0,
             ...(!!props.location.state ? props.location.state : this.initState),
+            prevProps: {
+                ...props,
+            },
         };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        // handle browser back button - set state from location/dispatch action for this state
+        if (
+            state.prevProps?.location !== props.location &&
+            props.history.action === 'POP' &&
+            props.location.pathname === state.prevProps?.thisUrl
+        ) {
+            return {
+                ...(!!props.location.state ? props.location.state : state.initState),
+                prevProps: {
+                    ...props,
+                },
+                reloadPublications: true,
+            };
+        }
+        // set forever-true flag if user has publications
+        if (
+            !state.hasPublications &&
+            !props.loadingPublicationsList &&
+            !!props.publicationsList &&
+            props.publicationsList.length > 0
+        ) {
+            return {
+                hasPublications: true,
+                prevProps: {
+                    ...props,
+                },
+            };
+        }
+
+        return null;
     }
 
     componentDidMount() {
@@ -68,27 +106,9 @@ export default class MyRecords extends PureComponent {
         }
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillReceiveProps(newProps) {
-        // handle browser back button - set state from location/dispatch action for this state
-        if (
-            this.props.location !== newProps.location &&
-            newProps.history.action === 'POP' &&
-            newProps.location.pathname === this.props.thisUrl
-        ) {
-            this.setState({ ...(!!newProps.location.state ? newProps.location.state : this.initState) }, () => {
-                // only will be called when user clicks back on my records page
-                this.props.actions.loadAuthorPublications({ ...this.state });
-            });
-        }
-        // set forever-true flag if user has publications
-        if (
-            !this.state.hasPublications &&
-            !newProps.loadingPublicationsList &&
-            !!newProps.publicationsList &&
-            newProps.publicationsList.length > 0
-        ) {
-            this.setState({ hasPublications: true });
+    componentDidUpdate() {
+        if (!!this.state.reloadPublications) {
+            this.props.actions.loadAuthorPublications({ ...this.state });
         }
     }
 
@@ -143,7 +163,6 @@ export default class MyRecords extends PureComponent {
         this.props.history.push({
             pathname: `${this.props.thisUrl}`,
             search: `?ts=${Date.now()}`,
-            state: { ...this.state },
         });
         if (this.state.pageSize === MY_RECORDS_BULK_EXPORT_SIZE) {
             this.setState({ bulkExportSelected: true });
@@ -256,6 +275,7 @@ export default class MyRecords extends PureComponent {
                                                 pagingData={pagingData}
                                                 onPageChanged={this.pageChanged}
                                                 disabled={isLoadingOrExporting || this.state.bulkExportSelected}
+                                                pagingId="my-records-paging-top"
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -294,6 +314,7 @@ export default class MyRecords extends PureComponent {
                                                 pagingData={pagingData}
                                                 onPageChanged={this.pageChanged}
                                                 disabled={isLoadingOrExporting || this.state.bulkExportSelected}
+                                                pagingId="my-records-paging-bottom"
                                             />
                                         </Grid>
                                     </Grid>
@@ -301,37 +322,31 @@ export default class MyRecords extends PureComponent {
                             </Grid>
                         )}
                     {// show available filters or selected filters (even if there are no results)
-                    /* prettier-ignore */
-                    ((
-                            this.props.publicationsListFacets &&
-                            Object.keys(this.props.publicationsListFacets).length > 0
-                        ) ||
+                    ((this.props.publicationsListFacets && Object.keys(this.props.publicationsListFacets).length > 0) ||
                         (this.state.activeFacets && this.hasDisplayableFilters(this.state.activeFacets.filters)) ||
                         (this.state.activeFacets &&
                             this.state.activeFacets.ranges &&
                             Object.keys(this.state.activeFacets.ranges).length > 0) ||
                         (this.state.activeFacets && !!this.state.activeFacets.showOpenAccessOnly)) && (
-                            <Hidden smDown>
-                                <Grid item md={3}>
-                                    <StandardRighthandCard title={txt.facetsFilter.title} help={txt.facetsFilter.help}>
-                                        <FacetsFilter
-                                            facetsData={this.props.publicationsListFacets}
-                                            onFacetsChanged={this.facetsChanged}
-                                            activeFacets={this.state.activeFacets}
-                                            initialFacets={this.props.initialFacets}
-                                            disabled={isLoadingOrExporting}
-                                            excludeFacetsList={txt.facetsFilter.excludeFacetsList}
-                                            isMyDataSetPage={
-                                                this.props.location.pathname === pathConfig.dataset.mine
-                                            }
-                                            renameFacetsList={txt.facetsFilter.renameFacetsList}
-                                            lookupFacetsList={txt.facetsFilter.lookupFacetsList}
-                                            showOpenAccessFilter
-                                        />
-                                    </StandardRighthandCard>
-                                </Grid>
-                            </Hidden>
-                        )}
+                        <Hidden smDown>
+                            <Grid item md={3}>
+                                <StandardRighthandCard title={txt.facetsFilter.title} help={txt.facetsFilter.help}>
+                                    <FacetsFilter
+                                        facetsData={this.props.publicationsListFacets}
+                                        onFacetsChanged={this.facetsChanged}
+                                        activeFacets={this.state.activeFacets}
+                                        initialFacets={this.props.initialFacets}
+                                        disabled={isLoadingOrExporting}
+                                        excludeFacetsList={txt.facetsFilter.excludeFacetsList}
+                                        isMyDataSetPage={this.props.location.pathname === pathConfig.dataset.mine}
+                                        renameFacetsList={txt.facetsFilter.renameFacetsList}
+                                        lookupFacetsList={txt.facetsFilter.lookupFacetsList}
+                                        showOpenAccessFilter
+                                    />
+                                </StandardRighthandCard>
+                            </Grid>
+                        </Hidden>
+                    )}
                 </Grid>
             </StandardPage>
         );

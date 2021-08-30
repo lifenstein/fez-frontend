@@ -257,6 +257,7 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
             <PublicationsListSorting
               bulkExportSize={1000}
               disabled={false}
+              exportData={Object {}}
               initPageLength={20}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
@@ -271,8 +272,86 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
                   "total": 147,
                 }
               }
+              showDisplayAs={false}
               sortBy="published_date"
               sortDirection="Desc"
+              sortingData={
+                Object {
+                  "bulkExportConfirmation": Object {
+                    "confirmButtonLabel": "Close",
+                    "confirmationMessage": <span
+                      style={
+                        Object {
+                          "display": "block",
+                          "margin": "1em 0",
+                        }
+                      }
+                    >
+                      Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                    </span>,
+                    "confirmationTitle": "Export queued successfully",
+                  },
+                  "displayRecordsAsLabel": "Display results",
+                  "exportOnlyLabel": "Export Only:",
+                  "pageSize": "Works per page",
+                  "recordsPerPage": Array [
+                    10,
+                    20,
+                    50,
+                    100,
+                  ],
+                  "sortBy": Array [
+                    Object {
+                      "label": "Published date",
+                      "value": "published_date",
+                    },
+                    Object {
+                      "label": "Search relevance",
+                      "value": "score",
+                    },
+                    Object {
+                      "label": "Title",
+                      "value": "title",
+                    },
+                    Object {
+                      "label": "Created date",
+                      "value": "created_date",
+                    },
+                    Object {
+                      "label": "Updated date",
+                      "value": "updated_date",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Altmetric score",
+                      "value": "altmetric_score",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Scopus citation count",
+                      "value": "scopus_citation_count",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Web of Science citation count",
+                      "value": "thomson_citation_count",
+                    },
+                  ],
+                  "sortDirection": Array [
+                    "Desc",
+                    "Asc",
+                  ],
+                  "sortDirectionLabel": "Sort order",
+                  "sortLabel": "Sort results by",
+                }
+              }
+              sortingDefaults={Object {}}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -292,6 +371,7 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
                   "total": 147,
                 }
               }
+              pagingId="my-records-paging-top"
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -352,6 +432,7 @@ exports[`MyRecords test renders list of publications no facets 1`] = `
                   "total": 147,
                 }
               }
+              pagingId="my-records-paging-bottom"
             />
           </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>
@@ -412,6 +493,7 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
             <PublicationsListSorting
               bulkExportSize={1000}
               disabled={false}
+              exportData={Object {}}
               initPageLength={20}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
@@ -426,8 +508,86 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
                   "total": 147,
                 }
               }
+              showDisplayAs={false}
               sortBy="published_date"
               sortDirection="Desc"
+              sortingData={
+                Object {
+                  "bulkExportConfirmation": Object {
+                    "confirmButtonLabel": "Close",
+                    "confirmationMessage": <span
+                      style={
+                        Object {
+                          "display": "block",
+                          "margin": "1em 0",
+                        }
+                      }
+                    >
+                      Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                    </span>,
+                    "confirmationTitle": "Export queued successfully",
+                  },
+                  "displayRecordsAsLabel": "Display results",
+                  "exportOnlyLabel": "Export Only:",
+                  "pageSize": "Works per page",
+                  "recordsPerPage": Array [
+                    10,
+                    20,
+                    50,
+                    100,
+                  ],
+                  "sortBy": Array [
+                    Object {
+                      "label": "Published date",
+                      "value": "published_date",
+                    },
+                    Object {
+                      "label": "Search relevance",
+                      "value": "score",
+                    },
+                    Object {
+                      "label": "Title",
+                      "value": "title",
+                    },
+                    Object {
+                      "label": "Created date",
+                      "value": "created_date",
+                    },
+                    Object {
+                      "label": "Updated date",
+                      "value": "updated_date",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Altmetric score",
+                      "value": "altmetric_score",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Scopus citation count",
+                      "value": "scopus_citation_count",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Web of Science citation count",
+                      "value": "thomson_citation_count",
+                    },
+                  ],
+                  "sortDirection": Array [
+                    "Desc",
+                    "Asc",
+                  ],
+                  "sortDirectionLabel": "Sort order",
+                  "sortLabel": "Sort results by",
+                }
+              }
+              sortingDefaults={Object {}}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -447,6 +607,7 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
                   "total": 147,
                 }
               }
+              pagingId="my-records-paging-top"
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -515,6 +676,7 @@ exports[`MyRecords test renders list of publications with custom actions 1`] = `
                   "total": 147,
                 }
               }
+              pagingId="my-records-paging-bottom"
             />
           </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>
@@ -575,6 +737,7 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
             <PublicationsListSorting
               bulkExportSize={1000}
               disabled={false}
+              exportData={Object {}}
               initPageLength={20}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
@@ -589,8 +752,86 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
                   "total": 147,
                 }
               }
+              showDisplayAs={false}
               sortBy="published_date"
               sortDirection="Desc"
+              sortingData={
+                Object {
+                  "bulkExportConfirmation": Object {
+                    "confirmButtonLabel": "Close",
+                    "confirmationMessage": <span
+                      style={
+                        Object {
+                          "display": "block",
+                          "margin": "1em 0",
+                        }
+                      }
+                    >
+                      Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                    </span>,
+                    "confirmationTitle": "Export queued successfully",
+                  },
+                  "displayRecordsAsLabel": "Display results",
+                  "exportOnlyLabel": "Export Only:",
+                  "pageSize": "Works per page",
+                  "recordsPerPage": Array [
+                    10,
+                    20,
+                    50,
+                    100,
+                  ],
+                  "sortBy": Array [
+                    Object {
+                      "label": "Published date",
+                      "value": "published_date",
+                    },
+                    Object {
+                      "label": "Search relevance",
+                      "value": "score",
+                    },
+                    Object {
+                      "label": "Title",
+                      "value": "title",
+                    },
+                    Object {
+                      "label": "Created date",
+                      "value": "created_date",
+                    },
+                    Object {
+                      "label": "Updated date",
+                      "value": "updated_date",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Altmetric score",
+                      "value": "altmetric_score",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Scopus citation count",
+                      "value": "scopus_citation_count",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Web of Science citation count",
+                      "value": "thomson_citation_count",
+                    },
+                  ],
+                  "sortDirection": Array [
+                    "Desc",
+                    "Asc",
+                  ],
+                  "sortDirectionLabel": "Sort order",
+                  "sortLabel": "Sort results by",
+                }
+              }
+              sortingDefaults={Object {}}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -610,6 +851,7 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
                   "total": 147,
                 }
               }
+              pagingId="my-records-paging-top"
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -670,6 +912,7 @@ exports[`MyRecords test renders list of publications with facets 1`] = `
                   "total": 147,
                 }
               }
+              pagingId="my-records-paging-bottom"
             />
           </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>
@@ -827,14 +1070,93 @@ exports[`MyRecords test renders loading screen while export publications loading
             <PublicationsListSorting
               bulkExportSize={1000}
               disabled={true}
+              exportData={Object {}}
               initPageLength={20}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
               onSortByChanged={[Function]}
               pageSize={20}
               pagingData={Object {}}
+              showDisplayAs={false}
               sortBy="published_date"
               sortDirection="Desc"
+              sortingData={
+                Object {
+                  "bulkExportConfirmation": Object {
+                    "confirmButtonLabel": "Close",
+                    "confirmationMessage": <span
+                      style={
+                        Object {
+                          "display": "block",
+                          "margin": "1em 0",
+                        }
+                      }
+                    >
+                      Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                    </span>,
+                    "confirmationTitle": "Export queued successfully",
+                  },
+                  "displayRecordsAsLabel": "Display results",
+                  "exportOnlyLabel": "Export Only:",
+                  "pageSize": "Works per page",
+                  "recordsPerPage": Array [
+                    10,
+                    20,
+                    50,
+                    100,
+                  ],
+                  "sortBy": Array [
+                    Object {
+                      "label": "Published date",
+                      "value": "published_date",
+                    },
+                    Object {
+                      "label": "Search relevance",
+                      "value": "score",
+                    },
+                    Object {
+                      "label": "Title",
+                      "value": "title",
+                    },
+                    Object {
+                      "label": "Created date",
+                      "value": "created_date",
+                    },
+                    Object {
+                      "label": "Updated date",
+                      "value": "updated_date",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Altmetric score",
+                      "value": "altmetric_score",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Scopus citation count",
+                      "value": "scopus_citation_count",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Web of Science citation count",
+                      "value": "thomson_citation_count",
+                    },
+                  ],
+                  "sortDirection": Array [
+                    "Desc",
+                    "Asc",
+                  ],
+                  "sortDirectionLabel": "Sort order",
+                  "sortLabel": "Sort results by",
+                }
+              }
+              sortingDefaults={Object {}}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -846,6 +1168,7 @@ exports[`MyRecords test renders loading screen while export publications loading
               loading={true}
               onPageChanged={[Function]}
               pagingData={Object {}}
+              pagingId="my-records-paging-top"
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -894,6 +1217,7 @@ exports[`MyRecords test renders loading screen while export publications loading
               loading={true}
               onPageChanged={[Function]}
               pagingData={Object {}}
+              pagingId="my-records-paging-bottom"
             />
           </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>
@@ -973,14 +1297,93 @@ exports[`MyRecords test renders loading screen while loading publications while 
             <PublicationsListSorting
               bulkExportSize={1000}
               disabled={true}
+              exportData={Object {}}
               initPageLength={20}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
               onSortByChanged={[Function]}
               pageSize={20}
               pagingData={Object {}}
+              showDisplayAs={false}
               sortBy="published_date"
               sortDirection="Desc"
+              sortingData={
+                Object {
+                  "bulkExportConfirmation": Object {
+                    "confirmButtonLabel": "Close",
+                    "confirmationMessage": <span
+                      style={
+                        Object {
+                          "display": "block",
+                          "margin": "1em 0",
+                        }
+                      }
+                    >
+                      Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                    </span>,
+                    "confirmationTitle": "Export queued successfully",
+                  },
+                  "displayRecordsAsLabel": "Display results",
+                  "exportOnlyLabel": "Export Only:",
+                  "pageSize": "Works per page",
+                  "recordsPerPage": Array [
+                    10,
+                    20,
+                    50,
+                    100,
+                  ],
+                  "sortBy": Array [
+                    Object {
+                      "label": "Published date",
+                      "value": "published_date",
+                    },
+                    Object {
+                      "label": "Search relevance",
+                      "value": "score",
+                    },
+                    Object {
+                      "label": "Title",
+                      "value": "title",
+                    },
+                    Object {
+                      "label": "Created date",
+                      "value": "created_date",
+                    },
+                    Object {
+                      "label": "Updated date",
+                      "value": "updated_date",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Altmetric score",
+                      "value": "altmetric_score",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Scopus citation count",
+                      "value": "scopus_citation_count",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Web of Science citation count",
+                      "value": "thomson_citation_count",
+                    },
+                  ],
+                  "sortDirection": Array [
+                    "Desc",
+                    "Asc",
+                  ],
+                  "sortDirectionLabel": "Sort order",
+                  "sortLabel": "Sort results by",
+                }
+              }
+              sortingDefaults={Object {}}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -992,6 +1395,7 @@ exports[`MyRecords test renders loading screen while loading publications while 
               loading={true}
               onPageChanged={[Function]}
               pagingData={Object {}}
+              pagingId="my-records-paging-top"
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -1040,6 +1444,7 @@ exports[`MyRecords test renders loading screen while loading publications while 
               loading={true}
               onPageChanged={[Function]}
               pagingData={Object {}}
+              pagingId="my-records-paging-bottom"
             />
           </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>
@@ -1155,6 +1560,7 @@ exports[`MyRecords test should handle export publications 1`] = `
             <PublicationsListSorting
               bulkExportSize={1000}
               disabled={false}
+              exportData={Object {}}
               initPageLength={20}
               onExportPublications={[Function]}
               onPageSizeChanged={[Function]}
@@ -1169,8 +1575,86 @@ exports[`MyRecords test should handle export publications 1`] = `
                   "total": 147,
                 }
               }
+              showDisplayAs={false}
               sortBy="published_date"
               sortDirection="Desc"
+              sortingData={
+                Object {
+                  "bulkExportConfirmation": Object {
+                    "confirmButtonLabel": "Close",
+                    "confirmationMessage": <span
+                      style={
+                        Object {
+                          "display": "block",
+                          "margin": "1em 0",
+                        }
+                      }
+                    >
+                      Bulk export request has been queued. When the request has been processed, you will receive an email with the exported file as an attachment.
+                    </span>,
+                    "confirmationTitle": "Export queued successfully",
+                  },
+                  "displayRecordsAsLabel": "Display results",
+                  "exportOnlyLabel": "Export Only:",
+                  "pageSize": "Works per page",
+                  "recordsPerPage": Array [
+                    10,
+                    20,
+                    50,
+                    100,
+                  ],
+                  "sortBy": Array [
+                    Object {
+                      "label": "Published date",
+                      "value": "published_date",
+                    },
+                    Object {
+                      "label": "Search relevance",
+                      "value": "score",
+                    },
+                    Object {
+                      "label": "Title",
+                      "value": "title",
+                    },
+                    Object {
+                      "label": "Created date",
+                      "value": "created_date",
+                    },
+                    Object {
+                      "label": "Updated date",
+                      "value": "updated_date",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Altmetric score",
+                      "value": "altmetric_score",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Scopus citation count",
+                      "value": "scopus_citation_count",
+                    },
+                    Object {
+                      "exclude": Array [
+                        "image-gallery",
+                      ],
+                      "label": "Web of Science citation count",
+                      "value": "thomson_citation_count",
+                    },
+                  ],
+                  "sortDirection": Array [
+                    "Desc",
+                    "Asc",
+                  ],
+                  "sortDirectionLabel": "Sort order",
+                  "sortLabel": "Sort results by",
+                }
+              }
+              sortingDefaults={Object {}}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -1190,6 +1674,7 @@ exports[`MyRecords test should handle export publications 1`] = `
                   "total": 147,
                 }
               }
+              pagingId="my-records-paging-top"
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -1250,6 +1735,7 @@ exports[`MyRecords test should handle export publications 1`] = `
                   "total": 147,
                 }
               }
+              pagingId="my-records-paging-bottom"
             />
           </WithStyles(ForwardRef(Grid))>
         </WithStyles(ForwardRef(Grid))>

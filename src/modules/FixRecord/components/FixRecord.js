@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { propTypes } from 'redux-form/immutable';
-import { Field } from 'redux-form/immutable';
+import { Field, propTypes } from 'redux-form/immutable';
 
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -24,7 +23,7 @@ import { FileUploadField } from 'modules/SharedComponents/Toolbox/FileUploader';
 import { InlineLoader } from 'modules/SharedComponents/Toolbox/Loaders';
 
 import { PublicationCitation } from 'modules/SharedComponents/PublicationCitation';
-import { validation, pathConfig } from 'config';
+import { pathConfig, validation } from 'config';
 import { default as pagesLocale } from 'locale/pages';
 import { default as formsLocale } from 'locale/forms';
 
@@ -66,9 +65,8 @@ export default class FixRecord extends PureComponent {
         }
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (nextProps.submitSucceeded !== this.props.submitSucceeded) {
+    componentDidUpdate(prevProps) {
+        if (prevProps.submitSucceeded !== this.props.submitSucceeded) {
             this.successConfirmationBox &&
                 this.successConfirmationBox.showConfirmation &&
                 this.successConfirmationBox.showConfirmation();
@@ -82,7 +80,8 @@ export default class FixRecord extends PureComponent {
 
     isLoggedInUserLinked = (author, recordToFix, searchKey, subkey) => {
         return (
-            !!author &&
+            // eslint-disable-next-line camelcase
+            !!author?.aut_id &&
             !!recordToFix &&
             recordToFix[searchKey] &&
             recordToFix[searchKey].length > 0 &&
@@ -248,6 +247,7 @@ export default class FixRecord extends PureComponent {
                                                     <Grid item xs={12}>
                                                         <Field
                                                             component={ContentIndicatorsField}
+                                                            displayType={this.props.recordToFix.rek_display_type}
                                                             disabled={this.props.submitting}
                                                             id="content-indicators"
                                                             name="contentIndicators"

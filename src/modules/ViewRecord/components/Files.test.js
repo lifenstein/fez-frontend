@@ -1,8 +1,19 @@
 import { journalArticle } from 'mock/data/testing/records';
 import { default as fileDataRecord } from 'mock/data/testing/fileData';
-import Files, { formatBytes, getFileOpenAccessStatus, untranscodedItem } from './Files';
-import { FilesClass } from './Files';
+import {
+    FilesClass,
+    formatBytes,
+    getFileOpenAccessStatus,
+    untranscodedItem,
+    styles,
+    getDownloadLicence,
+} from './Files';
 import * as mock from 'mock/data';
+import {
+    CURRENT_LICENCES,
+    SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
+    SENSITIVE_HANDLING_NOTE_TYPE,
+} from '../../../config/general';
 
 const pub = {
     rek_pid: 'UQ:185044',
@@ -471,6 +482,7 @@ const pub = {
             dsi_state: 'A',
             dsi_size: 3000090,
             dsi_checksum: 'a6a6d6qs6dq6wsdqwd',
+            dsi_order: null,
         },
         {
             dsi_pid: 'UQ:185044',
@@ -482,6 +494,7 @@ const pub = {
             dsi_copyright: null,
             dsi_state: 'A',
             dsi_size: 2750166,
+            dsi_order: null,
         },
         {
             dsi_pid: 'UQ:185044',
@@ -493,6 +506,7 @@ const pub = {
             dsi_copyright: null,
             dsi_state: 'A',
             dsi_size: 3000090,
+            dsi_order: 2,
         },
         {
             dsi_pid: 'UQ:185044',
@@ -504,6 +518,7 @@ const pub = {
             dsi_copyright: null,
             dsi_state: 'A',
             dsi_size: 4500146,
+            dsi_order: 2,
         },
         {
             dsi_pid: 'UQ:185044',
@@ -515,6 +530,7 @@ const pub = {
             dsi_copyright: null,
             dsi_state: 'A',
             dsi_size: 1175050,
+            dsi_order: 3,
         },
         {
             dsi_pid: 'UQ:185044',
@@ -526,6 +542,7 @@ const pub = {
             dsi_copyright: null,
             dsi_state: 'A',
             dsi_size: 6998485,
+            dsi_order: 1,
         },
         {
             dsi_pid: 'UQ:185044',
@@ -537,6 +554,7 @@ const pub = {
             dsi_copyright: null,
             dsi_state: 'D',
             dsi_size: 3000090,
+            dsi_order: null,
         },
         {
             dsi_pid: 'UQ:185044',
@@ -548,6 +566,7 @@ const pub = {
             dsi_copyright: null,
             dsi_state: 'A',
             dsi_size: 3093,
+            dsi_order: null,
         },
         {
             dsi_pid: 'UQ:185044',
@@ -804,19 +823,17 @@ const pub = {
     rek_pubmed_doc_type_lookup: null,
 };
 
-function setup(testProps, args = { isShallow: true }) {
+function setup(testProps) {
     const props = {
         theme: {},
         isAdmin: testProps.isAdmin || true,
         publication: testProps.publication || journalArticle,
-        hideCulturalSensitivityStatement: false,
-        setHideCulturalSensitivityStatement: jest.fn(),
         classes: { header: 'header' },
         authorDetails: testProps.authorDetails || mock.accounts.uqresearcher,
-        author: testProps.author || mock.currentAuthor.uqresearcher,
+        author: testProps.author || mock.currentAuthor.uqresearcher.data,
         ...testProps,
     };
-    return getElement(FilesClass, props, args);
+    return getElement(FilesClass, props, { isShallow: true });
 }
 
 describe('Files Component ', () => {
@@ -834,9 +851,38 @@ describe('Files Component ', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('should not render cultural sensitivity statement', () => {
+    it('should have a style helper', () => {
+        const theme = {
+            palette: { secondary: { light: 'red' } },
+            breakpoints: { up: () => '@media (min-width: 600px)' },
+            spacing: num => num * 8,
+        };
+        expect(styles(theme)).toStrictEqual({
+            header: {
+                borderBottom: '1px solid red',
+            },
+            containerPadding: {
+                '@media (min-width: 600px)': {
+                    padding: 8,
+                },
+                padding: '8px 0',
+            },
+            dataWrapper: {
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+            },
+            fileIcon: {
+                opacity: 0.5,
+            },
+            thumbIconCentered: {
+                textAlign: 'center',
+            },
+        });
+    });
+
+    it('should not render advisory statement', () => {
         const wrapper = setup({
-            hideCulturalSensitivityStatement: false,
             publication: {
                 ...journalArticle,
                 fez_record_search_key_advisory_statement: {
@@ -847,13 +893,81 @@ describe('Files Component ', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('should not render cultural message', () => {
+    it('should not render advisory statement', () => {
         const wrapper = setup({
             publication: {
                 ...journalArticle,
                 fez_record_search_key_advisory_statement: { rek_advisory_statement: 'hello' },
             },
-            hideCulturalSensitivityStatement: true,
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should render advisory statement', () => {
+        const wrapper = setup({
+            publication: {
+                ...journalArticle,
+                fez_record_search_key_advisory_statement: { rek_advisory_statement: 'hello' },
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should not render sensitive handling note - scenario 1', () => {
+        const wrapper = setup({
+            publication: {
+                ...journalArticle,
+                fez_record_search_key_sensitive_handling_note_id: {
+                    rek_sensitive_handling_note_id: SENSITIVE_HANDLING_NOTE_TYPE.find(item => item.value !== 'Other')
+                        .value,
+                },
+                fez_record_search_key_sensitive_handling_note_other: {
+                    rek_sensitive_handling_note_other: 'test',
+                },
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should not render sensitive handling note - scenario 2', () => {
+        const wrapper = setup({
+            publication: {
+                ...journalArticle,
+                fez_record_search_key_sensitive_handling_note_id: {
+                    rek_sensitive_handling_note_id: SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
+                },
+                fez_record_search_key_sensitive_handling_note_other: {
+                    rek_sensitive_handling_note_other: null,
+                },
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should render sensitive handling note', () => {
+        const wrapper = setup({
+            publication: {
+                ...journalArticle,
+                fez_record_search_key_sensitive_handling_note_id: {
+                    rek_sensitive_handling_note_id: SENSITIVE_HANDLING_NOTE_TYPE.find(item => item.value !== 'Other')
+                        .value,
+                },
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('should render sensitive handling note - other', () => {
+        const wrapper = setup({
+            publication: {
+                ...journalArticle,
+                fez_record_search_key_sensitive_handling_note_id: {
+                    rek_sensitive_handling_note_id: SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
+                },
+                fez_record_search_key_sensitive_handling_note_other: {
+                    rek_sensitive_handling_note_other: 'test',
+                },
+            },
         });
         expect(toJson(wrapper)).toMatchSnapshot();
     });
@@ -876,48 +990,13 @@ describe('Files Component ', () => {
                     },
                 ],
                 fez_record_search_key_advisory_statement: { rek_advisory_statement: 'No statement' },
+                fez_record_search_key_sensitive_handling_note_id: {
+                    rek_sensitive_handling_note_id: SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
+                },
+                fez_record_search_key_sensitive_handling_note_other: {
+                    rek_sensitive_handling_note_other: 'test',
+                },
             },
-            hideCulturalSensitivityStatement: true,
-        });
-        expect(toJson(wrapper)).toMatchSnapshot();
-    });
-
-    it('should render component full mount', () => {
-        const wrapper = getElement(
-            Files,
-            {
-                theme: {},
-                account: { canMasquerade: true },
-                isAdmin: true,
-                isAuthor: true,
-                publication: journalArticle,
-                hideCulturalSensitivityStatement: false,
-                setHideCulturalSensitivityStatement: jest.fn(),
-                classes: {},
-            },
-            { isShallow: false },
-        );
-        expect(toJson(wrapper)).toMatchSnapshot();
-    });
-
-    it('should not render cultural message', () => {
-        const wrapper = setup({
-            publication: {
-                ...journalArticle,
-                fez_record_search_key_advisory_statement: { rek_advisory_statement: 'hello<br/> there' },
-            },
-            hideCulturalSensitivityStatement: true,
-        });
-        expect(toJson(wrapper)).toMatchSnapshot();
-    });
-
-    it('should render cultural message', () => {
-        const wrapper = setup({
-            publication: {
-                ...journalArticle,
-                fez_record_search_key_advisory_statement: { rek_advisory_statement: 'hello' },
-            },
-            hideCulturalSensitivityStatement: false,
         });
         expect(toJson(wrapper)).toMatchSnapshot();
     });
@@ -971,7 +1050,14 @@ describe('Files Component ', () => {
         const webMediaUrl = 'webMediaUrl';
         const mimeType = 'image/jpeg';
         const securityStatus = true;
-        wrapper.instance().showPreview(fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl, securityStatus);
+        wrapper.instance().showPreview({
+            fileName,
+            mediaUrl,
+            mimeType,
+            previewMediaUrl,
+            securityStatus,
+            webMediaUrl,
+        });
         expect(wrapper.state().preview.fileName).toEqual(fileName);
         expect(wrapper.state().preview.previewMediaUrl).toEqual(previewMediaUrl);
         expect(wrapper.state().preview.mediaUrl).toEqual(mediaUrl);
@@ -983,7 +1069,7 @@ describe('Files Component ', () => {
     it('should set video loading flag to hide loading message', () => {
         const wrapper = setup({ publication: pub });
         wrapper
-            .find('WithStyles(FileName)')
+            .find('FileName')
             .first()
             .simulate('click');
 
@@ -993,7 +1079,14 @@ describe('Files Component ', () => {
         const webMediaUrl = 'webMediaUrl';
         const mimeType = 'video/mp4';
         const securityStatus = true;
-        wrapper.instance().showPreview(fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl, securityStatus);
+        wrapper.instance().showPreview({
+            fileName,
+            mediaUrl,
+            mimeType,
+            previewMediaUrl,
+            securityStatus,
+            webMediaUrl,
+        });
 
         let preview = wrapper.find('Memo(MediaPreview)').shallow();
 
@@ -1011,7 +1104,7 @@ describe('Files Component ', () => {
     it('should set video load error flags', () => {
         const wrapper = setup({ publication: pub });
         wrapper
-            .find('WithStyles(FileName)')
+            .find('FileName')
             .first()
             .simulate('click');
 
@@ -1021,7 +1114,14 @@ describe('Files Component ', () => {
         const webMediaUrl = 'webMediaUrl';
         const mimeType = 'video/mp4';
         const securityStatus = true;
-        wrapper.instance().showPreview(fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl, securityStatus);
+        wrapper.instance().showPreview({
+            fileName,
+            mediaUrl,
+            mimeType,
+            previewMediaUrl,
+            securityStatus,
+            webMediaUrl,
+        });
 
         wrapper.find('Memo(MediaPreview)').simulate('videoFailed', { code: 1234, message: 'video failed' });
         wrapper.update();
@@ -1037,7 +1137,7 @@ describe('Files Component ', () => {
     it('should set image error flag', () => {
         const wrapper = setup({ publication: pub });
         wrapper
-            .find('WithStyles(FileName)')
+            .find('FileName')
             .first()
             .simulate('click');
 
@@ -1047,7 +1147,14 @@ describe('Files Component ', () => {
         const webMediaUrl = 'webMediaUrl';
         const mimeType = 'image/jpeg';
         const securityStatus = true;
-        wrapper.instance().showPreview(fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl, securityStatus);
+        wrapper.instance().showPreview({
+            fileName,
+            mediaUrl,
+            mimeType,
+            previewMediaUrl,
+            securityStatus,
+            webMediaUrl,
+        });
 
         wrapper.find('Memo(MediaPreview)').simulate('imageFailed');
         wrapper.update();
@@ -1142,6 +1249,16 @@ describe('Files Component ', () => {
         expect(
             getFileOpenAccessStatus(publicationEmbargoOAFile, publicationEmbargoOAFile.fez_datastream_info[2], props),
         ).toEqual({ embargoDate: null, isOpenAccess: true, openAccessStatusId: 453695, allowDownload: true });
+        expect(
+            getFileOpenAccessStatus(
+                {
+                    ...publicationEmbargoOAFile,
+                    fez_record_search_key_license: { rek_license: CURRENT_LICENCES[0].value },
+                },
+                publicationEmbargoOAFile.fez_datastream_info[2],
+                props,
+            ),
+        ).toEqual({ embargoDate: null, isOpenAccess: true, openAccessStatusId: 453695, allowDownload: false });
         expect(
             getFileOpenAccessStatus(publicationEmbargoOAFile, publicationEmbargoOAFile.fez_datastream_info[3], props),
         ).toEqual({ embargoDate: null, isOpenAccess: true, openAccessStatusId: 453695, allowDownload: false });
@@ -1574,9 +1691,58 @@ describe('Files Component ', () => {
         expect(JSON.stringify(wrapper.instance().getFileData(fileDataRecord))).toMatchSnapshot();
     });
 
-    it('getFileData{} branch 1', () => {
+    it('getFileData{} branch 2', () => {
         const wrapper = setup({ publication: fileDataRecord, isAdmin: false, author: null });
         expect(JSON.stringify(wrapper.instance().getFileData(fileDataRecord))).toMatchSnapshot();
+    });
+
+    it('getFileData{} branch 3', () => {
+        const publication = {
+            ...fileDataRecord,
+            fez_record_search_key_license: { rek_license: CURRENT_LICENCES[0].value },
+            fez_datastream_info: [
+                {
+                    dsi_pid: 'UQ:185044',
+                    dsi_dsid: 'test.pdf',
+                    dsi_open_access: 1,
+                    dsi_mimetype: 'application/pdf',
+                    dsi_state: 'A',
+                    dsi_size: 587005,
+                    dsi_security_inherited: 0,
+                    dsi_security_policy: 5,
+                },
+                {
+                    dsi_pid: 'UQ:185044',
+                    dsi_dsid: 'thumbnail_test_t.jpg',
+                    dsi_open_access: 1,
+                    dsi_mimetype: 'image/jpeg',
+                    dsi_state: 'A',
+                    dsi_size: 587005,
+                    dsi_security_inherited: 1,
+                    dsi_security_policy: 1,
+                },
+            ],
+        };
+        const wrapper = setup({ publication: publication });
+        expect(JSON.stringify(wrapper.instance().getFileData(publication))).toMatchSnapshot();
+    });
+
+    it('getFileData{} branch pol_id', () => {
+        const wrapper = setup({
+            publication: { ...fileDataRecord, fez_datastream_info: [] },
+            isAdmin: false,
+            author: mock.currentAuthor.uqstaff.data,
+        });
+        expect(JSON.stringify(wrapper.instance().getFileData(fileDataRecord))).toMatchSnapshot();
+    });
+
+    it('getDownloadLicence()', () => {
+        const publicationWithRestrictiveLicense = {
+            ...fileDataRecord,
+            fez_record_search_key_license: { rek_license: CURRENT_LICENCES[0].value },
+        };
+        expect(getDownloadLicence(fileDataRecord)).toBe(undefined);
+        expect(getDownloadLicence(publicationWithRestrictiveLicense)).toEqual(CURRENT_LICENCES[0]);
     });
 
     it('Should render the correct icon for a valid transcoded file', () => {
@@ -1716,8 +1882,13 @@ describe('Files Component ', () => {
                     },
                 ],
                 fez_record_search_key_advisory_statement: { rek_advisory_statement: 'No statement' },
+                fez_record_search_key_sensitive_handling_note_id: {
+                    rek_sensitive_handling_note_id: SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
+                },
+                fez_record_search_key_sensitive_handling_note_other: {
+                    rek_sensitive_handling_note_other: 'test',
+                },
             },
-            hideCulturalSensitivityStatement: true,
         });
         expect(toJson(wrapper)).toMatchSnapshot();
     });
