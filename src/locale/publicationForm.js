@@ -2,9 +2,9 @@
 import React from 'react';
 import { default as txt } from './components';
 import {
-    FILE_ACCESS_CONDITION_CLOSED,
-    FILE_ACCESS_CONDITION_OPEN,
     fileUploaderLocale,
+    FILE_ACCESS_CONDITION_OPEN,
+    FILE_ACCESS_CONDITION_CLOSED,
 } from 'modules/SharedComponents/Toolbox/FileUploader';
 import { selectFields } from 'locale/selectFields';
 
@@ -1496,7 +1496,7 @@ export default {
         pageTitle: 'Add data collection',
         information: {
             agreement: {
-                title: 'Deposit agree[TYPO]',
+                title: 'Deposit agreement',
                 text: (
                     <div>
                         <p>
