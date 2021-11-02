@@ -1496,7 +1496,7 @@ export default {
         pageTitle: 'Add data collection',
         information: {
             agreement: {
-                title: 'Deposit agreement',
+                title: 'Deposit agree[TYPO]',
                 text: (
                     <div>
                         <p>
