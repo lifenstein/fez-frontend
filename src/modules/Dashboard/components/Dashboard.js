@@ -109,6 +109,7 @@ export class DashboardClass extends PureComponent {
         orcidSyncStatus: PropTypes.object,
         requestingOrcidSync: PropTypes.bool,
         orcidSyncEnabled: PropTypes.bool,
+        loadOrcidSyncDelay: PropTypes.number,
     };
 
     constructor(props) {
@@ -149,10 +150,10 @@ export class DashboardClass extends PureComponent {
             {
                 orcidSyncStatusRefreshCount: this.state.orcidSyncStatusRefreshCount + 1,
             },
-            () => this._loadOrcidSync(fibonacci(this.state.orcidSyncStatusRefreshCount, 1) * 5000),
+            () => this._loadOrcidSync(fibonacci(this.state.orcidSyncStatusRefreshCount, 1)),
         );
 
-    _loadOrcidSync = (waitTime = 0) =>
+    _loadOrcidSync = (waitTime = 1) =>
         global.setTimeout(() => {
             !this.props.loadingOrcidSyncStatus &&
                 this.props.orcidSyncEnabled &&
@@ -160,7 +161,7 @@ export class DashboardClass extends PureComponent {
                 this.props.actions &&
                 this.props.actions.loadOrcidSyncStatus &&
                 this.props.actions.loadOrcidSyncStatus();
-        }, waitTime);
+        }, waitTime * this.props.loadOrcidSyncDelay * 1000);
 
     _claimYourPublications = () => {
         this.props.history.push(pathConfig.records.possible);
@@ -471,6 +472,10 @@ export class DashboardClass extends PureComponent {
         );
     }
 }
+
+DashboardClass.defaultProps = {
+    loadOrcidSyncDelay: 5,
+};
 
 const Dashboard = withStyles(styles, { withTheme: true })(DashboardClass);
 export default Dashboard;
