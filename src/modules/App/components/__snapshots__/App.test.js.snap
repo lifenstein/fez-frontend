@@ -20,12 +20,14 @@ exports[`Application component Should display mobile correctly 1`] = `
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -344,12 +346,14 @@ exports[`Application component Should display mobile correctly 1`] = `
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -665,12 +669,14 @@ exports[`Application component should determine if it has incomplete works from 
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -1308,12 +1314,14 @@ exports[`Application component should determine if it has incomplete works from 
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -1618,12 +1626,14 @@ exports[`Application component should determine if it has incomplete works from 
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -2261,12 +2271,14 @@ exports[`Application component should determine if it has incomplete works from 
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -2335,12 +2347,14 @@ exports[`Application component should redirect to login page with correct return
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -2659,12 +2673,14 @@ exports[`Application component should redirect to login page with correct return
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -2976,12 +2992,14 @@ exports[`Application component should render alert if user is not fez author 1`]
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -3636,12 +3654,14 @@ exports[`Application component should render alert if user is not fez author 1`]
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -3946,12 +3966,14 @@ exports[`Application component should render app for HDR with ORCID ID 1`] = `
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -4626,12 +4648,14 @@ exports[`Application component should render app for HDR with ORCID ID 1`] = `
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -4936,12 +4960,14 @@ exports[`Application component should render app for account with fez author wit
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -5601,12 +5627,14 @@ exports[`Application component should render app for account with fez author wit
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -5911,12 +5939,14 @@ exports[`Application component should render application with routing for the us
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -6227,12 +6257,14 @@ exports[`Application component should render for anon user 1`] = `
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -6551,12 +6583,14 @@ exports[`Application component should render for anon user 1`] = `
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -6650,12 +6684,14 @@ exports[`Application component should render thesis submission for HDR without m
         },
         Object {
           "component": Object {
-            "$$typeof": Symbol(react.lazy),
-            "_init": [Function],
-            "_payload": Object {
-              "_result": [Function],
-              "_status": -1,
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": Object {
+              "$$typeof": Symbol(react.memo),
+              "compare": [Function],
+              "type": [Function],
             },
+            "compare": null,
+            "type": [Function],
           },
           "exact": true,
           "pageTitle": undefined,
@@ -6902,12 +6938,14 @@ exports[`Application component should render thesis submission for HDR without m
           <Route
             component={
               Object {
-                "$$typeof": Symbol(react.lazy),
-                "_init": [Function],
-                "_payload": Object {
-                  "_result": [Function],
-                  "_status": -1,
+                "$$typeof": Symbol(react.memo),
+                "WrappedComponent": Object {
+                  "$$typeof": Symbol(react.memo),
+                  "compare": [Function],
+                  "type": [Function],
                 },
+                "compare": null,
+                "type": [Function],
               }
             }
             exact={true}
@@ -8003,12 +8041,14 @@ exports[`Testing wrapped App component Mounts 1`] = `
                           },
                           Object {
                             "component": Object {
-                              "$$typeof": Symbol(react.lazy),
-                              "_init": [Function],
-                              "_payload": Object {
-                                "_result": [Function],
-                                "_status": -1,
+                              "$$typeof": Symbol(react.memo),
+                              "WrappedComponent": Object {
+                                "$$typeof": Symbol(react.memo),
+                                "compare": [Function],
+                                "type": [Function],
                               },
+                              "compare": null,
+                              "type": [Function],
                             },
                             "exact": true,
                             "pageTitle": undefined,
@@ -8341,12 +8381,14 @@ exports[`Testing wrapped App component Mounts 1`] = `
                             },
                             Object {
                               "component": Object {
-                                "$$typeof": Symbol(react.lazy),
-                                "_init": [Function],
-                                "_payload": Object {
-                                  "_result": [Function],
-                                  "_status": -1,
+                                "$$typeof": Symbol(react.memo),
+                                "WrappedComponent": Object {
+                                  "$$typeof": Symbol(react.memo),
+                                  "compare": [Function],
+                                  "type": [Function],
                                 },
+                                "compare": null,
+                                "type": [Function],
                               },
                               "exact": true,
                               "pageTitle": undefined,
@@ -8680,12 +8722,14 @@ exports[`Testing wrapped App component Mounts 1`] = `
                               },
                               Object {
                                 "component": Object {
-                                  "$$typeof": Symbol(react.lazy),
-                                  "_init": [Function],
-                                  "_payload": Object {
-                                    "_result": [Function],
-                                    "_status": -1,
+                                  "$$typeof": Symbol(react.memo),
+                                  "WrappedComponent": Object {
+                                    "$$typeof": Symbol(react.memo),
+                                    "compare": [Function],
+                                    "type": [Function],
                                   },
+                                  "compare": null,
+                                  "type": [Function],
                                 },
                                 "exact": true,
                                 "pageTitle": undefined,
