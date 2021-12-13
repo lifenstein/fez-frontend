@@ -5,7 +5,6 @@ import * as UseIsUserSuperAdmin from 'hooks/useIsUserSuperAdmin';
 import { RECORD_TYPE_RECORD } from 'config/general';
 
 import { onSubmit } from '../submitHandler';
-
 jest.mock('../submitHandler', () => ({
     onSubmit: jest.fn(),
 }));
@@ -44,7 +43,6 @@ function setup(testProps = {}) {
         },
         destroy: jest.fn(),
         unlockRecord: jest.fn(),
-        error: null,
         ...testProps,
     };
 

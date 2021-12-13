@@ -1,10 +1,10 @@
 import * as actions from 'actions';
 import { connect } from 'react-redux';
-import { change, destroy, getFormSyncErrors, getFormValues, reduxForm } from 'redux-form/immutable';
+import { destroy, reduxForm, getFormValues, getFormSyncErrors, change } from 'redux-form/immutable';
 import Immutable from 'immutable';
 import AdminContainer from '../components/AdminContainer';
 import { withRouter } from 'react-router';
-import { adminInterfaceConfig, validate, valueExtractor } from 'config/admin';
+import { adminInterfaceConfig, valueExtractor, validate } from 'config/admin';
 import { viewRecordsConfig } from 'config';
 import { isFileValid } from 'config/validation';
 import {
@@ -17,7 +17,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { FORM_NAME } from '../constants';
 import { onSubmit } from '../submitHandler';
-import { authorsParams, bibliographicParams, identifiersParams } from 'modules/Admin/helpers';
+import { identifiersParams, bibliographicParams, authorsParams } from 'modules/Admin/helpers';
 
 export const filesParams = record => ({
     isDataset: record.rek_display_type === PUBLICATION_TYPE_DATA_COLLECTION,
@@ -158,7 +158,6 @@ const mapStateToProps = (state, props) => {
         recordToViewError: state.get('viewRecordReducer').recordToViewError,
         ...initialFormValues,
         locked,
-        error: state.get('viewRecordReducer').error,
     };
 };
 

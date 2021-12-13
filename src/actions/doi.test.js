@@ -5,7 +5,7 @@ import {
     RECORD_DOI_UPDATE_REQUESTING,
     RECORD_DOI_UPDATE_SUCCEEDED,
 } from './actionTypes';
-import { resetDoi, updateDoi } from 'actions/doi';
+import { updateDoi, resetDoi } from 'actions/doi';
 import { EXISTING_RECORD_API } from 'repositories/routes';
 
 describe('DOI actions', () => {
@@ -32,22 +32,10 @@ describe('DOI actions', () => {
         expect(mockActionsStore.getActions()).toHaveDispatchedActions(expectedActions);
     });
 
-    it('should dispatch actions for failed update for a 500', async () => {
+    it('should dispatch actions for failed update', async () => {
         mockApi.onPut(new RegExp(escapeRegExp(EXISTING_RECORD_API({ pid: '.*' }).apiUrl))).reply(500, {});
 
         const expectedActions = [RECORD_DOI_UPDATE_REQUESTING, APP_ALERT_SHOW, RECORD_DOI_UPDATE_FAILED];
-
-        try {
-            await mockActionsStore.dispatch(updateDoi(record));
-        } catch (e) {
-            expect(mockActionsStore.getActions()).toHaveDispatchedActions(expectedActions);
-        }
-    });
-
-    it('should dispatch actions for failed update for a 422', async () => {
-        mockApi.onPut(new RegExp(escapeRegExp(EXISTING_RECORD_API({ pid: '.*' }).apiUrl))).reply(422, {});
-
-        const expectedActions = [RECORD_DOI_UPDATE_REQUESTING, RECORD_DOI_UPDATE_FAILED];
 
         try {
             await mockActionsStore.dispatch(updateDoi(record));

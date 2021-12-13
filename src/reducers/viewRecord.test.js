@@ -1,5 +1,6 @@
 import * as actions from 'actions/actionTypes';
-import viewRecordReducer, { initialState } from './viewRecord';
+import viewRecordReducer from './viewRecord';
+import { initialState } from './viewRecord';
 
 describe('viewRecord reducer', () => {
     const mockRecord = {
@@ -16,7 +17,6 @@ describe('viewRecord reducer', () => {
             isDeleted: false,
             recordToView: null,
             recordToViewError: null,
-            error: null,
             hideCulturalSensitivityStatement: false,
             isJobCreated: false,
         };
@@ -33,7 +33,6 @@ describe('viewRecord reducer', () => {
             isDeleted: false,
             recordToView: null,
             recordToViewError: null,
-            error: null,
             hideCulturalSensitivityStatement: true,
             isJobCreated: false,
         };
@@ -142,18 +141,6 @@ describe('viewRecord reducer', () => {
         expect(test).toEqual({
             ...initialState,
             isJobCreated: true,
-        });
-    });
-
-    it('should set error', () => {
-        const test = viewRecordReducer(initialState, {
-            type: actions.ADMIN_UPDATE_WORK_FAILED,
-            payload: {},
-        });
-
-        expect(test).toEqual({
-            ...initialState,
-            error: {},
         });
     });
 });
