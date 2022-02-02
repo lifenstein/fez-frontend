@@ -31,8 +31,8 @@ exports[`Application component Should display mobile correctly 1`] = `
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -358,8 +358,8 @@ exports[`Application component Should display mobile correctly 1`] = `
             }
             exact={true}
             key="route_2"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -667,8 +667,8 @@ exports[`Application component should determine if it has incomplete works from 
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -1297,8 +1297,8 @@ exports[`Application component should determine if it has incomplete works from 
             }
             exact={true}
             key="route_20"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -1595,8 +1595,8 @@ exports[`Application component should determine if it has incomplete works from 
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -2225,8 +2225,8 @@ exports[`Application component should determine if it has incomplete works from 
             }
             exact={true}
             key="route_20"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -2300,8 +2300,8 @@ exports[`Application component should redirect to login page with correct return
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -2627,8 +2627,8 @@ exports[`Application component should redirect to login page with correct return
             }
             exact={true}
             key="route_2"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -2932,8 +2932,8 @@ exports[`Application component should render alert if user is not fez author 1`]
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -3579,8 +3579,8 @@ exports[`Application component should render alert if user is not fez author 1`]
             }
             exact={true}
             key="route_20"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -3877,8 +3877,8 @@ exports[`Application component should render app for HDR with ORCID ID 1`] = `
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -4544,8 +4544,8 @@ exports[`Application component should render app for HDR with ORCID ID 1`] = `
             }
             exact={true}
             key="route_20"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -4842,8 +4842,8 @@ exports[`Application component should render app for account with fez author wit
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -5494,8 +5494,8 @@ exports[`Application component should render app for account with fez author wit
             }
             exact={true}
             key="route_20"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -5792,8 +5792,8 @@ exports[`Application component should render application with routing for the us
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -6110,8 +6110,8 @@ exports[`Application component should render for anon user 1`] = `
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -6437,8 +6437,8 @@ exports[`Application component should render for anon user 1`] = `
             }
             exact={true}
             key="route_2"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -6537,8 +6537,8 @@ exports[`Application component should render thesis submission for HDR without m
           },
           "exact": true,
           "pageTitle": undefined,
-          "path": "/view/:pid(UQ:[a-z0-9]+)",
-          "regExPath": "/view/(UQ:[a-z0-9]+)",
+          "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+          "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
         },
         Object {
           "component": [Function],
@@ -6792,8 +6792,8 @@ exports[`Application component should render thesis submission for HDR without m
             }
             exact={true}
             key="route_2"
-            path="/view/:pid(UQ:[a-z0-9]+)"
-            regExPath="/view/(UQ:[a-z0-9]+)"
+            path="/view/:pid(UQ:[a-z0-9]+|not-found)"
+            regExPath="/view/(UQ:[a-z0-9]+|not-found)"
           />
           <Route
             component={[Function]}
@@ -7881,8 +7881,8 @@ exports[`Testing wrapped App component Mounts 1`] = `
                             },
                             "exact": true,
                             "pageTitle": undefined,
-                            "path": "/view/:pid(UQ:[a-z0-9]+)",
-                            "regExPath": "/view/(UQ:[a-z0-9]+)",
+                            "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+                            "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
                           },
                           Object {
                             "component": [Function],
@@ -8208,8 +8208,8 @@ exports[`Testing wrapped App component Mounts 1`] = `
                               },
                               "exact": true,
                               "pageTitle": undefined,
-                              "path": "/view/:pid(UQ:[a-z0-9]+)",
-                              "regExPath": "/view/(UQ:[a-z0-9]+)",
+                              "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+                              "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
                             },
                             Object {
                               "component": [Function],
@@ -8536,8 +8536,8 @@ exports[`Testing wrapped App component Mounts 1`] = `
                                 },
                                 "exact": true,
                                 "pageTitle": undefined,
-                                "path": "/view/:pid(UQ:[a-z0-9]+)",
-                                "regExPath": "/view/(UQ:[a-z0-9]+)",
+                                "path": "/view/:pid(UQ:[a-z0-9]+|not-found)",
+                                "regExPath": "/view/(UQ:[a-z0-9]+|not-found)",
                               },
                               Object {
                                 "component": [Function],
