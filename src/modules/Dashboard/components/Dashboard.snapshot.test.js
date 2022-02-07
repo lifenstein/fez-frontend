@@ -65,6 +65,15 @@ describe('Dashboard test', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
+    it('renders loading for authors', () => {
+        const wrapper = setup({
+            account: mock.accounts.uqstaff,
+            author: { aut_id: 1 },
+            loadingPublicationsByYear: true,
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
     it('renders dashboard header only', () => {
         const wrapper = setup({
             authorDetails: mock.authorDetails.uqresearcher,
@@ -204,7 +213,7 @@ describe('Dashboard test', () => {
 
     it('handleTabChange method', () => {
         const value = 'test';
-        const wrapper = setup();
+        const wrapper = setup({ author: { aut_id: 1 } });
         wrapper.instance().handleTabChange(null, value);
         wrapper.update();
         const { dashboardPubsTabs, orcidSyncStatusRefreshCount, lastOrcidSyncScheduledRequest } = wrapper.state();
