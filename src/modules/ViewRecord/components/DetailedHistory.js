@@ -34,9 +34,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const historyEventDate = date => {
-    return moment(new Date(!date.pre_date.includes('UTC') ? date.pre_date + ' UTC' : date.pre_date)).format(
-        'ddd MMM DD YYYY, hh:mm:ss A',
-    );
+    return moment
+        .utc(date.pre_date)
+        .local()
+        .format('ddd MMM DD YYYY, hh:mm:ss A');
 };
 
 export const DetailedHistory = ({ record }) => {
@@ -61,7 +62,7 @@ export const DetailedHistory = ({ record }) => {
                         <Typography variant="h5">Detailed History ({detailedHistoryList.length} events)</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Grid container>
+                        <Grid container data-testid={'detailed-history-grid'}>
                             <Grid item xs={4} className={classes.detailedHistoryRowHeader}>
                                 <span>Date</span>
                             </Grid>

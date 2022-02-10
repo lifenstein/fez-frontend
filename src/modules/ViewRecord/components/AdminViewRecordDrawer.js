@@ -97,9 +97,13 @@ export const AdminViewRecordDrawer = ({ content, handleDrawerToggle, open = fals
             });
     };
 
-    const DrawerContent = ({ content }) => {
+    const DrawerContent = ({ content, variant = 'Desktop' }) => {
         return (
-            <div key="drawContainer1" id="adminDrawerContentContainer" data-testid="adminDrawerContentContainer">
+            <div
+                key="drawContainer1"
+                id={`adminDrawerContentContainer${variant}`}
+                data-testid={`adminDrawerContentContainer${variant}`}
+            >
                 <Hidden xsDown implementation="css" key="toolbarMobile">
                     <Toolbar className={classes.adjustedToolbarHeight} />
                 </Hidden>
@@ -107,7 +111,8 @@ export const AdminViewRecordDrawer = ({ content, handleDrawerToggle, open = fals
                     <Typography variant={'h6'} tabIndex="0">
                         <IconButton
                             onClick={handleDrawerToggle}
-                            id="adminRecordDrawerCloseBtn"
+                            id={`adminRecordDrawerCloseBtn${variant}`}
+                            data-testid={`btnAdminRecordDrawerCloseBtn${variant}`}
                             aria-label="Close admin record drawer"
                         >
                             {/* istanbul ignore next */
@@ -123,6 +128,7 @@ export const AdminViewRecordDrawer = ({ content, handleDrawerToggle, open = fals
                         index={sectionIndex}
                         copyToClipboard={writeText}
                         key={`Drawer-Section-${sectionIndex}`}
+                        variant={variant}
                     />
                 ))}
             </div>
@@ -168,7 +174,7 @@ export const AdminViewRecordDrawer = ({ content, handleDrawerToggle, open = fals
                     id="adminViewRecordDrawerMobile"
                     data-testid="adminViewRecordDrawerMobile"
                 >
-                    <DrawerContent content={content} />
+                    <DrawerContent content={content} variant="Mobile" />
                 </Drawer>
             </Hidden>
             <Snackbar
