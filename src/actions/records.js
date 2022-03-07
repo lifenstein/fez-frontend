@@ -296,6 +296,76 @@ export function submitThesis(data, preCreatedRecord = {}, formName = '', fullyUp
 }
 
 /**
+ * Clear new record
+ * @returns {action}
+ */
+export function clearNewRecord() {
+    return dispatch => {
+        dispatch({
+            type: actions.CREATE_RECORD_RESET,
+        });
+    };
+}
+
+const sanitiseData = (data, replacer) => JSON.parse(JSON.stringify(data, replacer));
+const makeReplacer = keys => (key, value) => (keys.indexOf(key) > -1 ? undefined : value);
+
+const getAdminRecordRequest = data => {
+    const { files, ...restFilesSection } = data.filesSection || {};
+    const hasFilesToUpload = files && files.queue && files.queue.length > 0;
+    // delete extra form values from request object
+    const keys = [
+        'pid',
+        'recordType',
+        'publication',
+        'adminSection',
+        'identifiersSection',
+        'bibliographicSection',
+        'authorsSection',
+        'grantInformationSection',
+        'notesSection',
+        'ntroSection',
+        'filesSection',
+        'securitySection',
+        'reasonSection',
+    ];
+
+    return [
+        {
+            ...data.publication,
+            ...{
+                rek_genre: DOCUMENT_TYPES_LOOKUP[data.rek_display_type],
+                // eslint-disable-next-line camelcase
+                rek_genre_type: data.adminSection?.rek_subtype ?? null,
+            },
+            ...sanitiseData(data, makeReplacer(keys)),
+            ...transformers.getAdminSectionSearchKeys(data.adminSection),
+            ...transformers.getIdentifiersSectionSearchKeys(data.identifiersSection),
+            ...transformers.getBibliographicSectionSearchKeys(data.bibliographicSection),
+            ...transformers.getAuthorsSectionSearchKeys(data.authorsSection),
+            ...transformers.getGrantInformationSectionSearchKeys(data.grantInformationSection),
+            ...transformers.getNtroSectionSearchKeys(data.ntroSection),
+            ...transformers.getFilesSectionSearchKeys(restFilesSection),
+            ...transformers.getSecuritySectionSearchKeys(data.securitySection),
+            ...transformers.getNotesSectionSearchKeys(data.notesSection),
+            ...transformers.getReasonSectionSearchKeys(data.reasonSection),
+            ...transformers.getDatastreamInfo(
+                (data.publication || {}).fez_datastream_info || [],
+                (data.filesSection || {}).fez_datastream_info || [],
+                (data.securitySection || {}).dataStreams || [],
+            ),
+        },
+        hasFilesToUpload,
+        hasFilesToUpload
+            ? transformers.getRecordFileAttachmentSearchKey(files.queue, {
+                  ...data.publication,
+                  ...data.adminSection,
+              })
+            : null,
+    ];
+};
+
+/**
  * Save a new collection involves a single request.
  * If error occurs on any stage failed action is dispatched
  * @param {object} data to be posted, refer to backend API
@@ -335,17 +405,16 @@ export function createCollection(data, authorId) {
     };
 }
 
-export const updateCollection = ({ pid, date, updated }) => {
+export const updateCollection = data => {
     return dispatch => {
         dispatch({
             type: actions.COLLECTION_UPDATING,
         });
-        const patchRecordRequest = {
-            rek_date: date,
-            ...transformers.getSecuritySectionSearchKeys(updated.securitySection),
-        };
+
+        const [patchRecordRequest] = getAdminRecordRequest(data);
+
         return Promise.resolve([])
-            .then(() => patch(EXISTING_COLLECTION_API({ pid }), patchRecordRequest))
+            .then(() => put(EXISTING_COLLECTION_API({ pid: data.publication.rek_pid }), patchRecordRequest))
             .then(response => {
                 dispatch({
                     type: actions.COLLECTION_UPDATE_SUCCESS,
@@ -399,17 +468,16 @@ export function createCommunity(data, authorId) {
     };
 }
 
-export const updateCommunity = ({ pid, date, updated }) => {
+export const updateCommunity = data => {
     return dispatch => {
         dispatch({
             type: actions.COMMUNITY_UPDATING,
         });
-        const patchRecordRequest = {
-            rek_date: date,
-            ...transformers.getSecuritySectionSearchKeys(updated.securitySection),
-        };
+
+        const [patchRecordRequest] = getAdminRecordRequest(data);
+
         return Promise.resolve([])
-            .then(() => patch(EXISTING_COMMUNITY_API({ pid }), patchRecordRequest))
+            .then(() => put(EXISTING_COMMUNITY_API({ pid: data.publication.rek_pid }), patchRecordRequest))
             .then(response => {
                 dispatch({
                     type: actions.COMMUNITY_UPDATE_SUCCESS,
@@ -427,73 +495,6 @@ export const updateCommunity = ({ pid, date, updated }) => {
                 return Promise.reject(error);
             });
     };
-};
-
-/**
- * Clear new record
- * @returns {action}
- */
-export function clearNewRecord() {
-    return dispatch => {
-        dispatch({
-            type: actions.CREATE_RECORD_RESET,
-        });
-    };
-}
-
-const sanitiseData = (data, replacer) => JSON.parse(JSON.stringify(data, replacer));
-const makeReplacer = keys => (key, value) => (keys.indexOf(key) > -1 ? undefined : value);
-
-const getAdminRecordRequest = data => {
-    const { files, ...restFilesSection } = data.filesSection || {};
-    const hasFilesToUpload = files && files.queue && files.queue.length > 0;
-    // delete extra form values from request object
-    const keys = [
-        'pid',
-        'recordType',
-        'publication',
-        'adminSection',
-        'identifiersSection',
-        'bibliographicSection',
-        'authorsSection',
-        'grantInformationSection',
-        'notesSection',
-        'ntroSection',
-        'filesSection',
-        'securitySection',
-    ];
-
-    return [
-        {
-            ...data.publication,
-            ...{
-                rek_genre: DOCUMENT_TYPES_LOOKUP[data.rek_display_type],
-                rek_genre_type: data.adminSection.rek_subtype,
-            },
-            ...sanitiseData(data, makeReplacer(keys)),
-            ...transformers.getAdminSectionSearchKeys(data.adminSection),
-            ...transformers.getIdentifiersSectionSearchKeys(data.identifiersSection),
-            ...transformers.getBibliographicSectionSearchKeys(data.bibliographicSection),
-            ...transformers.getAuthorsSectionSearchKeys(data.authorsSection),
-            ...transformers.getGrantInformationSectionSearchKeys(data.grantInformationSection),
-            ...transformers.getNtroSectionSearchKeys(data.ntroSection),
-            ...transformers.getFilesSectionSearchKeys(restFilesSection),
-            ...transformers.getSecuritySectionSearchKeys(data.securitySection),
-            ...transformers.getNotesSectionSearchKeys(data.notesSection),
-            ...transformers.getDatastreamInfo(
-                (data.publication || {}).fez_datastream_info || [],
-                (data.filesSection || {}).fez_datastream_info || [],
-                (data.securitySection || {}).dataStreams || [],
-            ),
-        },
-        hasFilesToUpload,
-        hasFilesToUpload
-            ? transformers.getRecordFileAttachmentSearchKey(files.queue, {
-                  ...data.publication,
-                  ...data.adminSection,
-              })
-            : null,
-    ];
 };
 
 /**
