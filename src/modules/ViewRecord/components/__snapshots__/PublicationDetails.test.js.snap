@@ -6191,7 +6191,7 @@ exports[`Publication Details Component  should render component 1`] = `
           </li>
         </ul>
       }
-      heading="Community"
+      heading="Communities"
       rowId="rek-ismemberof"
     />
   </StandardCard>
@@ -6325,7 +6325,7 @@ exports[`Publication Details Component  should render with publication without s
           </li>
         </ul>
       }
-      heading="Community"
+      heading="Communities"
       rowId="rek-ismemberof"
     />
   </StandardCard>
