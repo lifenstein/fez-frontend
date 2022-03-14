@@ -59,6 +59,9 @@ export default {
         communityForm: {
             primaryText: 'Add a missing community',
         },
+        communityList: {
+            primaryText: 'Communities list',
+        },
         unpublished: {
             primaryText: 'Unpublished buffer',
         },

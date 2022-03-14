@@ -3641,6 +3641,53 @@ export default {
                 message: 'A user could not be deleted.',
             },
         },
+        communitiesCollections: {
+            title: {
+                communities: 'Communities',
+                collections: 'Collections',
+            },
+            addCommunityText: 'Add Missing Community',
+            snackbar: {
+                message: 'Search results updated',
+            },
+            dateFormat: 'ddd MMM DD, YYYY',
+            loading: {
+                message: '...Loading Data...',
+                noCollections: 'No collections found for this community',
+                noCommunities: 'No communities found.',
+            },
+            columns: {
+                labels: {
+                    title: 'Title',
+                    creation_date: 'Creation Date',
+                    updated_date: 'Updated Date',
+                    actions: 'Actions',
+                },
+            },
+            export: {
+                label: 'Export page results',
+                format: [{ value: 'excel', label: 'Excel File' }],
+            },
+            sorting: {
+                pageSize: 'Records per page',
+                sortLabel: 'Sort results by',
+                sortDirectionLabel: 'Sort order',
+                sortBy: [
+                    { value: 'title', label: 'Title' },
+                    { value: 'created_date', label: 'Created Date' },
+                    { value: 'updated_date', label: 'Updated Date' },
+                    { value: 'citation', label: 'Citation Count' },
+                ],
+                sortDirection: ['Desc', 'Asc'],
+                recordsPerPage: [10, 20, 50, 100],
+                exportOnlyLabel: 'Export Only:',
+            },
+            sortingDefaults: {
+                pageSize: 10,
+                sortBy: 'title',
+                sortDirection: 'Asc',
+            },
+        },
         favouriteJournals: {
             title: 'My Favourite Journals',
             buttons: {
