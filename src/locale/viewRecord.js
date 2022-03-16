@@ -243,6 +243,12 @@ export default {
                     },
                 },
             },
+            Community: {
+                rek_description: 'Abstract/Description',
+            },
+            Collection: {
+                rek_description: 'Abstract/Description',
+            },
             'Audio Document': {
                 rek_date: 'Date',
                 fez_record_search_key_author: 'Creator(s)',
@@ -750,6 +756,26 @@ export default {
                 {
                     field: 'fez_record_search_key_advisory_statement',
                     order: 28,
+                },
+            ],
+            Community: [
+                {
+                    field: 'rek_description',
+                    order: 1,
+                },
+                {
+                    field: 'fez_record_search_key_keywords',
+                    order: 2,
+                },
+            ],
+            Collection: [
+                {
+                    field: 'rek_description',
+                    order: 1,
+                },
+                {
+                    field: 'fez_record_search_key_keywords',
+                    order: 2,
                 },
             ],
             'Conference Paper': [
