@@ -6,11 +6,24 @@ import { createCollection, checkSession, clearSessionExpiredFlag } from 'actions
 import { bindActionCreators } from 'redux';
 import { getNotesSectionSearchKeys } from 'actions/transformers';
 
+import queryString from 'query-string';
+
 const FORM_NAME = 'Collection';
 
 const onSubmit = (values, dispatch, props) => {
+    const queryStringObject = queryString.parse(
+        location && ((location.hash && location.hash.replace('?', '&').replace('#', '?')) || location.search),
+        { ignoreQueryPrefix: true },
+    );
+    let parentPID = {};
+
+    if (!!queryStringObject.pid) {
+        parentPID = {
+            fez_record_search_key_ismemberof: queryStringObject.pid,
+        };
+    }
     const dataJS = { ...values.toJS() };
-    const data = { ...dataJS, ...getNotesSectionSearchKeys(dataJS) };
+    const data = { ...dataJS, ...getNotesSectionSearchKeys(dataJS), ...parentPID };
 
     delete data.internalNotes; // transformed above to fez_internal_notes: {ain_detail}
 

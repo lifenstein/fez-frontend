@@ -281,6 +281,11 @@ exports[`Application component Should display mobile correctly 1`] = `
           "secondaryText": "",
         },
         Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
+        },
+        Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
           "primaryText": "Help",
           "public": true,
@@ -983,6 +988,11 @@ exports[`Application component should determine if it has incomplete works from 
           "primaryText": "Search eSpace",
           "public": true,
           "secondaryText": "",
+        },
+        Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
         },
         Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
@@ -2029,6 +2039,11 @@ exports[`Application component should determine if it has incomplete works from 
           "secondaryText": "",
         },
         Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
+        },
+        Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
           "primaryText": "Help",
           "public": true,
@@ -2823,6 +2838,11 @@ exports[`Application component should redirect to login page with correct return
           "secondaryText": "",
         },
         Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
+        },
+        Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
           "primaryText": "Help",
           "public": true,
@@ -3521,6 +3541,11 @@ exports[`Application component should render alert if user is not fez author 1`]
           "primaryText": "Search eSpace",
           "public": true,
           "secondaryText": "",
+        },
+        Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
         },
         Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
@@ -4615,11 +4640,6 @@ exports[`Application component should render app for HDR with ORCID ID 1`] = `
           "primaryText": "Author statistics",
         },
         Object {
-          "linkTo": "/communities",
-          "primaryText": "Communities list",
-          "public": true,
-        },
-        Object {
           "divider": true,
           "path": "/234234234242",
         },
@@ -4628,6 +4648,11 @@ exports[`Application component should render app for HDR with ORCID ID 1`] = `
           "primaryText": "Search eSpace",
           "public": true,
           "secondaryText": "",
+        },
+        Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
         },
         Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
@@ -5705,11 +5730,6 @@ exports[`Application component should render app for account with fez author wit
           "primaryText": "Author statistics",
         },
         Object {
-          "linkTo": "/communities",
-          "primaryText": "Communities list",
-          "public": true,
-        },
-        Object {
           "divider": true,
           "path": "/234234234242",
         },
@@ -5718,6 +5738,11 @@ exports[`Application component should render app for account with fez author wit
           "primaryText": "Search eSpace",
           "public": true,
           "secondaryText": "",
+        },
+        Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
         },
         Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
@@ -6749,6 +6774,11 @@ exports[`Application component should render application with routing for the us
           "secondaryText": "",
         },
         Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
+        },
+        Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
           "primaryText": "Help",
           "public": true,
@@ -7090,6 +7120,11 @@ exports[`Application component should render for anon user 1`] = `
           "primaryText": "Search eSpace",
           "public": true,
           "secondaryText": "",
+        },
+        Object {
+          "linkTo": "/communities",
+          "primaryText": "Communities list",
+          "public": true,
         },
         Object {
           "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
@@ -12087,6 +12122,11 @@ exports[`Testing wrapped App component Mounts 1`] = `
                             "secondaryText": "",
                           },
                           Object {
+                            "linkTo": "/communities",
+                            "primaryText": "Communities list",
+                            "public": true,
+                          },
+                          Object {
                             "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",
                             "primaryText": "Help",
                             "public": true,
@@ -12151,6 +12191,11 @@ exports[`Testing wrapped App component Mounts 1`] = `
                               "primaryText": "Search eSpace",
                               "public": true,
                               "secondaryText": "",
+                            },
+                            Object {
+                              "linkTo": "/communities",
+                              "primaryText": "Communities list",
+                              "public": true,
                             },
                             Object {
                               "linkTo": "https://guides.library.uq.edu.au/for-researchers/research-publications-guide",

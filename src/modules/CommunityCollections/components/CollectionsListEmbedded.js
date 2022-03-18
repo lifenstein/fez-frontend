@@ -31,7 +31,7 @@ const useStyles = makeStyles({
         minWidth: 120,
     },
 });
-export const CollectionsListEmbedded = ({ title, pid, labels, conf, isSuperAdmin, open }) => {
+export const CollectionsListEmbedded = ({ title, pid, labels, conf, adminUser, open }) => {
     const dispatch = useDispatch();
     const [sortDirection, setSortDirection] = React.useState('Asc');
     const [sortBy, setSortBy] = React.useState('title');
@@ -156,7 +156,7 @@ export const CollectionsListEmbedded = ({ title, pid, labels, conf, isSuperAdmin
                                             <TableCell className={classes.dateCell} align="right">
                                                 {labels.updated_date}
                                             </TableCell>
-                                            {!!isSuperAdmin && <TableCell align="right">{labels.actions}</TableCell>}
+                                            {!!adminUser && <TableCell align="right">{labels.actions}</TableCell>}
                                         </TableRow>
                                     </TableHead>
 
@@ -183,7 +183,7 @@ export const CollectionsListEmbedded = ({ title, pid, labels, conf, isSuperAdmin
                                                         .local()
                                                         .format(conf.dateFormat)}
                                                 </TableCell>
-                                                {!!isSuperAdmin && (
+                                                {!!adminUser && (
                                                     <TableCell align="right">
                                                         <AdminActions record={row.rek_pid} />
                                                     </TableCell>
@@ -208,12 +208,12 @@ export const CollectionsListEmbedded = ({ title, pid, labels, conf, isSuperAdmin
                             <Typography variant="caption">{conf.loading.noCollections}</Typography>
                         </div>
                     )}
-                    {!!isSuperAdmin && (
+                    {!!adminUser && (
                         <Button
                             style={{ marginTop: 10, backgroundColor: '#51247A', color: 'white' }}
                             component={Link}
                             variant="outlined"
-                            to={pathConfig.admin.collection}
+                            to={`${pathConfig.admin.collection}?pid=${pid}&name=${title}`}
                             data-test-id="admin-add-community-button"
                         >
                             {communityCollectionsConfig.addNewCollectionText}
@@ -229,7 +229,7 @@ CollectionsListEmbedded.propTypes = {
     records: PropTypes.array,
     labels: PropTypes.object,
     conf: PropTypes.object,
-    isSuperAdmin: PropTypes.bool,
+    adminUser: PropTypes.bool,
     pid: PropTypes.string,
     open: PropTypes.bool,
 };
