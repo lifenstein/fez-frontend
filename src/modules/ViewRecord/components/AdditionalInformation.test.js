@@ -1,6 +1,6 @@
 import * as records from 'mock/data/testing/records';
-import { AdditionalInformationClass } from './AdditionalInformation';
-import AdditionalInformation from './AdditionalInformation';
+import AdditionalInformation, { AdditionalInformationClass } from './AdditionalInformation';
+import { PLACEHOLDER_ISO8601_ZULU_DATE } from '../../../config/general';
 
 function setup(testProps = {}, args = { context: { userCountry: 'AU' } }) {
     const props = {
@@ -617,7 +617,7 @@ describe('Additional Information Component ', () => {
 
     it('should skip render of date if it has a placeholder value', () => {
         const publication = {
-            rek_date: '1000-01-01T00:00:00Z',
+            rek_date: PLACEHOLDER_ISO8601_ZULU_DATE,
             rek_display_type_lookup: 'Journal Article',
         };
         const wrapper = setup({ publication });
@@ -636,7 +636,7 @@ describe('Additional Information Component ', () => {
 
     it('renderLicense()', () => {
         const publication = {
-            rek_date: '1000-01-01T00:00:00Z',
+            rek_date: PLACEHOLDER_ISO8601_ZULU_DATE,
             rek_display_type_lookup: 'Journal Article',
         };
         const wrapper = setup({ publication });
