@@ -2693,6 +2693,7 @@ exports[`Index page should render placeholders 1`] = `
                                                                           classes={
                                                                             Object {
                                                                               "root": "makeStyles-cardHeaderPrimary-9",
+                                                                              "title": "makeStyles-responsiveHeader-12",
                                                                             }
                                                                           }
                                                                           style={Object {}}
@@ -2716,7 +2717,7 @@ exports[`Index page should render placeholders 1`] = `
                                                                                 "content": "MuiCardHeader-content",
                                                                                 "root": "MuiCardHeader-root makeStyles-cardHeaderPrimary-9",
                                                                                 "subheader": "MuiCardHeader-subheader",
-                                                                                "title": "MuiCardHeader-title",
+                                                                                "title": "MuiCardHeader-title makeStyles-responsiveHeader-12",
                                                                               }
                                                                             }
                                                                             style={Object {}}
@@ -2739,7 +2740,7 @@ exports[`Index page should render placeholders 1`] = `
                                                                                 className="MuiCardHeader-content"
                                                                               >
                                                                                 <WithStyles(ForwardRef(Typography))
-                                                                                  className="MuiCardHeader-title"
+                                                                                  className="MuiCardHeader-title makeStyles-responsiveHeader-12"
                                                                                   color="inherit"
                                                                                   component="h3"
                                                                                   data-testid="standard-card-what-is-espace?-header"
@@ -2748,7 +2749,7 @@ exports[`Index page should render placeholders 1`] = `
                                                                                   variant="h5"
                                                                                 >
                                                                                   <ForwardRef(Typography)
-                                                                                    className="MuiCardHeader-title"
+                                                                                    className="MuiCardHeader-title makeStyles-responsiveHeader-12"
                                                                                     classes={
                                                                                       Object {
                                                                                         "alignCenter": "MuiTypography-alignCenter",
@@ -2791,7 +2792,7 @@ exports[`Index page should render placeholders 1`] = `
                                                                                     variant="h5"
                                                                                   >
                                                                                     <h3
-                                                                                      className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
+                                                                                      className="MuiTypography-root MuiCardHeader-title makeStyles-responsiveHeader-12 MuiTypography-h5 MuiTypography-colorInherit MuiTypography-displayBlock"
                                                                                       data-testid="standard-card-what-is-espace?-header"
                                                                                       id="standard-card-what-is-espace?-header"
                                                                                     >
@@ -3298,7 +3299,7 @@ exports[`Index page should render placeholders 1`] = `
                                                                 }
                                                                 classes={
                                                                   Object {
-                                                                    "newsItem": "NewsFeed-newsItem-12",
+                                                                    "newsItem": "NewsFeed-newsItem-13",
                                                                   }
                                                                 }
                                                                 loadingNewsFeedList={true}
