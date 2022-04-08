@@ -15,8 +15,6 @@ import {
 } from 'config/general';
 
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import useTheme from '@material-ui/styles/useTheme';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { adminTheme } from 'config';
 
 import { InlineLoader } from 'modules/SharedComponents/Toolbox/Loaders';
@@ -37,6 +35,7 @@ import NtroSection from './ntro/NtroSectionContainer';
 import SecuritySection from './security/SecuritySectionContainer';
 import { RecordContext, TabbedContext } from 'context';
 import { StandardPage } from '../../SharedComponents/Toolbox/StandardPage';
+import { useIsMobileView } from '../../../hooks/useIsMobileView';
 
 const useStyles = makeStyles(
     theme => ({
@@ -93,9 +92,8 @@ export const AdminContainer = ({
     );
     const [showAddForm, setShowAddForm] = React.useState(!match.params.pid);
     const classes = useStyles();
-    const theme = useTheme();
+    const isMobileView = useIsMobileView();
     const tabErrors = React.useRef(null);
-
     tabErrors.current = Object.entries(
         (formErrors instanceof Immutable.Map && formErrors.toJS()) || formErrors || {},
     ).reduce(
@@ -105,7 +103,6 @@ export const AdminContainer = ({
         }),
         {},
     );
-
     // Collections and Communities admin edit currently only has the Security tab, so don't act on errors in other tabs
     const reducedFormErrors = formErrors => {
         // if (
@@ -118,11 +115,7 @@ export const AdminContainer = ({
         // }
         return formErrors;
     };
-
-    const isMobileView = useMediaQuery(theme.breakpoints.down('xs')) || false;
-
     const handleToggle = React.useCallback(() => setTabbed(!tabbed), [setTabbed, tabbed]);
-
     const handleAddFormDisplay = React.useCallback(() => setShowAddForm(!showAddForm), [setShowAddForm, showAddForm]);
 
     React.useEffect(() => {
@@ -133,7 +126,6 @@ export const AdminContainer = ({
     }, [loadRecordToView, clearRecordToView, match.params.pid]);
 
     const txt = locale.pages.edit;
-
     if (!!match.params.pid && loadingRecordToView) {
         return <InlineLoader message={txt.loadingMessage} />;
     } else if (!recordToView && isDeleted) {
