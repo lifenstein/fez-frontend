@@ -393,7 +393,7 @@ export function createCollection(data, authorId) {
         // set default values, links
         const recordRequest = {
             ...NEW_COLLECTION_DEFAULT_VALUES,
-            ...sanitiseData(data),
+            ...JSON.parse(JSON.stringify(data)),
             fez_record_search_key_ismemberof: [
                 {
                     rek_ismemberof: data.fez_record_search_key_ismemberof,
@@ -462,7 +462,7 @@ export function createCommunity(data, authorId) {
         // set default values, links
         const recordRequest = {
             ...NEW_COMMUNITY_DEFAULT_VALUES,
-            ...sanitiseData(data),
+            ...JSON.parse(JSON.stringify(data)),
             rek_depositor: authorId,
         };
         return post(NEW_COMMUNITY_API(), recordRequest)

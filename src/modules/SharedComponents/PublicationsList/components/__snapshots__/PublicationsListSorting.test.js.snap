@@ -7,7 +7,7 @@ exports[`PublicationsListSorting component renders will set state on receiving n
 >
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -95,7 +95,7 @@ exports[`PublicationsListSorting component renders will set state on receiving n
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -135,7 +135,7 @@ exports[`PublicationsListSorting component renders will set state on receiving n
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={12}
     xs={12}
   >
@@ -193,6 +193,46 @@ exports[`PublicationsListSorting component renders will set state on receiving n
           value={100}
         >
           100
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(Select))>
+    </WithStyles(ForwardRef(FormControl))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    md={3}
+    sm={12}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(FormControl))
+      fullWidth={true}
+    >
+      <WithStyles(ForwardRef(InputLabel))
+        shrink={true}
+      >
+        Display results
+      </WithStyles(ForwardRef(InputLabel))>
+      <WithStyles(ForwardRef(Select))
+        data-testid="publication-list-display-records-as"
+        disabled={false}
+        id="displayRecordsAs"
+        onChange={[Function]}
+        value="standard"
+      >
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-0"
+          id="publication-display-records-as-option-0"
+          key="0"
+          value="standard"
+        >
+          Standard
+        </WithStyles(ForwardRef(MenuItem))>
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-1"
+          id="publication-display-records-as-option-1"
+          key="1"
+          value="image-gallery"
+        >
+          Image Gallery
         </WithStyles(ForwardRef(MenuItem))>
       </WithStyles(ForwardRef(Select))>
     </WithStyles(ForwardRef(FormControl))>
@@ -207,7 +247,7 @@ exports[`PublicationsListSorting component renders will set state on receiving n
 >
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -295,7 +335,7 @@ exports[`PublicationsListSorting component renders will set state on receiving n
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -335,7 +375,7 @@ exports[`PublicationsListSorting component renders will set state on receiving n
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={12}
     xs={12}
   >
@@ -393,6 +433,46 @@ exports[`PublicationsListSorting component renders will set state on receiving n
           value={100}
         >
           100
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(Select))>
+    </WithStyles(ForwardRef(FormControl))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    md={3}
+    sm={12}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(FormControl))
+      fullWidth={true}
+    >
+      <WithStyles(ForwardRef(InputLabel))
+        shrink={true}
+      >
+        Display results
+      </WithStyles(ForwardRef(InputLabel))>
+      <WithStyles(ForwardRef(Select))
+        data-testid="publication-list-display-records-as"
+        disabled={false}
+        id="displayRecordsAs"
+        onChange={[Function]}
+        value="standard"
+      >
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-0"
+          id="publication-display-records-as-option-0"
+          key="0"
+          value="standard"
+        >
+          Standard
+        </WithStyles(ForwardRef(MenuItem))>
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-1"
+          id="publication-display-records-as-option-1"
+          key="1"
+          value="image-gallery"
+        >
+          Image Gallery
         </WithStyles(ForwardRef(MenuItem))>
       </WithStyles(ForwardRef(Select))>
     </WithStyles(ForwardRef(FormControl))>
@@ -501,7 +581,7 @@ exports[`PublicationsListSorting component renders with export dropdown for admi
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={3}
+    md={2}
     sm={6}
     xs={12}
   >
@@ -541,7 +621,7 @@ exports[`PublicationsListSorting component renders with export dropdown for admi
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={3}
+    md={2}
     sm={6}
     xs={12}
   >
@@ -591,6 +671,46 @@ exports[`PublicationsListSorting component renders with export dropdown for admi
           value={100}
         >
           100
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(Select))>
+    </WithStyles(ForwardRef(FormControl))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    md={2}
+    sm={6}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(FormControl))
+      fullWidth={true}
+    >
+      <WithStyles(ForwardRef(InputLabel))
+        shrink={true}
+      >
+        Display results
+      </WithStyles(ForwardRef(InputLabel))>
+      <WithStyles(ForwardRef(Select))
+        data-testid="publication-list-display-records-as"
+        disabled={false}
+        id="displayRecordsAs"
+        onChange={[Function]}
+        value="standard"
+      >
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-0"
+          id="publication-display-records-as-option-0"
+          key="0"
+          value="standard"
+        >
+          Standard
+        </WithStyles(ForwardRef(MenuItem))>
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-1"
+          id="publication-display-records-as-option-1"
+          key="1"
+          value="image-gallery"
+        >
+          Image Gallery
         </WithStyles(ForwardRef(MenuItem))>
       </WithStyles(ForwardRef(Select))>
     </WithStyles(ForwardRef(FormControl))>
@@ -620,7 +740,7 @@ exports[`PublicationsListSorting component renders with export dropdown hidden 1
 >
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -708,7 +828,7 @@ exports[`PublicationsListSorting component renders with export dropdown hidden 1
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -748,7 +868,7 @@ exports[`PublicationsListSorting component renders with export dropdown hidden 1
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={12}
     xs={12}
   >
@@ -798,6 +918,46 @@ exports[`PublicationsListSorting component renders with export dropdown hidden 1
           value={100}
         >
           100
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(Select))>
+    </WithStyles(ForwardRef(FormControl))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    md={3}
+    sm={12}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(FormControl))
+      fullWidth={true}
+    >
+      <WithStyles(ForwardRef(InputLabel))
+        shrink={true}
+      >
+        Display results
+      </WithStyles(ForwardRef(InputLabel))>
+      <WithStyles(ForwardRef(Select))
+        data-testid="publication-list-display-records-as"
+        disabled={false}
+        id="displayRecordsAs"
+        onChange={[Function]}
+        value="standard"
+      >
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-0"
+          id="publication-display-records-as-option-0"
+          key="0"
+          value="standard"
+        >
+          Standard
+        </WithStyles(ForwardRef(MenuItem))>
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-1"
+          id="publication-display-records-as-option-1"
+          key="1"
+          value="image-gallery"
+        >
+          Image Gallery
         </WithStyles(ForwardRef(MenuItem))>
       </WithStyles(ForwardRef(Select))>
     </WithStyles(ForwardRef(FormControl))>
@@ -812,7 +972,7 @@ exports[`PublicationsListSorting component renders with non-empty paging data 1`
 >
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -900,7 +1060,7 @@ exports[`PublicationsListSorting component renders with non-empty paging data 1`
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -940,7 +1100,7 @@ exports[`PublicationsListSorting component renders with non-empty paging data 1`
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={12}
     xs={12}
   >
@@ -994,6 +1154,46 @@ exports[`PublicationsListSorting component renders with non-empty paging data 1`
       </WithStyles(ForwardRef(Select))>
     </WithStyles(ForwardRef(FormControl))>
   </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    md={3}
+    sm={12}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(FormControl))
+      fullWidth={true}
+    >
+      <WithStyles(ForwardRef(InputLabel))
+        shrink={true}
+      >
+        Display results
+      </WithStyles(ForwardRef(InputLabel))>
+      <WithStyles(ForwardRef(Select))
+        data-testid="publication-list-display-records-as"
+        disabled={false}
+        id="displayRecordsAs"
+        onChange={[Function]}
+        value="standard"
+      >
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-0"
+          id="publication-display-records-as-option-0"
+          key="0"
+          value="standard"
+        >
+          Standard
+        </WithStyles(ForwardRef(MenuItem))>
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-1"
+          id="publication-display-records-as-option-1"
+          key="1"
+          value="image-gallery"
+        >
+          Image Gallery
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(Select))>
+    </WithStyles(ForwardRef(FormControl))>
+  </WithStyles(ForwardRef(Grid))>
 </WithStyles(ForwardRef(Grid))>
 `;
 
@@ -1004,7 +1204,7 @@ exports[`PublicationsListSorting component updates sortBy, sortDirection and pag
 >
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -1092,7 +1292,7 @@ exports[`PublicationsListSorting component updates sortBy, sortDirection and pag
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -1132,7 +1332,7 @@ exports[`PublicationsListSorting component updates sortBy, sortDirection and pag
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={12}
     xs={12}
   >
@@ -1202,6 +1402,46 @@ exports[`PublicationsListSorting component updates sortBy, sortDirection and pag
       </WithStyles(ForwardRef(Select))>
     </WithStyles(ForwardRef(FormControl))>
   </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    md={3}
+    sm={12}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(FormControl))
+      fullWidth={true}
+    >
+      <WithStyles(ForwardRef(InputLabel))
+        shrink={true}
+      >
+        Display results
+      </WithStyles(ForwardRef(InputLabel))>
+      <WithStyles(ForwardRef(Select))
+        data-testid="publication-list-display-records-as"
+        disabled={false}
+        id="displayRecordsAs"
+        onChange={[Function]}
+        value="standard"
+      >
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-0"
+          id="publication-display-records-as-option-0"
+          key="0"
+          value="standard"
+        >
+          Standard
+        </WithStyles(ForwardRef(MenuItem))>
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-1"
+          id="publication-display-records-as-option-1"
+          key="1"
+          value="image-gallery"
+        >
+          Image Gallery
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(Select))>
+    </WithStyles(ForwardRef(FormControl))>
+  </WithStyles(ForwardRef(Grid))>
 </WithStyles(ForwardRef(Grid))>
 `;
 
@@ -1212,7 +1452,7 @@ exports[`PublicationsListSorting component updates sortBy, sortDirection and pag
 >
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -1300,7 +1540,7 @@ exports[`PublicationsListSorting component updates sortBy, sortDirection and pag
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={6}
     xs={12}
   >
@@ -1340,7 +1580,7 @@ exports[`PublicationsListSorting component updates sortBy, sortDirection and pag
   </WithStyles(ForwardRef(Grid))>
   <WithStyles(ForwardRef(Grid))
     item={true}
-    md={4}
+    md={3}
     sm={12}
     xs={12}
   >
@@ -1406,6 +1646,46 @@ exports[`PublicationsListSorting component updates sortBy, sortDirection and pag
           value={100}
         >
           100
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(Select))>
+    </WithStyles(ForwardRef(FormControl))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    md={3}
+    sm={12}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(FormControl))
+      fullWidth={true}
+    >
+      <WithStyles(ForwardRef(InputLabel))
+        shrink={true}
+      >
+        Display results
+      </WithStyles(ForwardRef(InputLabel))>
+      <WithStyles(ForwardRef(Select))
+        data-testid="publication-list-display-records-as"
+        disabled={false}
+        id="displayRecordsAs"
+        onChange={[Function]}
+        value="image-gallery"
+      >
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-0"
+          id="publication-display-records-as-option-0"
+          key="0"
+          value="standard"
+        >
+          Standard
+        </WithStyles(ForwardRef(MenuItem))>
+        <WithStyles(ForwardRef(MenuItem))
+          data-testid="publication-display-records-as-option-1"
+          id="publication-display-records-as-option-1"
+          key="1"
+          value="image-gallery"
+        >
+          Image Gallery
         </WithStyles(ForwardRef(MenuItem))>
       </WithStyles(ForwardRef(Select))>
     </WithStyles(ForwardRef(FormControl))>
