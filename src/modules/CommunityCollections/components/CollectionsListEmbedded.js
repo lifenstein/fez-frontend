@@ -31,6 +31,30 @@ const useStyles = makeStyles({
     dateCell: {
         minWidth: 120,
     },
+    adminButton: {
+        marginBottom: 10,
+        backgroundColor: '#51247A',
+        color: 'white',
+        '&:hover': {
+            backgroundColor: '#51247A',
+            color: 'white',
+        },
+    },
+    collectionBase: {
+        backgroundColor: '#eee',
+        padding: 20,
+        boxShadow: 'inset 0px 2px 4px 0px rgba(0,0,0,0.2)',
+    },
+    collectionContainer: {
+        minHeight: 200,
+        backgroundColor: 'white',
+        padding: 10,
+    },
+    collectionCountTitle: {
+        fontWeight: 600,
+        marginBottom: 10,
+        display: 'block',
+    },
 });
 export const CollectionsListEmbedded = ({ title, pid, labels, conf, adminUser, open }) => {
     const dispatch = useDispatch();
@@ -120,13 +144,13 @@ export const CollectionsListEmbedded = ({ title, pid, labels, conf, adminUser, o
             )}
             {loadingCollectionsPid !== pid && (
                 <div
-                    style={{ backgroundColor: '#eee', padding: 20, boxShadow: 'inset 0px 2px 4px 0px rgba(0,0,0,0.2)' }}
+                    className={classes.collectionBase}
                     data-testid={`collection-records-${pid}`}
                     id={`collection-records-${pid}`}
                 >
                     {!!adminUser && (
                         <Button
-                            style={{ marginBottom: 10, backgroundColor: '#51247A', color: 'white' }}
+                            className={classes.adminButton}
                             component={Link}
                             variant="outlined"
                             to={`${pathConfig.admin.collection}?pid=${pid}&name=${title}`}
@@ -138,24 +162,31 @@ export const CollectionsListEmbedded = ({ title, pid, labels, conf, adminUser, o
                     )}
                     {finalList.data.length > 0 && (
                         <Collapse in={open} timeout={200} unmountOnExit>
-                            <Box style={{ minHeight: 200, backgroundColor: 'white', padding: 10 }}>
-                                <Typography variant="caption" style={{ fontWeight: 600 }}>
-                                    {`Displaying ${PagingData.from} to ${PagingData.to} of ${PagingData.total} collections for '${title}'`}
+                            <Box className={classes.collectionContainer}>
+                                <Typography
+                                    variant="caption"
+                                    className={classes.collectionCountTitle}
+                                    id={`total-collections-${pid}`}
+                                    data-testid={`total-collections-${pid}`}
+                                >
+                                    {communityCollectionsConfig.collectionCountTitle(
+                                        PagingData.from,
+                                        PagingData.to,
+                                        PagingData.total,
+                                        title,
+                                    )}
                                 </Typography>
                                 <CommunityCollectionsSorting
                                     data-testid="embedded-collections-sorting-top"
-                                    // canUseExport
                                     exportData={conf.export}
                                     pagingData={PagingData}
                                     sortingData={conf.sorting}
                                     sortBy={sortBy}
                                     sortDirection={sortDirection}
-                                    // onExportPublications={handleExport}
                                     onSortByChanged={sortByChanged}
                                     onPageSizeChanged={pageSizeChanged}
                                     pageSize={PagingData.per_page}
                                     isCollection
-                                    // sortingDefaults={sortingDefaults}
                                 />
 
                                 <CommunityCollectionsPaging
@@ -179,10 +210,18 @@ export const CollectionsListEmbedded = ({ title, pid, labels, conf, adminUser, o
 
                                     <TableBody data-testid="embedded-collections-primary-body">
                                         {finalList.data.map(row => (
-                                            <TableRow key={row.rek_pid} data-testid={`row-${row.rek_pid}`}>
+                                            <TableRow
+                                                key={row.rek_pid}
+                                                id={`row-${row.rek_pid}`}
+                                                data-testid={`row-${row.rek_pid}`}
+                                            >
                                                 <TableCell component="th" scope="row">
                                                     <Typography variant="body2">
-                                                        <Link to={pathConfig.records.view(row.rek_pid)}>
+                                                        <Link
+                                                            to={pathConfig.records.view(row.rek_pid)}
+                                                            id={`collection-title-${row.rek_pid}`}
+                                                            data-testid={`collection-title-${row.rek_pid}`}
+                                                        >
                                                             {ReactHtmlParser(row.rek_title)}
                                                         </Link>
                                                     </Typography>
@@ -205,7 +244,11 @@ export const CollectionsListEmbedded = ({ title, pid, labels, conf, adminUser, o
                                                 </TableCell>
                                                 {!!adminUser && (
                                                     <TableCell>
-                                                        <AdminActions record={row.rek_pid} />
+                                                        <AdminActions
+                                                            record={row.rek_pid}
+                                                            id={`row-admin-actions-${row.rek_pid}`}
+                                                            data-testid={`row-admin-actions-${row.rek_pid}`}
+                                                        />
                                                     </TableCell>
                                                 )}
                                             </TableRow>

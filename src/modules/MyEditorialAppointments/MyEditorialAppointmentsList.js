@@ -74,6 +74,7 @@ const useStyles = makeStyles(theme => ({
                         display: 'block',
                         clear: 'both',
                         width: '100% !important',
+                        boxSizing: 'border-box',
                     },
                 },
                 '& tr[class*="MuiTableRow-root-"]:not(:last-of-type)': {
@@ -343,8 +344,7 @@ export const GetColumns = () => {
                       float: 'none',
                   }
                 : {
-                      width: '50%',
-                      float: 'left',
+                      width: '100%',
                       display: 'block',
                       boxSizing: 'border-box',
                   },
@@ -435,8 +435,7 @@ export const GetColumns = () => {
                       float: 'none',
                   }
                 : {
-                      width: '50%',
-                      float: 'left',
+                      width: '100%',
                       display: 'block',
                       boxSizing: 'border-box',
                   },
