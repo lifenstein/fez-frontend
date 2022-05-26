@@ -43,6 +43,9 @@ const useStyles = makeStyles({
     padTop: {
         paddingTop: 5,
     },
+    padTopLarge: {
+        paddingTop: 10,
+    },
     expandButton: {
         float: 'left',
         width: 24,
@@ -50,11 +53,14 @@ const useStyles = makeStyles({
     title: {
         float: 'right',
         width: 'calc(100% - 30px)',
-        paddingTop: 5,
+        paddingTop: 10,
         paddingBottom: 5,
     },
     italic: {
         fontStyle: 'italic',
+    },
+    rightAlign: {
+        textAlign: 'center',
     },
     dateField: { paddingTop: 5 },
 });
@@ -77,9 +83,10 @@ export const CommunityDataRow = ({ conf, row, adminUser, labels, autoCollapse })
         <Grid container key={row.rek_pid} data-testid={`row-${row.rek_pid}`} className={classes.rowParent}>
             <React.Fragment key={row.rek_pid}>
                 <Grid container className={classes.rowChild}>
-                    <Grid item xs={10} sm={11} md={adminUser ? 7 : 8} className={classes.outline}>
+                    <Grid item xs={10} sm={11} md={adminUser ? 7 : 8}>
                         <div className={classes.expandButton}>
                             <IconButton
+                                className={classes.padTop}
                                 aria-label="expand row"
                                 size="small"
                                 onClick={() => handleSetOpen(!open)}
@@ -124,19 +131,11 @@ export const CommunityDataRow = ({ conf, row, adminUser, labels, autoCollapse })
                         <div style={{ clear: 'both' }} />
                     </Grid>
                     <Hidden smDown>
-                        {returnDateField(
-                            row.rek_created_date,
-                            conf,
-                            `${classes.datefield} ${classes.padTop} ${classes.outline}`,
-                        )}
-                        {returnDateField(
-                            row.rek_updated_date,
-                            conf,
-                            `${classes.datefield} ${classes.padTop} ${classes.outline}`,
-                        )}
+                        {returnDateField(row.rek_created_date, conf, `${classes.datefield} ${classes.padTopLarge}`)}
+                        {returnDateField(row.rek_updated_date, conf, `${classes.datefield} ${classes.padTopLarge}`)}
                     </Hidden>
                     {!!adminUser && (
-                        <Grid item xs={2} sm={1}>
+                        <Grid item xs={2} sm={1} className={classes.rightAlign}>
                             <AdminActions
                                 record={row.rek_pid}
                                 id={`admin-actions-${row.rek_pid}`}
