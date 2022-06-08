@@ -25,6 +25,7 @@ import hash from 'hash-sum';
 import ImageGallery from 'modules/SharedComponents/ImageGallery/ImageGallery';
 
 const SearchRecords = ({
+    author,
     actions,
     canUseExport,
     exportPublicationsLoading,
@@ -121,7 +122,7 @@ const SearchRecords = ({
     const SelectRecordView = publicationsList => {
         switch (displayLookup) {
             case 'image-gallery':
-                return <ImageGallery publicationsList={publicationsList} security={{ isAdmin, isAuthor }} />;
+                return <ImageGallery publicationsList={publicationsList} security={{ isAdmin, isAuthor, author }} />;
             case 'auto':
             case 'standard':
             default:
@@ -131,7 +132,7 @@ const SearchRecords = ({
                         showAdminActions={isAdmin || isUnpublishedBufferPage}
                         showUnpublishedBufferFields={isUnpublishedBufferPage}
                         showImageThumbnails
-                        security={{ isAdmin, isAuthor }}
+                        security={{ isAdmin, isAuthor, author }}
                     />
                 );
         }
@@ -295,6 +296,7 @@ const SearchRecords = ({
 };
 
 SearchRecords.propTypes = {
+    author: PropTypes.object,
     actions: PropTypes.object,
     canUseExport: PropTypes.bool,
     exportPublicationsLoading: PropTypes.bool,
