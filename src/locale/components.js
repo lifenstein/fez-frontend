@@ -3041,6 +3041,44 @@ export default {
                 confirmationTitle: `Bulk updates${!!action ? ' - ' + action.text : ''}`,
             }),
             bulkUpdatesForms: {
+                copyToCommunity: {
+                    formLabels: {
+                        community: 'Community / Communities',
+                        cancelButtonLabel: 'Cancel',
+                        submitButtonLabel: 'Bulk update',
+                    },
+                    alert: (isRemoveFrom = false) => ({
+                        title: `Bulk ${isRemoveFrom ? 'remove from' : 'copy to'} community`,
+                        message:
+                            'Select destination community if moving or copying to a community, source community if removing from a community',
+                        type: 'info',
+                    }),
+                    submittingAlert: (isRemoveFrom = false) => ({
+                        title: `Bulk update - ${isRemoveFrom ? 'remove from' : 'copy to'} community`,
+                        message: 'Creating bulk update job',
+                        type: 'info',
+                    }),
+                    successAlert: (isRemoveFrom = false) => ({
+                        title: `Bulk update - ${isRemoveFrom ? 'remove from' : 'copy to'} community`,
+                        message: 'Bulk update job created successfully',
+                        type: 'done',
+                    }),
+                    errorAlert: (isRemoveFrom = false) => ({
+                        title: `Bulk update - ${isRemoveFrom ? 'remove from' : 'copy to'} community`,
+                        type: 'error',
+                    }),
+                    onlyCollectionsAllowed: {
+                        title: 'Only Collections Allowed',
+                        message:
+                            'One or more selected items is not a collection-type. You can only copy or remove collection-type records from/to communities.',
+                        type: 'error',
+                    },
+                    warningAlert: {
+                        title: 'Note',
+                        message: 'Please retain membership of at least one community',
+                        type: 'warning',
+                    },
+                },
                 createOrUpdateDoiForm: {
                     formLabels: {
                         doi: 'DOIs',
@@ -3102,6 +3140,12 @@ export default {
                         title: 'Note',
                         message: 'Please retain membership of at least one collection',
                         type: 'warning',
+                    },
+                    onlyRecordsAllowed: {
+                        title: 'Only Records Allowed',
+                        message:
+                            'One or more selected items is not a record-type. You can only copy or remove record-type records from/to collections.',
+                        type: 'error',
                     },
                 },
                 changeAuthorIdForm: {
