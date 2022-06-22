@@ -65,8 +65,8 @@ export default values => {
     const summary = locale.validationErrorsSummary;
     let errors = {
         bibliographicSection: {},
-        filesSection: {},
         adminSection: {},
+        filesSection: {},
         securitySection: {},
     };
 
