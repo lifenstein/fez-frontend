@@ -35,7 +35,7 @@ describe('Routes getMenuConfig method', () => {
             authorDetails.uqnoauthid,
             true,
         );
-        expect(testRoutes.length).toEqual(7);
+        expect(testRoutes.length).toEqual(8);
     });
 
     it('should return a list of menus for user who has admin (uqstaff)', () => {
@@ -158,7 +158,7 @@ describe('Routes getMenuConfig method', () => {
             false,
             false,
         );
-        expect(testMenuItems.length).toEqual(5);
+        expect(testMenuItems.length).toEqual(6);
     });
 });
 
