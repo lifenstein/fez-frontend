@@ -281,6 +281,7 @@ export class AppClass extends PureComponent {
         const isSearchPage =
             this.props.location.pathname === pathConfig.records.search ||
             this.props.location.pathname === pathConfig.records.search;
+        const isJournalRelatedPage = this.props.location.pathname?.includes('journal');
         const showMenu = !isThesisSubmissionPage;
 
         const containerStyle = this.state.docked && !isThesisSubmissionPage ? { paddingLeft: 260 } : {};
@@ -297,7 +298,13 @@ export class AppClass extends PureComponent {
                 action: this.redirectUserToLogin(),
             };
             // eslint-disable-next-line camelcase
-        } else if (!isPublicPage && !isAuthorLoading && this.props.account && !this.props.author?.aut_id) {
+        } else if (
+            !isPublicPage &&
+            !isAuthorLoading &&
+            !isJournalRelatedPage &&
+            this.props.account &&
+            (!this.props.author || !this.props.author.aut_id)
+        ) {
             // user is logged in, but doesn't have eSpace author identifier
             userStatusAlert = {
                 ...locale.global.notRegisteredAuthorAlert,
