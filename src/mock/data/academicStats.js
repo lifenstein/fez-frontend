@@ -2416,6 +2416,7 @@ export const trendingPublications = {
         "rek_subtype_xsdmf_id": null,
         "rek_subtype": "Article (original research)",
         "rek_scopus_citation_count": 0,
+        "rek_dimensions_citation_count": 10,
         "rek_herdc_notes_xsdmf_id": null,
         "rek_herdc_notes": null,
         "rek_scopus_doc_type_xsdmf_id": null,
@@ -3609,6 +3610,11 @@ export const trendingPublications = {
                 "sc_1y": 0,
                 "sc_citation_url": "http:\/\/ezproxy.library.uq.edu.au\/login?url=http:\/\/www.scopus.com\/results\/citedbyresults.url?sort=plf-f&src=s&sot=cite&sdt=a&cite=2-s2.0-85045052493"
             }
+        },
+        "fez_record_search_key_dimensions_id": {
+            "rek_dimensions_id_id": 123,
+            "rek_dimensions_id_pid": "UQ:a62a760",
+            "rek_dimensions_id": "pub.12345",
         },
         "fez_record_search_key_start_page": {
             "rek_start_page_id": 5814259,
