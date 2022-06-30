@@ -468,9 +468,9 @@ export default {
                 form: {
                     locale: {
                         grantAgencyNameLabel: 'Funder/Sponsor name',
-                        grantAgencyNameHint: 'Enter Funder/Sponsor name for this work',
+                        grantAgencyNameHint: 'Funder/sponsor name for this work',
                         grantIdLabel: 'Grant ID',
-                        grantIdHint: 'Enter grant number for this work, if available',
+                        grantIdHint: 'Grant number for this work',
                         grantAgencyTypeLabel: 'Funder/Sponsor type',
                         grantAgencyTypeHint: 'Select Funder/Sponsor type',
                         addButton: 'Add grant',
@@ -663,7 +663,7 @@ export default {
                 form: {
                     locale: {
                         inputFieldLabel: 'ISBN value',
-                        inputFieldHint: 'Enter ISBN, e.g. 13 digit: 9780815375296 or 10 digit: 1861972717',
+                        inputFieldHint: 'Enter a 10 or 13 digit ISBN',
                         addButtonLabel: <span>Add&nbsp;ISBN</span>,
                         editButtonLabel: <span>Update&nbsp;ISBN</span>,
                         remindToAddText: (
@@ -1026,7 +1026,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each author's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Authors's name as published",
                         nameAsPublishedHint: 'Type the name exactly as published',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add author',
@@ -1139,8 +1139,8 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each editor's name as published (eg. John Smith)",
-                        nameAsPublishedHint: 'Type the name in the format eg. "John Smith"',
+                        nameAsPublishedLabel: "Editor's name as published",
+                        nameAsPublishedHint: 'e.g. "John Smith"',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add editor',
                         nameAsPublishedFieldId: 'editors-name-as-published-field',
@@ -1218,7 +1218,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each creator's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Creator's name as published",
                         nameAsPublishedHint: 'Type the name exactly as published',
                         creatorRoleLabel: "Enter creator's role",
                         creatorRoleHint:
@@ -1308,7 +1308,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each designer's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Designer's name as published",
                         nameAsPublishedHint: 'Type the name exactly as published',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add designer',
@@ -1384,7 +1384,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each supervisor's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Supervisor's name as published",
                         nameAsPublishedHint: '',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add supervisor',
@@ -1461,7 +1461,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each creator's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Creator's name as published",
                         nameAsPublishedHint: '',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add creator',
@@ -1590,7 +1590,7 @@ export default {
                                 published.
                             </div>
                         ),
-                        nameAsPublishedLabel: "Enter each contributor's name as published (eg. Smith, John)",
+                        nameAsPublishedLabel: "Contributor's name as published",
                         nameAsPublishedHint: 'Type the name exactly as published',
                         identifierLabel: 'UQ identifier (if available)',
                         addButton: 'Add contributor',
@@ -1746,9 +1746,9 @@ export default {
                 { value: 'title', label: 'Title' },
                 { value: 'created_date', label: 'Created date' },
                 { value: 'updated_date', label: 'Updated date' },
-                { value: 'altmetric_score', label: 'Altmetric score' },
-                { value: 'scopus_citation_count', label: 'Scopus citation count' },
-                { value: 'thomson_citation_count', label: 'Web of Science citation count' },
+                { value: 'altmetric_score', label: 'Altmetric score', exclude: ['image-gallery'] },
+                { value: 'scopus_citation_count', label: 'Scopus citation count', exclude: ['image-gallery'] },
+                { value: 'thomson_citation_count', label: 'Web of Science citation count', exclude: ['image-gallery'] },
             ],
             sortDirection: ['Desc', 'Asc'],
             recordsPerPage: [10, 20, 50, 100],
@@ -1762,6 +1762,22 @@ export default {
                     </span>
                 ),
                 confirmButtonLabel: 'Close',
+            },
+            displayRecordsAsLabel: 'Display results',
+            displayRecordsAs: [
+                { index: 0, value: 'standard', label: 'Standard' },
+                { index: 1, value: 'image-gallery', label: 'Image Gallery' },
+            ],
+        },
+        imageGallery: {
+            alert: {
+                restricted: 'Image restricted',
+                advisory: 'Content warning',
+                restrictedAdvisory: 'Restricted + content warning',
+                unavailable: 'Image not available',
+            },
+            thumbnail: {
+                ariaLabel: 'Thumbnail image showing [title]',
             },
         },
         newsFeed: {
@@ -3635,6 +3651,52 @@ export default {
                 message: 'A user could not be deleted.',
             },
         },
+        communitiesCollections: {
+            title: {
+                communities: 'Communities',
+                collections: 'Collections',
+            },
+            addCommunityText: 'Add Missing Community',
+            snackbar: {
+                message: 'Search results updated',
+            },
+            dateFormat: 'ddd MMM DD, YYYY',
+            loading: {
+                message: '...Loading Data...',
+                noCollections: 'No collections found for this community',
+                noCommunities: 'No communities found.',
+            },
+            columns: {
+                labels: {
+                    title: 'Title',
+                    creation_date: 'Created Date',
+                    updated_date: 'Updated Date',
+                    actions: 'Actions',
+                },
+            },
+            export: {
+                label: 'Export page results',
+                format: [{ value: 'excel', label: 'Excel File' }],
+            },
+            sorting: {
+                pageSize: 'Records per page',
+                sortLabel: 'Sort results by',
+                sortDirectionLabel: 'Sort order',
+                sortBy: [
+                    { value: 'title', label: 'Title' },
+                    { value: 'created_date', label: 'Created Date' },
+                    { value: 'updated_date', label: 'Updated Date' },
+                ],
+                sortDirection: ['Desc', 'Asc'],
+                recordsPerPage: [10, 20, 50, 100],
+                exportOnlyLabel: 'Export Only:',
+            },
+            sortingDefaults: {
+                pageSize: 10,
+                sortBy: 'title',
+                sortDirection: 'Asc',
+            },
+        },
         favouriteJournals: {
             title: 'My Favourite Journals',
             buttons: {
@@ -3961,7 +4023,7 @@ export default {
                 },
             },
             input: {
-                placeholder: 'Type at least 3 characters to start journal search',
+                placeholder: 'Minimum of 3 characters',
                 aria_label:
                     'This search application produces tabular results that may be problematic with a screen reader. Please contact your librarian for assistance if needed.',
             },
