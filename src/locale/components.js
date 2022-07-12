@@ -3081,7 +3081,7 @@ export default {
                     onlyCollectionsAllowed: {
                         title: 'Only Collections Allowed',
                         message:
-                            'One or more selected items is not a collection-type. You can only copy or remove collection-type records from/to communities.',
+                            'One or more selected items is not a collection-type. You can only copy or remove collection-type records to/from communities.',
                         type: 'error',
                     },
                     warningAlert: {
@@ -3155,7 +3155,7 @@ export default {
                     onlyRecordsAllowed: {
                         title: 'Only Records Allowed',
                         message:
-                            'One or more selected items is not a record-type. You can only copy or remove record-type records from/to collections.',
+                            'One or more selected items is a collection-type. You can only copy or remove collection-type records to/from communities.',
                         type: 'error',
                     },
                 },
