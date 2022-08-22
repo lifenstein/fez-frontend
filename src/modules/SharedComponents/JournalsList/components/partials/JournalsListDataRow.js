@@ -14,6 +14,7 @@ import { sanitiseId } from 'helpers/general';
 import Typography from '@material-ui/core/Typography';
 import { useIsMobileView } from 'hooks';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import JournalsListCollapsibleDataPanel from './JournalsListCollapsibleDataPanel';
 import { ExternalLink } from 'modules/SharedComponents/ExternalLink';
@@ -70,12 +71,11 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
     const isXsDown = useIsMobileView();
 
     const compactViewFields = JournalFieldsMap.slice(1).filter(item => item.compactView || false);
-
     return (
         <>
-            <TableRow className={classes.root}>
-                <TableCell size="small" className={classes.actionsColumn} {...(isXsDown ? { padding: 'none' } : {})}>
-                    <Grid container className={classes.dataRowContainer}>
+            <TableRow className={classes?.root}>
+                <TableCell size="small" className={classes?.actionsColumn} {...(isXsDown ? { padding: 'none' } : {})}>
+                    <Grid container className={classes?.dataRowContainer}>
                         {isSelectable && (
                             <Grid xs={6} item>
                                 <Checkbox
@@ -105,7 +105,7 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                 </TableCell>
 
                 <TableCell size="small">
-                    <Grid container className={classes.dataRowContainer}>
+                    <Grid container className={classes?.dataRowContainer}>
                         <Grid
                             sm={8}
                             item
@@ -125,17 +125,20 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                             </Typography>
                         </Grid>
                         {compactViewFields.map(field => {
+                            /* istanbul ignore next */
+                            const itemData = (row && field.translateFn(row, classesInternal)) || '';
                             return (
                                 <React.Fragment key={field.key}>
                                     <Hidden
+                                        /* istanbul ignore next */
                                         {...(!!field.collapsibleComponent?.hiddenData
                                             ? { only: [...field.collapsibleComponent?.hiddenData] }
-                                            : {})}
+                                            : /* istanbul ignore next */ {})}
                                     >
                                         <Grid
                                             item
                                             {...field.collapsibleComponent?.sizeHeader}
-                                            className={classes.headerContentMobile}
+                                            className={classes?.headerContentMobile}
                                         >
                                             {field.collapsibleComponent?.translateFn(field, {
                                                 ...classes,
@@ -148,7 +151,26 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                                         {...field.collapsibleComponent?.sizeData}
                                         className={classesInternal.headerContentMobile}
                                     >
-                                        {field.translateFn(row, classesInternal)}
+                                        <Tooltip
+                                            title={
+                                                (itemData &&
+                                                    field.showTooltip &&
+                                                    field.toolTipLabel &&
+                                                    field.toolTipLabel(row)) ||
+                                                /* istanbul ignore next */ (field.showTooltip && itemData) ||
+                                                ''
+                                            }
+                                            placement="left"
+                                            disableFocusListener={!field.showTooltip || !itemData}
+                                            disableHoverListener={!field.showTooltip || !itemData}
+                                            disableTouchListener={!field.showTooltip || !itemData}
+                                        >
+                                            <Typography variant="body1">
+                                                {(itemData && field.prefix) || ''}
+                                                {/* istanbul ignore next */ itemData || ''}
+                                                {(itemData && field.suffix) || ''}
+                                            </Typography>
+                                        </Tooltip>
                                     </Grid>
                                 </React.Fragment>
                             );
