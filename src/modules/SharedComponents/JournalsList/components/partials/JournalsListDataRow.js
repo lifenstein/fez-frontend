@@ -125,13 +125,15 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                             </Typography>
                         </Grid>
                         {compactViewFields.map(field => {
+                            /* istanbul ignore next */
                             const itemData = (row && field.translateFn(row, classesInternal)) || '';
                             return (
                                 <React.Fragment key={field.key}>
                                     <Hidden
+                                        /* istanbul ignore next */
                                         {...(!!field.collapsibleComponent?.hiddenData
                                             ? { only: [...field.collapsibleComponent?.hiddenData] }
-                                            : {})}
+                                            : /* istanbul ignore next */ {})}
                                     >
                                         <Grid
                                             item
@@ -155,7 +157,7 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                                                     field.showTooltip &&
                                                     field.toolTipLabel &&
                                                     field.toolTipLabel(row)) ||
-                                                (field.showTooltip && itemData) ||
+                                                /* istanbul ignore next */ (field.showTooltip && itemData) ||
                                                 ''
                                             }
                                             placement="left"
@@ -165,7 +167,7 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                                         >
                                             <Typography variant="body1">
                                                 {(itemData && field.prefix) || ''}
-                                                {itemData || ''}
+                                                {/* istanbul ignore next */ itemData || ''}
                                                 {(itemData && field.suffix) || ''}
                                             </Typography>
                                         </Tooltip>
