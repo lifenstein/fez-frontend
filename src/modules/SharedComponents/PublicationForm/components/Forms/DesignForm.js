@@ -73,7 +73,7 @@ export default class DesignForm extends Component {
                                     {...txt.information.fieldLabels.projectName}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} sm={6}>
                                 <Field
                                     component={TextField}
                                     disabled={this.props.submitting}
@@ -83,7 +83,7 @@ export default class DesignForm extends Component {
                                     {...txt.information.fieldLabels.location}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} sm={6}>
                                 <Field
                                     component={TextField}
                                     disabled={this.props.submitting}
@@ -95,7 +95,7 @@ export default class DesignForm extends Component {
                                     {...txt.information.fieldLabels.publisher}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} sm={6}>
                                 <Field
                                     component={TextField}
                                     disabled={this.props.submitting}
@@ -105,6 +105,18 @@ export default class DesignForm extends Component {
                                     required
                                     validate={[validation.required]}
                                     {...txt.information.fieldLabels.placeOfPublication}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Field
+                                    component={TextField}
+                                    disabled={this.props.submitting}
+                                    name="fez_record_search_key_doi.rek_doi"
+                                    textFieldId="rek-doi"
+                                    type="text"
+                                    fullWidth
+                                    validate={[validation.doi]}
+                                    {...txt.information.fieldLabels.doi}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
