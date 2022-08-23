@@ -70,7 +70,10 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
     const classesInternal = useStyles();
     const isXsDown = useIsMobileView();
 
+    if (!!!row || (!!row && Object.keys(row).length <= 0)) return <></>;
+
     const compactViewFields = JournalFieldsMap.slice(1).filter(item => item.compactView || false);
+
     return (
         <>
             <TableRow className={classes?.root}>
@@ -105,7 +108,12 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                 </TableCell>
 
                 <TableCell size="small">
-                    <Grid container className={classes?.dataRowContainer}>
+                    <Grid
+                        container
+                        className={classes?.dataRowContainer}
+                        id={`journal-list-data-col-1-${index}`}
+                        data-testid={`journal-list-data-col-1-${index}`}
+                    >
                         <Grid
                             sm={8}
                             item
@@ -124,13 +132,12 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                                 </ExternalLink>
                             </Typography>
                         </Grid>
-                        {compactViewFields.map(field => {
-                            /* istanbul ignore next */
-                            const itemData = (row && field.translateFn(row, classesInternal)) || '';
+                        {compactViewFields.map((field, fieldIndex) => {
+                            const itemData =
+                                (row && field.translateFn(row, classesInternal)) || /* istanbul ignore next */ '';
                             return (
                                 <React.Fragment key={field.key}>
                                     <Hidden
-                                        /* istanbul ignore next */
                                         {...(!!field.collapsibleComponent?.hiddenData
                                             ? { only: [...field.collapsibleComponent?.hiddenData] }
                                             : /* istanbul ignore next */ {})}
@@ -140,7 +147,7 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                                             {...field.collapsibleComponent?.sizeHeader}
                                             className={classes?.headerContentMobile}
                                         >
-                                            {field.collapsibleComponent?.translateFn(field, {
+                                            {field.collapsibleComponent?.translateFn(field, index, {
                                                 ...classes,
                                                 ...classesInternal,
                                             })}
@@ -157,7 +164,7 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                                                     field.showTooltip &&
                                                     field.toolTipLabel &&
                                                     field.toolTipLabel(row)) ||
-                                                /* istanbul ignore next */ (field.showTooltip && itemData) ||
+                                                (field.showTooltip && /* istanbul ignore next */ itemData) ||
                                                 ''
                                             }
                                             placement="left"
@@ -165,9 +172,13 @@ const JournalsListDataRow = ({ row, index, classes, isSelectable = false, onChan
                                             disableHoverListener={!field.showTooltip || !itemData}
                                             disableTouchListener={!field.showTooltip || !itemData}
                                         >
-                                            <Typography variant="body1">
+                                            <Typography
+                                                variant="body1"
+                                                id={`journal-list-data-col-1-data-${index}-${fieldIndex}`}
+                                                data-testid={`journal-list-data-col-1-data-${index}-${fieldIndex}`}
+                                            >
                                                 {(itemData && field.prefix) || ''}
-                                                {/* istanbul ignore next */ itemData || ''}
+                                                {itemData || /* istanbul ignore next */ ''}
                                                 {(itemData && field.suffix) || ''}
                                             </Typography>
                                         </Tooltip>
