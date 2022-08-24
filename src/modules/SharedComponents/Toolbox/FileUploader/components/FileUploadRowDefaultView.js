@@ -12,11 +12,14 @@ import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
 import { NewGenericSelectField } from 'modules/SharedComponents/GenericSelectField';
+import { IconButton } from '@material-ui/core';
+import { ExpandMore, ExpandLess } from '@material-ui/icons';
 
 export class FileUploadRowDefaultView extends PureComponent {
     static propTypes = {
         index: PropTypes.number.isRequired,
         name: PropTypes.string,
+        rowCount: PropTypes.number,
         size: PropTypes.string,
         accessConditionId: PropTypes.number,
         embargoDate: PropTypes.string,
@@ -27,6 +30,8 @@ export class FileUploadRowDefaultView extends PureComponent {
         onDelete: PropTypes.func.isRequired,
         onEmbargoDateChange: PropTypes.func.isRequired,
         onAccessConditionChange: PropTypes.func.isRequired,
+        onOrderUpClick: PropTypes.func,
+        onOrderDownClick: PropTypes.func,
         focusOnIndex: PropTypes.number,
         accessConditionLocale: PropTypes.object,
         fileUploadRowViewId: PropTypes.string,
@@ -44,6 +49,7 @@ export class FileUploadRowDefaultView extends PureComponent {
         const {
             disabled,
             index,
+            rowCount,
             requireOpenAccessStatus,
             accessConditionId,
             embargoDate,
@@ -52,10 +58,25 @@ export class FileUploadRowDefaultView extends PureComponent {
             classes,
             focusOnIndex,
         } = this.props;
-
+        // console.log('SL File Upload Row View ID', this.props.fileUploadRowViewId);
         return (
-            <div style={{ flexGrow: 1, padding: 4 }} data-testid={this.props.fileUploadRowViewId}>
-                <Grid container direction="row" alignItems="center" spacing={1} className={classes.row}>
+            <div
+                style={{ flexGrow: 1, padding: 4 }}
+                data-testid={this.props.fileUploadRowViewId}
+                className={classes.row}
+            >
+                <Grid container direction="row" alignItems="center" spacing={2} wrap={'nowrap'}>
+                    <Grid item xs={1} className={classes.upDownArrowContainer}>
+                        <IconButton
+                            disabled={index === 0}
+                            className={classes.upDownArrow}
+                            onClick={this.props.onOrderUpClick}
+                        >
+                            <ExpandLess />
+                        </IconButton>
+                    </Grid>
+                </Grid>
+                <Grid container direction="row" alignItems="center" spacing={1}>
                     <Grid item md={!requireOpenAccessStatus ? 11 : 6} sm={!requireOpenAccessStatus ? 11 : 5}>
                         <Typography variant="body2" gutterBottom noWrap data-testid={`dsi-dsid-${index}`}>
                             {name} ({size})
@@ -125,6 +146,17 @@ export class FileUploadRowDefaultView extends PureComponent {
                         />
                     </Grid>
                 </Grid>
+                <Grid container direction="row" alignItems="center" spacing={2} wrap={'nowrap'}>
+                    <Grid item xs={1} className={classes.upDownArrowContainerBottom}>
+                        <IconButton
+                            disabled={index === rowCount - 1}
+                            className={classes.upDownArrow}
+                            onClick={this.props.onOrderDownClick}
+                        >
+                            <ExpandMore />
+                        </IconButton>
+                    </Grid>
+                </Grid>
             </div>
         );
     }
@@ -151,6 +183,19 @@ const styles = () => ({
     error: {
         marginTop: 0,
         fontSize: 10,
+    },
+    upDownArrowContainer: {
+        padding: '0 !important',
+        height: 30,
+    },
+    upDownArrow: {
+        height: 30,
+        padding: 0,
+    },
+    upDownArrowContainerBottom: {
+        padding: '0 !important',
+        height: 30,
+        margin: '0 0 10px',
     },
 });
 
