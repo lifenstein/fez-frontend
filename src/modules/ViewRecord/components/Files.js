@@ -315,11 +315,26 @@ export class FilesClass extends Component {
 
     getFileData = publication => {
         const dataStreams = publication.fez_datastream_info;
+        const attachments = publication.fez_record_search_key_file_attachment_name;
         const componentProps = this.props;
 
         return !!dataStreams && this.isViewableByUser(publication, dataStreams)
             ? dataStreams
                   .filter(this.isFileValid)
+                  .map(item => {
+                      if (
+                          (item.dsi_order === null || item.dsi_order === undefined) &&
+                          !!attachments &&
+                          attachments.length > 0
+                      ) {
+                          const attachIndex = attachments.findIndex(
+                              attachitem => item.dsi_dsid === attachitem.rek_file_attachment_name,
+                          );
+                          item.dsi_order =
+                              attachIndex >= 0 ? attachments[attachIndex].rek_file_attachment_name_order : null;
+                      }
+                      return item;
+                  })
                   .sort((a, b) => {
                       if (a.dsi_order === null) {
                           return 1;

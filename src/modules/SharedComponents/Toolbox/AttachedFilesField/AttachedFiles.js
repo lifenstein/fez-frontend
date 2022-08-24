@@ -100,10 +100,25 @@ export const getFileOpenAccessStatus = (openAccessStatusId, dataStream) => {
     return { isOpenAccess: true, embargoDate: null, openAccessStatusId: openAccessStatusId };
 };
 
-export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor) => {
+export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, record) => {
+    const attachments = record.fez_record_search_key_file_attachment_name;
     return !!dataStreams && dataStreams.length > 0
         ? dataStreams
               .filter(isFileValid(viewRecordsConfig, isAdmin))
+              .map(item => {
+                  if (
+                      (item.dsi_order === null || item.dsi_order === undefined) &&
+                      !!attachments &&
+                      attachments.length > 0
+                  ) {
+                      const attachIndex = attachments.findIndex(
+                          attachitem => item.dsi_dsid === attachitem.rek_file_attachment_name,
+                      );
+                      item.dsi_order =
+                          attachIndex >= 0 ? attachments[attachIndex].rek_file_attachment_name_order : null;
+                  }
+                  return item;
+              })
               .sort((a, b) => {
                   if (a.dsi_order === null) {
                       return 1;
@@ -183,7 +198,7 @@ export const AttachedFiles = ({
     const { openAccessStatusId } = useFormValuesContext();
 
     const isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    const fileData = getFileData(openAccessStatusId, dataStreams, isAdmin, isAuthor);
+    const fileData = getFileData(openAccessStatusId, dataStreams, isAdmin, isAuthor, record);
     if (fileData.length === 0) return null;
 
     // tested in cypress
