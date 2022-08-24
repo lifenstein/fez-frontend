@@ -62,6 +62,17 @@ describe('Additional Information Component ', () => {
         // expect(wrapper.find('.license.cc-by-nc-nd').length).toEqual(1);
     });
 
+    it('should render component with Attribution incomplete', () => {
+        const wrapper = setup({
+            publication: {
+                ...records.journalArticle,
+                rek_ci_notice_attribution_incomplete: true,
+            },
+        });
+        expect(toJson(wrapper)).toMatchSnapshot();
+        // expect(wrapper.find('.license.cc-by-nc-nd').length).toEqual(1);
+    });
+
     it('should render component with book', () => {
         const wrapper = setup({ publication: records.book });
         expect(toJson(wrapper)).toMatchSnapshot();
