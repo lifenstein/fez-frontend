@@ -329,6 +329,10 @@ export default {
     fez_record_search_key_chapter_number: {
         getValue: record => getValueSearchKeyObject(record, 'fez_record_search_key_chapter_number'),
     },
+    fez_record_search_key_external_label_id: {
+        getValue: record =>
+            getValueSearchKeyRekValueList(record, 'fez_record_search_key_external_label_id.rek_external_label_id'),
+    },
     subjects: {
         getValue: record => {
             const returnValue = (record.fez_record_search_key_subject || []).map(subject => ({

@@ -74,7 +74,7 @@ export const selectFields = {
     },
     license: {
         label: 'License',
-        ariaLabel: 'Please elect a license',
+        ariaLabel: 'Please select a license',
         selectPrompt: 'Select a license',
     },
     oaStatus: {
@@ -116,6 +116,12 @@ export const selectFields = {
         label: 'Thesis type',
         ariaLabel: 'Select a thesis type',
         selectPrompt: 'Please select a thesis type',
+    },
+    externalLabels: {
+        label: 'TK and BC Labels',
+        ariaLabel: 'Please select a Traditional Knowledge or Biocultural (BC) label for this work',
+        selectPrompt: 'Select one or more Traditional Knowledge or Biocultural (BC) Rights label(s)',
+        loadingHint: 'Loading labels...',
     },
     wokDocType: {
         label: 'WoS doc type(s)',

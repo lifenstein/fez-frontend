@@ -22,6 +22,7 @@ import { default as formLocale } from 'locale/publicationForm';
 import {
     AIATSIS_CODES_VOCAB_ID,
     FIELD_OF_RESEARCH_VOCAB_ID,
+    EXTERNAL_LABELS_FIELDS_VOCAB_ID,
     PUBLICATION_TYPE_AUDIO_DOCUMENT,
     PUBLICATION_TYPE_BOOK,
     PUBLICATION_TYPE_BOOK_CHAPTER,
@@ -55,6 +56,7 @@ import {
     OrgNameField,
     RelatedDatasetAndPublicationListField,
     SeriesField,
+    ExternalLabelsField,
 } from 'modules/SharedComponents/LookupFields';
 import { ThesisSubtypeSelectField } from 'modules/SharedComponents/SelectFields';
 import { ContentIndicatorsField } from 'modules/SharedComponents/Toolbox/ContentIndicatorsField';
@@ -305,7 +307,18 @@ export default {
                 collectionFieldId: 'rek-ismemberof',
             },
         },
-
+        fez_record_search_key_external_label_id: {
+            component: ExternalLabelsField,
+            componentProps: {
+                name: 'adminSection.fez_record_search_key_external_label_id',
+                externalLabelsFieldId: 'rek_external_label',
+                required: false,
+                multiple: true,
+                hasNoneOption: false,
+                category: EXTERNAL_LABELS_FIELDS_VOCAB_ID,
+                ...selectFields.externalLabels,
+            },
+        },
         rek_subtype: {
             component: PublicationSubtypeField,
             componentProps: {

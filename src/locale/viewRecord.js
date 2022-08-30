@@ -20,6 +20,7 @@ export default {
             additionalInformation: {
                 title: 'Additional information',
                 licenseLinkText: 'View license details',
+                externalLabelLinkText: 'View Traditional Knowledge (TK) or Biocultural (BC) Labels details',
             },
             relatedPublications: {
                 title: 'Related works and datasets in eSpace',
@@ -184,6 +185,7 @@ export default {
                 fez_record_search_key_project_description: 'Project description',
                 fez_record_search_key_project_name: 'Project name',
                 fez_record_search_key_license: 'Licence and terms of access',
+                fez_record_search_key_external_label_id: 'Traditional Knowledge and Biocultural rights',
                 fez_record_search_key_geographic_area: 'Geographic area',
                 fez_record_search_key_rights: 'Copyright notice',
                 rek_ci_notice_attribution_incomplete: 'Cultural Institution Notice',
@@ -501,6 +503,10 @@ export default {
                     order: 22.1,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 22.25,
+                },
+                {
                     field: 'fez_record_search_key_alternate_genre',
                     order: 23,
                 },
@@ -585,6 +591,10 @@ export default {
                 {
                     field: 'fez_record_search_key_license',
                     order: 9.6,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 9.7,
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
@@ -719,6 +729,10 @@ export default {
                 {
                     field: 'fez_record_search_key_license',
                     order: 12.6,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 12.7,
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
@@ -923,6 +937,10 @@ export default {
                     order: 22.6,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 22.7,
+                },
+                {
                     field: 'rek_ci_notice_attribution_incomplete',
                     order: 22.8,
                 },
@@ -1101,6 +1119,10 @@ export default {
                     order: 25.6,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 25.7,
+                },
+                {
                     field: 'rek_ci_notice_attribution_incomplete',
                     order: 25.8,
                 },
@@ -1201,6 +1223,10 @@ export default {
                 {
                     field: 'fez_record_search_key_publisher',
                     order: 7,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 7.5,
                 },
                 {
                     field: 'rek_date',
@@ -1323,6 +1349,10 @@ export default {
                 {
                     field: 'fez_record_search_key_license',
                     order: 10,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 10.25,
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
@@ -1532,7 +1562,11 @@ export default {
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
-                    order: 22.1,
+                    order: 22.5,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 23,
                 },
             ],
             Design: [
@@ -1601,8 +1635,12 @@ export default {
                     order: 13.6,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 13.7,
+                },
+                {
                     field: 'rek_ci_notice_attribution_incomplete',
-                    order: 13.75,
+                    order: 13.8,
                 },
                 {
                     field: 'rek_date',
@@ -1743,6 +1781,10 @@ export default {
                     order: 12.6,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 12.7,
+                },
+                {
                     field: 'rek_ci_notice_attribution_incomplete',
                     order: 12.8,
                 },
@@ -1864,6 +1906,10 @@ export default {
                     field: 'rek_ci_notice_attribution_incomplete',
                     order: 14.5,
                 },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 15,
+                },
             ],
             Image: [
                 {
@@ -1945,6 +1991,10 @@ export default {
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
                     order: 17.2,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 17.25,
                 },
                 {
                     field: 'fez_record_search_key_subject',
@@ -2065,6 +2115,10 @@ export default {
                     order: 17,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 17.25,
+                },
+                {
                     field: 'fez_record_search_key_subject',
                     order: 18,
                 },
@@ -2149,6 +2203,10 @@ export default {
                 {
                     field: 'fez_record_search_key_license',
                     order: 13.6,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 13.7,
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
@@ -2246,7 +2304,7 @@ export default {
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
-                    order: 4.75,
+                    order: 4.7,
                 },
                 {
                     field: 'rek_date',
@@ -2283,6 +2341,10 @@ export default {
                 {
                     field: 'fez_record_search_key_rights',
                     order: 13,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 13.5,
                 },
                 {
                     field: 'fez_record_search_key_keywords',
@@ -2415,8 +2477,12 @@ export default {
                     order: 22,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 23,
+                },
+                {
                     field: 'rek_ci_notice_attribution_incomplete',
-                    order: 22.1,
+                    order: 24,
                 },
             ],
             'Reference Entry': [
@@ -2517,8 +2583,12 @@ export default {
                     order: 22,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 23,
+                },
+                {
                     field: 'rek_ci_notice_attribution_incomplete',
-                    order: 22.1,
+                    order: 24,
                 },
             ],
             'Research Report': [
@@ -2577,6 +2647,10 @@ export default {
                 {
                     field: 'fez_record_search_key_license',
                     order: 10.6,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 10.7,
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
@@ -2671,6 +2745,10 @@ export default {
                 {
                     field: 'fez_record_search_key_license',
                     order: 6.6,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 6.7,
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
@@ -2794,6 +2872,10 @@ export default {
                     field: 'rek_ci_notice_attribution_incomplete',
                     order: 16,
                 },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 17,
+                },
             ],
             'Seminar Paper': [
                 {
@@ -2888,6 +2970,10 @@ export default {
                     field: 'rek_ci_notice_attribution_incomplete',
                     order: 20,
                 },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 21,
+                },
             ],
             Thesis: [
                 {
@@ -2937,6 +3023,10 @@ export default {
                 {
                     field: 'fez_record_search_key_license',
                     order: 9.6,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 9.7,
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',
@@ -3065,8 +3155,12 @@ export default {
                     order: 19,
                 },
                 {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 19.25,
+                },
+                {
                     field: 'rek_ci_notice_attribution_incomplete',
-                    order: 19.6,
+                    order: 19.5,
                 },
                 {
                     field: 'fez_record_search_key_advisory_statement',
@@ -3125,6 +3219,10 @@ export default {
                 {
                     field: 'fez_record_search_key_license',
                     order: 7.6,
+                },
+                {
+                    field: 'fez_record_search_key_external_label_id',
+                    order: 7.7,
                 },
                 {
                     field: 'rek_ci_notice_attribution_incomplete',

@@ -15,7 +15,12 @@ import ReactHtmlParser from 'react-html-parser';
 import PublicationMap from './PublicationMap';
 import JournalName from './partials/JournalName';
 import { Link } from 'react-router-dom';
-import { CURRENT_LICENCES, NTRO_SUBTYPE_CW_TEXTUAL_WORK, PLACEHOLDER_ISO8601_ZULU_DATE } from 'config/general';
+import {
+    CURRENT_LICENCES,
+    NTRO_SUBTYPE_CW_TEXTUAL_WORK,
+    PLACEHOLDER_ISO8601_ZULU_DATE,
+    getExternalLabelImageUrl,
+} from 'config/general';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -148,6 +153,8 @@ export class AdditionalInformationClass extends PureComponent {
                 return this.renderMap(objects);
             case 'rek_subject':
                 return this.renderList(objects, subkey, pathConfig.list.subject);
+            case 'rek_external_label_id':
+                return this.renderExternalLabel(objects);
             default:
                 return this.renderList(objects, subkey);
         }
@@ -156,7 +163,6 @@ export class AdditionalInformationClass extends PureComponent {
     // render a single object (without order field)
     renderObject = (object, subkey) => {
         const data = this.getData(object, subkey);
-
         // date fields
         if (viewRecordsConfig.dateFields.includes(subkey)) {
             return formatDate(data, viewRecordsConfig.dateFieldFormat[subkey]);
@@ -279,6 +285,48 @@ export class AdditionalInformationClass extends PureComponent {
                 <strong>{locale.viewRecord.culturalNoticeAI.title} - </strong>
                 {locale.viewRecord.culturalNoticeAI.text}
             </span>
+        );
+    };
+
+    renderExternalLabel = objects => {
+        return (
+            <ul className="externallabels">
+                {objects.map(data => {
+                    const cvoId = data.rek_external_label_id;
+                    const externalLabelLookup = this.renderLink(
+                        pathConfig.list.externalLabel(data.rek_external_label_id_lookup),
+                        data.rek_external_label_id_lookup,
+                        'rek_external_labels',
+                    );
+                    const externalLabelLink = viewRecordsConfig.externalLabelsLinks[cvoId]
+                        ? viewRecordsConfig.externalLabelsLinks[cvoId]
+                        : null;
+                    // const uqTkLabelLinkText =
+                    //     tkLabelLink && tkLabelLink.className.indexOf('uq') === 0
+                    //         ? locale.viewRecord.sections.additionalInformation.tkLabelLinkText
+                    //         : null;
+                    const ExternalImageElement = ({ labelId }) => {
+                        const externalLabelImageUrl = getExternalLabelImageUrl(labelId);
+                        return (
+                            <img
+                                src={externalLabelImageUrl}
+                                className={`fez-icon externallabel ${externalLabelLink.className}`}
+                            />
+                        );
+                    };
+                    return (
+                        <li key={cvoId}>
+                            {!!externalLabelLink && (
+                                <ExternalLink href={externalLabelLink.url} openInNewIcon={false} id="rek-tk-label">
+                                    <ExternalImageElement labelId={data.rek_external_label_id} />
+                                </ExternalLink>
+                            )}
+                            {!!!externalLabelLink && <ExternalImageElement labelId={data.rek_external_label_id} />}
+                            <div className="externalLabelText">{externalLabelLookup}</div>
+                        </li>
+                    );
+                })}
+            </ul>
         );
     };
 
