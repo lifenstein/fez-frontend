@@ -60,7 +60,6 @@ export class FileUploadRowDefaultView extends PureComponent {
             classes,
             focusOnIndex,
         } = this.props;
-        // console.log('SL File Upload Row View ID', this.props.fileUploadRowViewId);
         return (
             <div style={{ flexGrow: 1, padding: 4 }} data-testid={this.props.fileUploadRowViewId}>
                 <Grid container direction="row" alignItems="center" spacing={1} wrap={'nowrap'} className={classes.row}>
@@ -211,7 +210,7 @@ const styles = () => ({
         fontSize: 10,
     },
     upDownArrowContainer: {
-        padding: '0 !important',
+        padding: '0 0 0 10px !important',
         height: 30,
     },
     upDownArrow: {
@@ -219,7 +218,7 @@ const styles = () => ({
         padding: 0,
     },
     upDownArrowContainerBottom: {
-        padding: '0 !important',
+        padding: '0 0 0 10px!important',
         height: 30,
         margin: '0 0 10px',
     },
