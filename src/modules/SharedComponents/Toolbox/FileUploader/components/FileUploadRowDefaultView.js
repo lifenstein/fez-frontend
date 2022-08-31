@@ -14,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { NewGenericSelectField } from 'modules/SharedComponents/GenericSelectField';
 import { IconButton } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
+import { TextField } from 'modules/SharedComponents/Toolbox/TextField';
 
 export class FileUploadRowDefaultView extends PureComponent {
     static propTypes = {
@@ -29,6 +30,7 @@ export class FileUploadRowDefaultView extends PureComponent {
         classes: PropTypes.object,
         onDelete: PropTypes.func.isRequired,
         onEmbargoDateChange: PropTypes.func.isRequired,
+        onFileDescriptionChange: PropTypes.func.isRequired,
         onAccessConditionChange: PropTypes.func.isRequired,
         onOrderUpClick: PropTypes.func,
         onOrderDownClick: PropTypes.func,
@@ -60,12 +62,8 @@ export class FileUploadRowDefaultView extends PureComponent {
         } = this.props;
         // console.log('SL File Upload Row View ID', this.props.fileUploadRowViewId);
         return (
-            <div
-                style={{ flexGrow: 1, padding: 4 }}
-                data-testid={this.props.fileUploadRowViewId}
-                className={classes.row}
-            >
-                <Grid container direction="row" alignItems="center" spacing={2} wrap={'nowrap'}>
+            <div style={{ flexGrow: 1, padding: 4 }} data-testid={this.props.fileUploadRowViewId}>
+                <Grid container direction="row" alignItems="center" spacing={1} wrap={'nowrap'} className={classes.row}>
                     <Grid item xs={1} className={classes.upDownArrowContainer}>
                         <IconButton
                             disabled={index === 0}
@@ -79,14 +77,26 @@ export class FileUploadRowDefaultView extends PureComponent {
                     </Grid>
                 </Grid>
                 <Grid container direction="row" alignItems="center" spacing={1}>
-                    <Grid item md={!requireOpenAccessStatus ? 11 : 6} sm={!requireOpenAccessStatus ? 11 : 5}>
+                    <Grid item md={!requireOpenAccessStatus ? 8 : 3} sm={!requireOpenAccessStatus ? 8 : 2}>
                         <Typography variant="body2" gutterBottom noWrap data-testid={`dsi-dsid-${index}`}>
                             {name} ({size})
                         </Typography>
                     </Grid>
+                    <Grid item sm={3} md={3}>
+                        <TextField
+                            fullWidth
+                            className={classes.input}
+                            onChange={this.props.onFileDescriptionChange}
+                            name="fileDescription"
+                            placeholder={'Description'}
+                            id={`file-description-input-upload-${index}`}
+                            textFieldId={`dsi-label-upload-${index}`}
+                            key={this.props.name}
+                        />
+                    </Grid>
                     {requireOpenAccessStatus && (
                         <Fragment>
-                            <Grid item md={3} sm={4}>
+                            <Grid item md={3} sm={3}>
                                 <NewGenericSelectField
                                     value={accessConditionId || ''}
                                     onChange={this.props.onAccessConditionChange}
@@ -147,6 +157,18 @@ export class FileUploadRowDefaultView extends PureComponent {
                             fileUploadRowStatusId={`dsi-dsid-${index}`}
                         />
                     </Grid>
+                    {/* <Grid item sm={12}>
+                        <TextField
+                            fullWidth
+                            label={'File Description'}
+                            onChange={this.props.onFileDescriptionChange}
+                            name="fileDescription"
+                            placeholder={`Description of file ${this.props.name}`}
+                            id={`file-description-input-upload-${index}`}
+                            textFieldId={`dsi-label-upload-${index}`}
+                            key={this.props.name}
+                        />
+                    </Grid> */}
                 </Grid>
                 <Grid container direction="row" alignItems="center" spacing={2} wrap={'nowrap'}>
                     <Grid item xs={1} className={classes.upDownArrowContainerBottom}>

@@ -138,6 +138,7 @@ describe('getCollectionsOnRecordWithSecurity', () => {
 
 describe('getRecordFileAttachmentSearchKey test', () => {
     const MockDate = require('mockdate');
+
     beforeEach(() => {
         MockDate.set('2018-01-01T00:00:00.000Z', 10);
     });
@@ -180,6 +181,7 @@ describe('getRecordFileAttachmentSearchKey test', () => {
                 name: 'file4.txt',
             },
         ];
+
         const record = null;
         const expected = {
             fez_record_search_key_file_attachment_name: [
@@ -242,6 +244,7 @@ describe('getRecordFileAttachmentSearchKey test', () => {
                 name: 'file2.txt',
             },
         ];
+
         const record = null;
         const expected = {
             fez_record_search_key_file_attachment_name: [
@@ -272,6 +275,7 @@ describe('getRecordFileAttachmentSearchKey test', () => {
                 access_condition_id: 5,
             },
         ];
+
         const record = { collections: [{ rek_datastream_policy: 4 }, { rek_datastream_policy: 5 }] };
         const expected = {
             fez_record_search_key_file_attachment_name: [
@@ -312,6 +316,7 @@ describe('getRecordFileAttachmentSearchKey test', () => {
                 name: 'file2.txt',
             },
         ];
+
         const record = {
             fez_record_search_key_file_attachment_access_condition: [],
             fez_record_search_key_file_attachment_embargo_date: [],
@@ -363,6 +368,7 @@ describe('getRecordFileAttachmentSearchKey test', () => {
                 name: 'file2.txt',
             },
         ];
+
         const record = {
             fez_record_search_key_file_attachment_access_condition: [],
             fez_record_search_key_file_attachment_embargo_date: [],

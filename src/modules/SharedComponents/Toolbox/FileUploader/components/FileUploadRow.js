@@ -21,6 +21,7 @@ export class FileUploadRow extends PureComponent {
         onEmbargoDateChange: PropTypes.func,
         onOrderUpClick: PropTypes.func,
         onOrderDownClick: PropTypes.func,
+        onFileDescriptionChange: PropTypes.func,
         requireOpenAccessStatus: PropTypes.bool.isRequired,
         uploadedFile: PropTypes.object.isRequired,
         width: PropTypes.string,
@@ -59,6 +60,10 @@ export class FileUploadRow extends PureComponent {
 
     _updateAccessCondition = newValue => {
         this.props.onAccessConditionChange(this.props.uploadedFile, this.props.index, newValue);
+    };
+
+    _updateFileDescription = newValue => {
+        this.props.onFileDescriptionChange(this.props.uploadedFile, this.props.index, newValue.target.value);
     };
 
     _updateEmbargoDate = newValue => {
@@ -103,6 +108,7 @@ export class FileUploadRow extends PureComponent {
                     onAccessConditionChange={this._updateAccessCondition}
                     onOrderUpClick={this._onOrderUpClick}
                     onOrderDownClick={this._onOrderDownClick}
+                    onFileDescriptionChange={this._updateFileDescription}
                     onEmbargoDateChange={this._updateEmbargoDate}
                     focusOnIndex={focusOnIndex}
                     locale={fileUploadRowLocale}
