@@ -62,8 +62,12 @@ export class FileUploadRowDefaultView extends PureComponent {
         } = this.props;
         // console.log('SL File Upload Row View ID', this.props.fileUploadRowViewId);
         return (
-            <div style={{ flexGrow: 1, padding: 4 }} data-testid={this.props.fileUploadRowViewId}>
-                <Grid container direction="row" alignItems="center" spacing={1} wrap={'nowrap'} className={classes.row}>
+            <div
+                style={{ flexGrow: 1, padding: 4 }}
+                data-testid={this.props.fileUploadRowViewId}
+                className={classes.row}
+            >
+                <Grid container direction="row" alignItems="center" spacing={1} wrap={'nowrap'}>
                     <Grid item xs={1} className={classes.upDownArrowContainer}>
                         <IconButton
                             disabled={index === 0}
@@ -170,7 +174,7 @@ export class FileUploadRowDefaultView extends PureComponent {
                         />
                     </Grid> */}
                 </Grid>
-                <Grid container direction="row" alignItems="center" spacing={2} wrap={'nowrap'}>
+                <Grid container direction="row" alignItems="center" spacing={1} wrap={'nowrap'}>
                     <Grid item xs={1} className={classes.upDownArrowContainerBottom}>
                         <IconButton
                             id={`new-file-upload-down-${index}`}
