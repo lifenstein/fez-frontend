@@ -22,6 +22,7 @@ export class FileUploadRow extends PureComponent {
         onOrderUpClick: PropTypes.func,
         onOrderDownClick: PropTypes.func,
         onFileDescriptionChange: PropTypes.func,
+        onSecurityPolicyChange: PropTypes.func,
         requireOpenAccessStatus: PropTypes.bool.isRequired,
         uploadedFile: PropTypes.object.isRequired,
         width: PropTypes.string,
@@ -66,6 +67,10 @@ export class FileUploadRow extends PureComponent {
         this.props.onFileDescriptionChange(this.props.uploadedFile, this.props.index, newValue.target.value);
     };
 
+    _updateSecurityPolicy = newValue => {
+        this.props.onSecurityPolicyChange(this.props.uploadedFile, this.props.index, newValue);
+    };
+
     _updateEmbargoDate = newValue => {
         this.props.onEmbargoDateChange(this.props.uploadedFile, this.props.index, newValue);
     };
@@ -82,6 +87,7 @@ export class FileUploadRow extends PureComponent {
 
         const accessConditionId = uploadedFile[config.FILE_META_KEY_ACCESS_CONDITION];
         const embargoDate = uploadedFile[config.FILE_META_KEY_EMBARGO_DATE];
+        const securityPolicy = uploadedFile[config.FILE_META_KEY_SECURITY_POLICY];
 
         const FileUploadRowView = this.props.width === 'xs' ? FileUploadRowMobileView : FileUploadRowDefaultView;
         const fileUploadRowLocale =
@@ -102,6 +108,7 @@ export class FileUploadRow extends PureComponent {
                     size={this.calculateFilesizeToDisplay(uploadedFile.size)}
                     accessConditionId={accessConditionId}
                     embargoDate={embargoDate}
+                    securityPolicy={securityPolicy}
                     requireOpenAccessStatus={requireOpenAccessStatus}
                     disabled={disabled}
                     onDelete={this._showConfirmation}
@@ -110,6 +117,7 @@ export class FileUploadRow extends PureComponent {
                     onOrderDownClick={this._onOrderDownClick}
                     onFileDescriptionChange={this._updateFileDescription}
                     onEmbargoDateChange={this._updateEmbargoDate}
+                    onSecurityPolicyChange={this._updateSecurityPolicy}
                     focusOnIndex={focusOnIndex}
                     locale={fileUploadRowLocale}
                     accessConditionLocale={this.props.locale.fileUploadRowAccessSelector}
