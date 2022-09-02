@@ -101,38 +101,37 @@ export class FileUploadRowDefaultView extends PureComponent {
                             key={this.props.name}
                         />
                     </Grid>
-                {!!this.props.isAdmin && requireOpenAccessStatus && (
-                                                                     <Grid item md={3} sm={4}>
-                                                                     <PolicyDropdown
-                                                                     fieldName={name}
-                                                                     hideLabel
-                                                                     required
-                                                                     displayEmpty
-                                                                     disabled={disabled}
-                                                                     displayPrompt
-                                                                     autoFocus={index === focusOnIndex}
-                                                                     {...{
-                                                                     input: {
-                                                                     className: classes.selector,
-                                                                     disableUnderline: true,
-                                                                     autoFocus: index === focusOnIndex,
-                                                                     onChange: this.props.onSecurityPolicyChange,
-                                                                     onBlur: /* istanbul ignore next */ () => {},
-                                                                     },
-                                                                     value: securityPolicy ?? '',
-                                                                     }}
-                                                                     errorText={!securityPolicy && selectFields.securityPolicy.errorMessage}
-                                                                     prompt={selectFields.securityPolicy.selectPrompt}
-                                                                     policyDropdownId={`dsi-security-policy-${index}`}
-                                                                     formHelperTextProps={{
-                                                                     className: classes.error,
-                                                                     }}
-                                                                     />
-                                                                     </Grid>
-                                                                     )}
-                {!!!this.props.isAdmin && requireOpenAccessStatus && (
-                        <Fragment>
-                            <Grid item md={3} sm={3}>
+                    {!!this.props.isAdmin && requireOpenAccessStatus && (
+                        <Grid item md={3} sm={4}>
+                            <PolicyDropdown
+                                fieldName={name}
+                                hideLabel
+                                required
+                                displayEmpty
+                                disabled={disabled}
+                                displayPrompt
+                                autoFocus={index === focusOnIndex}
+                                {...{
+                                    input: {
+                                        className: classes.selector,
+                                        disableUnderline: true,
+                                        autoFocus: index === focusOnIndex,
+                                        onChange: this.props.onSecurityPolicyChange,
+                                        onBlur: /* istanbul ignore next */ () => {},
+                                    },
+                                    value: securityPolicy ?? '',
+                                }}
+                                errorText={!securityPolicy && selectFields.securityPolicy.errorMessage}
+                                prompt={selectFields.securityPolicy.selectPrompt}
+                                policyDropdownId={`dsi-security-policy-${index}`}
+                                formHelperTextProps={{
+                                    className: classes.error,
+                                }}
+                            />
+                        </Grid>
+                    )}
+                    {!!!this.props.isAdmin && requireOpenAccessStatus && (
+                        <Grid item md={3} sm={3}>
                             <NewGenericSelectField
                                 value={accessConditionId || ''}
                                 onChange={this.props.onAccessConditionChange}

@@ -26,19 +26,13 @@ export const FileUploadRowHeader = ({ onDeleteAll, locale, requireOpenAccessStat
     const {
         filenameColumn,
         fileDescriptionColumn,
-        fileAccessColumn,
-        embargoDateColumn,
-        deleteAllFiles,
-        deleteAllFilesConfirmation,
-    } = locale;
-    const {
-        filenameColumn,
-        fileAccessColumn,
         fileSecurityPolicyColumn,
+        fileAccessColumn,
         embargoDateColumn,
         deleteAllFiles,
         deleteAllFilesConfirmation,
     } = locale;
+
     return (
         <Hidden only={['xs']}>
             <ConfirmationBox
