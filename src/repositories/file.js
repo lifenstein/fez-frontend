@@ -35,6 +35,7 @@ export const getFileUploadMetadata = (file, collections) => {
         }
     }
     const metadata = {
+        dsi_label: file.description,
         dsi_security_inherited: securityInherited ? 1 : 0,
         dsi_security_policy: securityPolicy,
         ...((file.access_condition_id === FILE_ACCESS_CONDITION_OPEN ||
