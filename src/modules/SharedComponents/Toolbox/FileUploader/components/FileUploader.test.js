@@ -144,6 +144,26 @@ describe('Component FileUploader', () => {
         // expect(toJson(wrapper)).toMatchSnapshot();
         expect(moment(wrapper.instance().state.filesInQueue[0].date).format('DD/MM/YYYY')).toEqual(dateToCheck);
     });
+    it('should update file description', () => {
+        const wrapper = setup({ requireOpenAccessStatus: true });
+        const descriptionA = 'Test Description A';
+        const descriptionB = 'Test Description B';
+        const fileA = getMockFile('a.txt');
+        const fileB = getMockFile('b.txt');
+        const files = [fileA, fileB];
+
+        wrapper.instance()._handleDroppedFiles(files, {});
+        wrapper.update();
+
+        wrapper.instance()._updateFileDescription(fileA, 0, descriptionA);
+        wrapper.update();
+        expect(wrapper.instance().state.filesInQueue[0].description).toEqual(descriptionA);
+
+        wrapper.instance()._updateFileDescription(fileA, 1, descriptionB);
+        wrapper.update();
+
+        expect(wrapper.instance().state.filesInQueue[1].description).toEqual(descriptionB);
+    });
 
     it('should handle file order change', () => {
         const wrapper = setup({ requireOpenAccessStatus: true });
