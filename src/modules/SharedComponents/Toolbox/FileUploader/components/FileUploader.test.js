@@ -141,10 +141,8 @@ describe('Component FileUploader', () => {
         wrapper.instance()._updateFileEmbargoDate(fileA, 0, moment(dateToCheck, 'DD/MM/YYYY'));
         wrapper.update();
 
-        expect(toJson(wrapper)).toMatchSnapshot();
-        wrapper.instance()._updateFileDescription(fileA, 0, 'Test Description');
-        wrapper.update();
-        expect(toJson(wrapper)).toMatchSnapshot();
+        // expect(toJson(wrapper)).toMatchSnapshot();
+        expect(moment(wrapper.instance().state.filesInQueue[0].date).format('DD/MM/YYYY')).toEqual(dateToCheck);
     });
 
     it('should handle file order change', () => {
