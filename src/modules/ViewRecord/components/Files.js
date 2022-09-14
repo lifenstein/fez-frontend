@@ -14,7 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import locale from 'locale/viewRecord';
 import globalLocale from 'locale/global';
-import { openAccessConfig, pathConfig, viewRecordsConfig } from 'config';
+import { openAccessConfig, pathConfig } from 'config';
 import { CURRENT_LICENCES } from 'config/general';
 
 import OpenAccessIcon from 'modules/SharedComponents/Partials/OpenAccessIcon';
@@ -24,8 +24,7 @@ import { StandardCard } from 'modules/SharedComponents/Toolbox/StandardCard';
 import FileName from './partials/FileName';
 import MediaPreview from './MediaPreview';
 import Thumbnail from './partials/Thumbnail';
-import { isAdded, isDerivative } from 'helpers/datastreams';
-import { stripHtml } from 'helpers/general';
+import { getAdvisoryStatement, getSensitiveHandlingNote, isAdded, isDerivative } from 'helpers/datastreams';
 import { redirectUserToLogin } from 'helpers/redirectUserToLogin';
 
 export const styles = theme => ({
@@ -184,8 +183,6 @@ export const formatBytes = bytes => {
 export class FilesClass extends Component {
     static propTypes = {
         publication: PropTypes.object.isRequired,
-        hideCulturalSensitivityStatement: PropTypes.bool,
-        setHideCulturalSensitivityStatement: PropTypes.func,
         classes: PropTypes.object,
         isAdmin: PropTypes.bool,
         isAuthor: PropTypes.bool,
@@ -319,8 +316,9 @@ export class FilesClass extends Component {
     getFileData = publication => {
         const dataStreams = publication.fez_datastream_info;
         const componentProps = this.props;
-        return !!dataStreams && this.isViewableByUser(publication, dataStreams)
-            ? dataStreams.filter(this.isFileValid).map(dataStream => {
+        return !!!dataStreams
+            ? []
+            : dataStreams.filter(this.isFileValid).map(dataStream => {
                   const pid = publication.rek_pid;
                   const fileName = dataStream.dsi_dsid;
                   const mimeType = dataStream.dsi_mimetype ? dataStream.dsi_mimetype : '';
@@ -369,21 +367,7 @@ export class FilesClass extends Component {
                       checksums: checksums,
                       requiresLoginToDownload: !componentProps.account && dataStream.dsi_security_policy === 4,
                   };
-              })
-            : [];
-    };
-
-    isViewableByUser = (publication, dataStreams) => {
-        const { files } = viewRecordsConfig;
-        // check if the publication is a member of the blacklist collections, TODO: remove after security epic is done
-        const containBlacklistCollections = publication.fez_record_search_key_ismemberof?.some(collection =>
-            files.blacklist.collections.includes(collection.rek_ismemberof),
-        );
-        return (
-            (!!dataStreams && dataStreams.length > 0 && (!containBlacklistCollections || !!this.props.isAdmin)) ||
-            // eslint-disable-next-line camelcase
-            this.props.author?.pol_id === 1
-        );
+              });
     };
 
     handleImageFailed = () => {
@@ -424,17 +408,18 @@ export class FilesClass extends Component {
         return (
             <Grid item xs={12}>
                 <StandardCard title={locale.viewRecord.sections.files.title}>
-                    {!!publication.fez_record_search_key_advisory_statement &&
-                        !this.props.hideCulturalSensitivityStatement && (
-                            <Alert
-                                allowDismiss
-                                type={'info'}
-                                message={stripHtml(
-                                    publication.fez_record_search_key_advisory_statement.rek_advisory_statement,
-                                )}
-                                dismissAction={this.props.setHideCulturalSensitivityStatement}
-                            />
-                        )}
+                    {/* eslint-disable-next-line camelcase */}
+                    {!!publication.fez_record_search_key_advisory_statement?.rek_advisory_statement && (
+                        <Alert
+                            allowDismiss
+                            type={'info'}
+                            message={getAdvisoryStatement(publication, locale.culturalSensitivityStatement)}
+                        />
+                    )}
+                    {/* eslint-disable-next-line camelcase */}
+                    {!!publication.fez_record_search_key_sensitive_handling_note_id?.rek_sensitive_handling_note_id && (
+                        <Alert allowDismiss type={'info'} message={getSensitiveHandlingNote(publication)} />
+                    )}
                     {/* istanbul ignore next */ !!fileData.filter(
                         ({ requiresLoginToDownload }) => requiresLoginToDownload,
                     ).length > 0 && (

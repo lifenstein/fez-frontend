@@ -107,8 +107,6 @@ export const paginate = (totalItems, currentPage = 1, pageSize = 10, maxPages = 
     if (startPage === 2 && endPage !== totalPages + 1) pages.pop();
     else if (endPage === totalPages - 1) pages.shift();
 
-    console.log(startPage, endPage, pages);
-
     // return object with all pager properties required by the view
     return {
         totalItems: totalItems,
@@ -143,11 +141,11 @@ export class PublicationsListPaging extends Component {
         };
     }
 
-    // eslint-disable-next-line camelcase
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (!nextProps.disabled && JSON.stringify(nextProps.pagingData) !== JSON.stringify(this.state)) {
-            this.setState({ ...nextProps.pagingData });
+    static getDerivedStateFromProps(props, state) {
+        if (!props.disabled && JSON.stringify(props.pagingData) !== JSON.stringify(state)) {
+            return { ...props.pagingData };
         }
+        return {};
     }
 
     pageChanged = newPage => {
