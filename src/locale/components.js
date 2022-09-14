@@ -79,6 +79,10 @@ export default {
                     externalUrl: 'https://scholar.google.com/scholar?q=intitle:[id]',
                     title: 'Google scholar',
                 },
+                dimensions: {
+                    externalUrl: 'https://app.dimensions.ai/details/publication/[id]',
+                    title: 'Dimensions',
+                },
             },
             linkWillOpenInNewWindow: 'Full citation in [destination] will open in a new window',
             citationAuthors: {

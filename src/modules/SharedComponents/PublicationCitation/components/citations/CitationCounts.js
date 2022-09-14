@@ -36,6 +36,9 @@ export class CitationCounts extends PureComponent {
                 : null,
             google: publication.hasOwnProperty('rek_gs_citation_count') ? publication.rek_gs_citation_count : null,
             altmetric: publication.hasOwnProperty('rek_altmetric_score') ? publication.rek_altmetric_score : null,
+            dimensions: publication.hasOwnProperty('rek_dimensions_citation_count')
+                ? publication.rek_dimensions_citation_count
+                : null,
         };
 
         return (
@@ -73,6 +76,18 @@ export class CitationCounts extends PureComponent {
                             title={this.getTitle(txt.altmetric.title)}
                         />
                     )}
+                    {!!publication.fez_record_search_key_dimensions_id &&
+                        !!publication.fez_record_search_key_dimensions_id.rek_dimensions_id && (
+                            <Partials.CitationCountView
+                                source="dimensions"
+                                count={counts.dimensions}
+                                link={txt.dimensions.externalUrl.replace(
+                                    '[id]',
+                                    publication.fez_record_search_key_dimensions_id.rek_dimensions_id,
+                                )}
+                                title={this.getTitle(txt.dimensions.title)}
+                            />
+                        )}
                     {!!publication.rek_pid && (
                         <Partials.CitationCountView
                             source="google"
