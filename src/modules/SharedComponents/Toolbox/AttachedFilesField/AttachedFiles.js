@@ -18,8 +18,12 @@ import { userIsAdmin, userIsAuthor } from 'hooks';
 
 import { isFileValid } from 'config/validation';
 import { mui1theme, openAccessConfig, pathConfig, viewRecordsConfig } from 'config';
+import * as fileUploadConfig from '../FileUploader/config';
 
+import { getErrorMessage } from '../FileUploader/components/FileUploader';
+import { removeInvalidFileNames } from '../FileUploader/components/FileUploadDropzone';
 import FileName from 'modules/ViewRecord/components/partials/FileName';
+import EditableFileName from 'modules/ViewRecord/components/partials/EditableFileName';
 import FileUploadEmbargoDate from '../FileUploader/components/FileUploadEmbargoDate';
 import MediaPreview from 'modules/ViewRecord/components/MediaPreview';
 import OpenAccessIcon from 'modules/SharedComponents/Partials/OpenAccessIcon';
@@ -31,6 +35,7 @@ import { checkForThumbnail, checkForPreview, checkForWeb, formatBytes } from 'mo
 import { FileIcon } from './FileIcon';
 import { getAdvisoryStatement, getSensitiveHandlingNote } from '../../../../helpers/datastreams';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import * as fileUploadLocale from '../FileUploader/locale';
 
 export const useStyles = makeStyles(
     /* istanbul ignore next */
@@ -71,11 +76,15 @@ const initialPreviewState = {
 const usePreview = initialPreviewState => {
     const [preview, setPreview] = useState(initialPreviewState);
 
+    /* istanbul ignore next */
     const showPreview = ({ fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl }) => {
+        /* istanbul ignore next */
         setPreview({ fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl });
     };
 
+    /* istanbul ignore next */
     const hidePreview = () => {
+        /* istanbul ignore next */
         setPreview(initialPreviewState);
     };
 
@@ -137,6 +146,7 @@ export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, 
               .map((dataStream, key) => {
                   const pid = dataStream.dsi_pid;
                   const fileName = dataStream.dsi_dsid;
+                  /* istanbul ignore next */
                   const mimeType = dataStream.dsi_mimetype ? dataStream.dsi_mimetype : '';
 
                   const thumbnailFileName = checkForThumbnail(fileName, dataStreams);
@@ -164,8 +174,12 @@ export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, 
                           securityAccess: true,
                       },
                       openAccessStatus,
-                      previewMediaUrl: previewFileName ? getUrl(pid, previewFileName) : getUrl(pid, fileName),
-                      webMediaUrl: webFileName ? getUrl(pid, webFileName) : null,
+                      /* istanbul ignore next */
+                      previewMediaUrl: previewFileName
+                          ? /* istanbul ignore next */ getUrl(pid, previewFileName)
+                          : getUrl(pid, fileName),
+                      /* istanbul ignore next */
+                      webMediaUrl: webFileName ? /* istanbul ignore next */ getUrl(pid, webFileName) : null,
                       mediaUrl: getUrl(pid, fileName),
                       securityStatus: true,
                       embargoDate: dataStream.dsi_embargo_date,
@@ -183,12 +197,19 @@ export const AttachedFiles = ({
     onDelete,
     onDateChange,
     onDescriptionChange,
+    onFilenameChange,
+    onFilenameSave,
+    onHandleFileIsValid,
     onOrderChange,
     onEmbargoClearPromptText,
     locale,
     canEdit,
+    fileRestrictionsConfig,
 }) => {
     const [hasClearedEmbargoDate, markEmbargoDateAsCleared] = useState(Array(dataStreams.length).fill(false));
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const { errorTitle } = locale;
 
     const classes = useStyles();
     const [preview, showPreview, hidePreview] = usePreview(initialPreviewState);
@@ -227,6 +248,53 @@ export const AttachedFiles = ({
         onDescriptionChange('dsi_label', event.target.value, indexToChange);
     };
 
+    /* istanbul ignore next */
+    const checkFileNamesForErrors = () => {
+        /* istanbul ignore next */
+        const mappedFilenames = fileData.map((file, index) => ({
+            index,
+            name: file.fileName,
+        }));
+        /* istanbul ignore next */
+        const processedFilenames = removeInvalidFileNames(mappedFilenames, fileRestrictionsConfig.fileNameRestrictions);
+        /* istanbul ignore next */
+        const errormessage = getErrorMessage(processedFilenames, fileUploadLocale.default, fileRestrictionsConfig);
+        /* istanbul ignore next */
+        setErrorMessage(errormessage);
+        /* istanbul ignore next */
+        return errormessage === '';
+    };
+
+    /* istanbul ignore next */
+    const onFileCancelEdit = () => {
+        checkFileNamesForErrors();
+    };
+    /* istanbul ignore next */
+    const onFileNameChange = index => filename => {
+        /* istanbul ignore next */
+        onFilenameChange('dsi_dsid', filename, index);
+    };
+    /* istanbul ignore next */
+    const onFileSaveFilename = index => (originalFilename, filename) => {
+        /* istanbul ignore next */
+        if (checkFileNamesForErrors()) {
+            // dsi_dsid_new key contains original filename. This is picked up when
+            // the record is saved in the validator, and processed there.
+
+            /* istanbul ignore next */
+            onFilenameSave(
+                [
+                    { key: 'dsi_dsid_new', value: originalFilename },
+                    { key: 'dsi_dsid', value: filename },
+                ],
+                index,
+            );
+        }
+    };
+    const handleFileIsValid = index => isValid => {
+        onHandleFileIsValid?.('isValid', isValid, index);
+    };
+
     // const onFileOrderChangeUp = index => (index > 0 ? onOrderChange(index, index - 1) : null);
     const onFileOrderChangeUp = (file, index) => onOrderChange(file, index, index - 1);
     const onFileOrderChangeDown = (file, index) => onOrderChange(file, index, index + 1);
@@ -246,7 +314,10 @@ export const AttachedFiles = ({
                 {!!record.fez_record_search_key_sensitive_handling_note_id?.rek_sensitive_handling_note_id && (
                     <Alert allowDismiss type="info" message={getSensitiveHandlingNote(record)} />
                 )}
-                {isFireFox && hasVideo && <Alert allowDismiss {...viewRecordLocale.viewRecord.fireFoxAlert} />}
+
+                {/* istanbul ignore next */
+                isFireFox && hasVideo && <Alert allowDismiss {...viewRecordLocale.viewRecord.fireFoxAlert} />}
+                {isAdmin && canEdit && <Alert type="warning" message={locale.renamingFilesInstructions.text} />}
                 <div style={{ padding: 8 }}>
                     <Grid container direction="row" alignItems="center" spacing={2} className={classes.header}>
                         <Grid item xs={1}>
@@ -314,11 +385,26 @@ export const AttachedFiles = ({
                                                 />
                                             </Grid>
                                             <Grid item sm={3} className={classes.dataWrapper}>
-                                                <FileName
-                                                    {...item}
-                                                    onFileSelect={showPreview}
-                                                    id={`file-name-${index}`}
-                                                />
+                                                {isAdmin && canEdit ? (
+                                                    <EditableFileName
+                                                        {...item}
+                                                        onFileNameChange={onFileNameChange(index)}
+                                                        onFileSelect={showPreview}
+                                                        onFileSaveFilename={onFileSaveFilename(index)}
+                                                        onFileCancelEdit={onFileCancelEdit}
+                                                        filenameRestrictions={
+                                                            fileRestrictionsConfig.fileNameRestrictions
+                                                        }
+                                                        handleFileIsValid={handleFileIsValid(index)}
+                                                        id={`file-name-${index}`}
+                                                    />
+                                                ) : (
+                                                    <FileName
+                                                        {...item}
+                                                        onFileSelect={showPreview}
+                                                        id={`file-name-${index}`}
+                                                    />
+                                                )}
                                             </Grid>
                                             <Hidden xsDown>
                                                 <Grid item sm={3} className={classes.dataWrapper}>
@@ -444,10 +530,18 @@ export const AttachedFiles = ({
                             </div>
                         </React.Fragment>
                     ))}
-                {preview.mediaUrl && preview.mimeType && (
+                {/* istanbul ignore next */
+                preview.mediaUrl && preview.mimeType && (
+                    /* istanbul ignore next */
                     <MediaPreview {...preview} onClose={hidePreview} id="media-preview" />
                 )}
             </StandardCard>
+            {/* istanbul ignore next*/
+            errorMessage.length > 0 && (
+                <Grid item xs={12}>
+                    <Alert title={errorTitle} message={errorMessage} type="error" />
+                </Grid>
+            )}
         </Grid>
     );
 };
@@ -460,9 +554,13 @@ AttachedFiles.propTypes = {
     onDateChange: PropTypes.func,
     onOrderChange: PropTypes.func,
     onDescriptionChange: PropTypes.func,
+    onFilenameChange: PropTypes.func,
+    onFilenameSave: PropTypes.func,
+    onHandleFileIsValid: PropTypes.func,
     onEmbargoClearPromptText: PropTypes.any,
     locale: PropTypes.object,
     canEdit: PropTypes.bool,
+    fileRestrictionsConfig: PropTypes.object,
 };
 
 AttachedFiles.defaultProps = {
@@ -473,6 +571,10 @@ AttachedFiles.defaultProps = {
         </span>
     ),
     canEdit: false,
+    fileRestrictionsConfig: {
+        fileUploadLimit: fileUploadConfig.DEFAULT_FILE_UPLOAD_LIMIT,
+        fileNameRestrictions: fileUploadConfig.FILE_NAME_RESTRICTION,
+    },
 };
 
 export default AttachedFiles;
