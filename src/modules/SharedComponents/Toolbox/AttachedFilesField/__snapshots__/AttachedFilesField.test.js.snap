@@ -25,6 +25,7 @@ exports[`AttachedFilesField component should render default view 1`] = `
   onFilenameChange={[Function]}
   onFilenameSave={[Function]}
   onHandleFileIsValid={[Function]}
+  onOrderChange={[Function]}
 />
 `;
 
@@ -40,6 +41,7 @@ exports[`AttachedFilesField component should render with initial data 1`] = `
         "dsi_label": "FezACML security for datastream - My_UQ_eSpace_researcher_guidelines_2012.pdf",
         "dsi_mimetype": "text/xml",
         "dsi_open_access": null,
+        "dsi_order": 1,
         "dsi_pid": "UQ:252236",
         "dsi_security_inherited": 1,
         "dsi_security_policy": 1,
@@ -65,6 +67,7 @@ exports[`AttachedFilesField component should render with initial data 1`] = `
           "dsi_label": "FezACML security for datastream - My_UQ_eSpace_researcher_guidelines_2012.pdf",
           "dsi_mimetype": "text/xml",
           "dsi_open_access": null,
+          "dsi_order": 1,
           "dsi_pid": "UQ:252236",
           "dsi_security_inherited": 1,
           "dsi_security_policy": 1,
@@ -88,5 +91,6 @@ exports[`AttachedFilesField component should render with initial data 1`] = `
   onFilenameChange={[Function]}
   onFilenameSave={[Function]}
   onHandleFileIsValid={[Function]}
+  onOrderChange={[Function]}
 />
 `;

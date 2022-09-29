@@ -1,7 +1,7 @@
 import React from 'react';
 import AttachedFiles, { getFileOpenAccessStatus } from './AttachedFiles';
 import { recordWithDatastreams } from 'mock/data';
-import { rtlRender, fireEvent, waitFor, act } from 'test-utils';
+import { rtlRender, fireEvent, waitFor, act, within, screen } from 'test-utils';
 import { openAccessConfig } from 'config';
 
 import mediaQuery from 'css-mediaquery';
@@ -160,7 +160,7 @@ describe('AttachedFiles component', () => {
             openAccessStatusId: 453695,
         }));
         const onDateChangeFn = jest.fn();
-        const { getByText, getAllByRole } = setup({
+        const { getByText, getAllByRole, getByTestId } = setup({
             canEdit: true,
             dataStreams: [
                 {
@@ -181,14 +181,16 @@ describe('AttachedFiles component', () => {
         });
 
         act(() => {
-            fireEvent.click(getAllByRole('button')[1]);
+            fireEvent.click(
+                within(getByTestId('embargoDateButton-My_UQ_eSpace_UPO_guidelines_2016-pdf')).getByRole('button'),
+            );
         });
 
         const calendar = await waitFor(() => getAllByRole('presentation')[0]);
         fireEvent.click(getByText('26', calendar));
         expect(onDateChangeFn).toHaveBeenCalledWith('dsi_embargo_date', '2018-01-26', 0);
     });
-
+    //
     it('should show alert for advisory statement', () => {
         const userIsAdmin = jest.spyOn(UserIsAdminHook, 'userIsAdmin');
         userIsAdmin.mockImplementation(() => true);
