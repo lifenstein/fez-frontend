@@ -314,7 +314,7 @@ context('Journal Article admin edit', () => {
                 .as('collectionsCard')
                 .within(() => {
                     cy.get('h4').should('contain', 'Member of collections');
-                    cy.get('#rek-ismemberof-label').should('contain', 'Member of collections');
+                    cy.get('#rek-ismemberof-label').should('contain', 'Member of collection');
                     cy.get('[class*="MuiAutocomplete-tag-"]')
                         .eq(0)
                         .should('have.text', 'School of Nursing, Midwifery and Social Work Publications');
