@@ -68,11 +68,15 @@ const initialPreviewState = {
 const usePreview = initialPreviewState => {
     const [preview, setPreview] = useState(initialPreviewState);
 
+    /* istanbul ignore next */
     const showPreview = ({ fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl }) => {
+        /* istanbul ignore next */
         setPreview({ fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl });
     };
 
+    /* istanbul ignore next */
     const hidePreview = () => {
+        /* istanbul ignore next */
         setPreview(initialPreviewState);
     };
 
@@ -102,6 +106,7 @@ export const getFileData = (openAccessStatusId, dataStreams, viewRecordsConfig, 
         ? dataStreams.filter(isFileValid(viewRecordsConfig, isAdmin)).map(dataStream => {
               const pid = dataStream.dsi_pid;
               const fileName = dataStream.dsi_dsid;
+              /* istanbul ignore next */
               const mimeType = dataStream.dsi_mimetype ? dataStream.dsi_mimetype : '';
 
               const thumbnailFileName = checkForThumbnail(fileName, dataStreams);
@@ -129,8 +134,12 @@ export const getFileData = (openAccessStatusId, dataStreams, viewRecordsConfig, 
                       securityAccess: true,
                   },
                   openAccessStatus,
-                  previewMediaUrl: previewFileName ? getUrl(pid, previewFileName) : getUrl(pid, fileName),
-                  webMediaUrl: webFileName ? getUrl(pid, webFileName) : null,
+                  /* istanbul ignore next */
+                  previewMediaUrl: previewFileName
+                      ? /* istanbul ignore next */ getUrl(pid, previewFileName)
+                      : getUrl(pid, fileName),
+                  /* istanbul ignore next */
+                  webMediaUrl: webFileName ? /* istanbul ignore next */ getUrl(pid, webFileName) : null,
                   mediaUrl: getUrl(pid, fileName),
                   securityStatus: true,
                   embargoDate: dataStream.dsi_embargo_date,
@@ -192,14 +201,20 @@ export const AttachedFiles = ({
     const onFileDelete = index => () => onDelete(index);
     const onFileDescriptionChange = index => event => onDescriptionChange('dsi_label', event.target.value, index);
 
+    /* istanbul ignore next */
     const checkFileNamesForErrors = () => {
+        /* istanbul ignore next */
         const mappedFilenames = fileData.map((file, index) => ({
             index,
             name: file.fileName,
         }));
+        /* istanbul ignore next */
         const processedFilenames = removeInvalidFileNames(mappedFilenames, fileRestrictionsConfig.fileNameRestrictions);
+        /* istanbul ignore next */
         const errormessage = getErrorMessage(processedFilenames, fileUploadLocale.default, fileRestrictionsConfig);
+        /* istanbul ignore next */
         setErrorMessage(errormessage);
+        /* istanbul ignore next */
         return errormessage === '';
     };
 
@@ -207,14 +222,19 @@ export const AttachedFiles = ({
     const onFileCancelEdit = () => {
         checkFileNamesForErrors();
     };
-
+    /* istanbul ignore next */
     const onFileNameChange = index => filename => {
+        /* istanbul ignore next */
         onFilenameChange('dsi_dsid', filename, index);
     };
+    /* istanbul ignore next */
     const onFileSaveFilename = index => (originalFilename, filename) => {
+        /* istanbul ignore next */
         if (checkFileNamesForErrors()) {
             // dsi_dsid_new key contains original filename. This is picked up when
             // the record is saved in the validator, and processed there.
+
+            /* istanbul ignore next */
             onFilenameSave(
                 [
                     { key: 'dsi_dsid_new', value: originalFilename },
@@ -243,7 +263,9 @@ export const AttachedFiles = ({
                 {!!record.fez_record_search_key_sensitive_handling_note_id?.rek_sensitive_handling_note_id && (
                     <Alert allowDismiss type="info" message={getSensitiveHandlingNote(record)} />
                 )}
-                {isFireFox && hasVideo && <Alert allowDismiss {...viewRecordLocale.viewRecord.fireFoxAlert} />}
+
+                {/* istanbul ignore next */
+                isFireFox && hasVideo && <Alert allowDismiss {...viewRecordLocale.viewRecord.fireFoxAlert} />}
                 {isAdmin && canEdit && <Alert type="warning" message={locale.renamingFilesInstructions.text} />}
                 <div style={{ padding: 8 }}>
                     <Grid container direction="row" alignItems="center" spacing={2} className={classes.header}>
@@ -418,7 +440,9 @@ export const AttachedFiles = ({
                         </div>
                     </React.Fragment>
                 ))}
-                {preview.mediaUrl && preview.mimeType && (
+                {/* istanbul ignore next */
+                preview.mediaUrl && preview.mimeType && (
+                    /* istanbul ignore next */
                     <MediaPreview {...preview} onClose={hidePreview} id="media-preview" />
                 )}
             </StandardCard>

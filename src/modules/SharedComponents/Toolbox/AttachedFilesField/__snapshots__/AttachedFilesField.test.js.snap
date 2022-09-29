@@ -23,6 +23,7 @@ exports[`AttachedFilesField component should render default view 1`] = `
     </span>
   }
   onFilenameChange={[Function]}
+  onFilenameSave={[Function]}
   onHandleFileIsValid={[Function]}
 />
 `;
@@ -85,6 +86,7 @@ exports[`AttachedFilesField component should render with initial data 1`] = `
     </span>
   }
   onFilenameChange={[Function]}
+  onFilenameSave={[Function]}
   onHandleFileIsValid={[Function]}
 />
 `;

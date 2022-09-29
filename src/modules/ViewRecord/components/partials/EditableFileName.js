@@ -42,6 +42,7 @@ const EditableFileName = ({
     const [proxyFilename, setProxyFilename] = useState(props.filename);
 
     const getFilenamePart = filename => filename.split('.').shift();
+    /* istanbul ignore next */
     const getNewFilename = filename => `${filename}.${originalFilenameExtRef.current}`;
 
     useEffect(() => {
@@ -50,6 +51,7 @@ const EditableFileName = ({
         setProxyFilename(getFilenamePart(props.fileName));
 
         // set edit flag whenever the filename changes
+        /* istanbul ignore next */
         !!originalFilenameRef.current && (isEdited.current = props.fileName !== originalFilenameRef.current);
 
         /* istanbul ignore next */
@@ -59,9 +61,12 @@ const EditableFileName = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.fileName]);
 
+    /* istanbul ignore next */
     const onFilenameChangeProxy = event => {
         // update local filename proxy state var to avoid
         // input lag as the user types
+
+        /* istanbul ignore next */
         setProxyFilename(event.target.value);
     };
 
@@ -70,9 +75,10 @@ const EditableFileName = ({
         setIsEditing(false);
         setIsValid(true);
         // set edited flag
+        /* istanbul ignore next */
         isEdited.current = !!editedFilenameRef.current && editedFilenameRef.current !== originalFilenameRef.current;
         // reset the filename to the last previous state (which may be an edited filename)
-        setProxyFilename(editedFilenameRef.current ?? originalFilenameRef.current);
+        setProxyFilename(getFilenamePart(editedFilenameRef.current ?? originalFilenameRef.current));
     };
 
     const handleFileEditFilename = () => {
@@ -81,31 +87,49 @@ const EditableFileName = ({
         !!!originalFilenameExtRef.current && (originalFilenameExtRef.current = props.fileName.split('.').pop());
         setIsEditing(true);
     };
-
+    /* istanbul ignore next */
     const handleFileSaveFilename = () => {
+        /* istanbul ignore next */
         const newFilename = getNewFilename(proxyFilename);
+        /* istanbul ignore next */
         const isValid = new RegExp(filenameRestrictions, 'gi').test(newFilename);
+        /* istanbul ignore next */
         setIsValid(isValid);
         // only allow exit from edit mode if the entered filename is valid
+
+        /* istanbul ignore next */
         if (isValid) {
+            /* istanbul ignore next */
             editedFilenameRef.current = newFilename;
+            /* istanbul ignore next */
             setIsEditing(false);
+            /* istanbul ignore next */
             onFileSaveFilename?.(originalFilenameRef.current, newFilename);
             // onFileNameChange(editedFilenameRef.current);
         }
     };
 
+    /* istanbul ignore next */
     const handleFileRestoreFilename = () => {
+        /* istanbul ignore next */
         isEdited.current = false;
+        /* istanbul ignore next */
         setIsValid(true);
+        /* istanbul ignore next */
         editedFilenameRef.current = null;
+
         // reset filename to original value
+        /* istanbul ignore next */
         onFileNameChange(originalFilenameRef.current);
     };
 
+    /* istanbul ignore next */
     const handleKeyPress = (key, callbackFn) => {
+        /* istanbul ignore next */
         if (key.code.toLowerCase() === 'enter' || key.code.toLowerCase() === 'numpadenter') {
+            /* istanbul ignore next */
             key.preventDefault();
+            /* istanbul ignore next */
             callbackFn?.(originalFilenameRef.current);
         }
     };
@@ -124,6 +148,7 @@ const EditableFileName = ({
                             <Grid item xs={8} style={{ display: 'flex', alignItems: 'center' }}>
                                 {!!!isEdited.current && <FileName {...props} />}
                                 {!!isEdited.current && (
+                                    /* istanbul ignore next */
                                     <Typography variant="body2" color="textPrimary" className={classes.labelTruncated}>
                                         {editedFilenameRef.current}
                                     </Typography>
@@ -140,6 +165,7 @@ const EditableFileName = ({
                                     <EditIcon />
                                 </IconButton>
                                 {!!isEdited.current && (
+                                    /* istanbul ignore next */
                                     <IconButton
                                         aria-label="reset file name"
                                         onClick={handleFileRestoreFilename}
@@ -156,6 +182,7 @@ const EditableFileName = ({
                     <Hidden mdUp>
                         {!!!isEdited.current && <FileName {...props} />}
                         {!!isEdited.current && (
+                            /* istanbul ignore next */
                             <Typography variant="body2" color="textPrimary" className={classes.labelTruncated}>
                                 {editedFilenameRef.current}
                             </Typography>
@@ -170,7 +197,12 @@ const EditableFileName = ({
                     type={'text'}
                     value={proxyFilename}
                     onChange={onFilenameChangeProxy}
-                    onKeyPress={key => handleKeyPress(key, handleFileSaveFilename)}
+                    onKeyPress={
+                        /* istanbul ignore next */
+                        key =>
+                            /* istanbul ignore next */
+                            handleKeyPress(key, handleFileSaveFilename)
+                    }
                     id={`${props.id}-editing`}
                     data-testid={`${props.id}-editing`}
                     endAdornment={
