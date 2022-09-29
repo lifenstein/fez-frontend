@@ -19,7 +19,7 @@ import * as UserIsAdminHook from 'hooks/userIsAdmin';
 jest.mock('context');
 import { useRecordContext, useFormValuesContext } from 'context';
 import {
-    /*CURRENT_LICENCES,*/,
+    /* CURRENT_LICENCES,*/
     SENSITIVE_HANDLING_NOTE_OTHER_TYPE,
     SENSITIVE_HANDLING_NOTE_TYPE,
 } from '../../../../config/general';

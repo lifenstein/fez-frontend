@@ -146,7 +146,7 @@ export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, 
               .map((dataStream, key) => {
                   const pid = dataStream.dsi_pid;
                   const fileName = dataStream.dsi_dsid;
-              /* istanbul ignore next */
+                  /* istanbul ignore next */
                   const mimeType = dataStream.dsi_mimetype ? dataStream.dsi_mimetype : '';
 
                   const thumbnailFileName = checkForThumbnail(fileName, dataStreams);
@@ -174,12 +174,12 @@ export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, 
                           securityAccess: true,
                       },
                       openAccessStatus,
-                  /* istanbul ignore next */
-                  previewMediaUrl: previewFileName
-                      ? /* istanbul ignore next */ getUrl(pid, previewFileName)
-                      : getUrl(pid, fileName),
-                  /* istanbul ignore next */
-                  webMediaUrl: webFileName ? /* istanbul ignore next */ getUrl(pid, webFileName) : null,
+                      /* istanbul ignore next */
+                      previewMediaUrl: previewFileName
+                          ? /* istanbul ignore next */ getUrl(pid, previewFileName)
+                          : getUrl(pid, fileName),
+                      /* istanbul ignore next */
+                      webMediaUrl: webFileName ? /* istanbul ignore next */ getUrl(pid, webFileName) : null,
                       mediaUrl: getUrl(pid, fileName),
                       securityStatus: true,
                       embargoDate: dataStream.dsi_embargo_date,
@@ -385,24 +385,26 @@ export const AttachedFiles = ({
                                                 />
                                             </Grid>
                                             <Grid item sm={3} className={classes.dataWrapper}>
-                                            {isAdmin && canEdit ? (
-                                                <EditableFileName
-                                                    {...item}
-                                                    onFileNameChange={onFileNameChange(index)}
-                                                    onFileSelect={showPreview}
-                                                    onFileSaveFilename={onFileSaveFilename(index)}
-                                                    onFileCancelEdit={onFileCancelEdit}
-                                                    filenameRestrictions={fileRestrictionsConfig.fileNameRestrictions}
-                                                    handleFileIsValid={handleFileIsValid(index)}
-                                                    id={`file-name-${index}`}
-                                                />
-                                            ) : (
-                                                <FileName
-                                                    {...item}
-                                                    onFileSelect={showPreview}
-                                                    id={`file-name-${index}`}
-                                                />
-                                            )}
+                                                {isAdmin && canEdit ? (
+                                                    <EditableFileName
+                                                        {...item}
+                                                        onFileNameChange={onFileNameChange(index)}
+                                                        onFileSelect={showPreview}
+                                                        onFileSaveFilename={onFileSaveFilename(index)}
+                                                        onFileCancelEdit={onFileCancelEdit}
+                                                        filenameRestrictions={
+                                                            fileRestrictionsConfig.fileNameRestrictions
+                                                        }
+                                                        handleFileIsValid={handleFileIsValid(index)}
+                                                        id={`file-name-${index}`}
+                                                    />
+                                                ) : (
+                                                    <FileName
+                                                        {...item}
+                                                        onFileSelect={showPreview}
+                                                        id={`file-name-${index}`}
+                                                    />
+                                                )}
                                             </Grid>
                                             <Hidden xsDown>
                                                 <Grid item sm={3} className={classes.dataWrapper}>
