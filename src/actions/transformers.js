@@ -1429,6 +1429,7 @@ export const getDatastreamInfo = (
                       }
                     : {}),
                 dsi_embargo_date: ds.dsi_embargo_date,
+                dsi_order: ds.dsi_order,
             },
         }),
         {},
@@ -1461,7 +1462,13 @@ export const getDatastreamInfo = (
 };
 
 export const getNotesSectionSearchKeys = (data = {}) => {
-    const { additionalNotes, internalNotes, rek_herdc_notes: herdcNotes } = data;
+    const {
+        additionalNotes,
+        internalNotes,
+        rek_herdc_notes: herdcNotes,
+        rek_ci_notice_attribution_incomplete: ciNotices,
+    } = data;
+
     return {
         ...(!!additionalNotes && additionalNotes.hasOwnProperty('htmlText') && !!additionalNotes.htmlText
             ? {
@@ -1473,6 +1480,10 @@ export const getNotesSectionSearchKeys = (data = {}) => {
             ? { fez_internal_notes: { ain_detail: internalNotes.htmlText } }
             : { fez_internal_notes: null }),
         ...(!!herdcNotes && herdcNotes.hasOwnProperty('htmlText') ? { rek_herdc_notes: herdcNotes.htmlText } : {}),
+
+        ...(!(ciNotices === null || ciNotices === undefined)
+            ? { rek_ci_notice_attribution_incomplete: !!ciNotices ? 1 : 0 }
+            : {}),
     };
 };
 
