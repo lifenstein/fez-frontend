@@ -11,6 +11,7 @@ import { FILE_SECURITY_POLICY_ADMIN, FILE_SECURITY_POLICY_PUBLIC } from 'modules
 
 const moment = require('moment');
 
+describe('transformers', () => {
 describe('getRecordLinkSearchKey test', () => {
     it('should return request object structure with link and default description', () => {
         const data = {
@@ -657,10 +658,25 @@ describe('unclaimRecord[Author/Contributor]SearchKey test', () => {
         ];
         const expected = {
             fez_record_search_key_author_id: [
-                { rek_author_id: 0, rek_author_id_order: 1, rek_author_id_id: null, rek_author_id_pid: 'UQ:347818' },
+                    {
+                        rek_author_id: 0,
+                        rek_author_id_order: 1,
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:347818',
+                    },
                 { rek_author_id: 0, rek_author_id_order: 2 },
-                { rek_author_id: 1002, rek_author_id_order: 3, rek_author_id_id: null, rek_author_id_pid: 'UQ:347813' },
-                { rek_author_id: 0, rek_author_id_order: 4, rek_author_id_id: null, rek_author_id_pid: 'UQ:347814' },
+                    {
+                        rek_author_id: 1002,
+                        rek_author_id_order: 3,
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:347813',
+                    },
+                    {
+                        rek_author_id: 0,
+                        rek_author_id_order: 4,
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:347814',
+                    },
             ],
         };
 
@@ -677,10 +693,25 @@ describe('unclaimRecord[Author/Contributor]SearchKey test', () => {
         ];
         const expected = {
             fez_record_search_key_author_id: [
-                { rek_author_id: 0, rek_author_id_order: 1, rek_author_id_id: null, rek_author_id_pid: 'UQ:347818' },
+                    {
+                        rek_author_id: 0,
+                        rek_author_id_order: 1,
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:347818',
+                    },
                 { rek_author_id: 0, rek_author_id_order: 2 },
-                { rek_author_id: 1002, rek_author_id_order: 3, rek_author_id_id: null, rek_author_id_pid: 'UQ:347813' },
-                { rek_author_id: 0, rek_author_id_order: 4, rek_author_id_id: null, rek_author_id_pid: 'UQ:347814' },
+                    {
+                        rek_author_id: 1002,
+                        rek_author_id_order: 3,
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:347813',
+                    },
+                    {
+                        rek_author_id: 0,
+                        rek_author_id_order: 4,
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:347814',
+                    },
             ],
         };
 
@@ -940,9 +971,24 @@ describe('getRecordAuthorsIdSearchKey test', () => {
         ];
         const expected = {
             fez_record_search_key_author_id: [
-                { rek_author_id_id: null, rek_author_id_pid: 'UQ:678742', rek_author_id: 683, rek_author_id_order: 12 },
-                { rek_author_id_id: null, rek_author_id_pid: 'UQ:678741', rek_author_id: 0, rek_author_id_order: 13 },
-                { rek_author_id_id: null, rek_author_id_pid: 'UQ:678740', rek_author_id: 0, rek_author_id_order: 14 },
+                    {
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:678742',
+                        rek_author_id: 683,
+                        rek_author_id_order: 12,
+                    },
+                    {
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:678741',
+                        rek_author_id: 0,
+                        rek_author_id_order: 13,
+                    },
+                    {
+                        rek_author_id_id: null,
+                        rek_author_id_pid: 'UQ:678740',
+                        rek_author_id: 0,
+                        rek_author_id_order: 14,
+                    },
             ],
         };
         const result = transformers.getRecordAuthorsIdSearchKey(input);
@@ -2485,7 +2531,9 @@ describe('getDatastreamInfo', () => {
             fez_datastream_info: [
                 {
                     dsi_dsid: 'test.png',
-                    dsi_label: 'test.png new label',
+                        dsi_dsid_new: 'renamed.png',
+                        dsi_label: 'test.png renamed file',
+                        dsi_order: 3,
                     dsi_embargo_date: null,
                     dsi_state: 'A',
                     dsi_security_policy: 2,
@@ -2494,6 +2542,7 @@ describe('getDatastreamInfo', () => {
                 {
                     dsi_dsid: 'test1.txt',
                     dsi_label: 'test1.txt new label',
+                        dsi_order: 2,
                     dsi_embargo_date: '2020-11-01',
                     dsi_state: 'A',
                     dsi_security_policy: 2,
@@ -2511,7 +2560,7 @@ describe('getDatastreamInfo', () => {
         };
         expect(
             transformers.getDatastreamInfo(
-                [
+                    /* originalDatastreams*/ [
                     {
                         dsi_dsid: 'test.png',
                         dsi_label: 'test.png old label',
@@ -2537,10 +2586,11 @@ describe('getDatastreamInfo', () => {
                         dsi_security_inherited: 1,
                     },
                 ],
-                [
+                    /* dataStreamsFromFileSection */ [
                     {
                         dsi_dsid: 'test.png',
                         dsi_label: 'test.png new label',
+                            dsi_order: 1,
                         dsi_embargo_date: null,
                         dsi_security_policy: 1,
                         dsi_security_inherited: 1,
@@ -2548,12 +2598,22 @@ describe('getDatastreamInfo', () => {
                     {
                         dsi_dsid: 'test1.txt',
                         dsi_label: 'test1.txt new label',
+                            dsi_order: 2,
                         dsi_embargo_date: '2020-11-01',
                         dsi_security_policy: 1,
                         dsi_security_inherited: 1,
                     },
+                        {
+                            dsi_dsid: 'renamed.png',
+                            dsi_dsid_new: 'test.png',
+                            dsi_label: 'test.png renamed file',
+                            dsi_order: 3,
+                            dsi_embargo_date: null,
+                            dsi_security_policy: 1,
+                            dsi_security_inherited: 1,
+                        },
                 ],
-                [
+                    /* dataStreamsFromSecuritySection */ [
                     {
                         dsi_dsid: 'test.png',
                         dsi_label: 'test.png old label',
@@ -5421,5 +5481,27 @@ describe('getExternalLabelSearchKey', () => {
     it('should return empty object if no input is passed', () => {
         const expected = {};
         expect(transformers.getExternalLabelSearchKey()).toEqual(expected);
+    });
+
+    describe('cleanDatastreamsObject', () => {
+        it('should return nothing if no data provided', () => {
+            expect(transformers.cleanDatastreamsObject()).toEqual({});
+        });
+
+        it('should return the same data object if dsi_dsid_new prop is not present', () => {
+            expect(transformers.cleanDatastreamsObject([{ test: 'ok' }])).toEqual([{ test: 'ok' }]);
+        });
+
+        it('should return an object with swapped dsi_dsid and dsi_dsid_new props', () => {
+            expect(
+                transformers.cleanDatastreamsObject([{ dsi_dsid: 'renamed.jpg', dsi_dsid_new: 'original.jpg' }]),
+            ).toEqual([{ dsi_dsid: 'original.jpg', dsi_dsid_new: 'renamed.jpg' }]);
+        });
+
+        it('should return an object with deleted dsi_dsid_new if it matches value of dsi_dsid', () => {
+            expect(
+                transformers.cleanDatastreamsObject([{ dsi_dsid: 'original.jpg', dsi_dsid_new: 'original.jpg' }]),
+            ).toEqual([{ dsi_dsid: 'original.jpg' }]);
+        });
     });
 });

@@ -76,15 +76,11 @@ const initialPreviewState = {
 const usePreview = initialPreviewState => {
     const [preview, setPreview] = useState(initialPreviewState);
 
-    /* istanbul ignore next */
     const showPreview = ({ fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl }) => {
-        /* istanbul ignore next */
         setPreview({ fileName, mediaUrl, previewMediaUrl, mimeType, webMediaUrl });
     };
 
-    /* istanbul ignore next */
     const hidePreview = () => {
-        /* istanbul ignore next */
         setPreview(initialPreviewState);
     };
 
@@ -107,6 +103,21 @@ export const getFileOpenAccessStatus = (openAccessStatusId, dataStream) => {
         };
     }
     return { isOpenAccess: true, embargoDate: null, openAccessStatusId: openAccessStatusId };
+};
+
+export const getSecurityPolicyFileEmbargoStatus = dataStream => {
+    const embargoDate = dataStream.dsi_embargo_date;
+    if (
+        dataStream.dsi_security_policy === fileUploadConfig.FILE_SECURITY_POLICY_ADMIN &&
+        embargoDate &&
+        moment(embargoDate).isAfter(moment(), 'day')
+    ) {
+        return {
+            isEmbargoed: true,
+            embargoDate,
+        };
+    }
+    return { isEmbargoed: false };
 };
 
 export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, record) => {
@@ -146,7 +157,6 @@ export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, 
               .map((dataStream, key) => {
                   const pid = dataStream.dsi_pid;
                   const fileName = dataStream.dsi_dsid;
-                  /* istanbul ignore next */
                   const mimeType = dataStream.dsi_mimetype ? dataStream.dsi_mimetype : '';
 
                   const thumbnailFileName = checkForThumbnail(fileName, dataStreams);
@@ -156,6 +166,7 @@ export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, 
                   const openAccessStatus = getFileOpenAccessStatus(openAccessStatusId, dataStream);
 
                   return {
+                      id: dataStream.dsi_id,
                       pid,
                       fileName,
                       description: dataStream.dsi_label,
@@ -174,14 +185,11 @@ export const getFileData = (openAccessStatusId, dataStreams, isAdmin, isAuthor, 
                           securityAccess: true,
                       },
                       openAccessStatus,
-                      /* istanbul ignore next */
-                      previewMediaUrl: previewFileName
-                          ? /* istanbul ignore next */ getUrl(pid, previewFileName)
-                          : getUrl(pid, fileName),
-                      /* istanbul ignore next */
-                      webMediaUrl: webFileName ? /* istanbul ignore next */ getUrl(pid, webFileName) : null,
+                      previewMediaUrl: previewFileName ? getUrl(pid, previewFileName) : getUrl(pid, fileName),
+                      webMediaUrl: webFileName ? getUrl(pid, webFileName) : null,
                       mediaUrl: getUrl(pid, fileName),
                       securityStatus: true,
+                      securityPolicyStatus: getSecurityPolicyFileEmbargoStatus(dataStream),
                       embargoDate: dataStream.dsi_embargo_date,
                       fileOrder: key + 1,
                       key: key,
@@ -220,12 +228,13 @@ export const AttachedFiles = ({
 
     const isFireFox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     const fileData = getFileData(openAccessStatusId, dataStreams, isAdmin, isAuthor, record);
+
     if (fileData.length === 0) return null;
 
     // tested in cypress
     /* istanbul ignore next */
-    const onEmbargoDateChange = index => value => {
-        const indexToChange = dataStreams.findIndex(item => item.dsi_dsid === index);
+    const onEmbargoDateChange = id => value => {
+        const indexToChange = dataStreams.findIndex(item => item.dsi_id === id);
         value === null &&
             markEmbargoDateAsCleared([
                 ...hasClearedEmbargoDate.slice(0, indexToChange),
@@ -241,27 +250,41 @@ export const AttachedFiles = ({
     };
 
     const hasVideo = fileData.some(item => item.mimeType.indexOf('video') > -1 || item.mimeType === 'application/mxf');
+    const getDsIndex = id => dataStreams.findIndex(item => item.dsi_id === id);
 
     const onFileDelete = file => () => onDelete(file);
-    const onFileDescriptionChange = index => event => {
-        const indexToChange = dataStreams.findIndex(item => item.dsi_dsid === index);
+    const onFileDescriptionChange = id => event => {
+        const indexToChange = getDsIndex(id);
         onDescriptionChange('dsi_label', event.target.value, indexToChange);
     };
 
-    /* istanbul ignore next */
+    const onFileOrderChangeUp = (file, index) => onOrderChange(file, index, index - 1);
+    const onFileOrderChangeDown = (file, index) => onOrderChange(file, index, index + 1);
     const checkFileNamesForErrors = () => {
-        /* istanbul ignore next */
         const mappedFilenames = fileData.map((file, index) => ({
             index,
             name: file.fileName,
         }));
-        /* istanbul ignore next */
+
         const processedFilenames = removeInvalidFileNames(mappedFilenames, fileRestrictionsConfig.fileNameRestrictions);
-        /* istanbul ignore next */
         const errormessage = getErrorMessage(processedFilenames, fileUploadLocale.default, fileRestrictionsConfig);
-        /* istanbul ignore next */
+
         setErrorMessage(errormessage);
-        /* istanbul ignore next */
+        return errormessage === '';
+    };
+
+    const checkFileNameForErrors = id => fileName => {
+        const index = getDsIndex(id);
+        const mappedFilename = [
+            {
+                index,
+                name: fileName,
+            },
+        ];
+
+        const processedFilenames = removeInvalidFileNames(mappedFilename, fileRestrictionsConfig.fileNameRestrictions);
+        const errormessage = getErrorMessage(processedFilenames, fileUploadLocale.default, fileRestrictionsConfig);
+        setErrorMessage(errormessage);
         return errormessage === '';
     };
 
@@ -269,36 +292,28 @@ export const AttachedFiles = ({
     const onFileCancelEdit = () => {
         checkFileNamesForErrors();
     };
-    /* istanbul ignore next */
-    const onFileNameChange = index => filename => {
-        /* istanbul ignore next */
+
+    const onFileNameChange = id => filename => {
+        const index = getDsIndex(id);
         onFilenameChange('dsi_dsid', filename, index);
     };
-    /* istanbul ignore next */
-    const onFileSaveFilename = index => (originalFilename, filename) => {
-        /* istanbul ignore next */
-        if (checkFileNamesForErrors()) {
-            // dsi_dsid_new key contains original filename. This is picked up when
-            // the record is saved in the validator, and processed there.
-
-            /* istanbul ignore next */
-            onFilenameSave(
-                [
-                    { key: 'dsi_dsid_new', value: originalFilename },
-                    { key: 'dsi_dsid', value: filename },
-                ],
-                index,
-            );
-        }
+    const onFileSaveFilename = id => (originalFilename, filename) => {
+        // dsi_dsid_new key contains original filename. This is picked up when
+        // the record is saved in the validator, and processed there.
+        const index = getDsIndex(id);
+        onFilenameSave(
+            [
+                { key: 'dsi_dsid_new', value: originalFilename },
+                { key: 'dsi_dsid', value: filename },
+            ],
+            index,
+        );
     };
-    const handleFileIsValid = index => isValid => {
+    const handleFileIsValid = id => isValid => {
+        const index = getDsIndex(id);
         onHandleFileIsValid?.('isValid', isValid, index);
     };
 
-    // const onFileOrderChangeUp = index => (index > 0 ? onOrderChange(index, index - 1) : null);
-    const onFileOrderChangeUp = (file, index) => onOrderChange(file, index, index - 1);
-    const onFileOrderChangeDown = (file, index) => onOrderChange(file, index, index + 1);
-    // const onFileOrderChangeDown = index =>  onOrderChange(index, index+1);
     return (
         <Grid item xs={12}>
             <StandardCard title={locale.title} subCard>
@@ -314,9 +329,7 @@ export const AttachedFiles = ({
                 {!!record.fez_record_search_key_sensitive_handling_note_id?.rek_sensitive_handling_note_id && (
                     <Alert allowDismiss type="info" message={getSensitiveHandlingNote(record)} />
                 )}
-
-                {/* istanbul ignore next */
-                isFireFox && hasVideo && <Alert allowDismiss {...viewRecordLocale.viewRecord.fireFoxAlert} />}
+                {isFireFox && hasVideo && <Alert allowDismiss {...viewRecordLocale.viewRecord.fireFoxAlert} />}
                 {isAdmin && canEdit && <Alert type="warning" message={locale.renamingFilesInstructions.text} />}
                 <div style={{ padding: 8 }}>
                     <Grid container direction="row" alignItems="center" spacing={2} className={classes.header}>
@@ -360,9 +373,12 @@ export const AttachedFiles = ({
                 {fileData
                     .sort((a, b) => a.fileOrder - b.fileOrder)
                     .map((item, index) => (
-                        <React.Fragment key={index}>
-                            <div style={{ padding: 8 }} key={index}>
-                                <Grid container className={classes.header} spacing={3} key={`file-${index}`}>
+                        <React.Fragment key={item.id}>
+                            <div
+                                style={{ padding: 8 }}
+                                data-testid={`fez-datastream-info-attached-list-row-${item.id}`}
+                            >
+                                <Grid container className={classes.header} spacing={3}>
                                     <Grid item xs={12}>
                                         <Grid container direction="row" alignItems="center" spacing={2} wrap={'nowrap'}>
                                             <Grid item xs={1} className={classes.upDownArrowContainer}>
@@ -370,6 +386,7 @@ export const AttachedFiles = ({
                                                     disabled={index === 0}
                                                     className={classes.upDownArrow}
                                                     id={`order-up-file-${index}`}
+                                                    data-testid={`order-up-file-${index}`}
                                                     onClick={() => onFileOrderChangeUp(item.fileName, index + 1)}
                                                 >
                                                     <ExpandLess />
@@ -388,21 +405,20 @@ export const AttachedFiles = ({
                                                 {isAdmin && canEdit ? (
                                                     <EditableFileName
                                                         {...item}
-                                                        onFileNameChange={onFileNameChange(index)}
+                                                        onFileNameChange={onFileNameChange(item.id)}
                                                         onFileSelect={showPreview}
-                                                        onFileSaveFilename={onFileSaveFilename(index)}
+                                                        onFileSaveFilename={onFileSaveFilename(item.id)}
                                                         onFileCancelEdit={onFileCancelEdit}
-                                                        filenameRestrictions={
-                                                            fileRestrictionsConfig.fileNameRestrictions
-                                                        }
-                                                        handleFileIsValid={handleFileIsValid(index)}
-                                                        id={`file-name-${index}`}
+                                                        handleFileIsValid={handleFileIsValid(item.id)}
+                                                        checkFileNameForErrors={checkFileNameForErrors(item.id)}
+                                                        id={`file-name-${item.id}`}
+                                                        key={item.id}
                                                     />
                                                 ) : (
                                                     <FileName
                                                         {...item}
                                                         onFileSelect={showPreview}
-                                                        id={`file-name-${index}`}
+                                                        id={`file-name-${item.id}`}
                                                     />
                                                 )}
                                             </Grid>
@@ -411,12 +427,11 @@ export const AttachedFiles = ({
                                                     {isAdmin && canEdit ? (
                                                         <TextField
                                                             fullWidth
-                                                            onChange={onFileDescriptionChange(item.fileName)}
+                                                            onChange={onFileDescriptionChange(item.id)}
                                                             name="fileDescription"
                                                             defaultValue={item.description}
                                                             id={`file-description-input-${index}`}
                                                             textFieldId={`dsi-label-${index}`}
-                                                            key={item.fileName}
                                                         />
                                                     ) : (
                                                         <Typography variant="body2" noWrap>
@@ -442,18 +457,22 @@ export const AttachedFiles = ({
                                             </Hidden>
                                             {isAdmin && canEdit && (
                                                 <React.Fragment>
-                                                    {/* cypress test does not like period in the id */}
+                                                    {/* cypress test does not like full stop in the id */}
                                                     <Grid
                                                         item
                                                         xs={2}
                                                         id={`embargoDateButton-${item.fileName.replace(/\./g, '-')}`}
                                                     >
-                                                        {openAccessConfig.openAccessFiles.includes(
+                                                        {(openAccessConfig.openAccessFiles.includes(
                                                             openAccessStatusId,
-                                                        ) && (
+                                                        ) ||
+                                                            !!item.securityPolicyStatus.isEmbargoed) && (
                                                             <FileUploadEmbargoDate
-                                                                value={item.openAccessStatus.embargoDate}
-                                                                onChange={onEmbargoDateChange(item.fileName)}
+                                                                value={
+                                                                    item.openAccessStatus.embargoDate ??
+                                                                    item.securityPolicyStatus.embargoDate
+                                                                }
+                                                                onChange={onEmbargoDateChange(item.id)}
                                                                 disabled={disabled}
                                                                 fileUploadEmbargoDateId={`dsi-embargo-date-${index}`}
                                                             />
@@ -475,7 +494,7 @@ export const AttachedFiles = ({
                                                 </React.Fragment>
                                             )}
                                         </Grid>
-                                        {!!hasClearedEmbargoDate[index] && (
+                                        {!!hasClearedEmbargoDate[getDsIndex(item.id)] && (
                                             // tested in cypress admin-edit audio
                                             /* istanbul ignore next */
                                             <React.Fragment>
@@ -504,14 +523,6 @@ export const AttachedFiles = ({
                                                 </Grid>
                                             </React.Fragment>
                                         )}
-                                        {/* <div>
-                                            <IconButton
-                                                disabled={index === fileData.length - 1}
-                                                onClick={() => onFileOrderChangeDown(item.key, index + 1)}
-                                            >
-                                                <ExpandMore />
-                                            </IconButton>
-                                        </div> */}
 
                                         <Grid container direction="row" alignItems="center" spacing={2} wrap={'nowrap'}>
                                             <Grid item xs={1} className={classes.upDownArrowContainer}>
@@ -519,6 +530,7 @@ export const AttachedFiles = ({
                                                     className={classes.upDownArrow}
                                                     disabled={index === fileData.length - 1}
                                                     id={`order-down-file-${index}`}
+                                                    data-testid={`order-down-file-${index}`}
                                                     onClick={() => onFileOrderChangeDown(item.fileName, index + 1)}
                                                 >
                                                     <ExpandMore />
@@ -530,18 +542,16 @@ export const AttachedFiles = ({
                             </div>
                         </React.Fragment>
                     ))}
-                {/* istanbul ignore next */
-                preview.mediaUrl && preview.mimeType && (
-                    /* istanbul ignore next */
+                {preview.mediaUrl && preview.mimeType && (
                     <MediaPreview {...preview} onClose={hidePreview} id="media-preview" />
                 )}
+                {/* istanbul ignore next*/
+                errorMessage.length > 0 && (
+                    <Grid item xs={12}>
+                        <Alert alertId="alert-files" title={errorTitle} message={errorMessage} type="error" />
+                    </Grid>
+                )}
             </StandardCard>
-            {/* istanbul ignore next*/
-            errorMessage.length > 0 && (
-                <Grid item xs={12}>
-                    <Alert title={errorTitle} message={errorMessage} type="error" />
-                </Grid>
-            )}
         </Grid>
     );
 };

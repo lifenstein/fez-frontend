@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, /* fireEvent, act,*/ AllTheProviders } from 'test-utils';
+import { rtlRender, fireEvent, act, AllTheProviders } from 'test-utils';
 
 import EditableFileName from './EditableFileName';
 
 import { journalArticle } from 'mock/data/testing/records';
-import * as fileUploadConfig from '../../../SharedComponents/Toolbox/FileUploader/config';
 
 import mediaQuery from 'css-mediaquery';
 
@@ -15,17 +14,16 @@ const createMatchMedia = width => {
         removeListener: () => {},
     });
 };
-
 const id = 'test-file-name';
-// const editId = `${id}-edit`;
-// const resetId = `${id}-reset`;
-// const saveId = `${id}-save`;
-// const cancelId = `${id}-cancel`;
-// const editingId = `${id}-editing`;
+const editId = `${id}-edit`;
+const resetId = `${id}-reset`;
+const saveId = `${id}-save`;
+const cancelId = `${id}-cancel`;
+const editingId = `${id}-editing-input`;
 
-function setup(testProps = {}) {
+function setup(testProps = {}, renderer = rtlRender) {
     const props = {
-        id: id,
+        id,
         classes: {},
         pid: journalArticle.rek_pid,
         fileName: 'test.jpg',
@@ -34,15 +32,13 @@ function setup(testProps = {}) {
         mediaUrl: 'https://espace.library.uq.edu.au/view/UQ:676287/test.jpg',
         previewMediaUrl: 'https://espace.library.uq.edu.au/view/UQ:676287/preview_test.jpg',
         onFileSelect: jest.fn(),
-        fileRestrictionsConfig: {
-            fileUploadLimit: fileUploadConfig.DEFAULT_FILE_UPLOAD_LIMIT,
-            fileNameRestrictions: fileUploadConfig.FILE_NAME_RESTRICTION,
-        },
+        checkFileNameForErrors: jest.fn(() => true),
         allowDownload: true,
         checksums: { media: '111' },
+        isEdited: false,
         ...testProps,
     };
-    return render(
+    return renderer(
         <AllTheProviders>
             <EditableFileName {...props} />
         </AllTheProviders>,
@@ -51,24 +47,49 @@ function setup(testProps = {}) {
 
 describe('Editable File Name Component ', () => {
     beforeAll(() => {
-        window.matchMedia = createMatchMedia(window.innerWidth);
+        window.matchMedia = createMatchMedia(1024);
     });
 
     it('should render a filename with edit control', () => {
         const { getByTestId, getByText } = setup({});
 
-        const editId = `${id}-edit`;
-
         expect(getByText('test.jpg')).toBeInTheDocument();
         expect(getByTestId(editId)).toBeInTheDocument();
     });
-    /*
+
     it('should handle editing a filename', () => {
-        const onFileNameChange = jest.fn();
         const onFileSaveFilename = jest.fn();
 
         const { getByTestId, queryByTestId } = setup({
-            onFileNameChange,
+            onFileSaveFilename,
+        });
+
+        expect(getByTestId(editId)).toBeInTheDocument();
+
+        act(() => {
+            fireEvent.click(getByTestId(editId));
+        });
+
+        expect(queryByTestId(editId)).not.toBeInTheDocument();
+
+        expect(getByTestId(editingId)).toBeInTheDocument();
+
+        fireEvent.change(getByTestId(editingId), { target: { value: 'renamed' } });
+
+        act(() => {
+            fireEvent.click(getByTestId(saveId));
+        });
+
+        expect(onFileSaveFilename).toHaveBeenCalledWith('test.jpg', 'renamed.jpg');
+
+        expect(queryByTestId(editingId)).not.toBeInTheDocument();
+        expect(getByTestId(editId)).toBeInTheDocument();
+    });
+
+    it('should handle editing a filename using keyboard', () => {
+        const onFileSaveFilename = jest.fn();
+
+        const { getByTestId, queryByTestId } = setup({
             onFileSaveFilename,
         });
 
@@ -83,52 +104,16 @@ describe('Editable File Name Component ', () => {
 
         fireEvent.change(getByTestId(editingId), { target: { value: 'renamed' } });
 
-        expect(onFileNameChange).toHaveBeenCalledWith('renamed');
-
-        act(() => {
-            fireEvent.click(getByTestId(saveId));
-        });
-
-        expect(onFileSaveFilename).toHaveBeenCalled();
-
-        expect(queryByTestId(editingId)).not.toBeInTheDocument();
-        expect(getByTestId(editId)).toBeInTheDocument();
-        expect(getByTestId(resetId)).toBeInTheDocument();
-    });
-
-    it('should handle editing a filename using keyboard', () => {
-        const onFileNameChange = jest.fn();
-        const onFileSaveFilename = jest.fn();
-
-        const { getByTestId, queryByTestId } = setup({
-            onFileNameChange,
-            onFileSaveFilename,
-        });
-
-        expect(getByTestId(editId)).toBeInTheDocument();
-
-        act(() => {
-            fireEvent.click(getByTestId(editId));
-        });
-        expect(queryByTestId(editId)).not.toBeInTheDocument();
-
-        expect(getByTestId(editingId)).toBeInTheDocument();
-
-        fireEvent.change(getByTestId(editingId), { target: { value: 'renamed.jp' } });
-
-        expect(onFileNameChange).toHaveBeenCalledWith('renamed.jp');
-
         // test passthrough of keyPresses we dont want to specifically handle
-        fireEvent.keyPress(getByTestId(editingId), { key: 'KeyG', charCode: 103, code: 'KeyG' });
+        fireEvent.keyPress(getByTestId(editingId), { key: 'Keyd', charCode: 100, code: 'Keyd' });
 
         // test main enter key
         fireEvent.keyPress(getByTestId(editingId), { key: 'Enter', charCode: 13, code: 'Enter' });
 
-        expect(onFileSaveFilename).toHaveBeenCalled();
+        expect(onFileSaveFilename).toHaveBeenCalledWith('test.jpg', 'renamed.jpg');
 
         expect(queryByTestId(editingId)).not.toBeInTheDocument();
         expect(getByTestId(editId)).toBeInTheDocument();
-        expect(getByTestId(resetId)).toBeInTheDocument();
 
         // now with numpad
         act(() => {
@@ -140,23 +125,46 @@ describe('Editable File Name Component ', () => {
 
         fireEvent.change(getByTestId(editingId), { target: { value: 'renamed' } });
 
-        expect(onFileNameChange).toHaveBeenCalledWith('renamed');
-
         fireEvent.keyPress(getByTestId(editingId), { key: 'NumpadEnter', charCode: 13, code: 'NumpadEnter' });
 
         expect(onFileSaveFilename).toHaveBeenCalled();
 
         expect(queryByTestId(editingId)).not.toBeInTheDocument();
         expect(getByTestId(editId)).toBeInTheDocument();
-        expect(getByTestId(resetId)).toBeInTheDocument();
     });
 
-    it('should handle cancel editing a filename', () => {
-        const onFileNameChange = jest.fn();
+    it('should reject renaming of a file with invalid name', () => {
+        const checkFileNameForErrors = jest.fn(() => false);
 
         const { getByTestId, queryByTestId } = setup({
-            onFileNameChange,
+            checkFileNameForErrors,
         });
+
+        expect(getByTestId(editId)).toBeInTheDocument();
+
+        act(() => {
+            fireEvent.click(getByTestId(editId));
+        });
+
+        expect(queryByTestId(editId)).not.toBeInTheDocument();
+
+        expect(getByTestId(editingId)).toBeInTheDocument();
+
+        fireEvent.change(getByTestId(editingId), { target: { value: 'invalid.jpg' } });
+
+        act(() => {
+            fireEvent.click(getByTestId(saveId));
+        });
+
+        expect(checkFileNameForErrors).toHaveBeenCalledWith('invalid.jpg.jpg');
+
+        // state of buttons doesnt change
+        expect(getByTestId(editingId)).toBeInTheDocument();
+        expect(queryByTestId(editId)).not.toBeInTheDocument();
+    });
+
+    it('should handle cancel editing a filename before prior rename', () => {
+        const { getByTestId, queryByTestId, getByText } = setup();
 
         expect(getByTestId(editId)).toBeInTheDocument();
 
@@ -169,24 +177,70 @@ describe('Editable File Name Component ', () => {
 
         fireEvent.change(getByTestId(editingId), { target: { value: 'renamed' } });
 
-        expect(onFileNameChange).toHaveBeenCalledWith('renamed');
+        act(() => {
+            fireEvent.click(getByTestId(cancelId));
+        });
+
+        expect(getByText('test.jpg')).toBeInTheDocument();
+
+        expect(queryByTestId(editingId)).not.toBeInTheDocument();
+        expect(getByTestId(editId)).toBeInTheDocument();
+    });
+
+    it('should handle cancel editing a filename after already renamed', () => {
+        const onFileSaveFilename = jest.fn();
+        const { rerender, getByTestId, queryByTestId, getByText } = setup({ onFileSaveFilename });
+
+        expect(getByTestId(editId)).toBeInTheDocument();
+
+        act(() => {
+            fireEvent.click(getByTestId(editId));
+        });
+        expect(queryByTestId(editId)).not.toBeInTheDocument();
+
+        expect(getByTestId(editingId)).toBeInTheDocument();
+
+        // do the initial rename and save
+        fireEvent.change(getByTestId(editingId), { target: { value: 'renamed' } });
+
+        act(() => {
+            fireEvent.click(getByTestId(saveId));
+        });
+
+        // force rerender
+        setup(
+            {
+                onFileSaveFilename,
+                fileName: 'renamed.jpg',
+            },
+            rerender,
+        );
+
+        expect(getByText('renamed.jpg')).toBeInTheDocument();
+
+        act(() => {
+            fireEvent.click(getByTestId(editId));
+        });
+
+        // now edit and start to rename but do not click save, instead click cancel
+        fireEvent.change(getByTestId(editingId), { target: { value: 'a-new-filename' } });
 
         act(() => {
             fireEvent.click(getByTestId(cancelId));
         });
 
-        expect(onFileNameChange).toHaveBeenNthCalledWith(2, 'test.jpg', true);
+        // should return page state to the previous edited filename
+        expect(getByText('renamed.jpg')).toBeInTheDocument();
 
         expect(queryByTestId(editingId)).not.toBeInTheDocument();
         expect(getByTestId(editId)).toBeInTheDocument();
-        expect(queryByTestId(resetId)).not.toBeInTheDocument();
     });
 
     it('should handle resetting a renamed filename', () => {
         const onFileNameChange = jest.fn();
         const onFileSaveFilename = jest.fn();
 
-        const { getByTestId, queryByTestId } = setup({
+        const { rerender, getByTestId, queryByTestId } = setup({
             onFileNameChange,
             onFileSaveFilename,
         });
@@ -202,23 +256,28 @@ describe('Editable File Name Component ', () => {
 
         fireEvent.change(getByTestId(editingId), { target: { value: 'renamed' } });
 
-        expect(onFileNameChange).toHaveBeenCalledWith('renamed');
-
         act(() => {
             fireEvent.click(getByTestId(saveId));
         });
 
-        expect(onFileSaveFilename).toHaveBeenCalled();
+        expect(onFileSaveFilename).toHaveBeenCalledWith('test.jpg', 'renamed.jpg');
 
         expect(queryByTestId(editingId)).not.toBeInTheDocument();
         expect(getByTestId(editId)).toBeInTheDocument();
+
+        setup(
+            {
+                onFileNameChange,
+                fileName: 'renamed.jpg',
+            },
+            rerender,
+        );
 
         expect(getByTestId(resetId)).toBeInTheDocument();
         act(() => {
             fireEvent.click(getByTestId(resetId));
         });
 
-        expect(onFileSaveFilename).toHaveBeenCalled();
         expect(onFileNameChange).toHaveBeenCalledWith('test.jpg');
     });
 
@@ -226,8 +285,7 @@ describe('Editable File Name Component ', () => {
         const onFileNameChange = jest.fn();
         const onFileSaveFilename = jest.fn();
 
-        const { getByTestId, queryByTestId } = setup({
-            onFileNameChange,
+        const { rerender, getByTestId, queryByTestId } = setup({
             onFileSaveFilename,
         });
 
@@ -241,11 +299,19 @@ describe('Editable File Name Component ', () => {
         // rename 1
         expect(getByTestId(editingId)).toBeInTheDocument();
         fireEvent.change(getByTestId(editingId), { target: { value: 'renamed' } });
-        expect(onFileNameChange).toHaveBeenCalledWith('renamed');
+        // expect(onFileNameChange).toHaveBeenCalledWith('renamed.jpg');
         act(() => {
             fireEvent.click(getByTestId(saveId));
         });
-        expect(onFileSaveFilename).toHaveBeenCalled();
+        expect(onFileSaveFilename).toHaveBeenCalledWith('test.jpg', 'renamed.jpg');
+
+        setup(
+            {
+                onFileSaveFilename,
+                fileName: 'renamed.jpg',
+            },
+            rerender,
+        );
 
         // rename 2
         expect(getByTestId(editId)).toBeInTheDocument();
@@ -253,20 +319,28 @@ describe('Editable File Name Component ', () => {
             fireEvent.click(getByTestId(editId));
         });
         expect(getByTestId(editingId)).toBeInTheDocument();
-        fireEvent.change(getByTestId(editingId), { target: { value: 'renamed-again.jpg' } });
-        expect(onFileNameChange).toHaveBeenCalledWith('renamed-again.jpg');
+        fireEvent.change(getByTestId(editingId), { target: { value: 'renamed-again' } });
+        // expect(onFileNameChange).toHaveBeenCalledWith('renamed-again');
         act(() => {
             fireEvent.click(getByTestId(saveId));
         });
-        expect(onFileSaveFilename).toHaveBeenCalled();
+        expect(onFileSaveFilename).toHaveBeenLastCalledWith('test.jpg', 'renamed-again.jpg');
+
+        setup(
+            {
+                onFileNameChange,
+                onFileSaveFilename,
+                fileName: 'renamed-again.jpg',
+            },
+            rerender,
+        );
 
         // reset to original
         expect(getByTestId(resetId)).toBeInTheDocument();
         act(() => {
             fireEvent.click(getByTestId(resetId));
         });
-        expect(onFileSaveFilename).toHaveBeenCalled();
+
         expect(onFileNameChange).toHaveBeenCalledWith('test.jpg');
     });
-    */
 });
