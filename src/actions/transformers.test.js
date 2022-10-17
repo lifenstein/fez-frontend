@@ -5483,26 +5483,26 @@ describe('transformers', () => {
             expect(transformers.getExternalLabelSearchKey()).toEqual(expected);
         });
 
-        describe('cleanDatastreamsObject', () => {
-            it('should return nothing if no data provided', () => {
-                expect(transformers.cleanDatastreamsObject()).toEqual({});
-            });
+    describe('cleanDatastreamsObject', () => {
+        it('should return nothing if no data provided', () => {
+            expect(transformers.cleanDatastreamsObject()).toEqual({});
+        });
 
-            it('should return the same data object if dsi_dsid_new prop is not present', () => {
-                expect(transformers.cleanDatastreamsObject([{ test: 'ok' }])).toEqual([{ test: 'ok' }]);
-            });
+        it('should return the same data object if dsi_dsid_new prop is not present', () => {
+            expect(transformers.cleanDatastreamsObject([{ test: 'ok' }])).toEqual([{ test: 'ok' }]);
+        });
 
-            it('should return an object with swapped dsi_dsid and dsi_dsid_new props', () => {
-                expect(
-                    transformers.cleanDatastreamsObject([{ dsi_dsid: 'renamed.jpg', dsi_dsid_new: 'original.jpg' }]),
-                ).toEqual([{ dsi_dsid: 'original.jpg', dsi_dsid_new: 'renamed.jpg' }]);
-            });
+        it('should return an object with swapped dsi_dsid and dsi_dsid_new props', () => {
+            expect(
+                transformers.cleanDatastreamsObject([{ dsi_dsid: 'renamed.jpg', dsi_dsid_new: 'original.jpg' }]),
+            ).toEqual([{ dsi_dsid: 'original.jpg', dsi_dsid_new: 'renamed.jpg' }]);
+        });
 
-            it('should return an object with deleted dsi_dsid_new if it matches value of dsi_dsid', () => {
-                expect(
-                    transformers.cleanDatastreamsObject([{ dsi_dsid: 'original.jpg', dsi_dsid_new: 'original.jpg' }]),
-                ).toEqual([{ dsi_dsid: 'original.jpg' }]);
-            });
+        it('should return an object with deleted dsi_dsid_new if it matches value of dsi_dsid', () => {
+            expect(
+                transformers.cleanDatastreamsObject([{ dsi_dsid: 'original.jpg', dsi_dsid_new: 'original.jpg' }]),
+            ).toEqual([{ dsi_dsid: 'original.jpg' }]);
         });
     });
+});
 });
