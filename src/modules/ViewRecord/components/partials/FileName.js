@@ -14,6 +14,7 @@ import { ConfirmationBox } from 'modules/SharedComponents/Toolbox/ConfirmDialogB
 
 import { pathConfig } from 'config/pathConfig';
 import componentsLocale from 'locale/components';
+// import { useConfirmationState } from 'hooks';
 
 export const useStyles = makeStyles(
     theme => ({
@@ -33,9 +34,6 @@ export const useStyles = makeStyles(
     }),
     { withTheme: true },
 );
-
-export const getDownloadLinkTestId = id => `${id}-download`;
-export const getPreviewLinkTestId = id => `${id}-preview`;
 
 const FileName = ({
     downloadLicence,
@@ -110,8 +108,7 @@ const FileName = ({
                         title={fileName}
                         className={`${classes.filename} ${classes.filenameParent}`}
                         openInNewIcon
-                        data-testid={getDownloadLinkTestId(id)}
-                        id={getDownloadLinkTestId(id)}
+                        id={`${id}-download`}
                     >
                         {fileName}
                     </ExternalLink>
@@ -122,8 +119,7 @@ const FileName = ({
                             onClick={showPreview}
                             onKeyPress={showPreview}
                             className={classes.filename}
-                            data-testid={getPreviewLinkTestId(id)}
-                            id={getPreviewLinkTestId(id)}
+                            id={`${id}-preview`}
                         >
                             {fileName}
                         </a>
