@@ -1,6 +1,8 @@
 import ReactHtmlParser from 'react-html-parser';
 
-global.dd = console.log;
+// note: dd usage by WebpackStrip for dist builds
+/* istanbul ignore next */
+global.dd = (...args) => console.dir(args, { depth: null });
 
 export const leftJoin = (objArr1, objArr2, key1, key2) => {
     if (!objArr2) {
@@ -329,12 +331,19 @@ export function hydrateMockSearchList(truncatedSearchlist) {
  * @param id
  * @returns string
  */
-export const sanitiseId = id =>
-    id
-        .trim()
-        .replace(/[^0-9a-z\s-_]+/gi, '')
-        .replace(/[-_\s]+/g, '-')
-        .toLowerCase();
+export const sanitiseId = (...tokens) =>
+    tokens
+        .filter(token => !!token)
+        .map(token =>
+            !token.trim
+                ? token
+                : token
+                      ?.trim()
+                      ?.replace(/[^0-9a-z\s-_]+/gi, '')
+                      ?.replace(/[-_\s]+/g, '-')
+                      ?.toLowerCase(),
+        )
+        .join('-');
 
 /**
  * Insert line break opportunities into a URL
