@@ -4,7 +4,9 @@ import { locale } from 'locale';
 import { openAccessConfig } from 'config';
 import Tooltip from '@material-ui/core/Tooltip';
 import Fade from '@material-ui/core/Fade';
-import { LockOpen, Lock, LockClockOutlined } from '@mui/icons-material';
+import Lock from '../Icons/MUI/Lock';
+import LockOpen from '../Icons/MUI/LockOpen';
+import LockClockOutlined from '../Icons/MUI/LockClock';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
