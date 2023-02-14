@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import Typography from '@material-ui/core/Typography';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import { makeStyles } from '@material-ui/styles';
+import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import { makeStyles } from '@mui/styles';
 
 import AudioPlayer from './AudioPlayer';
 import ExternalLink from 'modules/SharedComponents/ExternalLink/components/ExternalLink';
@@ -14,7 +13,7 @@ import { ConfirmationBox } from 'modules/SharedComponents/Toolbox/ConfirmDialogB
 
 import { pathConfig } from 'config/pathConfig';
 import componentsLocale from 'locale/components';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 
 export const useStyles = makeStyles(
     theme => ({
@@ -149,8 +148,8 @@ const FileName = ({
                                         classes.filenameParent
                                     }`}
                                 >
-                                    {fileName}
-                                </Typography>
+                                {fileName}
+                            </Typography>
                             </Tooltip>
                         </Grid>
                         {!disabled && !!downloadLicence && (
@@ -168,19 +167,15 @@ const FileName = ({
                     </Grid>
                 )}
             </Grid>
-            <Hidden xsDown>
-                {allowDownload && !downloadLicence && isAudio(mimeType) && (
-                    <Grid item sm={4}>
-                        <AudioPlayer
-                            pid={pid}
-                            fileName={
-                                previewMediaUrl || pathConfig.file.url(pid, fileName, checksums && checksums.preview)
-                            }
-                            mimeType={mimeType}
-                        />
-                    </Grid>
-                )}
-            </Hidden>
+            {allowDownload && !downloadLicence && isAudio(mimeType) && (
+                <Grid item sm={4} sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    <AudioPlayer
+                        pid={pid}
+                        fileName={previewMediaUrl || pathConfig.file.url(pid, fileName, checksums && checksums.preview)}
+                        mimeType={mimeType}
+                    />
+                </Grid>
+            )}
         </Grid>
     );
 };

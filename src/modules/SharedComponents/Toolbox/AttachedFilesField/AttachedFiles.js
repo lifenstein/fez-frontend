@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { makeStyles } from '@material-ui/styles';
-import Delete from '@material-ui/icons/Delete';
-import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import WarningIcon from '@material-ui/icons/Warning';
+import { makeStyles } from '@mui/styles';
+import Delete from '@mui/icons-material/Delete';
+import Grid from '@mui/material/Unstable_Grid2';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import WarningIcon from '@mui/icons-material/Warning';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import globalLocale from 'locale/global';
 import viewRecordLocale from 'locale/viewRecord';
 
@@ -34,7 +36,6 @@ import { checkForThumbnail, checkForPreview, checkForWeb, formatBytes } from 'mo
 
 import { FileIcon } from './FileIcon';
 import { getAdvisoryStatement, getSensitiveHandlingNote } from '../../../../helpers/datastreams';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import * as fileUploadLocale from '../FileUploader/locale';
 import Box from '@material-ui/core/Box';
 import { FileAvStateIcon } from '../FileAvStateIcon';
@@ -380,26 +381,22 @@ export const AttachedFiles = ({
                                 {locale.fileName}
                             </Typography>
                         </Grid>
-                        <Hidden xsDown>
-                            <Grid item md={isAdminEditing ? 3 : 5} sm={isAdminEditing ? 3 : 7}>
-                                <Typography variant="caption" gutterBottom>
-                                    {locale.description}
-                                </Typography>
-                            </Grid>
-                        </Hidden>
-                        <Hidden smDown>
-                            <Grid item md={2}>
-                                <Typography variant="caption" gutterBottom>
-                                    {locale.size}
-                                </Typography>
-                            </Grid>
-                        </Hidden>
+                        <Grid item md={isAdminEditing ? 3 : 5} sm={isAdminEditing ? 3 : 7} sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            <Typography variant="caption" gutterBottom>
+                                {locale.description}
+                            </Typography>
+                        </Grid>
+                        <Grid item md={2} sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <Typography variant="caption" gutterBottom>
+                                {locale.size}
+                            </Typography>
+                        </Grid>
                         {isAdminEditing && (
-                            <Grid item md={3} sm={4} style={{ textAlign: 'center' }}>
-                                <Typography variant="caption" gutterBottom>
-                                    {locale.embargoDateLabel || 'Embargo date'}
-                                </Typography>
-                            </Grid>
+                            <Grid item md={3} sm={4} sx={{ textAlign: 'center' }}>
+                                    <Typography variant="caption" gutterBottom>
+                                        {locale.embargoDateLabel || 'Embargo date'}
+                                    </Typography>
+                                </Grid>
                         )}
                     </Grid>
                 </div>
@@ -422,7 +419,7 @@ export const AttachedFiles = ({
                                                     data-testid={`order-up-file-${index}`}
                                                     onClick={() => onFileOrderChangeUp(item.id, index + 1)}
                                                 >
-                                                    <ExpandLess />
+                                                    <ExpandLessIcon />
                                                 </IconButton>
                                             </Grid>
                                         </Grid>
@@ -461,39 +458,41 @@ export const AttachedFiles = ({
                                                     />
                                                 )}
                                             </Grid>
-                                            <Hidden xsDown>
                                                 <Grid
                                                     item
                                                     md={isAdminEditing ? 3 : 5}
                                                     sm={isAdminEditing ? 3 : 7}
                                                     className={classes.dataWrapper}
+                                                    sx={{ display: { xs: 'none', sm: 'block' } }}
                                                 >
                                                     {isAdminEditing ? (
-                                                        <TextField
-                                                            fullWidth
-                                                            onChange={onFileDescriptionChange(item.id)}
-                                                            name="fileDescription"
-                                                            defaultValue={item.description}
-                                                            id={`file-description-input-${index}`}
-                                                            textFieldId={`dsi-label-${index}`}
-                                                            inputProps={{
-                                                                maxLength: 255,
-                                                            }}
-                                                        />
-                                                    ) : (
-                                                        <Typography variant="body2" noWrap>
-                                                            {item.description}
-                                                        </Typography>
-                                                    )}
-                                                </Grid>
-                                            </Hidden>
-                                            <Hidden smDown>
-                                                <Grid item sm={2} className={classes.dataWrapper}>
+                                                    <TextField
+                                                        fullWidth
+                                                        onChange={onFileDescriptionChange(item.id)}
+                                                        name="fileDescription"
+                                                        defaultValue={item.description}
+                                                        id={`file-description-input-${index}`}
+                                                        textFieldId={`dsi-label-${index}`}
+                                                        inputProps={{
+                                                            maxLength: 255,
+                                                        }}
+                                                    />
+                                                ) : (
                                                     <Typography variant="body2" noWrap>
-                                                        {item.calculatedSize}
+                                                        {item.description}
                                                     </Typography>
-                                                </Grid>
-                                            </Hidden>
+                                                )}
+                                            </Grid>
+                                            <Grid
+                                                item
+                                                sm={2}
+                                                className={classes.dataWrapper}
+                                                sx={{ display: { xs: 'none', md: 'block' } }}
+                                            >
+                                                <Typography variant="body2" noWrap>
+                                                    {item.calculatedSize}
+                                                </Typography>
+                                            </Grid>
                                             {!isAdminEditing && (
                                                 <Grid item xs style={{ textAlign: 'right' }}>
                                                     <Box style={{ whiteSpace: 'nowrap' }}>
@@ -505,13 +504,13 @@ export const AttachedFiles = ({
                                                             />
                                                         </Box>
                                                         <Box component={'span'} paddingRight={1}>
-                                                            <OpenAccessIcon
-                                                                {...item.openAccessStatus}
-                                                                securityStatus={item.securityStatus}
-                                                            />
+                                                <OpenAccessIcon
+                                                    {...item.openAccessStatus}
+                                                    securityStatus={item.securityStatus}
+                                                />
                                                         </Box>
                                                     </Box>
-                                                </Grid>
+                                            </Grid>
                                             )}
                                             {isAdminEditing && (
                                                 <Grid item md={3} sm={4}>
@@ -535,49 +534,49 @@ export const AttachedFiles = ({
                                                                 </Box>
                                                             </Box>
                                                         </Grid>
-                                                        {/* cypress test does not like full stop in the id */}
-                                                        <Grid
-                                                            item
+                                                    {/* cypress test does not like full stop in the id */}
+                                                    <Grid
+                                                        item
                                                             xs={7}
                                                             id={`embargoDateButton-${item.fileName.replace(
                                                                 /\./g,
                                                                 '-',
                                                             )}`}
                                                             style={{ marginLeft: 8 }}
-                                                        >
-                                                            {(openAccessConfig.openAccessFiles.includes(
-                                                                openAccessStatusId,
-                                                            ) ||
-                                                                !!item.securityPolicyStatus.isEmbargoed) && (
-                                                                <FileUploadEmbargoDate
-                                                                    value={
-                                                                        item.openAccessStatus.embargoDate ??
-                                                                        item.securityPolicyStatus.embargoDate
-                                                                    }
-                                                                    onChange={onEmbargoDateChange(item.id)}
-                                                                    disabled={disabled}
-                                                                    fileUploadEmbargoDateId={`dsi-embargo-date-${index}`}
-                                                                />
-                                                            )}
-                                                        </Grid>
+                                                    >
+                                                        {(openAccessConfig.openAccessFiles.includes(
+                                                            openAccessStatusId,
+                                                        ) ||
+                                                            !!item.securityPolicyStatus.isEmbargoed) && (
+                                                            <FileUploadEmbargoDate
+                                                                value={
+                                                                    item.openAccessStatus.embargoDate ??
+                                                                    item.securityPolicyStatus.embargoDate
+                                                                }
+                                                                onChange={onEmbargoDateChange(item.id)}
+                                                                disabled={disabled}
+                                                                fileUploadEmbargoDateId={`dsi-embargo-date-${index}`}
+                                                            />
+                                                        )}
+                                                    </Grid>
                                                         <Grid
                                                             item
                                                             xs={2}
                                                             style={{ marginTop: -10, textAlign: 'right' }}
                                                         >
-                                                            <Tooltip title={deleteHint}>
-                                                                <span>
-                                                                    <IconButton
-                                                                        id={`delete-file-${index}`}
-                                                                        data-testid={`delete-file-${index}`}
-                                                                        onClick={onFileDelete(item.fileName)}
-                                                                        disabled={disabled}
-                                                                    >
-                                                                        <Delete />
-                                                                    </IconButton>
-                                                                </span>
-                                                            </Tooltip>
-                                                        </Grid>
+                                                        <Tooltip title={deleteHint}>
+                                                            <span>
+                                                                <IconButton
+                                                                    id={`delete-file-${index}`}
+                                                                    data-testid={`delete-file-${index}`}
+                                                                    onClick={onFileDelete(item.fileName)}
+                                                                    disabled={disabled}
+                                                                >
+                                                                    <Delete />
+                                                                </IconButton>
+                                                            </span>
+                                                        </Tooltip>
+                                                    </Grid>
                                                     </Grid>
                                                 </Grid>
                                             )}
@@ -621,7 +620,7 @@ export const AttachedFiles = ({
                                                     data-testid={`order-down-file-${index}`}
                                                     onClick={() => onFileOrderChangeDown(item.id, index + 1)}
                                                 >
-                                                    <ExpandMore />
+                                                    <ExpandMoreIcon />
                                                 </IconButton>
                                             </Grid>
                                         </Grid>
