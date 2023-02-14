@@ -31,7 +31,7 @@ import {
     isDerivative,
 } from 'helpers/datastreams';
 import { redirectUserToLogin } from 'helpers/redirectUserToLogin';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import { FileAvStateIcon } from '../../SharedComponents/Toolbox/FileAvStateIcon';
 
 export const styles = theme => ({

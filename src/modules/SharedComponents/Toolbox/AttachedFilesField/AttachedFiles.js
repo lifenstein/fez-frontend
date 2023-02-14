@@ -37,7 +37,7 @@ import { checkForThumbnail, checkForPreview, checkForWeb, formatBytes } from 'mo
 import { FileIcon } from './FileIcon';
 import { getAdvisoryStatement, getSensitiveHandlingNote } from '../../../../helpers/datastreams';
 import * as fileUploadLocale from '../FileUploader/locale';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import { FileAvStateIcon } from '../FileAvStateIcon';
 import { AV_CHECK_STATE_INFECTED } from '../../../../config/general';
 

@@ -22,29 +22,35 @@ describe('FileAvStateIcon component', () => {
     });
 
     it('default', () => {
-        const { getByTitle, getByTestId } = setup();
-        expect(getByTitle(txt.description.map.default())).toBeInTheDocument();
+        const { getByTestId } = setup();
         expect(getByTestId(getTestId(undefined, id))).toBeInTheDocument();
+        expect(getByTestId(getTestId(undefined, id))).toHaveAttribute('aria-label', txt.description.map.default());
     });
 
     it('clean', () => {
         const state = AV_CHECK_STATE_CLEAN;
-        const { getByTitle, getByTestId } = setup({ state, checkedAt });
-        expect(getByTitle(txt.description.map[state](localTzDateFormatted))).toBeInTheDocument();
+        const { getByTestId } = setup({ state, checkedAt });
         expect(getByTestId(getTestId(state, id))).toBeInTheDocument();
+        expect(getByTestId(getTestId(state, id))).toHaveAttribute(
+            'aria-label',
+            txt.description.map[state](localTzDateFormatted),
+        );
     });
 
     it('infected', () => {
         const state = AV_CHECK_STATE_INFECTED;
-        const { getByTitle, getByTestId } = setup({ state, checkedAt });
-        expect(getByTitle(txt.description.map[state](localTzDateFormatted))).toBeInTheDocument();
+        const { getByTestId } = setup({ state, checkedAt });
         expect(getByTestId(getTestId(state, id))).toBeInTheDocument();
+        expect(getByTestId(getTestId(state, id))).toHaveAttribute(
+            'aria-label',
+            txt.description.map[state](localTzDateFormatted),
+        );
     });
 
     it('unscannable', () => {
         const state = AV_CHECK_STATE_UNSCANNABLE;
-        const { getByTitle, getByTestId } = setup({ state, checkedAt });
-        expect(getByTitle(txt.description.map[state]())).toBeInTheDocument();
+        const { getByTestId } = setup({ state, checkedAt });
         expect(getByTestId(getTestId(state, id))).toBeInTheDocument();
+        expect(getByTestId(getTestId(state, id))).toHaveAttribute('aria-label', txt.description.map[state]());
     });
 });

@@ -1,6 +1,5 @@
 import React from 'react';
 import { rtlRender, fireEvent, act } from 'test-utils';
-
 import FileName from './FileName';
 
 import { journalArticle } from 'mock/data/testing/records';
@@ -48,7 +47,7 @@ describe('File Name Component ', () => {
         expect(getByText('UQ676287_OA.pdf')).toBeInTheDocument();
 
         const tooltip = container.querySelector('p[data-testid="test-file-name-tooltip"]');
-        expect(tooltip).toHaveProperty('title', '');
+        expect(tooltip).toHaveAttribute('aria-label', '');
         expect(container.querySelector('p[class*="disabled"]')).not.toBeInTheDocument();
     });
 
@@ -59,7 +58,8 @@ describe('File Name Component ', () => {
         expect(queryByTestId('test-file-name')).toBeInTheDocument();
         expect(getByText('UQ676287_OA.pdf')).toBeInTheDocument();
         const wrapper = container.querySelector('p[data-testid="test-file-name-tooltip"]');
-        expect(wrapper).toHaveProperty('title', tooltipText);
+
+        expect(wrapper).toHaveAttribute('aria-label', tooltipText);
     });
 
     test('should render component and display file name only when disabled', async () => {
