@@ -22,42 +22,42 @@ export const OpenAccessIcon = ({
     securityStatus,
 }) => {
     const classes = useStyles({ style });
-        const txt = locale.viewRecord.sections.links;
+    const txt = locale.viewRecord.sections.links;
 
     if (!securityStatus) {
-            return (
-                    <Tooltip title={txt.securityLocked} placement="left" TransitionComponent={Fade}>
+        return (
+            <Tooltip title={txt.securityLocked} placement="left" TransitionComponent={Fade}>
                 <Lock className={classes.svg} />
-                    </Tooltip>
-            );
+            </Tooltip>
+        );
     } else if (isOpenAccess && !embargoDate) {
-            const openAccessTitle =
+        const openAccessTitle =
             openAccessStatusId !== openAccessConfig.OPEN_ACCESS_ID_LINK_NO_DOI
                 ? txt.openAccessLabel.replace('[oa_status]', openAccessConfig.labels[openAccessStatusId])
-                    : txt.labelOpenAccessNoStatus;
+                : txt.labelOpenAccessNoStatus;
 
-            return (
-                    <Tooltip title={openAccessTitle} placement="left" TransitionComponent={Fade}>
+        return (
+            <Tooltip title={openAccessTitle} placement="left" TransitionComponent={Fade}>
                 <LockOpen className={classes.svg} />
-                    </Tooltip>
-            );
+            </Tooltip>
+        );
     } else if (!isOpenAccess && !!embargoDate) {
-            const openAccessTitle = txt.openAccessEmbargoedLabel
+        const openAccessTitle = txt.openAccessEmbargoedLabel
             .replace('[embargo_date]', embargoDate)
             .replace('[oa_status]', openAccessConfig.labels[openAccessStatusId]);
-            return (
-                <Fragment>
+        return (
+            <Fragment>
                 {showEmbargoText && (
-                        <span className="is-hidden-mobile is-hidden-tablet-only">
+                    <span className="is-hidden-mobile is-hidden-tablet-only">
                         {txt.embargoedUntil.replace('[embargo_date]', embargoDate)}
-                        </span>
-                    )}
-                        <Tooltip title={openAccessTitle} placement="left" TransitionComponent={Fade}>
+                    </span>
+                )}
+                <Tooltip title={openAccessTitle} placement="left" TransitionComponent={Fade}>
                     <LockClockOutlined className={classes.svg} />
-                        </Tooltip>
-                </Fragment>
-            );
-}
+                </Tooltip>
+            </Fragment>
+        );
+    }
     return <span className="noOaIcon" />;
 };
 

@@ -15,7 +15,12 @@ import ReactHtmlParser from 'react-html-parser';
 import PublicationMap from './PublicationMap';
 import JournalName from './partials/JournalName';
 import { Link } from 'react-router-dom';
-import { CURRENT_LICENCES, NTRO_SUBTYPE_CW_TEXTUAL_WORK, PLACEHOLDER_ISO8601_ZULU_DATE, getExternalLabelImageUrl } from 'config/general';
+import {
+    CURRENT_LICENCES,
+    NTRO_SUBTYPE_CW_TEXTUAL_WORK,
+    PLACEHOLDER_ISO8601_ZULU_DATE,
+    getExternalLabelImageUrl,
+} from 'config/general';
 import withStyles from '@mui/styles/withStyles';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';

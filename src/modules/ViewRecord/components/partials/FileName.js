@@ -148,8 +148,8 @@ const FileName = ({
                                         classes.filenameParent
                                     }`}
                                 >
-                                {fileName}
-                            </Typography>
+                                    {fileName}
+                                </Typography>
                             </Tooltip>
                         </Grid>
                         {!disabled && !!downloadLicence && (
