@@ -15,6 +15,8 @@ import { getStore } from '../src/config/store';
 import Immutable from 'immutable';
 import { createMemoryHistory } from 'history';
 
+import mediaQuery from 'css-mediaquery';
+
 const domTestingLib = require('@testing-library/dom');
 const reactTestingLib = require('@testing-library/react');
 const mime = require('mime-types');
@@ -169,6 +171,16 @@ export const withDatastreams = (sources, datastreams, callback) =>
 export const getDatastreamByFilename = (filename, datastreams) =>
     datastreams.find(datastream => datastream.dsi_dsid === filename);
 
+export const createMatchMedia = width => {
+    return query => ({
+        matches: mediaQuery.match(query, { width }),
+        /* istanbul ignore next */
+        addListener: () => {},
+        /* istanbul ignore next */
+        removeListener: () => {},
+    });
+};
+
 module.exports = {
     ...domTestingLib,
     ...reactTestingLib,
@@ -183,4 +195,5 @@ module.exports = {
     createFezDatastreamInfoArray,
     getDatastreamByFilename,
     withDatastreams,
+    createMatchMedia,
 };
