@@ -253,6 +253,7 @@ exports[`Add new record should render the confirm dialog with an alert for faile
               "__emotion_base": Object {
                 "$$typeof": Symbol(react.forward_ref),
                 "propTypes": Object {
+                  "TransitionComponent": [Function],
                   "children": [Function],
                   "className": [Function],
                   "classes": [Function],
@@ -2250,6 +2251,7 @@ exports[`Add new record should render the confirm dialog with an alert for faile
                 "__emotion_base": Object {
                   "$$typeof": Symbol(react.forward_ref),
                   "propTypes": Object {
+                    "TransitionComponent": [Function],
                     "children": [Function],
                     "className": [Function],
                     "classes": [Function],
@@ -2328,6 +2330,7 @@ exports[`Add new record should render the confirm dialog with an alert for faile
                   "__emotion_base": Object {
                     "$$typeof": Symbol(react.forward_ref),
                     "propTypes": Object {
+                      "TransitionComponent": [Function],
                       "children": [Function],
                       "className": [Function],
                       "classes": [Function],
