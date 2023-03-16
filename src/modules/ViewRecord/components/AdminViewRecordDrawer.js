@@ -201,7 +201,7 @@ AdminViewRecordDrawer.propTypes = {
                 PropTypes.arrayOf(
                     PropTypes.shape({
                         type: PropTypes.string.isRequired,
-                        value: PropTypes.isRequired,
+                        value: PropTypes.any.isRequired,
                         scrollable: PropTypes.bool,
                         key: PropTypes.string,
                         clipboard: PropTypes.bool,

@@ -35,6 +35,7 @@ import { notFound } from '../../../config/routes';
 import clsx from 'clsx';
 import Badge from '@mui/material/Badge';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import makeStyles from '@mui/styles/makeStyles';
 import AdminViewRecordDrawer from './AdminViewRecordDrawer';
 import Button from '@mui/material/Button';
@@ -43,6 +44,9 @@ import { createDefaultDrawerDescriptorObject } from 'helpers/adminViewRecordObje
 import { doesListContainItem } from 'helpers/general';
 
 import { PUBLICATION_EXCLUDE_CITATION_TEXT_LIST } from '../../../config/general';
+
+import { useHistory } from 'react-router';
+import { composeAuthorAffiliationProblems } from 'helpers/authorAffiliations';
 
 export function redirectUserToLogin() {
     window.location.assign(`${AUTH_URL_LOGIN}?url=${window.btoa(window.location.href)}`);
@@ -91,6 +95,7 @@ export const NewViewRecord = ({
     recordToViewError,
     recordToView,
 }) => {
+    const history = useHistory();
     const txt = locale.pages.viewRecord;
     const dispatch = useDispatch();
     const { pid, version } = useParams();
@@ -107,6 +112,10 @@ export const NewViewRecord = ({
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [open, setOpen] = React.useState(false);
 
+    // const [AAError, setAAError] = React.useState([]);
+    // const [AAOrphan, setAAOrphan] = React.useState([]);
+    // const [AAProblems, setAAProblems] = React.useState([]);
+
     const handleMobileDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -121,8 +130,89 @@ export const NewViewRecord = ({
         }
     };
 
+    // const findAAOrphanedErrors = record => {
+    //     const orphaned = [];
+    //     if (
+    //         record &&
+    //         record.fez_author_affiliation &&
+    //         record.fez_author_affiliation.length > 0 &&
+    //         record.fez_record_search_key_author_id &&
+    //         record.fez_record_search_key_author_id.length > 0
+    //     ) {
+    //         record.fez_author_affiliation.map(affil => {
+    //             const matched = record.fez_record_search_key_author_id.some(
+    //                 author => author && author.rek_author_id && author.rek_author_id === affil.af_author_id,
+    //             );
+    //             if (!matched) {
+    //                 orphaned.push(affil);
+    //             }
+    //         });
+    //         setAAOrphan(orphaned);
+    //     }
+    // };
+
+    // const findAATotalErrors = record => {
+    //     const Error = [];
+    //     if (record && record.fez_author_affiliation && record.fez_author_affiliation.length > 0) {
+    //         const Unique = [];
+    //         record.fez_author_affiliation.map(item => {
+    //             !Unique.some(e => e.author_id === item.af_author_id) &&
+    //                 Unique.push({
+    //                     author_id: item.af_author_id,
+    //                     author_name: item.fez_author?.aut_display_name || 'NA',
+    //                 });
+    //         });
+
+    //         Unique.forEach(author => {
+    //             let total = 0;
+    //             const tmp = record.fez_author_affiliation.filter(rec => rec.af_author_id === author.author_id);
+
+    //             tmp.forEach(tmp => {
+    //                 total += tmp.af_percent_affiliation;
+    //             });
+
+    //             if (total !== 100000) {
+    //                 Error.push({ total: total, author_id: author.author_id, author_name: author.author_name });
+    //             }
+    //             setAAError([...Error]);
+    //         });
+    //     }
+    // };
+
+    React.useEffect(() => {
+        // findAATotalErrors(recordToView);
+        // findAAOrphanedErrors(recordToView);
+        // recordToView && setAAProblems(composeAuthorAffiliationProblems(recordToView));
+    }, [recordToView]);
+
     const getAdminRecordButtonIcon = () => {
-        return recordToView?.fez_internal_notes?.ain_detail ? (
+        let Component = null;
+        const Problems = composeAuthorAffiliationProblems(recordToView);
+        if (recordToView?.fez_internal_notes?.ain_detail) {
+            Component =
+                Problems.length > 0 ? (
+                    <ErrorOutlineOutlinedIcon
+                        data-testid="error-affiliation-toggle-icon"
+                        style={{ color: '#d32f2f' }}
+                        fontSize="inherit"
+                    />
+                ) : (
+                    <DescriptionOutlinedIcon fontSize="inherit" />
+                );
+        } else {
+            Component =
+                Problems.length > 0 ? (
+                    <ErrorOutlineOutlinedIcon
+                        style={{ color: '#d32f2f' }}
+                        data-testid="error-affiliation-toggle-icon"
+                        fontSize="inherit"
+                        onClick={handleDrawerToggle}
+                    />
+                ) : (
+                    <DescriptionOutlinedIcon fontSize="inherit" onClick={handleDrawerToggle} />
+                );
+        }
+        return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <Badge
                 color="error"
@@ -133,11 +223,10 @@ export const NewViewRecord = ({
                     vertical: 'top',
                     horizontal: 'right',
                 }}
+                invisible
             >
-                <DescriptionOutlinedIcon fontSize="inherit" />
+                {Component}
             </Badge>
-        ) : (
-            <DescriptionOutlinedIcon fontSize="inherit" onClick={handleDrawerToggle} />
         );
     };
 
@@ -157,6 +246,9 @@ export const NewViewRecord = ({
                 txt.adminRecordData.drawer.sectionTitles,
                 recordToView,
                 fields.viewRecord.adminViewRecordDrawerFields,
+                history,
+                pid,
+                composeAuthorAffiliationProblems(recordToView),
             ),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [JSON.stringify(recordToView)],
@@ -193,7 +285,6 @@ export const NewViewRecord = ({
     } else if (!isNotFoundRoute && (!recordToView || !recordToView.rek_pid)) {
         return <div className="empty" />;
     }
-
     return (
         <div
             className={clsx(classes.content, {
@@ -233,7 +324,7 @@ export const NewViewRecord = ({
                                     <Grid item>
                                         <Button
                                             variant="outlined"
-                                            startIcon={getAdminRecordButtonIcon()}
+                                            startIcon={getAdminRecordButtonIcon(recordToView)}
                                             onClick={handleDrawerToggle}
                                             id="adminDrawerButton"
                                             data-testid="btnAdminToggleDrawerVisibility"

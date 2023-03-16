@@ -3247,6 +3247,9 @@ export default {
             pubMedCentralId: 'fez_record_search_key_pubmed_central_id.rek_pubmed_central_id',
             pubMedDocType: 'rek_pubmed_doc_type',
             pubMedDocTypeLookup: 'rek_pubmed_doc_type_lookup',
+            hasAffiliates: 'Valid author affiliation information has been added.',
+            hasNoAffiliates: 'No linked authors.',
+            errorDetail: isOrphaned => ` has ${isOrphaned ? 'orphaned' : 'incomplete'} author affiliation information`,
         },
         adminViewRecordDefaultContent: {
             index: {
@@ -3262,6 +3265,7 @@ export default {
                         {
                             type: 'header',
                             value: undefined, // notes
+                            error: null,
                         },
                         {
                             type: 'content',
@@ -3281,6 +3285,9 @@ export default {
                         {
                             type: 'content',
                             value: undefined,
+                            error: null,
+                            AAError: [],
+                            AAOrphans: [],
                         },
                     ],
                     {

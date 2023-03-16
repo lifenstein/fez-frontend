@@ -15,6 +15,7 @@ import globalLocale from '../../../locale/global';
 import { default as recordWithNotes } from 'mock/data/records/recordWithNotes';
 import { default as recordWithAuthorAffiliates } from 'mock/data/records/recordWithAuthorAffiliates';
 import { NTRO_SUBTYPE_RREB_PUBLIC_SECTOR } from '../../../config/general';
+import viewRecord from 'locale/viewRecord';
 
 jest.mock('../../../hooks', () => ({
     userIsAdmin: jest.fn(() => ({})),
@@ -64,6 +65,7 @@ describe('NewViewRecord', () => {
     });
 
     it('should render default empty view', () => {
+        // Checked OK
         const { asFragment } = setup({});
         expect(asFragment()).toMatchInlineSnapshot(`
             <DocumentFragment>
@@ -75,6 +77,7 @@ describe('NewViewRecord', () => {
     });
 
     it('should not render components for empty record', () => {
+        // Checked OK
         const { asFragment } = setup({ recordToView: {} });
         expect(asFragment()).toMatchInlineSnapshot(`
             <DocumentFragment>
@@ -86,12 +89,14 @@ describe('NewViewRecord', () => {
     });
 
     it('should render default view with admin menu', () => {
+        // Checked OK
         userIsAdmin.mockImplementationOnce(() => true);
         const { getByTestId } = setup({ recordToView: record });
         expect(getByTestId('admin-actions-button')).toBeInTheDocument();
     });
 
     it('should render version', () => {
+        // Checked OK
         const txt = locale.pages.viewRecord.version;
         const pid = 'UQ:1';
         const loadRecordToViewFn = jest.spyOn(ViewRecordActions, 'loadRecordVersionToView');
@@ -103,6 +108,7 @@ describe('NewViewRecord', () => {
     });
 
     it('should render deleted version', () => {
+        // Checked OK
         const txt = locale.pages.viewRecord.version;
         const pid = 'UQ:1';
         const loadRecordToViewFn = jest.spyOn(ViewRecordActions, 'loadRecordVersionToView');
@@ -300,7 +306,9 @@ describe('NewViewRecord', () => {
             );
 
             // Author affiliations
-            expect(getByTestId('drawer-Desktop-content-value-2-1')).toHaveTextContent('Yes');
+            expect(getByTestId('drawer-Desktop-content-value-2-1')).toHaveTextContent(
+                viewRecord.viewRecord.adminViewRecordDrawerFields.hasAffiliates,
+            );
 
             // WoS ID
             expect(getByTestId('drawer-Desktop-content-clipboard-4-1')).toHaveTextContent('000381303000009');
@@ -330,7 +338,9 @@ describe('NewViewRecord', () => {
             );
 
             // Author affiliations
-            expect(getByTestId('drawer-Mobile-content-value-2-1')).toHaveTextContent('Yes');
+            expect(getByTestId('drawer-Mobile-content-value-2-1')).toHaveTextContent(
+                viewRecord.viewRecord.adminViewRecordDrawerFields.hasAffiliates,
+            );
 
             // WoS ID
             expect(getByTestId('drawer-Mobile-content-clipboard-4-1')).toHaveTextContent('000381303000009');
