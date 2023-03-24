@@ -5,6 +5,7 @@ import * as ViewRecordActions from 'actions/viewRecord';
 import { userIsAdmin, userIsAuthor } from 'hooks';
 import { ntro } from 'mock/data/testing/records';
 import { default as record } from 'mock/data/records/record';
+import { recordWithNoAffiliationIssues } from 'mock/data/records';
 import { accounts, currentAuthor } from 'mock/data/account';
 import { useParams } from 'react-router';
 import { recordVersionLegacy } from '../../../mock/data';
@@ -15,7 +16,6 @@ import globalLocale from '../../../locale/global';
 import { default as recordWithNotes } from 'mock/data/records/recordWithNotes';
 import { default as recordWithAuthorAffiliates } from 'mock/data/records/recordWithAuthorAffiliates';
 import { NTRO_SUBTYPE_RREB_PUBLIC_SECTOR } from '../../../config/general';
-import viewRecord from 'locale/viewRecord';
 
 jest.mock('../../../hooks', () => ({
     userIsAdmin: jest.fn(() => ({})),
@@ -92,6 +92,21 @@ describe('NewViewRecord', () => {
         // Checked OK
         userIsAdmin.mockImplementationOnce(() => true);
         const { getByTestId } = setup({ recordToView: record });
+        expect(getByTestId('admin-actions-button')).toBeInTheDocument();
+    });
+
+    it('should render default view with admin menu when no AA issues exist', () => {
+        // Checked OK
+        userIsAdmin.mockImplementationOnce(() => true);
+        const { getByTestId } = setup({ recordToView: recordWithNoAffiliationIssues });
+        expect(getByTestId('admin-actions-button')).toBeInTheDocument();
+    });
+    it('should render internal notes view with admin menu when no AA issues exist', () => {
+        // Checked OK
+        userIsAdmin.mockImplementationOnce(() => true);
+        const { getByTestId } = setup({
+            recordToView: { ...recordWithNoAffiliationIssues, fez_internal_notes: { ain_detail: 'test' } },
+        });
         expect(getByTestId('admin-actions-button')).toBeInTheDocument();
     });
 
@@ -307,7 +322,7 @@ describe('NewViewRecord', () => {
 
             // Author affiliations
             expect(getByTestId('drawer-Desktop-content-value-2-1')).toHaveTextContent(
-                viewRecord.viewRecord.adminViewRecordDrawerFields.hasAffiliates,
+                'orphaned organisation information',
             );
 
             // WoS ID
@@ -339,7 +354,7 @@ describe('NewViewRecord', () => {
 
             // Author affiliations
             expect(getByTestId('drawer-Mobile-content-value-2-1')).toHaveTextContent(
-                viewRecord.viewRecord.adminViewRecordDrawerFields.hasAffiliates,
+                'orphaned organisation information',
             );
 
             // WoS ID
