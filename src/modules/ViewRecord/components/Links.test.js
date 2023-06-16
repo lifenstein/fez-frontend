@@ -3,6 +3,8 @@ import Links from './Links';
 import { recordLinks } from 'mock/data/testing/records';
 import { openAccessConfig } from 'config';
 import { calculateOpenAccess } from 'middleware/publicationEnhancer';
+import LockOpen from '@mui/icons-material//LockOpen';
+import LockClockOutlined from '@mui/icons-material/LockClock';
 
 function setup(testProps = {}, args = { isShallow: true }) {
     const props = {
@@ -168,7 +170,7 @@ describe('Component Links ', () => {
         );
         expect(toJson(wrapper)).toMatchSnapshot();
         expect(wrapper.find('.noOaIcon').length).toEqual(3);
-        expect(wrapper.find('.openAccessEmbargoed').length).toEqual(1);
+        expect(wrapper.find(LockClockOutlined).length).toEqual(1);
     });
 
     it('should render 3 not OA links and DOI and PMC links with OA for OPEN_ACCESS_ID_DOI', () => {
@@ -185,7 +187,7 @@ describe('Component Links ', () => {
         const wrapper = setup({ publication: pmcProps }, { isShallow: false });
         expect(toJson(wrapper)).toMatchSnapshot();
         expect(wrapper.find('.noOaIcon').length).toEqual(3);
-        expect(wrapper.find('.openAccess').length).toEqual(2);
+        expect(wrapper.find(LockOpen).length).toEqual(2);
     });
 
     it('should render 3 not OA links and PMC link with OA for OPEN_ACCESS_ID_PMC', () => {
@@ -202,7 +204,7 @@ describe('Component Links ', () => {
         const wrapper = setup({ publication: pmcProps }, { isShallow: false });
         expect(toJson(wrapper)).toMatchSnapshot();
         expect(wrapper.find('.noOaIcon').length).toEqual(3);
-        expect(wrapper.find('.openAccess').length).toEqual(1);
+        expect(wrapper.find(LockOpen).length).toEqual(1);
     });
 
     it('should render 3 not OA links and PMC with OA and DOI link no OA for OPEN_ACCESS_ID_PMC', () => {
@@ -225,7 +227,7 @@ describe('Component Links ', () => {
         const wrapper = setup({ publication: pmcProps }, { isShallow: false });
         expect(toJson(wrapper)).toMatchSnapshot();
         expect(wrapper.find('.noOaIcon').length).toEqual(4);
-        expect(wrapper.find('.openAccess').length).toEqual(1);
+        expect(wrapper.find(LockOpen).length).toEqual(1);
     });
 
     // prettier-ignore
