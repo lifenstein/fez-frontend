@@ -414,6 +414,7 @@ export const AttachedFiles = ({
                                                     disabled={index === 0}
                                                     className={classes.upDownArrow}
                                                     id={`order-up-file-${index}`}
+                                                    data-analyticsid={`order-up-file-${index}`}
                                                     data-testid={`order-up-file-${index}`}
                                                     onClick={() => onFileOrderChangeUp(item.id, index + 1)}
                                                 >
@@ -626,6 +627,7 @@ export const AttachedFiles = ({
                                                     className={classes.upDownArrow}
                                                     disabled={index === fileData.length - 1}
                                                     id={`order-down-file-${index}`}
+                                                    data-analyticsid={`order-down-file-${index}`}
                                                     data-testid={`order-down-file-${index}`}
                                                     onClick={() => onFileOrderChangeDown(item.id, index + 1)}
                                                 >
