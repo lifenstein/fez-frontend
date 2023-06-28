@@ -1682,7 +1682,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                 data-jss=""
                                 data-meta="makeStyles"
                               >
-                                
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -1823,7 +1823,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                 data-jss=""
                                 data-meta="CitationCountView"
                               >
-                                
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -1841,7 +1841,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                 data-jss=""
                                 data-meta="CitationCounts"
                               >
-                                
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -2180,7 +2180,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -2321,7 +2321,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -2339,7 +2339,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -5496,7 +5496,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -5637,7 +5637,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -5655,7 +5655,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -5977,7 +5977,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -6118,7 +6118,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -6136,7 +6136,7 @@ exports[`CitationCounts should not render View full statistics link on public pa
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -9781,7 +9781,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                 data-jss=""
                                 data-meta="makeStyles"
                               >
-                                
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -9845,7 +9845,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                 data-jss=""
                                 data-meta="CitationCountView"
                               >
-                                
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -9863,7 +9863,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                 data-jss=""
                                 data-meta="CitationCounts"
                               >
-                                
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -10197,7 +10197,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -10261,7 +10261,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -10279,7 +10279,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -12728,7 +12728,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -12792,7 +12792,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -12810,7 +12810,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -13130,7 +13130,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                                   data-jss=""
                                                   data-meta="makeStyles"
                                                 >
-                                                  
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -13194,7 +13194,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                                   data-jss=""
                                                   data-meta="CitationCountView"
                                                 >
-                                                  
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -13212,7 +13212,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                                   data-jss=""
                                                   data-meta="CitationCounts"
                                                 >
-                                                  
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -13550,7 +13550,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -13614,7 +13614,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -13632,7 +13632,7 @@ exports[`CitationCounts should render component with a mock record metrics 1`] =
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -15477,7 +15477,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                 data-jss=""
                                 data-meta="makeStyles"
                               >
-                                
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -15583,7 +15583,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                 data-jss=""
                                 data-meta="CitationCountView"
                               >
-                                
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -15601,7 +15601,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                 data-jss=""
                                 data-meta="CitationCounts"
                               >
-                                
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -15940,7 +15940,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -16046,7 +16046,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -16064,7 +16064,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -19228,7 +19228,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -19334,7 +19334,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -19352,7 +19352,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -19672,7 +19672,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                                   data-jss=""
                                                   data-meta="makeStyles"
                                                 >
-                                                  
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -19778,7 +19778,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                                   data-jss=""
                                                   data-meta="CitationCountView"
                                                 >
-                                                  
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -19796,7 +19796,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                                   data-jss=""
                                                   data-meta="CitationCounts"
                                                 >
-                                                  
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -20134,7 +20134,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="makeStyles"
                                     >
-                                      
+
 .makeStyles-externalLinkIcon-7 {
   color: inherit;
   float: right;
@@ -20240,7 +20240,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCountView"
                                     >
-                                      
+
 .CitationCountView-citationCount-4 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -20258,7 +20258,7 @@ exports[`CitationCounts should render component with all metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -22031,7 +22031,7 @@ exports[`CitationCounts should render component with no metrics 1`] = `
                                 data-jss=""
                                 data-meta="CitationCounts"
                               >
-                                
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -22350,7 +22350,7 @@ exports[`CitationCounts should render component with no metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -22667,7 +22667,7 @@ exports[`CitationCounts should render component with no metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -22989,7 +22989,7 @@ exports[`CitationCounts should render component with no metrics 1`] = `
                                       data-jss=""
                                       data-meta="CitationCounts"
                                     >
-                                      
+
 .CitationCounts-statsLink-1 {
   font-size: 0.75rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
