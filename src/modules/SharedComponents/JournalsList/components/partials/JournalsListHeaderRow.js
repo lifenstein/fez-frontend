@@ -24,11 +24,13 @@ const JournalsListHeaderRow = ({ checked, onChange, classes, isSelectable = true
                                 <Checkbox
                                     id="journal-list-header-col-1-select-all"
                                     data-analyticsid="journal-list-header-col-1-select-all"
-                                    data-testid="journal-list-header-col-1-select-all"
                                     onChange={onChange}
                                     checked={checked}
                                     label="Select All"
-                                    inputProps={{ 'aria-label': 'Select All' }}
+                                    inputProps={{
+                                        'aria-label': 'Select All',
+                                        'data-testid': 'journal-list-header-col-1-select-all',
+                                    }}
                                     size="small"
                                 />
                             </Grid>

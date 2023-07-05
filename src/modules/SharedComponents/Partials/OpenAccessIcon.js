@@ -58,7 +58,7 @@ export const OpenAccessIcon = ({
             </Fragment>
         );
     }
-    return <span className="noOaIcon" />;
+    return <span className="noOaIcon" data-testid="no-oa-icon" />;
 };
 
 OpenAccessIcon.propTypes = {

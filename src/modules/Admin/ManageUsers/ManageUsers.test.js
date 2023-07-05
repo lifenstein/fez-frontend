@@ -1,6 +1,6 @@
 import React from 'react';
 import ManageUsers from './index';
-import { act, render, WithReduxStore, waitFor, waitForElementToBeRemoved, fireEvent, screen } from 'test-utils';
+import { act, render, WithReduxStore, waitFor, waitForElementToBeRemoved, fireEvent } from 'test-utils';
 import * as ManageUsersActions from 'actions/manageUsers';
 import * as repository from 'repositories';
 import * as AppActions from 'actions/app';
@@ -637,7 +637,7 @@ describe('ManageUsers', () => {
         expect(listItem1).toBeInTheDocument();
 
         fireEvent.click(getByTestId('users-list-row-0-delete-this-user'));
-        fireEvent.click(getByTestId('confirm-action'));
+        fireEvent.click(getByTestId('confirm-users-delete-this-user-confirmation'));
 
         await waitFor(() => expect(showAppAlert).toHaveBeenCalled());
 
@@ -717,7 +717,7 @@ describe('ManageUsers', () => {
         expect(listItem1).toBeInTheDocument();
 
         fireEvent.click(getByTestId('users-list-row-0-delete-this-user'));
-        fireEvent.click(getByTestId('confirm-action'));
+        fireEvent.click(getByTestId('confirm-users-delete-this-user-confirmation'));
 
         await waitFor(() => expect(showAppAlert).toHaveBeenCalled());
 
@@ -772,7 +772,7 @@ describe('ManageUsers', () => {
         fireEvent.click(getByTestId('select-user-1'));
         fireEvent.click(getByTestId('select-user-2'));
         fireEvent.click(getByTestId('users-delete-selected-users'));
-        fireEvent.click(getByTestId('confirm-action'));
+        fireEvent.click(getByTestId('confirm-bulk-delete-users-confirmation'));
 
         await act(() =>
             waitFor(() => {
@@ -821,7 +821,7 @@ describe('ManageUsers', () => {
         fireEvent.click(getByTestId('select-user-1'));
         fireEvent.click(getByTestId('select-user-2'));
         fireEvent.click(getByTestId('users-delete-selected-users'));
-        fireEvent.click(getByTestId('confirm-action'));
+        fireEvent.click(getByTestId('confirm-bulk-delete-users-confirmation'));
 
         await waitFor(() => {
             expect(getByTestId('users-list-row-0')).toBeInTheDocument();

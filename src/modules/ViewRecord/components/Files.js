@@ -31,7 +31,7 @@ import {
     isDerivative,
 } from 'helpers/datastreams';
 import { redirectUserToLogin } from 'helpers/redirectUserToLogin';
-import { FileAvStateIcon } from '../../SharedComponents/Toolbox/FileAvStateIcon';
+import { FileAvStateIcon } from 'modules/SharedComponents/Toolbox/FileAvStateIcon';
 import Box from '@mui/material/Box';
 
 export const styles = theme => ({
@@ -264,30 +264,24 @@ export class FilesClass extends Component {
         });
     };
 
-    showPreview = ({ checksums = {}, fileName, mediaUrl, mimeType, previewMediaUrl, securityStatus, webMediaUrl }) => {
-        if (securityStatus) {
-            this.setState({
-                preview: {
-                    checksums,
-                    fileName,
-                    imageError: false,
-                    mediaUrl,
-                    mimeType,
-                    previewMediaUrl,
-                    securityStatus,
-                    videoLoading: true,
-                    webMediaUrl,
-                },
-            });
-        }
+    showPreview = ({ checksums, fileName, mediaUrl, mimeType, previewMediaUrl, securityStatus, webMediaUrl }) => {
+        this.setState({
+            preview: {
+                checksums,
+                fileName,
+                imageError: false,
+                mediaUrl,
+                mimeType,
+                previewMediaUrl,
+                securityStatus,
+                videoLoading: true,
+                webMediaUrl,
+            },
+        });
     };
 
     getUrl = (pid, fileName, checksum = '') => {
         return pid && fileName && pathConfig.file.url(pid, fileName, checksum);
-    };
-
-    searchByKey = (list, key, value) => {
-        return list && list.filter(item => item[key] === value)[0];
     };
 
     isFileValid = dataStream => {
@@ -367,6 +361,10 @@ export class FilesClass extends Component {
                       const previewFileName = checkForPreview(fileName, dataStreams);
                       const webFileName = checkForWeb(fileName, dataStreams);
                       const openAccessStatus = getFileOpenAccessStatus(publication, dataStream, componentProps);
+                      /**
+                       *  datastreams are being filtered by this.isFileValid which calls getSecurityAccess,
+                       *  securityAccess will always be true
+                       */
                       const securityAccess = getSecurityAccess(dataStream, componentProps);
                       const checksums = this.getChecksums(
                           dataStream,
