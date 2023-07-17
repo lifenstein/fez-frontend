@@ -144,7 +144,6 @@ export const AutoCompleteAsynchronousField = ({
                         }}
                         inputProps={{
                             ...params.inputProps,
-                            id: `${autoCompleteAsynchronousFieldId}-input`,
                             'data-analyticsid': `${autoCompleteAsynchronousFieldId}-input`,
                             'data-testid': `${autoCompleteAsynchronousFieldId}-input`,
                         }}
