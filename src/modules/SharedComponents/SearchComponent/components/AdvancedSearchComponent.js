@@ -146,8 +146,8 @@ export const AdvancedSearchComponent = ({
                             onClick={_toggleMinimise}
                             tooltip={isMinimised ? txt.advancedSearch.tooltip.show : txt.advancedSearch.tooltip.hide}
                             id={!isMinimised ? 'minimize-advanced-search' : 'maximize-advanced-search'}
-                            data-analyticsid={!isMinimised ? 'minimize-advanced-search' : 'maximize-advanced-search'}
                             data-testid={!isMinimised ? 'minimize-advanced-search' : 'maximize-advanced-search'}
+                            data-analyticsid={!isMinimised ? 'minimize-advanced-search' : 'maximize-advanced-search'}
                             size="large"
                         >
                             {!isMinimised ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
@@ -229,8 +229,8 @@ export const AdvancedSearchComponent = ({
                                             control={
                                                 <Checkbox
                                                     id="advanced-search-open-access"
-                                                    data-analyticsid="advanced-search-open-access"
                                                     inputProps={{
+                                                        'data-analyticsid': 'advanced-search-open-access',
                                                         'data-testid': 'advanced-search-open-access',
                                                         'aria-label': txt.advancedSearch.openAccess.ariaLabel,
                                                     }}

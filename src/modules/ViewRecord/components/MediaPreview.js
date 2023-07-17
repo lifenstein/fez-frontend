@@ -70,13 +70,7 @@ const MediaPreviewButtons = React.memo(({ ...props }) => {
                 )}
 
                 <Grid item xs={12} sm="auto">
-                    <Button
-                        id="close-preview"
-                        data-analyticsid="close-preview"
-                        variant="contained"
-                        onClick={onClose}
-                        fullWidth
-                    >
+                    <Button id="close-preview" variant="contained" onClick={onClose} fullWidth>
                         {close}
                     </Button>
                 </Grid>
@@ -184,6 +178,7 @@ export const MediaPreview = ({ ...props }) => {
                     <Grid item xs="auto">
                         <img
                             id="image-preview"
+                            data-analyticsid="image-preview"
                             data-testid="image-preview"
                             src={previewMediaUrl}
                             alt={mediaUrl}
