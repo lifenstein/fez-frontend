@@ -4896,7 +4896,7 @@ exports[`Files Component  should render files based on security policy correctly
                         data-mui-internal-clone-element="true"
                         data-testid="file-name-0-tooltip"
                       >
-                        test.pdf
+                        test_compressed.pdf
                       </p>
                     </div>
                     <div
