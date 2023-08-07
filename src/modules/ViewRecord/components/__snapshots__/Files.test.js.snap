@@ -4967,9 +4967,9 @@ exports[`Files Component  should render files based on security policy correctly
                     aria-label="Not yet scanned for threats"
                     class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
                     data-mui-internal-clone-element="true"
-                    data-testid="uq185044-testpdf-file-av-state-icon-default"
+                    data-testid="uq185044-test-compressedpdf-file-av-state-icon-default"
                     focusable="false"
-                    id="uq185044-testpdf-file-av-state-icon-default"
+                    id="uq185044-test-compressedpdf-file-av-state-icon-default"
                     viewBox="0 0 24 24"
                   >
                     <path
