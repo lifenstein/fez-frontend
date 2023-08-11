@@ -578,6 +578,7 @@ export const AttachedFiles = ({
                                                                     <IconButton
                                                                         id={`delete-file-${index}`}
                                                                         data-testid={`delete-file-${index}`}
+                                                                        data-analyticsid={`delete-file-${index}`}
                                                                         onClick={onFileDelete(item.fileName)}
                                                                         disabled={disabled}
                                                                         sx={{ padding: '12px' }}

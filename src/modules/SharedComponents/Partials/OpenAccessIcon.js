@@ -13,6 +13,8 @@ const useStyles = makeStyles({
     svg: props => props.style,
 });
 
+export const getIconTestId = id => `open-access-${id}-icon`;
+
 export const OpenAccessIcon = ({
     style,
     isOpenAccess,
@@ -27,7 +29,7 @@ export const OpenAccessIcon = ({
     if (!securityStatus) {
         return (
             <Tooltip title={txt.securityLocked} placement="left" TransitionComponent={Fade}>
-                <Lock className={classes.svg} />
+                <Lock className={classes.svg} data-testid={getIconTestId('no-oa')} />
             </Tooltip>
         );
     } else if (isOpenAccess && !embargoDate) {
@@ -38,7 +40,7 @@ export const OpenAccessIcon = ({
 
         return (
             <Tooltip title={openAccessTitle} placement="left" TransitionComponent={Fade}>
-                <LockOpen className={classes.svg} />
+                <LockOpen className={classes.svg} data-testid={getIconTestId('oa')} />
             </Tooltip>
         );
     } else if (!isOpenAccess && !!embargoDate) {
@@ -53,12 +55,12 @@ export const OpenAccessIcon = ({
                     </span>
                 )}
                 <Tooltip title={openAccessTitle} placement="left" TransitionComponent={Fade}>
-                    <LockClockOutlined className={classes.svg} />
+                    <LockClockOutlined className={classes.svg} data-testid={getIconTestId('embargoed-oa')} />
                 </Tooltip>
             </Fragment>
         );
     }
-    return <span className="noOaIcon" data-testid="no-oa-icon" />;
+    return <span className="noOaIcon" data-testid={getIconTestId('oa-n/a')} />;
 };
 
 OpenAccessIcon.propTypes = {

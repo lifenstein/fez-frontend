@@ -36,7 +36,6 @@ function setup(testProps) {
         author: testProps.author || mock.currentAuthor.uqresearcher.data,
         ...testProps,
     };
-
     return renderWithRouter(<Files {...props} />);
 }
 
