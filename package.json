@@ -184,6 +184,7 @@
     "deep-object-diff": "^1.1.0",
     "deepmerge": "^4.3.1",
     "dompurify": "^3.4.4",
+    "events": "^3.3.0",
     "file-saver": "^2.0.2",
     "fuse.js": "^6.4.0",
     "hash-sum": "^2.0.0",

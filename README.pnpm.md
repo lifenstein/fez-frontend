@@ -15,3 +15,7 @@ npm: pnpm
 npm ci: pnpm install --frozen-lockfile
 npx: pnpm dlx
 
+#some packages are installed by npm even if it's not in package.json, pnpm require installing them explicitly.
+pnpm add deepmerge
+pnpm why events
+pnpm add events
