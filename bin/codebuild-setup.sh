@@ -4,18 +4,18 @@
 set -e
 
 printf "Node "; node -v;
-printf "(Codeship default) npm v"; npm -v
+printf "(Codeship default) pnpm v"; pnpm -v
 
-printf "\n\n--- GET LATEST VERSION OF NPM 11.12.1 ---\n"
-echo "$ npm install -g npm@11.12.1"
-npm install -g npm@11.12.1
+printf "\n\n--- GET LATEST VERSION OF pnpm 11.12.1 ---\n"
+echo "$ pnpm install -g pnpm@11.12.1"
+pnpm install -g pnpm@11.12.1
 
-printf "\nNow running npm v"; npm -v
+printf "\nNow running pnpm v"; pnpm -v
 
-printf "\n$ npm cache clear\n"
-# npm cache verify
-npm cache clear -f
+printf "\n$ pnpm cache clear\n"
+# pnpm cache verify
+pnpm cache clear -f
 
 printf "\n\n--- INSTALL DEPENDENCIES ---\n"
-echo "$ npm ci"
-npm ci
+echo "$ pnpm ci"
+pnpm ci

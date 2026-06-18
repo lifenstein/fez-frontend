@@ -44,7 +44,7 @@ printf "(Build of branch \"$CI_BRANCH\")\n"
 
 function check_code_style() {
     printf "\n--- \e[1mRUNNING CODE STYLE CHECKS\e[0m ---\n"
-    FILES=$(npm run codestyles:files -s)
+    FILES=$(pnpm run codestyles:files -s)
     if [[ "$?" == 0 ]]; then
         printf "\n\e[92mLooks good! Well done.\e[0m\n\n"
     else
@@ -53,8 +53,8 @@ function check_code_style() {
         do
             printf "\t\e[31m$FILE\e[0m\n"
         done
-        printf "\n* Please fix code styles and try again. Running '\e[1m npm run codestyles:fix:all \e[0m' is a good start."
-        printf "\n* You can run '\e[1m npm run eslint \e[0m' to view ESLint code quality issues, if any.\n\n"
+        printf "\n* Please fix code styles and try again. Running '\e[1m pnpm run codestyles:fix:all \e[0m' is a good start."
+        printf "\n* You can run '\e[1m pnpm run eslint \e[0m' to view ESLint code quality issues, if any.\n\n"
         exit 1
     fi
 }
@@ -80,16 +80,16 @@ function install_pw_deps() {
 
 function run_pw_test_shard() {
     set -e
-    npm run start:mock &
+    pnpm run start:mock &
     install_pw_deps
     export PW_SHARD_INDEX="$1"
 
     printf "\n--- \e[1mRUNNING E2E TESTS GROUP #${PW_SHARD_INDEX} [STARTING AT $(date)] 2\e[0m ---\n"
     if [[ $CODE_COVERAGE_REQUIRED == true ]]; then
-        npm run test:e2e:cc -- -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
+        pnpm run test:e2e:cc -- -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
         fix_coverage_report_paths coverage/playwright/coverage-final.json
     else
-        npm run test:e2e -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
+        pnpm run test:e2e -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
     fi
     printf "\n--- [ENDED RUNNING E2E TESTS GROUP #${PW_SHARD_INDEX} AT $(date)] \n"
 }
@@ -106,20 +106,20 @@ case "$PIPE_NUM" in
 "3")
     set -e
     printf "\n\n--- INSTALL JEST ---\n"
-    npm install -g jest
+    pnpm install -g jest
     printf "\n--- \e[1mRUNNING UNIT TESTS\e[0m ---\n"
     if [[ $CODE_COVERAGE_REQUIRED == true ]]; then
         export JEST_HTML_REPORTER_OUTPUT_PATH=coverage/jest-serial/jest-html-report.html
         # Jest tests which are required to run in serial
-        npm run test:unit:ci:serial
+        pnpm run test:unit:ci:serial
         fix_coverage_report_paths coverage/jest-serial/coverage-final.json
         # All other jest tests
         export JEST_HTML_REPORTER_OUTPUT_PATH=coverage/jest/jest-html-report.html
-        npm run test:unit:ci
+        pnpm run test:unit:ci
         fix_coverage_report_paths coverage/jest/coverage-final.json
     else
-        npm run test:unit:ci:serial:nocoverage
-        npm run test:unit:ci:nocoverage
+        pnpm run test:unit:ci:serial:nocoverage
+        pnpm run test:unit:ci:nocoverage
     fi
 
     run_pw_test_shard "$PIPE_NUM"
