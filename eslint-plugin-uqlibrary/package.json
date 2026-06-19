@@ -4,11 +4,11 @@
   "main": "index.js",
   "bundleDependencies": [],
   "engines": {
-    "npm": ">=10.2.3",
+    "pnpm": ">=8",
     "node": ">=18.19.0"
   },
   "scripts": {
     "jest": "jest --coverage lib/**/*.test.js",
-    "test": "npm run jest"
+    "test": "pnpm run jest"
   }
 }
