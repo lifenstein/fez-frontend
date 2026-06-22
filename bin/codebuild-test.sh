@@ -96,6 +96,9 @@ function run_pw_test_shard() {
 
 check_code_style
 
+printf "\npnpm exec playwright test --list\n"
+pnpm exec playwright test --list
+
 case "$PIPE_NUM" in
 "1")
     run_pw_test_shard "$PIPE_NUM"
