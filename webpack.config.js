@@ -118,7 +118,7 @@ module.exports = {
             Buffer: ['buffer', 'Buffer'],
         }),
         new webpack.ProvidePlugin({
-            process: 'process/browser',
+            process: 'process/browser.js',
         }),
         new HtmlWebpackPlugin({
             favicon: join(__dirname, 'public', 'favicon.ico'),
