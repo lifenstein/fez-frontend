@@ -85,6 +85,8 @@ function run_pw_test_shard() {
     export PW_SHARD_INDEX="$1"
 
     printf "\n--- \e[1mRUNNING E2E TESTS GROUP #${PW_SHARD_INDEX} [STARTING AT $(date)] 2\e[0m ---\n"
+    pwd
+    ls playwright/tests
     if [[ $CODE_COVERAGE_REQUIRED == true ]]; then
         pnpm run test:e2e:cc -- -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
         fix_coverage_report_paths coverage/playwright/coverage-final.json
@@ -95,9 +97,6 @@ function run_pw_test_shard() {
 }
 
 check_code_style
-
-printf "\npnpm exec playwright test --list\n"
-pnpm exec playwright test --list
 
 case "$PIPE_NUM" in
 "1")
