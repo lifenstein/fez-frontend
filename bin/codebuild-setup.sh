@@ -11,9 +11,5 @@ printf "(Codeship default) pnpm v"; pnpm -v
 
 printf "\nNow running pnpm v"; pnpm -v
 
-printf "\n$ pnpm cache clear\n"
-# pnpm cache verify
-pnpm cache clear -f
-
 printf "\n\n--- INSTALL DEPENDENCIES ---\n"
 pnpm install
