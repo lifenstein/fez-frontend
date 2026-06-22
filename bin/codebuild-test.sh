@@ -86,7 +86,7 @@ function run_pw_test_shard() {
 
     printf "\n--- \e[1mRUNNING E2E TESTS GROUP #${PW_SHARD_INDEX} [STARTING AT $(date)] 2\e[0m ---\n"
     if [[ $CODE_COVERAGE_REQUIRED == true ]]; then
-        pnpm run test:e2e:cc -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
+        pnpm run test:e2e:cc --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
         fix_coverage_report_paths coverage/playwright/coverage-final.json
     else
         pnpm run test:e2e -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
