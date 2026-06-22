@@ -44,7 +44,7 @@ printf "(Build of branch \"$CI_BRANCH\")\n"
 
 function check_code_style() {
     printf "\n--- \e[1mRUNNING CODE STYLE CHECKS\e[0m ---\n"
-    FILES=$(pnpm run codestyles:files -s)
+    FILES=$(pnpm run codestyles:files)
     if [[ "$?" == 0 ]]; then
         printf "\n\e[92mLooks good! Well done.\e[0m\n\n"
     else
