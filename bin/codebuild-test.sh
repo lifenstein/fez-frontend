@@ -105,8 +105,6 @@ case "$PIPE_NUM" in
 ;;
 "3")
     set -e
-    printf "\n\n--- INSTALL JEST ---\n"
-    pnpm install -g jest
     printf "\n--- \e[1mRUNNING UNIT TESTS\e[0m ---\n"
     if [[ $CODE_COVERAGE_REQUIRED == true ]]; then
         export JEST_HTML_REPORTER_OUTPUT_PATH=coverage/jest-serial/jest-html-report.html
