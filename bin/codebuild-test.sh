@@ -90,7 +90,7 @@ function run_pw_test_shard() {
         cross-env PORT=${PORT:-3000} PW_IS_RUNNING=true playwright test --shard=1/3
         fix_coverage_report_paths coverage/playwright/coverage-final.json
     else
-        pnpm run test:e2e -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
+        pnpm run test:e2e --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
     fi
     printf "\n--- [ENDED RUNNING E2E TESTS GROUP #${PW_SHARD_INDEX} AT $(date)] \n"
 }
