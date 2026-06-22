@@ -149,7 +149,7 @@ const webpackConfig = {
             devServer: false,
         }),
         new webpack.ProvidePlugin({
-            process: 'process/browser.js',
+            process: 'process/browser',
         }),
         new HtmlWebpackPlugin({
             favicon: resolve(__dirname, './public', 'favicon.ico'),

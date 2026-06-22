@@ -152,6 +152,9 @@ importers:
       number-to-words:
         specifier: ^1.2.4
         version: 1.2.4
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
@@ -4149,7 +4152,7 @@ packages:
 
   eslint-plugin-uqlibrary@file:eslint-plugin-uqlibrary:
     resolution: {directory: eslint-plugin-uqlibrary, type: directory}
-    engines: {node: '>=18.19.0', npm: '>=10.2.3'}
+    engines: {node: '>=18.19.0', pnpm: '>=8'}
     bundledDependencies: []
 
   eslint-scope@5.1.1:
