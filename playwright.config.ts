@@ -49,7 +49,7 @@ export default defineConfig({
         },
     ],
     webServer: {
-        command: 'npm run start:mock',
+        command: 'pnpm run start:mock',
         url: baseURL,
         timeout: 5 * 60 * 1000,
         reuseExistingServer: true,

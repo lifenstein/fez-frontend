@@ -15,7 +15,7 @@ cp "${CODEBUILD_SRC_DIR_TestArtifact3}/coverage/playwright/coverage-final.json" 
 cp "${CODEBUILD_SRC_DIR_TestArtifact3}/coverage/jest/coverage-final.json" coverage/all/jest.json
 cp "${CODEBUILD_SRC_DIR_TestArtifact3}/coverage/jest-serial/coverage-final.json" coverage/all/jest-serial.json
 
-npm install -g nyc
+pnpm install -g nyc
 # Combine reports into single json file
 nyc merge coverage/all coverage/merged-coverage.json
 
@@ -71,7 +71,7 @@ else
      echo "Human, your code coverage was found to be lacking... Do not commit again until it is fixed."
      # show actual coverage numbers
      grep -A 2 class=\"strong\"\> coverage/html/index.html
-     echo "Run your tests locally with npm run test:cc then load coverage/index.html to determine where the coverage gaps are"
+     echo "Run your tests locally with pnpm run test:cc then load coverage/index.html to determine where the coverage gaps are"
      exit 1;
 fi;
 exit 0;
