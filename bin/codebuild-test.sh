@@ -86,10 +86,10 @@ function run_pw_test_shard() {
 
     printf "\n--- \e[1mRUNNING E2E TESTS GROUP #${PW_SHARD_INDEX} [STARTING AT $(date)] 2\e[0m ---\n"
     if [[ $CODE_COVERAGE_REQUIRED == true ]]; then
-        pnpm run test:e2e:cc -- -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
+        pnpm run test:e2e:cc --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
         fix_coverage_report_paths coverage/playwright/coverage-final.json
     else
-        pnpm run test:e2e -- --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
+        pnpm run test:e2e --shard="${PW_SHARD_INDEX}/${PW_SHARD_COUNT}"
     fi
     printf "\n--- [ENDED RUNNING E2E TESTS GROUP #${PW_SHARD_INDEX} AT $(date)] \n"
 }
@@ -108,8 +108,6 @@ case "$PIPE_NUM" in
 ;;
 "3")
     set -e
-    printf "\n\n--- INSTALL JEST ---\n"
-    pnpm install -g jest
     printf "\n--- \e[1mRUNNING UNIT TESTS\e[0m ---\n"
     if [[ $CODE_COVERAGE_REQUIRED == true ]]; then
         export JEST_HTML_REPORTER_OUTPUT_PATH=coverage/jest-serial/jest-html-report.html
